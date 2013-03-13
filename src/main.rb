@@ -45,6 +45,7 @@ module EventHandler
   end
 
   def on_lingr(message)
+    return if Bukkit.getOnlinePlayers.empty?
     later 0 do
       broadcast "#{message['nickname']}: #{message['text']}"
     end
@@ -67,7 +68,7 @@ module EventHandler
     Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
   end
 
-  def broadcast(msgs)
+  def broadcast(*msgs)
     Bukkit.getServer.broadcastMessage(msgs.join ' ')
   end
 end
