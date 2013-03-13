@@ -1,13 +1,10 @@
 require 'json'
+require 'stringio'
 $LOAD_PATH.concat Dir.glob File.expand_path '~/git/mcsakura/src/ruby/2.1.0/gems/**/lib/'
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 
 class LingrBot < Sinatra::Base
-  set :port, 8126
-  set :run, true
-  set :logging, nil
-
   get '/' do
     {RUBY_DESCRIPTION: RUBY_DESCRIPTION, bukkit_version: Bukkit.getBukkitVersion}.inspect
   end
@@ -31,10 +28,10 @@ class LingrBot < Sinatra::Base
       ''
     end
   end
+end
 
-  Thread.start do
-    run!
-  end
+Thread.start do
+  Rack::Handler::WEBrick.run LingrBot, Port: 8126, AccessLog: [], Logger: WEBrick::Log.new("/dev/null")
 end
 
 module EventHandler
