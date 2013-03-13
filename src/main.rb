@@ -45,7 +45,7 @@ module EventHandler
   end
 
   def on_lingr(message)
-    later 0, do
+    later 0 do
       broadcast "#{message['nickname']}: #{message['text']}"
     end
   end
