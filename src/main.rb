@@ -21,7 +21,9 @@ class LingrBot < Sinatra::Base
         case event['message']['text']
         when '/list'
           p 'list!'
-          Bukkit.getOnlinePlayers.to_a.map(&:getName).inspect
+          EventHandler.later 0 do
+            Bukkit.getOnlinePlayers.to_a.map(&:getName).inspect
+          end
         else
           ''
         end
@@ -54,6 +56,10 @@ module EventHandler
   def on_player_login(evt)
     p :login, evt
     p evt.getPlayer
+  end
+
+  def later(tick, &block)
+    Bukkit.getScheduler(@plugin, block, tick)
   end
 end
 
