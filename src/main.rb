@@ -56,6 +56,10 @@ module EventHandler
     p evt.getPlayer
   end
 
+  def on_block_break(evt)
+    evt.setCancelled true
+  end
+
   def later(tick, &block)
     Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
   end

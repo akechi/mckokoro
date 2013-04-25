@@ -99,14 +99,16 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(org.bukkit.event.player.AsyncPlayerChatEvent event) {
-        System.out.println("hellllloooo");
         jruby.callMethod(eh, "on_async_player_chat", event);
     }
 
     @EventHandler
     public void onPlayerLogin(org.bukkit.event.player.PlayerLoginEvent event) {
-        System.out.println("hellllloooo9");
         jruby.callMethod(eh, "on_player_login", event);
+    }
+    @EventHandler
+    public void onBlockBreak(org.bukkit.event.block.BlockBreakEvent event) {
+        jruby.callMethod(eh, "on_block_break", event);
     }
 
     /* begin auto-generated code */
