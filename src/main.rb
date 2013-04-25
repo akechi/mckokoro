@@ -1,6 +1,7 @@
 require 'json'
 $LOAD_PATH.concat Dir.glob File.expand_path '~/git/mcsakura/src/ruby/2.1.0/gems/**/lib/'
 require 'sinatra/base'
+import 'org.bukkit.Bukkit'
 
 class LingrBot < Sinatra::Base
   set :port, 8126
@@ -20,7 +21,7 @@ class LingrBot < Sinatra::Base
         case event['message']['text']
         when '/list'
           p 'list!'
-          %w[ujm].inspect
+          Bukkit.getOnlinePlayers.to_a.map(&:getName).inspect
         else
           ''
         end
