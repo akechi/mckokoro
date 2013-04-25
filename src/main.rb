@@ -6,10 +6,10 @@ import 'org.bukkit.Bukkit'
 class LingrBot < Sinatra::Base
   set :port, 8126
   set :run, true
+  set :logging, nil
 
   get '/' do
-    p 'yay!'
-    'ok'
+    {RUBY_DESCRIPTION: RUBY_DESCRIPTION, bukkit_version: Bukkit.getBukkitVersion}.inspect
   end
 
   post '/' do
@@ -45,6 +45,9 @@ module EventHandler
   end
 
   def on_lingr(message)
+    later 0, do
+      broadcast "#{message['nickname']}: #{message['text']}"
+    end
   end
 
   def on_async_player_chat(evt)
@@ -62,6 +65,10 @@ module EventHandler
 
   def later(tick, &block)
     Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
+  end
+
+  def broadcast(msgs)
+    Bukkit.getServer.broadcastMessage(msgs.join ' ')
   end
 end
 
