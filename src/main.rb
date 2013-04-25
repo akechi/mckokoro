@@ -59,7 +59,7 @@ module EventHandler
   end
 
   def later(tick, &block)
-    Bukkit.getScheduler(@plugin, block, tick)
+    Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
   end
 end
 
