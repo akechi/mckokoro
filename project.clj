@@ -5,5 +5,5 @@
   :dev-dependencies [[org.bukkit/bukkit "1.5.1-R0.3-SNAPSHOT"]]
   :repositories {"org.bukkit"
                  "http://repo.bukkit.org/service/local/repositories/snapshots/content/"}
-  :javac-options {:destdir "classes/"}
+  :javac-options ["-d" "classes/" "-Xlint:deprecation"]
   :java-source-paths ["javasrc"])

@@ -90,13 +90,13 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         }
     }
 
-    public void onDisable(String ns, String disableFunction) {
+    @Override public void onDisable(String ns, String disableFunction) {
         /*
         clojure.lang.RT.var(ns, disableFunction).invoke(this);
         */
     }
 
-    public void onDisable() {
+    @Override public void onDisable() {
         /*
         String name = getDescription().getName();
         System.out.println("Disabling "+name+" clojure Plugin");
