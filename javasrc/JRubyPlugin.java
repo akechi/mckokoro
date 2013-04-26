@@ -78,8 +78,8 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     */
 
     private void jrubyEhCallIfRespond1(String fname, Object x) {
-        jruby.callMethod(eh, fname, x);
-        jruby.callMethod(eh, fname, x);
+        if ((boolean)jruby.callMethod(eh, "respond_to?", fname))
+            jruby.callMethod(eh, fname, x);
     }
 
     private Object executeScript(InputStream io, String path) {
