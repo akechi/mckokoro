@@ -43,8 +43,8 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         //jruby.runScriptlet("p RUBY_DESCRIPTION");
 
         //URL url = getClass().getResource("/main.rb");
-        URL url = new URL("file:///home/ujihisa/git/mcsakura/src/main.rb");
         try {
+            URL url = new URL("file:///home/ujihisa/git/mcsakura/src/main.rb");
             eh = executeScript(
                     url.openStream(),
                     URLDecoder.decode(url.toString(), "UTF-8"));;
