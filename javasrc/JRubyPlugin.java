@@ -42,7 +42,8 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         jruby.setCompatVersion(org.jruby.CompatVersion.RUBY2_0);
         //jruby.runScriptlet("p RUBY_DESCRIPTION");
 
-        URL url = getClass().getResource("/main.rb");
+        //URL url = getClass().getResource("/main.rb");
+        URL url = new URL("file:///home/ujihisa/git/mcsakura/src/main.rb");
         try {
             eh = executeScript(
                     url.openStream(),
