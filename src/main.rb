@@ -1,6 +1,6 @@
 require 'json'
 require 'stringio'
-$LOAD_PATH.concat Dir.glob File.expand_path '~/git/mcsakura/src/ruby/2.1.0/gems/**/lib/'
+$LOAD_PATH.concat (Dir.glob File.expand_path '%s/ruby/*' % __dir__).first
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
