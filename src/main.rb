@@ -1,6 +1,6 @@
 require 'json'
 require 'stringio'
-$LOAD_PATH.concat (Dir.glob File.expand_path '%s/ruby/*' % __dir__).first
+$LOAD_PATH.concat (Dir.glob File.expand_path '%s/ruby/*' % File.dirname(__FILE__))
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'

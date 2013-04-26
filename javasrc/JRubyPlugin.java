@@ -19,6 +19,7 @@ import org.bukkit.event.Event;
 //import org.bukkit.event.world.*;
 //import org.bukkit.event.painting.*;
 //import org.bukkit.event.server.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.io.File;
@@ -35,7 +36,7 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     private ScriptingContainer jruby = new ScriptingContainer();
     private Object eh;
     private Object rubyTrue, rubyFalse, rubyNil;
-
+    private FileConfiguration config;
 
     //@Override public void onEnable() {}
 
@@ -48,9 +49,13 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         rubyFalse = jruby.runScriptlet("false");
         rubyNil   = jruby.runScriptlet("nil");
 
+        // Put config file to path_to_bukkit/plugins/mcsakura-jarname/config.yml
+        config = getConfig();
+
         //URL url = getClass().getResource("/main.rb");
         try {
-            URL url = new URL("file:///home/ujihisa/git/mcsakura/src/main.rb");
+            System.out.println("Loading ruby script : " + config.getString("path.ruby.script"));
+            URL url = new URL(config.getString("path.ruby.script"));
             eh = executeScript(
                     url.openStream(),
                     URLDecoder.decode(url.toString(), "UTF-8"));;
