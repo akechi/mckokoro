@@ -34,6 +34,8 @@ import org.jruby.embed.ScriptingContainer;
 public class JRubyPlugin extends JavaPlugin implements Listener {
     private ScriptingContainer jruby = new ScriptingContainer();
     private Object eh;
+    private Object rubyTrue, rubyFalse, rubyNil;
+
 
     //@Override public void onEnable() {}
 
@@ -41,6 +43,10 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         jruby.setClassLoader(this.getClass().getClassLoader());
         jruby.setCompatVersion(org.jruby.CompatVersion.RUBY2_0);
         //jruby.runScriptlet("p RUBY_DESCRIPTION");
+
+        rubyTrue  = jruby.runScriptlet("true");
+        rubyFalse = jruby.runScriptlet("false");
+        rubyNil   = jruby.runScriptlet("nil");
 
         //URL url = getClass().getResource("/main.rb");
         try {
@@ -79,7 +85,7 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     */
 
     private void jrubyEhCallIfRespond1(String fname, Object x) {
-        if ((boolean)jruby.callMethod(eh, "respond_to?", fname))
+        if (jruby.callMethod(eh, "respond_to?", fname).equals(rubyTrue))
             jruby.callMethod(eh, fname, x);
     }
 
