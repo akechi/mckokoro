@@ -4,6 +4,7 @@ $LOAD_PATH.concat Dir.glob File.expand_path '~/git/mcsakura/src/ruby/2.1.0/gems/
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
+import 'org.bukkit.event.entity.EntityDamageEvent'
 
 class LingrBot < Sinatra::Base
   get '/' do
@@ -50,7 +51,7 @@ module EventHandler
   end
 
   def on_async_player_chat(evt)
-    p :chat, evt.getPlayer
+    #p :chat, evt.getPlayer
   end
 
   def on_player_login(evt)
@@ -60,7 +61,16 @@ module EventHandler
 
   def on_block_break(evt)
     #evt.setCancelled true
-    evt.getBlock.setType(Material.LAVA)
+    later 0 do
+      evt.getBlock.setType(Material::LAVA)
+    end
+  end
+
+  def on_entity_damage(evt)
+    if evt.getCause == EntityDamageEvent::DamageCause::FALL
+      evt.setCancelled true
+      explode(evt.getEntity.getLocation, 1, false)
+    end
   end
 
   def later(tick, &block)
@@ -69,6 +79,10 @@ module EventHandler
 
   def broadcast(*msgs)
     Bukkit.getServer.broadcastMessage(msgs.join ' ')
+  end
+
+  def explode(loc, power, fire_p)
+    loc.getWorld.createExplosion(loc, power.to_f, fire_p)
   end
 end
 
