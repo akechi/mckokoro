@@ -90,13 +90,13 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         }
     }
 
-    @Override public void onDisable(String ns, String disableFunction) {
+    public void onDisable(String ns, String disableFunction) {
         /*
         clojure.lang.RT.var(ns, disableFunction).invoke(this);
         */
     }
 
-    @Override public void onDisable() {
+    public void onDisable() {
         /*
         String name = getDescription().getName();
         System.out.println("Disabling "+name+" clojure Plugin");
@@ -430,10 +430,6 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         jrubyEhCallIfRespond1("player_unregister_channel_event", event);
     }
     @EventHandler
-    public void onPlayerChat(org.bukkit.event.player.PlayerChatEvent event) {
-        jrubyEhCallIfRespond1("player_chat_event", event);
-    }
-    @EventHandler
     public void onPlayerChatTabComplete(org.bukkit.event.player.PlayerChatTabCompleteEvent event) {
         jrubyEhCallIfRespond1("player_chat_tab_complete_event", event);
     }
@@ -536,10 +532,6 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerVelocity(org.bukkit.event.player.PlayerVelocityEvent event) {
         jrubyEhCallIfRespond1("player_velocity_event", event);
-    }
-    @EventHandler
-    public void onPlayerPreLogin(org.bukkit.event.player.PlayerPreLoginEvent event) {
-        jrubyEhCallIfRespond1("player_pre_login_event", event);
     }
     @EventHandler
     public void onMapInitialize(org.bukkit.event.server.MapInitializeEvent event) {
