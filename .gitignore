@@ -3,6 +3,9 @@ pom.xml
 /lib/
 /classes/
 /target/
+/src/Gemfile.lock
+/src/.bundle/
+/src/ruby
 .lein-failures
 .lein-deps-sum
 *swp
