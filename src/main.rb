@@ -3,6 +3,7 @@ require 'stringio'
 $LOAD_PATH.concat Dir.glob File.expand_path '~/git/mcsakura/src/ruby/2.1.0/gems/**/lib/'
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
+import 'org.bukkit.Material'
 
 class LingrBot < Sinatra::Base
   get '/' do
@@ -58,7 +59,8 @@ module EventHandler
   end
 
   def on_block_break(evt)
-    evt.setCancelled true
+    #evt.setCancelled true
+    evt.getBlock.setType(Material.LAVA)
   end
 
   def later(tick, &block)
