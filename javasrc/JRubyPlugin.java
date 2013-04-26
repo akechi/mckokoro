@@ -59,7 +59,7 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        jruby.callMethod(eh, "on_load", this);
+        jrubyCallIfRespond1("on_load", this);
 
         /*
         String name = getDescription().getName();
@@ -69,6 +69,16 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         */
 
         getServer().getPluginManager().registerEvents(this, this);
+    }
+
+    /*
+    private void jrubyCallIfRespond0(String fname) {
+        jruby.callMethod(eh, fname, this);
+    }
+    */
+
+    private void jrubyCallIfRespond1(String fname, Object x) {
+        jruby.callMethod(eh, fname, x);
     }
 
     private Object executeScript(InputStream io, String path) {
@@ -99,16 +109,16 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(org.bukkit.event.player.AsyncPlayerChatEvent event) {
-        jruby.callMethod(eh, "on_async_player_chat", event);
+        jrubyCallIfRespond1("on_async_player_chat", event);
     }
 
     @EventHandler
     public void onPlayerLogin(org.bukkit.event.player.PlayerLoginEvent event) {
-        jruby.callMethod(eh, "on_player_login", event);
+        jrubyCallIfRespond1("on_player_login", event);
     }
     @EventHandler
     public void onBlockBreak(org.bukkit.event.block.BlockBreakEvent event) {
-        jruby.callMethod(eh, "on_block_break", event);
+        jrubyCallIfRespond1("on_block_break", event);
     }
 
     /* begin auto-generated code */
