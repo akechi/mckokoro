@@ -29,6 +29,10 @@ class LingrBot < Sinatra::Base
       ''
     end
   end
+
+  post '/eval' do
+    p [ENV["x-forwarded-for"], request.body.string]
+  end
 end
 
 Thread.start do
