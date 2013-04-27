@@ -38,10 +38,18 @@ module EventHandler
   end
 
   def on_entity_explode(evt)
-    case evt.entity
-    when TNTPrimed
-      evt.cancelled = true
-    end
+    #case evt.entity
+    #when TNTPrimed
+    #  evt.cancelled = true
+    #  evt.block_list do |b|
+    #    case b
+    #    when Material::SUGAR_CANE_BLOCK
+    #      # nop
+    #    else
+    #      b.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE)
+    #    end
+    #  end
+    #end
   end
 
   def on_block_break(evt)
