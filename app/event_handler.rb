@@ -42,14 +42,15 @@ module EventHandler
   end
 
   def on_food_level_change(evt)
-    evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
+    #evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
   end
 
   def on_entity_damage(evt)
-    if evt.getCause == EntityDamageEvent::DamageCause::FALL
+    case evt.getCause
+    when EntityDamageEvent::DamageCause::FALL
       evt.setCancelled true
       explode(evt.getEntity.getLocation, 1, false)
-    elsif evt.getCause == EntityDamageEvent::DamageCause::LAVA
+    when EntityDamageEvent::DamageCause::LAVA
       evt.setCancelled true
       evt.getEntity.setFoodLevel(evt.getEntity.getFoodLevel - 1) rescue nil
     end
