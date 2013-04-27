@@ -38,6 +38,12 @@ module EventHandler
 
   def on_block_break(evt)
     case evt.block.type
+    when Material::SUGAR_CANE_BLOCK
+      evt.cancelled = true
+      evt.block.type = Material::AIR
+    when Material::GRASS
+      evt.cancelled = true
+      evt.block.type = Material::DIRT
     when Material::STONE
       evt.cancelled = true
       if rand(5) == 0
