@@ -20,7 +20,7 @@ module EventHandler
 
   def on_async_player_chat(evt)
     #p :chat, evt.getPlayer
-    if evt.player.name == "ujm" && evt.message == "reload"
+    if evt.player.op? && evt.message == "reload"
       evt.cancelled = true
       later 0 do
         load "#{APP_DIR_PATH}/event_handler.rb" # TODO
@@ -37,7 +37,7 @@ module EventHandler
   def on_block_break(evt)
     #evt.setCancelled true
     later 0 do
-      evt.getBlock.setType(Material::DIRT)
+      evt.getBlock.setType(Material::STONE)
     end
   end
 
