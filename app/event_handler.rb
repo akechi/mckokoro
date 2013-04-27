@@ -5,6 +5,8 @@ import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
+import 'org.bukkit.entity.Player'
+import 'org.bukkit.entity.Arrow'
 import 'org.bukkit.entity.TNTPrimed'
 import 'org.bukkit.entity.Zombie'
 import 'org.bukkit.entity.PigZombie'
@@ -136,6 +138,16 @@ module EventHandler
     #evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
   end
 
+  def on_entity_damage_by_entity(evt)
+    case evt.damager
+    when Arrow
+      case evt.damager.shooter
+      when Player
+        evt.damage *= 2
+      end
+    end
+  end
+
   def on_entity_damage(evt)
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
@@ -183,6 +195,18 @@ module EventHandler
             loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
           end
         end
+      end
+    end
+  end
+
+  def on_projectile_launch(evt)
+    projectile = evt.entity
+    shooter = projectile.shooter
+    case shooter
+    when Player
+      case projectile
+      when Arrow
+        projectile.velocity = projectile.velocity.multiply(0.5.to_java Java.float)
       end
     end
   end
