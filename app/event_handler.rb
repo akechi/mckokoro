@@ -59,7 +59,20 @@ module EventHandler
     end
   end
 
+  def on_block_place(evt)
+    case evt.block_placed.type
+    when Material::DIRT
+      b = evt.block_placed
+      if b.location.clone.add(0, -1, 0).block.type == Material::AIR
+        later 0 do
+          fall_block(b)
+        end
+      end
+    end
+  end
+
   def on_player_interact(evt)
+    return unless evt.clicked_block
     case evt.clicked_block.type
     when Material::DIRT
       if evt.player.item_in_hand.type == Material::SEEDS
@@ -138,6 +151,12 @@ module EventHandler
     else
       player.item_in_hand.amount -= 1
     end
+  end
+
+  def fall_block(block)
+    loc = block.location
+    loc.world.spawn_falling_block(loc, block.type, block.data)
+    block.type = Material::AIR
   end
 end
 
