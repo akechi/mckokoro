@@ -57,8 +57,8 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
             System.out.println("Loading ruby script : " + config.getString("path.ruby.script"));
             URL url = new URL(config.getString("path.ruby.script"));
             eh = executeScript(
-                    url.openStream(),
-                    URLDecoder.decode(url.toString(), "UTF-8"));;
+                url.openStream(),
+                URLDecoder.decode(url.toString(), "UTF-8"));;
             /*
             Object main = jruby.callMethod(
                     brainsClass,
