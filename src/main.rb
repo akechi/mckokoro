@@ -1,6 +1,7 @@
 require 'json'
 require 'stringio'
 $LOAD_PATH.concat(Dir.glob File.expand_path("#{File.dirname __FILE__}/ruby/*/gems/**/lib/"))
+$LOAD_PATH << APP_DIR_PATH = File.expand_path("#{File.dirname __FILE__}/../app/")
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 
@@ -34,5 +35,5 @@ Thread.start do
   Rack::Handler::WEBrick.run LingrBot, Port: 8126, AccessLog: [], Logger: WEBrick::Log.new("/dev/null")
 end
 
-require_relative 'event_handler'
+require 'event_handler'
 EventHandler

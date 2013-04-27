@@ -2,11 +2,13 @@ import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
+
 module EventHandler
   module_function
   def on_load(plugin)
     @plugin = plugin
     p :on_load, plugin
+    p "#{APP_DIR_PATH}/event_handler.rb"
   end
 
   def on_lingr(message)
@@ -18,6 +20,13 @@ module EventHandler
 
   def on_async_player_chat(evt)
     #p :chat, evt.getPlayer
+    if evt.player.name == "ujm" && evt.message == "reload"
+      evt.cancelled = true
+      later 0 do
+        load "#{APP_DIR_PATH}/event_handler.rb" # TODO
+      end
+      broadcast '(reloading event handler)'
+    end
   end
 
   def on_player_login(evt)
@@ -28,7 +37,7 @@ module EventHandler
   def on_block_break(evt)
     #evt.setCancelled true
     later 0 do
-      evt.getBlock.setType(Material::LAVA)
+      evt.getBlock.setType(Material::DIRT)
     end
   end
 
@@ -60,4 +69,3 @@ module EventHandler
 end
 
 EventHandler
-
