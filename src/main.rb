@@ -3,9 +3,6 @@ require 'stringio'
 $LOAD_PATH.concat(Dir.glob File.expand_path("#{File.dirname __FILE__}/ruby/*/gems/**/lib/")[5..-1])
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
-import 'org.bukkit.Material'
-import 'org.bukkit.util.Vector'
-import 'org.bukkit.event.entity.EntityDamageEvent'
 
 class LingrBot < Sinatra::Base
   get '/' do
@@ -37,6 +34,10 @@ Thread.start do
   Rack::Handler::WEBrick.run LingrBot, Port: 8126, AccessLog: [], Logger: WEBrick::Log.new("/dev/null")
 end
 
+#import 'org.bukkit.Bukkit'
+import 'org.bukkit.Material'
+import 'org.bukkit.util.Vector'
+import 'org.bukkit.event.entity.EntityDamageEvent'
 module EventHandler
   module_function
   def on_load(plugin)
