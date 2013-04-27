@@ -36,9 +36,9 @@ module EventHandler
 
   def on_block_break(evt)
     #evt.setCancelled true
-    later 0 do
-      evt.getBlock.setType(Material::STONE)
-    end
+    #later 0 do
+    #  evt.getBlock.setType(Material::STONE)
+    #end
   end
 
   def on_food_level_change(evt)
@@ -48,11 +48,11 @@ module EventHandler
   def on_entity_damage(evt)
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
-      evt.setCancelled true
+      evt.cancelled = true
       explode(evt.getEntity.getLocation, 1, false)
     when EntityDamageEvent::DamageCause::LAVA
-      evt.setCancelled true
-      evt.getEntity.setFoodLevel(evt.getEntity.getFoodLevel - 1) rescue nil
+      evt.cancelled = true
+      evt.entity.food_level -= 1 rescue nil
     end
   end
 
