@@ -59,6 +59,16 @@ module EventHandler
     end
   end
 
+  def on_player_interact(evt)
+    case evt.clicked_block.type
+    when Material::DIRT
+      if evt.player.item_in_hand.type == Material::SEEDS
+        consume_item(evt.player)
+        evt.clicked_block.type = Material::GRASS
+      end
+    end
+  end
+
   def on_block_damage(evt)
     evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
   end
@@ -71,6 +81,8 @@ module EventHandler
     when Material::GRASS
       evt.cancelled = true
       evt.block.type = Material::DIRT
+    when Material::LONG_GRASS
+      drop_item(evt.block.location, ItemStack.new(Material::SEEDS))
     when Material::STONE
       evt.cancelled = true
       if rand(5) == 0
@@ -118,6 +130,14 @@ module EventHandler
 
   def drop_item(loc, istack)
     loc.getWorld.dropItemNaturally(loc, istack)
+  end
+
+  def consume_item(player)
+    if player.item_in_hand.amount == 0
+      player.item_in_hand = ItemStack.new(Material::AIR)
+    else
+      player.item_in_hand.amount -= 1
+    end
   end
 end
 
