@@ -129,6 +129,35 @@ module EventHandler
     end
   end
 
+  def on_player_toggle_sprint(evt)
+    #player_update_speed(evt.player, spp: evt.sprinting?)
+    if evt.sprinting?
+      if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
+        evt.cancelled = true
+      else
+        evt.player.walk_speed = 0.5
+      end
+    else
+      evt.player.walk_speed = 0.2
+    end
+  end
+
+  def on_player_toggle_sneak(evt)
+    #player_update_speed(evt.player, snp: evt.sneaking?)
+  end
+
+  #def player_update_speed(player, spp: player.sprinting?, snp: player.sneaking?)
+  #  if spp or !snp
+  #    #if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
+  #    #  evt.cancelled = true
+  #    #else
+  #      player.walk_speed = 0.5
+  #    #end
+  #  else
+  #    player.walk_speed = 0.2
+  #  end
+  #end
+
   def later(tick, &block)
     Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
   end
