@@ -4,6 +4,7 @@ import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
+import 'org.bukkit.entity.TNTPrimed'
 
 module EventHandler
   module_function
@@ -34,6 +35,13 @@ module EventHandler
   def on_player_login(evt)
     p :login, evt
     p evt.getPlayer
+  end
+
+  def on_entity_explode(evt)
+    case evt.entity
+    when TNTPrimed
+      evt.cancelled = true
+    end
   end
 
   def on_block_break(evt)
