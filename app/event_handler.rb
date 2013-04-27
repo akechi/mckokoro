@@ -59,6 +59,10 @@ module EventHandler
     end
   end
 
+  def on_block_damage(evt)
+    evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
+  end
+
   def on_block_break(evt)
     case evt.block.type
     #when Material::SUGAR_CANE_BLOCK
