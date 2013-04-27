@@ -54,7 +54,7 @@ module EventHandler
 
   def on_item_spawn(evt)
     case evt.entity.item_stack.type
-    when Material::SUGAR_CANE
+    when Material::SUGAR_CANE, Material::SAPING
       evt.cancelled = true
     end
   end
@@ -123,8 +123,8 @@ module EventHandler
   def on_entity_damage(evt)
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
-      evt.cancelled = true
-      explode(evt.getEntity.getLocation, 1, false)
+      #evt.cancelled = true
+      #explode(evt.getEntity.getLocation, 1, false)
     when EntityDamageEvent::DamageCause::LAVA
       evt.cancelled = true
       evt.entity.food_level -= 1 rescue nil
