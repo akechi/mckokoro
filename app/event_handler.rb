@@ -1,5 +1,6 @@
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
+import 'org.bukkit.Effect'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
@@ -116,7 +117,7 @@ module EventHandler
     when Material::STONE
       evt.cancelled = true
       if rand(5) == 0
-        evt.block.type = Material::GLASS
+        evt.block.type = Material::THIN_GLASS
         evt.block.setMetadata("salt", FixedMetadataValue.new(@plugin, true))
       else
         evt.block.type = Material::COBBLESTONE
@@ -124,7 +125,7 @@ module EventHandler
     end
     if !evt.cancelled && evt.block.hasMetadata("salt")
       drop_item(evt.block.location, ItemStack.new(Material::SUGAR))
-      evt.block.removeMetadata("salt")
+      evt.block.removeMetadata("salt", @plugin)
     end
     #later 0 do
     #  evt.getBlock.setType(Material::STONE)
@@ -161,6 +162,28 @@ module EventHandler
 
   def on_player_toggle_sneak(evt)
     #player_update_speed(evt.player, snp: evt.sneaking?)
+    player = evt.player
+    hard_boots = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
+                  Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
+    if hard_boots.include? player.equipment.boots.type
+    if !evt.player.on_ground? && evt.sneaking?
+      later 0 do
+        newloc = player.location
+        newloc.x = newloc.x.to_i.to_f - 0.5
+        newloc.z = newloc.z.to_i.to_f - 0.5
+        player.teleport newloc
+        play_effect(newloc, Effect::ENDER_SIGNAL)
+        player.velocity = Vector.new(0.0, -1.0, 0.0)
+      end
+      loc = (1..4).lazy.
+        map {|y| evt.player.location.clone.add(0, -y, 0) }.
+        find {|l| l.block.type != Material::AIR }
+      later sec(0.2) do
+        if loc && loc.block.type == Material::STONE
+          loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+        end
+      end
+    end
   end
 
   #def player_update_speed(player, spp: player.sprinting?, snp: player.sneaking?)
@@ -213,6 +236,15 @@ module EventHandler
       kickory(loc.block, player) if loc.block.type == Material::LOG
     end
   end
+
+  def play_effect(loc, eff)
+    loc.world.playEffect(loc, eff, nil)
+  end
+
+  def sec(n)
+    (n * 20).to_i
+  end
+
 end
 
 EventHandler

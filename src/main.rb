@@ -31,7 +31,9 @@ class LingrBot < Sinatra::Base
   end
 
   post '/eval' do
-    p [ENV["x-forwarded-for"], request.body.string]
+    str = request.body.string
+    p [:eval, str]
+    EventHandler.module_eval(str).inspect
   end
 end
 
