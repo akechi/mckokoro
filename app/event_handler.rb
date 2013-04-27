@@ -37,9 +37,6 @@ module EventHandler
   end
 
   def on_block_break(evt)
-    if evt.block.hasMetadata("salt")
-      drop_item(evt.block.location, ItemStack.new(Material::SUGAR))
-    end
     case evt.block.type
     when Material::STONE
       evt.cancelled = true
@@ -49,6 +46,10 @@ module EventHandler
       else
         evt.block.type = Material::COBBLESTONE
       end
+    end
+    if !evt.cancelled && evt.block.hasMetadata("salt")
+      drop_item(evt.block.location, ItemStack.new(Material::SUGAR))
+      evt.block.removeMetadata("salt")
     end
     #later 0 do
     #  evt.getBlock.setType(Material::STONE)
