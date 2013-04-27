@@ -91,6 +91,8 @@ module EventHandler
     #when Material::SUGAR_CANE_BLOCK
     #  evt.cancelled = true
     #  evt.block.type = Material::AIR
+    when Material::LOG
+      kickory(evt.block, evt.player)
     when Material::GRASS
       evt.cancelled = true
       evt.block.type = Material::DIRT
@@ -186,6 +188,15 @@ module EventHandler
     loc = block.location
     loc.world.spawn_falling_block(loc, block.type, block.data)
     block.type = Material::AIR
+  end
+
+  def kickory(block, player)
+    block.break_naturally(player.item_in_hand)
+    return if rand(30) == 0
+    [[0, 1, 0], [1, 1, 0], [0, 1, 1], [-1, 1, 0], [0, 1, -1]].each do |x, y, z|
+      loc = block.location.clone.add(x, y, z)
+      kickory(loc.block, player) if loc.block.type == Material::LOG
+    end
   end
 end
 
