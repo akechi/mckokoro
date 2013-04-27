@@ -5,6 +5,8 @@ import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.entity.TNTPrimed'
+import 'org.bukkit.entity.Zombie'
+import 'org.bukkit.entity.PigZombie'
 
 module EventHandler
   module_function
@@ -56,6 +58,19 @@ module EventHandler
     case evt.entity.item_stack.type
     when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
+    end
+  end
+
+  def on_entity_death(evt)
+    case evt.entity
+    when PigZombie
+      # nop
+    when Zombie
+      drops = evt.drops.to_a
+      drops.reject! {|d| d.type == Material::ROTTEN_FLESH }
+      drops << ItemStack.new(Material::TORCH, rand(9) + 1)
+      evt.drops.clear
+      evt.drops.add_all drops
     end
   end
 
