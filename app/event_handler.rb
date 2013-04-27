@@ -2,6 +2,8 @@ import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
+import 'org.bukkit.metadata.FixedMetadataValue'
+import 'org.bukkit.inventory.ItemStack'
 
 module EventHandler
   module_function
@@ -35,7 +37,19 @@ module EventHandler
   end
 
   def on_block_break(evt)
-    #evt.setCancelled true
+    if evt.block.hasMetadata("salt")
+      drop_item(evt.block.location, ItemStack.new(Material::SUGAR))
+    end
+    case evt.block.type
+    when Material::STONE
+      evt.cancelled = true
+      if rand(5) == 0
+        evt.block.type = Material::GLASS
+        evt.block.setMetadata("salt", FixedMetadataValue.new(@plugin, true))
+      else
+        evt.block.type = Material::COBBLESTONE
+      end
+    end
     #later 0 do
     #  evt.getBlock.setType(Material::STONE)
     #end
@@ -66,6 +80,10 @@ module EventHandler
 
   def explode(loc, power, fire_p)
     loc.getWorld.createExplosion(loc, power.to_f, fire_p)
+  end
+
+  def drop_item(loc, istack)
+    loc.getWorld.dropItemNaturally(loc, istack)
   end
 end
 
