@@ -54,7 +54,7 @@ module EventHandler
 
   def on_item_spawn(evt)
     case evt.entity.item_stack.type
-    when Material::SUGAR_CANE, Material::SAPING
+    when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
     end
   end
