@@ -27,7 +27,7 @@ module EventHandler
   def on_lingr(message)
     return if Bukkit.getOnlinePlayers.empty?
     later 0 do
-      broadcast "#{message['nickname']}: #{message['text']}"
+      broadcast "[lingr] #{message['nickname']}: #{message['text']}"
     end
   end
 
