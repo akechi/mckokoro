@@ -5,6 +5,7 @@ import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
+import 'org.bukkit.inventory.FurnaceRecipe'
 import 'org.bukkit.entity.Player'
 import 'org.bukkit.entity.Arrow'
 import 'org.bukkit.entity.TNTPrimed'
@@ -312,6 +313,10 @@ module EventHandler
     recipes.
       reject {|r| r.result.type == Material::BREAD }.
       each {|r| Bukkit.add_recipe r }
+    bread_furnace = FurnaceRecipe.new(
+      ItemStack.new(Material::BREAD),
+      Material::WHEAT)
+    Bukkit.add_recipe bread_furnace
   end
 end
 
