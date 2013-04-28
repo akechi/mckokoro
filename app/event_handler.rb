@@ -11,6 +11,7 @@ import 'org.bukkit.entity.Arrow'
 import 'org.bukkit.entity.TNTPrimed'
 import 'org.bukkit.entity.Zombie'
 import 'org.bukkit.entity.PigZombie'
+import 'org.bukkit.entity.Sheep'
 
 require 'set'
 require 'digest/sha1'
@@ -98,15 +99,20 @@ module EventHandler
   end
 
   def on_entity_death(evt)
+    drop_replace = ->(remove_types, new_istacks) {
+      drops = evt.drops.to_a
+      drops.reject! {|d| remove_types.include? d.type}
+      drops += new_istacks
+      evt.drops.clear
+      evt.drops.add_all drops
+    }
     case evt.entity
     when PigZombie
       # nop
     when Zombie
-      drops = evt.drops.to_a
-      drops.reject! {|d| d.type == Material::ROTTEN_FLESH }
-      drops << ItemStack.new(Material::TORCH, rand(9) + 1)
-      evt.drops.clear
-      evt.drops.add_all drops
+      drop_replace.([Material::ROTTEN_FLESH], [ItemStack.new(Material::TORCH, rand(9) + 1)])
+    when Sheep
+      drop_replace.([Material::WOOL], [ItemStack.new(Material::STRING)])
     end
   end
 
@@ -141,13 +147,33 @@ module EventHandler
     evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
   end
 
+  AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
+          Material::IRON_AXE,  Material::GOLD_AXE]
+
+  def on_inventory_open(evt)
+  end
+
+  def on_player_chat_tab_complete(evt)
+    #p evt.chat_message
+  end
+
   def on_block_break(evt)
     case evt.block.type
     #when Material::SUGAR_CANE_BLOCK
     #  evt.cancelled = true
     #  evt.block.type = Material::AIR
     when Material::LOG
-      kickory(evt.block, evt.player)
+      if AXES.include? evt.player.item_in_hand.type
+        kickory(evt.block, evt.player)
+      else
+        evt.player.send_message "(you can't cut tree without an axe!)"
+        evt.player.send_message "(cut tree leaves that may have wood sticks.)"
+        evt.cancelled = true
+      end
+    when Material::LEAVES
+      if rand(3) == 0
+        drop_item(evt.block.location, ItemStack.new(Material::STICK))
+      end
     when Material::GRASS
       evt.cancelled = true
       evt.block.type = Material::DIRT
