@@ -15,13 +15,13 @@ require 'digest/sha1'
 require 'erb'
 require 'open-uri'
 
-
 module EventHandler
   module_function
   def on_load(plugin)
     @plugin = plugin
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
+    update_recipes
   end
 
   def on_lingr(message)
@@ -302,6 +302,15 @@ module EventHandler
   def update_hide_player(p1, p2)
     p1.hide_player(p2) if p2.op? && !p1.op?
     p2.hide_player(p1) if p1.op? && !p2.op?
+  end
+
+  def update_recipes
+    Bukkit.reset_recipes
+    recipes = Bukkit.recipe_iterator.to_a
+    Bukkit.clear_recipes
+    recipes.
+      reject {|r| r.result.type == Material::BREAD }.
+      each {|r| Bukkit.add_recipe r }
   end
 end
 
