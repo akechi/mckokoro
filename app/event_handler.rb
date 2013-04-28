@@ -186,6 +186,9 @@ module EventHandler
           @food_poisoning_player.delete player
         end
       end
+    when Material::POTATO_ITEM
+      player.send_message "(raw potato doesn't satisfy you!)"
+      evt.cancelled = true
     end
   end
 
