@@ -167,6 +167,12 @@ module EventHandler
 
   def on_food_level_change(evt)
     #evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
+    player = evt.player
+    eating_p = player.food_level < evt.food_level
+    case player.item_in_hand.type
+    when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
+      # later
+    end
   end
 
   def on_entity_damage_by_entity(evt)
