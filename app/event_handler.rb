@@ -35,6 +35,7 @@ module EventHandler
     p :reload
     later 0 do
       load "#{APP_DIR_PATH}/event_handler.rb" # TODO
+      update_recipes
     end
   end
 
