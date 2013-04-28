@@ -180,7 +180,7 @@ module EventHandler
       player.send_message "(food poisoning!)"
       @food_poisoning_player << player
       later sec(60) do
-        if @food_poisoning_player[player]
+        if Bukkit.online_players.include? player and @food_poisoning_player.include? player
           # TODO supermomonga
           # food poisoning. the player may die in the worst case.
           @food_poisoning_player.delete player
