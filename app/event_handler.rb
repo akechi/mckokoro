@@ -31,13 +31,17 @@ module EventHandler
     end
   end
 
+  def reload
+    later 0 do
+      load "#{APP_DIR_PATH}/event_handler.rb" # TODO
+    end
+  end
+
   def on_async_player_chat(evt)
     #p :chat, evt.getPlayer
     if evt.player.op? && evt.message == "reload"
       evt.cancelled = true
-      later 0 do
-        load "#{APP_DIR_PATH}/event_handler.rb" # TODO
-      end
+      reload
       broadcast '(reloading event handler)'
     else
       Thread.start do

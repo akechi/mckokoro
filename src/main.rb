@@ -30,6 +30,10 @@ class LingrBot < Sinatra::Base
     end
   end
 
+  post '/reload' do
+    EventHandler.reload
+  end
+
   post '/eval' do
     str = request.body.string
     p [:eval, str]
