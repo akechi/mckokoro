@@ -300,8 +300,8 @@ module EventHandler
   end
 
   def update_hide_player(p1, p2)
-    p1.hide_player(p2) unless p2.op?
-    p2.hide_player(p1) unless p1.op?
+    p1.hide_player(p2) if p2.op?
+    p2.hide_player(p1) if p1.op?
   end
 end
 
