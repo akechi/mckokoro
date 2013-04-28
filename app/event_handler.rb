@@ -54,8 +54,8 @@ module EventHandler
         query_string = param.map {|e|
           e.map {|s| ERB::Util.url_encode s.to_s }.join '='
         }.join '&'
-        broadcast ['http://lingr.com/api/room/say', query_string] * '?' # test
-        open ['http://lingr.com/api/room/say', query_string] * '?'
+        #broadcast "http://lingr.com/api/room/say?#{query_string}"
+        open "http://lingr.com/api/room/say?#{query_string}"
       end
     end
   end
