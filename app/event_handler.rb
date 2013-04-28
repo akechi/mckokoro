@@ -12,6 +12,7 @@ import 'org.bukkit.entity.TNTPrimed'
 import 'org.bukkit.entity.Zombie'
 import 'org.bukkit.entity.PigZombie'
 
+require 'set'
 require 'digest/sha1'
 require 'erb'
 require 'open-uri'
@@ -23,6 +24,7 @@ module EventHandler
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
+    @food_poisoning_player = Set.new
   end
 
   def on_lingr(message)
@@ -108,6 +110,10 @@ module EventHandler
     end
   end
 
+  def on_player_death(evt)
+    @food_poisoning_player.delete evt.player
+  end
+
   def on_block_place(evt)
     case evt.block_placed.type
     when Material::DIRT
@@ -167,11 +173,19 @@ module EventHandler
 
   def on_food_level_change(evt)
     #evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
-    player = evt.player
+    player = evt.entity
     eating_p = player.food_level < evt.food_level
     case player.item_in_hand.type
     when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
-      # later
+      player.send_message "(food poisoning!)"
+      @food_poisoning_player << player
+      later sec(60) do
+        if @food_poisoning_player[player]
+          # TODO supermomonga
+          # food poisoning. the player may die in the worst case.
+          @food_poisoning_player.delete player
+        end
+      end
     end
   end
 
