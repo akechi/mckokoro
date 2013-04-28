@@ -11,6 +11,11 @@ import 'org.bukkit.entity.TNTPrimed'
 import 'org.bukkit.entity.Zombie'
 import 'org.bukkit.entity.PigZombie'
 
+require 'digest/sha1'
+require 'erb'
+require 'open-uri'
+
+
 module EventHandler
   module_function
   def on_load(plugin)
@@ -35,6 +40,19 @@ module EventHandler
       end
       broadcast '(reloading event handler)'
     end
+
+    # Send chat for lingr room
+    # TODO: move lingr room-id to config.yml to change.
+    # TODO: moge following codes to lingr module.
+    param = {
+      room: 'mcujm',
+      bot: 'mcsakura',
+      text: 'TEST FROM MCSAKURA',
+      bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
+    }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+
+    query_string = param.map{|e| e.map{|s| ERB::Util.url_encode s.to_s }.join '='}.join '&'
+    open ['http://lingr.com/api/room/say', query_string] * '?'
   end
 
   def on_player_login(evt)
