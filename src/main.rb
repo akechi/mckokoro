@@ -30,7 +30,7 @@ class LingrBot < Sinatra::Base
     end
   end
 
-  post '/reload' do
+  get '/reload' do
     EventHandler.reload
   end
 
