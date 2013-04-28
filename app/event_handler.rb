@@ -12,6 +12,8 @@ import 'org.bukkit.entity.TNTPrimed'
 import 'org.bukkit.entity.Zombie'
 import 'org.bukkit.entity.PigZombie'
 import 'org.bukkit.entity.Sheep'
+import 'org.bukkit.entity.ExperienceOrb'
+import 'org.bukkit.entity.EntityType'
 
 require 'set'
 require 'digest/sha1'
@@ -77,18 +79,25 @@ module EventHandler
   end
 
   def on_entity_explode(evt)
-    #case evt.entity
-    #when TNTPrimed
-    #  evt.cancelled = true
-    #  evt.block_list do |b|
-    #    case b
-    #    when Material::SUGAR_CANE_BLOCK
-    #      # nop
-    #    else
-    #      b.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE)
-    #    end
-    #  end
-    #end
+    case evt.entity
+    when TNTPrimed
+      #memo: spawn() doesn't work on jruby...
+      #power = 4
+      #(power ** 2).to_i.times do
+      #  orb = spawn(evt.location, ExperienceOrb)
+      #  org.experience = 1
+      #end
+
+      #evt.cancelled = true
+      #evt.block_list do |b|
+      #  case b
+      #  when Material::SUGAR_CANE_BLOCK
+      #    # nop
+      #  else
+      #    b.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE)
+      #  end
+      #end
+    end
   end
 
   def on_item_spawn(evt)
@@ -367,6 +376,10 @@ module EventHandler
       Material::WHEAT)
     Bukkit.add_recipe bread_furnace
   end
+
+  #def spawn(loc, klass)
+  #  loc.world.spawnEntity(loc, EntityType::EXPERIENCE_ORB)
+  #end
 end
 
 EventHandler
