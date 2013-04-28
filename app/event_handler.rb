@@ -57,8 +57,9 @@ module EventHandler
   end
 
   def on_player_login(evt)
-    p :login, evt
-    p evt.getPlayer
+    Bukkit.online_players.each do |player|
+      update_hide_player(player, evt.player)
+    end
   end
 
   def on_entity_explode(evt)
@@ -289,6 +290,10 @@ module EventHandler
     (n * 20).to_i
   end
 
+  def update_hide_player(p1, p2)
+    p1.hide_player(p2) unless p2.op?
+    p2.hide_player(p1) unless p1.op?
+  end
 end
 
 EventHandler
