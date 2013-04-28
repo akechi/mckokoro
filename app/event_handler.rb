@@ -41,19 +41,21 @@ module EventHandler
       broadcast '(reloading event handler)'
     end
 
-    # Send chat for lingr room
-    # TODO: move lingr room-id to config.yml to change.
-    # TODO: moge following codes to lingr module.
-    param = {
-      room: 'mcujm',
-      bot: 'mcsakura',
-      text: 'TEST FROM MCSAKURA',
-      bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
-    }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+    Thread.start do
+      # Send chat for lingr room
+      # TODO: move lingr room-id to config.yml to change.
+      # TODO: moge following codes to lingr module.
+      param = {
+        room: 'mcujm',
+        bot: 'mcsakura',
+        text: "#{evt.player.name}: #{evt.message}",
+        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
+      }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
 
-    query_string = param.map{|e| e.map{|s| ERB::Util.url_encode s.to_s }.join '='}.join '&'
-    broadcast ['http://lingr.com/api/room/say', query_string] * '?' # test
-    open ['http://lingr.com/api/room/say', query_string] * '?'
+      query_string = param.map{|e| e.map{|s| ERB::Util.url_encode s.to_s }.join '='}.join '&'
+      broadcast ['http://lingr.com/api/room/say', query_string] * '?' # test
+      open ['http://lingr.com/api/room/say', query_string] * '?'
+    end
   end
 
   def on_player_login(evt)
