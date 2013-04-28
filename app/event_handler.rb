@@ -206,7 +206,7 @@ module EventHandler
     player = evt.player
     hard_boots = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
                   Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
-    if hard_boots.include? player.equipment.boots.type
+    if player.equipment.boots && hard_boots.include?(player.equipment.boots.type)
       if !evt.player.on_ground? && evt.sneaking?
         later 0 do
           newloc = player.location
