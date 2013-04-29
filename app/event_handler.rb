@@ -25,7 +25,7 @@ module EventHandler
     @food_poisoning_player = Set.new
 
     @db_path = "#{@plugin.data_folder.absolute_path}/db.json"
-    @db = File.readable?(@db_path) ? JSON.load(@db_path) : {'achievement' => {'block-place' => {}}}
+    @db = File.readable?(@db_path) ? JSON.load(File.read @db_path) : {'achievement' => {'block-place' => {}}}
   end
 
   def on_lingr(message)
@@ -419,6 +419,10 @@ module EventHandler
       #broadcast "http://lingr.com/api/room/say?#{query_string}"
       open "http://lingr.com/api/room/say?#{query_string}"
     end
+  end
+
+  def on_server_command(evt)
+    p :server, evt
   end
 
   def db_save
