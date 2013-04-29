@@ -81,6 +81,10 @@ module EventHandler
     end
   end
 
+  def on_player_quit(evt)
+    post_lingr "#{evt.player.name}: #{evt.quit_message.sub(/^#{evt.player.name}/, '')}"
+  end
+
   def on_entity_explode(evt)
     case evt.entity
     when TNTPrimed
