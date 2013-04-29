@@ -79,9 +79,9 @@ module EventHandler
 
     later 0 do
       player = evt.player
-      if player.inventory.contents.to_a.compact.empty?
-        player.send_message 'you are first time to visit here right?'
-        player.send_message 'check your inventory. you already have good stuff.'
+      if player.inventory.contents.to_a.compact.empty? && player.health == player.max_health
+        player.send_message 'You are first time to visit here right?'
+        player.send_message 'Check your inventory. You already have good stuff.'
         [ItemStack.new(Material::COBBLESTONE, 64),
          ItemStack.new(Material::MUSHROOM_SOUP),
          ItemStack.new(Material::WHEAT, 32),
@@ -89,6 +89,10 @@ module EventHandler
          ItemStack.new(Material::LEATHER_CHESTPLATE)].each do |istack|
           player.inventory.add_item istack
          end
+        later sec(20) do
+          player.send_message "Note that you can't place any blocks at first..."
+          player.send_message "You need to unlock that by making a Workbench."
+        end
       end
     end
   end
