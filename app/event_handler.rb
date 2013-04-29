@@ -137,9 +137,19 @@ module EventHandler
 
     player = evt.player
     unless @db['achievement']['block-place'][player.name]
-      player.send_message "You didn't unlock block-place."
-      evt.cancelled = true
-      return
+      if evt.block_placed.type == Material::WORKBENCH
+        player.send_message "[ACHIEVEMENT UNLOCKED]"
+        player.send_message "Congrats! Now you can place any blocks."
+        post_lingr "#{player.name} unlocked block-place."
+        @db['achievement']['block-place'][player.name] = true
+        File.open @db_path, 'w' do |io|
+          io.write @db.to_json
+        end
+      else
+        player.send_message "You didn't unlock block-place."
+        evt.cancelled = true
+        return
+      end
     end
 
     case evt.block_placed.type
