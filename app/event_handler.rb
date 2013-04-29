@@ -429,7 +429,7 @@ module EventHandler
         bot: 'mcsakura',
         text: text,
         bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
-      }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+      }.tap {|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
 
       query_string = param.map {|e|
         e.map {|s| ERB::Util.url_encode s.to_s }.join '='
