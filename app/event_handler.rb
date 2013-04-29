@@ -129,7 +129,7 @@ module EventHandler
   def on_player_death(evt)
     player = evt.entity
     @food_poisoning_player.delete player
-    post_lingr "#{player} died: #{evt.death_message} at (#{player.location.x}, #{player.location.z}) in #{player.location.world.name}."
+    post_lingr "#{player.name} died: #{evt.death_message.sub(/^#{player.name}/, '')} at (#{player.location.x.to_i}, #{player.location.z.to_i}) in #{player.location.world.name}."
   end
 
   def on_block_place(evt)
@@ -419,6 +419,11 @@ module EventHandler
       #broadcast "http://lingr.com/api/room/say?#{query_string}"
       open "http://lingr.com/api/room/say?#{query_string}"
     end
+  end
+
+  def on_command(sender, cmd, label, args)
+    p [:cmd, sender, cmd, label, args]
+    false
   end
 
   def on_server_command(evt)
