@@ -4,4 +4,11 @@ version: 1.0.0
 website: http://ujihisa.blogspot.com
 author: Tatsuhiro Ujihisa
 description: ask @ujm
+commands:
+  mckokoro:
+    description: debugging
+    usage: /mckokoro [anything]
+  inv:
+    description: Inventory Everywhere.
+    usage: /inv
 #depend: [ControllableMobsAPI]
