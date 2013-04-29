@@ -6,14 +6,6 @@ import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
-import 'org.bukkit.entity.Player'
-import 'org.bukkit.entity.Arrow'
-import 'org.bukkit.entity.TNTPrimed'
-import 'org.bukkit.entity.Zombie'
-import 'org.bukkit.entity.PigZombie'
-import 'org.bukkit.entity.Sheep'
-import 'org.bukkit.entity.ExperienceOrb'
-import 'org.bukkit.entity.EntityType'
 
 require 'set'
 require 'digest/sha1'
@@ -21,6 +13,8 @@ require 'erb'
 require 'open-uri'
 
 module EventHandler
+  include_package 'org.bukkit.entity'
+
   module_function
   def on_load(plugin)
     @plugin = plugin
