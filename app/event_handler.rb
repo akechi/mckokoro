@@ -11,6 +11,7 @@ require 'set'
 require 'digest/sha1'
 require 'erb'
 require 'open-uri'
+require 'json'
 
 module EventHandler
   include_package 'org.bukkit.entity'
@@ -22,6 +23,9 @@ module EventHandler
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
     @food_poisoning_player = Set.new
+
+    @db_path = "#{@plugin.data_folder.absolute_path}/db.json"
+    @db = File.readable?(@db_path) ? JSON.load(@db_path) : {'achievement' => {'block-place' => {}}}
   end
 
   def on_lingr(message)
@@ -46,7 +50,7 @@ module EventHandler
       reload
       broadcast '(reloading event handler)'
     else
-      post_ingr("#{evt.player.name}: #{evt.message}")
+      post_lingr("#{evt.player.name}: #{evt.message}")
     end
   end
 
@@ -129,6 +133,15 @@ module EventHandler
   end
 
   def on_block_place(evt)
+    return unless evt.canBuild
+
+    player = evt.player
+    unless @db['achievement']['block-place'][player.name]
+      player.send_message "You didn't unlock block-place."
+      evt.cancelled = true
+      return
+    end
+
     case evt.block_placed.type
     when Material::DIRT
       b = evt.block_placed
