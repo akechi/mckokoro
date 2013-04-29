@@ -422,12 +422,24 @@ module EventHandler
   end
 
   def on_command(sender, cmd, label, args)
-    p [:cmd, sender, cmd, label, args]
-    false
+    case label
+    when "mckokoro"
+      p :good
+      false
+    when "inv"
+      case sender
+      when Player
+        p [:cmd, sender, cmd, label, args]
+        sender.open_workbench sender.location, true
+        true
+      else false
+      end
+    else
+      false
+    end
   end
 
   def on_server_command(evt)
-    p :server, evt
   end
 
   def db_save
