@@ -46,23 +46,7 @@ module EventHandler
       reload
       broadcast '(reloading event handler)'
     else
-      Thread.start do
-        # Send chat for lingr room
-        # TODO: move lingr room-id to config.yml to change.
-        # TODO: moge following codes to lingr module.
-        param = {
-          room: 'computer_science',
-          bot: 'mcsakura',
-          text: "#{evt.player.name}: #{evt.message}",
-          bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
-        }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
-
-        query_string = param.map {|e|
-          e.map {|s| ERB::Util.url_encode s.to_s }.join '='
-        }.join '&'
-        #broadcast "http://lingr.com/api/room/say?#{query_string}"
-        open "http://lingr.com/api/room/say?#{query_string}"
-      end
+      post_ingr("#{evt.player.name}: #{evt.message}")
     end
   end
 
@@ -141,6 +125,7 @@ module EventHandler
   def on_player_death(evt)
     player = evt.entity
     @food_poisoning_player.delete player
+    post_lingr "#{player} died: #{evt.death_message} at (#{player.location.x}, #{player.location.z}) in #{player.location.world.name}."
   end
 
   def on_block_place(evt)
@@ -394,6 +379,26 @@ module EventHandler
   #def spawn(loc, klass)
   #  loc.world.spawnEntity(loc, EntityType::EXPERIENCE_ORB)
   #end
+
+  def post_lingr(text)
+    Thread.start do
+      # Send chat for lingr room
+      # TODO: move lingr room-id to config.yml to change.
+      # TODO: moge following codes to lingr module.
+      param = {
+        room: 'computer_science',
+        bot: 'mcsakura',
+        text: text,
+        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
+      }.tap{|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+
+      query_string = param.map {|e|
+        e.map {|s| ERB::Util.url_encode s.to_s }.join '='
+      }.join '&'
+      #broadcast "http://lingr.com/api/room/say?#{query_string}"
+      open "http://lingr.com/api/room/say?#{query_string}"
+    end
+  end
 end
 
 EventHandler
