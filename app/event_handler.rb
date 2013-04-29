@@ -134,6 +134,10 @@ module EventHandler
     when Sheep
       drop_replace.([Material::WOOL], [ItemStack.new(Material::STRING)])
     end
+    entity = evt.entity
+    if entity.killer && Player === entity.killer
+      post_lingr "#{entity.killer.name} killed a #{entity.type.name.downcase}"
+    end
   end
 
   def on_player_death(evt)
