@@ -145,7 +145,8 @@ module EventHandler
   end
 
   def on_player_death(evt)
-    @food_poisoning_player.delete evt.player
+    player = evt.entity
+    @food_poisoning_player.delete player
   end
 
   def on_block_place(evt)
