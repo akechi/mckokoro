@@ -441,13 +441,21 @@ module EventHandler
 
   def on_command(sender, cmd, label, args)
     case label
+    when 'lingr'
+      case sender
+      when Player
+        false
+      else
+        post_lingr args.to_a.join ' '
+        true
+      end
     when "mckokoro"
       p :good
       false
     when "inv"
       case sender
       when Player
-        p [:cmd, sender, cmd, label, args]
+        p [:cmd, sender, cmd, label, args.to_a]
         sender.open_workbench sender.location, true
         true
       else

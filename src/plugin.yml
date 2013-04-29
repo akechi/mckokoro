@@ -11,4 +11,7 @@ commands:
   inv:
     description: Inventory Everywhere.
     usage: /inv
+  lingr:
+    description: Post a message to lingr.
+    usage: /lingr [anything]
 #depend: [ControllableMobsAPI]
