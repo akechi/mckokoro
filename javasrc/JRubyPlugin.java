@@ -83,6 +83,10 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
     }
 
+    public boolean onCommand(org.bukkit.command.CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
+      return jrubyEhCallIfRespond4("on_command", sender, cmd, label, args);
+    }
+
     /*
     private void jrubyCallIfRespond0(String fname) {
         jruby.callMethod(eh, fname, this);
@@ -92,6 +96,12 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     private void jrubyEhCallIfRespond1(String fname, Object x) {
         if (jruby.callMethod(eh, "respond_to?", fname).equals(rubyTrue))
             jruby.callMethod(eh, fname, x);
+    }
+
+    private boolean jrubyEhCallIfRespond4(String fname, Object a, Object b, Object c, Object d) {
+        if (jruby.callMethod(eh, "respond_to?", fname).equals(rubyTrue))
+            return (Boolean)jruby.callMethod(eh, fname, a, b, c, d);
+        return false;
     }
 
     private Object executeScript(InputStream io, String path) {
