@@ -127,7 +127,10 @@ module EventHandler
     when PigZombie
       # nop
     when Zombie
-      drop_replace.([Material::ROTTEN_FLESH], [ItemStack.new(Material::TORCH, rand(9) + 1)])
+      head = MaterialData.new(Material::SKULL_ITEM, 2).to_item_stack(1)
+      drop_replace.(
+        [Material::ROTTEN_FLESH],
+        [ItemStack.new(Material::TORCH, rand(9) + 1)] + (rand(20) == 0 ? [head] : []))
     when Sheep
       drop_replace.([Material::WOOL], [ItemStack.new(Material::STRING)])
     end
