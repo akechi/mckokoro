@@ -76,6 +76,21 @@ module EventHandler
     Bukkit.online_players.each do |player|
       update_hide_player(player, evt.player)
     end
+
+    later 0 do
+      player = evt.player
+      if player.inventory.contents.to_a.compact.empty?
+        player.send_message 'you are first time to visit here right?'
+        player.send_message 'check your inventory. you already have good stuff.'
+        [ItemStack.new(Material::COBBLESTONE, 64),
+         ItemStack.new(Material::MUSHROOM_SOUP),
+         ItemStack.new(Material::WHEAT, 32),
+         ItemStack.new(Material::WOOD, 10),
+         ItemStack.new(Material::LEATHER_CHESTPLATE)].each do |istack|
+          player.inventory.add_item istack
+         end
+      end
+    end
   end
 
   def on_entity_explode(evt)
@@ -261,12 +276,12 @@ module EventHandler
     end
   end
 
+  HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
+                Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
     #player_update_speed(evt.player, snp: evt.sneaking?)
     player = evt.player
-    hard_boots = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
-                  Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
-    if player.equipment.boots && hard_boots.include?(player.equipment.boots.type)
+    if player.equipment.boots && HARD_BOOTS.include?(player.equipment.boots.type)
       if !evt.player.on_ground? && evt.sneaking?
         later 0 do
           newloc = player.location
