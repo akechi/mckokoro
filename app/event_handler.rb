@@ -1,11 +1,13 @@
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
 import 'org.bukkit.Effect'
+import 'org.bukkit.SkullType'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
+import 'org.bukkit.material.MaterialData'
 
 require 'set'
 require 'digest/sha1'
@@ -105,6 +107,8 @@ module EventHandler
     case evt.entity.item_stack.type
     when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
+    when Material::EGG
+      evt.cancelled = true
     end
   end
 
@@ -117,6 +121,9 @@ module EventHandler
       evt.drops.add_all drops
     }
     case evt.entity
+    when Creeper
+      head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
+      drop_replace.([], rand(10) == 0 ? [head] : [])
     when PigZombie
       # nop
     when Zombie
@@ -432,7 +439,8 @@ module EventHandler
         p [:cmd, sender, cmd, label, args]
         sender.open_workbench sender.location, true
         true
-      else false
+      else
+        false
       end
     else
       false
