@@ -142,9 +142,7 @@ module EventHandler
         player.send_message "Congrats! Now you can place any blocks."
         post_lingr "#{player.name} unlocked block-place."
         @db['achievement']['block-place'][player.name] = true
-        File.open @db_path, 'w' do |io|
-          io.write @db.to_json
-        end
+        db_save
       else
         player.send_message "You didn't unlock block-place."
         evt.cancelled = true
@@ -420,6 +418,12 @@ module EventHandler
       }.join '&'
       #broadcast "http://lingr.com/api/room/say?#{query_string}"
       open "http://lingr.com/api/room/say?#{query_string}"
+    end
+  end
+
+  def db_save
+    File.open @db_path, 'w' do |io|
+      io.write @db.to_json
     end
   end
 end
