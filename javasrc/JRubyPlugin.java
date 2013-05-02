@@ -1,24 +1,10 @@
 package com.github.ujihisa.Mcsakura;
 import java.io.File;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.PluginLoader;
-import java.util.HashSet;
-import java.net.URLClassLoader;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.Server;
-import java.lang.ClassLoader;
 import java.net.URL;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Event;
-//import org.bukkit.event.player.*;
-//import org.bukkit.event.entity.*;
-//import org.bukkit.event.block.*;
-//import org.bukkit.event.vehicle.*;
-//import org.bukkit.event.world.*;
-//import org.bukkit.event.painting.*;
-//import org.bukkit.event.server.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -683,21 +669,4 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
     */
 
     /* end auto-generated code */
-
-    /*
-    private void invokeClojureFunc(String enableFunction, Object arg) {
-        try {
-            ClassLoader previous = Thread.currentThread().getContextClassLoader();
-            Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader()); 
-
-            clojure.lang.RT.loadResourceScript(ns.replaceAll("[.]", "/")+".clj");
-            clojure.lang.RT.var(ns, enableFunction).invoke(arg);
-
-            Thread.currentThread().setContextClassLoader(previous);
-        } catch (Exception e) {
-            System.out.println("Something broke setting up Clojure");
-            e.printStackTrace();
-        }
-    }
-    */
 }
