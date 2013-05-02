@@ -21,6 +21,8 @@ module EventHandler
   module_function
   def on_load(plugin)
     @plugin = plugin
+    Bukkit.getScheduler.scheduleSyncRepeatingTask(
+      @plugin, -> { self.periodically }, 0, sec(1))
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
@@ -473,6 +475,9 @@ module EventHandler
     File.open @db_path, 'w' do |io|
       io.write @db.to_json
     end
+  end
+
+  def periodically
   end
 end
 
