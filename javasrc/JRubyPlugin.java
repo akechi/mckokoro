@@ -1,4 +1,4 @@
-package com.github.ujihisa.Mcsakura;
+package com.github.ujihisa.Mckokoro;
 import java.io.File;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.net.URL;
@@ -32,7 +32,7 @@ public class JRubyPlugin extends JavaPlugin implements Listener {
         rubyFalse = jruby.runScriptlet("false");
         rubyNil   = jruby.runScriptlet("nil");
 
-        // Put config file to path_to_bukkit/plugins/mcsakura-jarname/config.yml
+        // Put config file to path_to_bukkit/plugins/mckokoro-jarname/config.yml
         config = getConfig();
 
         //URL url = getClass().getResource("/main.rb");

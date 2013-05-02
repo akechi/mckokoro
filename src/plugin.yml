@@ -1,5 +1,5 @@
-name: mcsakura
-main: com.github.ujihisa.Mcsakura.JRubyPlugin
+name: mckokoro
+main: com.github.ujihisa.Mckokoro.JRubyPlugin
 version: 1.0.0
 website: http://ujihisa.blogspot.com
 author: Tatsuhiro Ujihisa
