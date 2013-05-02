@@ -8,14 +8,11 @@ import org.bukkit.event.Event;
 import org.bukkit.configuration.file.FileConfiguration;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
-
-
 import org.jruby.embed.ScriptingContainer;
 
 public class JRubyPlugin extends JavaPlugin implements Listener {
