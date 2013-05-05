@@ -84,6 +84,7 @@ module EventHandler
   end
 
   def on_player_quit(evt)
+    strike_lightning(evt.player.location)
     post_lingr "#{evt.player.name}: #{evt.quit_message.sub(/^#{evt.player.name}/, '')}"
   end
 
@@ -493,6 +494,10 @@ module EventHandler
         player.send_message 'monster!'
       end
     end
+  end
+
+  def strike_lightning(loc)
+    loc.world.strike_lightning_effect(loc)
   end
 end
 
