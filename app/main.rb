@@ -46,4 +46,4 @@ Thread.start do
 end
 
 require 'event_handler'
-EventHandler
+EventHandler # this is necessary
