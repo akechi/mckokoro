@@ -5,12 +5,16 @@ $LOAD_PATH << APP_DIR_PATH = File.expand_path("#{File.dirname __FILE__}/")
 require 'sinatra/base'
 import 'org.bukkit.Bukkit'
 
+MY_IP = '10.0.2.2' # TODO
+
 class LingrBot < Sinatra::Base
   get '/' do
+    halt 403 if request.ip != MY_IP
     {RUBY_DESCRIPTION: RUBY_DESCRIPTION, bukkit_version: Bukkit.getBukkitVersion}.inspect
   end
 
   post '/' do
+    halt 403 if request.ip != MY_IP
     begin
       JSON.parse(request.body.string)['events'].map {|event|
         msg = event['message']
@@ -31,10 +35,12 @@ class LingrBot < Sinatra::Base
   end
 
   get '/reload' do
+    halt 403 if request.ip != MY_IP
     EventHandler.reload
   end
 
   post '/eval' do
+    halt 403 if request.ip != MY_IP
     str = request.body.string
     p [:eval, str]
     EventHandler.module_eval(str).inspect
