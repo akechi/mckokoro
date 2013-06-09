@@ -65,7 +65,10 @@ module EventHandler
 
     later 0 do
       player = evt.player
-      if player.inventory.contents.to_a.compact.empty? && player.health == player.max_health
+      player_first_time_p =
+        player.inventory.contents.to_a.compact.empty? &&
+        player.health == player.max_health
+      if player_first_time_p
         player.send_message 'You are first time to visit here right?'
         player.send_message 'Check your inventory. You already have good stuff.'
         [ItemStack.new(Material::COBBLESTONE, 64),
