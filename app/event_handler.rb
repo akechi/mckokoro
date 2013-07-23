@@ -321,6 +321,8 @@ module EventHandler
   def on_player_toggle_sneak(evt)
     if evt.sneaking?
       post_lingr "#{evt.player.name} sneaking..."
+    else
+      post_lingr "#{evt.player.name} stood up."
     end
     #player_update_speed(evt.player, snp: evt.sneaking?)
     player = evt.player
