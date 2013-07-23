@@ -46,10 +46,10 @@ class LingrBot < Sinatra::Base
     EventHandler.module_eval(str).inspect
   end
 
-  get '/deploy' do
+  post '/deploy' do
+    p `pwd`
     EventHandler.post_lingr 'deploying...'
     'ok'
-
   end
 end
 
