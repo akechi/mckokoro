@@ -203,7 +203,7 @@ module EventHandler
 
     case evt.block.type
     when Material::STONE
-      loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+      evt.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
     end
   end
 
