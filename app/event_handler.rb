@@ -483,19 +483,19 @@ module EventHandler
 
   def periodically
     Bukkit.online_players.each do |player|
-      xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
-      loc = xzs.
-        map {|x, z| player.location.clone.add(x, 0, z) }.
-        select {|loc|
-        loc.block.light_level <= 7 &&
-          loc.add(0, -1, 0).block.type != Material::AIR &&
-          loc.add(0, 1, 0).block.type == Material::AIR &&
-          loc.add(0, 1, 0).block.type == Material::AIR
-      }.first
-      next unless loc
-      if rand(10) == 0
-        player.send_message 'monster!'
-      end
+      # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
+      # loc = xzs.
+      #   map {|x, z| player.location.clone.add(x, 0, z) }.
+      #   select {|loc|
+      #   loc.block.light_level <= 7 &&
+      #     loc.add(0, -1, 0).block.type != Material::AIR &&
+      #     loc.add(0, 1, 0).block.type == Material::AIR &&
+      #     loc.add(0, 1, 0).block.type == Material::AIR
+      # }.first
+      # next unless loc
+      # if rand(10) == 0
+      #   player.send_message 'monster!'
+      # end
     end
   end
 
