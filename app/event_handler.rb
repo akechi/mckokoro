@@ -200,6 +200,11 @@ module EventHandler
 
   def on_block_damage(evt)
     evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
+
+    case evt.block.type
+    when Material::STONE
+      loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+    end
   end
 
   AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
