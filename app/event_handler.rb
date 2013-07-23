@@ -235,11 +235,15 @@ module EventHandler
     when Material::LONG_GRASS
       drop_item(evt.block.location, ItemStack.new(Material::SEEDS))
     when Material::STONE
-      evt.cancelled = true
-      if rand(5) == 0
+      case rand(5)
+      when 0
+        evt.cancelled = true
         evt.block.type = Material::THIN_GLASS
         evt.block.setMetadata("salt", FixedMetadataValue.new(@plugin, true))
+      when 1
+        # nop
       else
+        evt.cancelled = true
         evt.block.type = Material::COBBLESTONE
       end
     end
