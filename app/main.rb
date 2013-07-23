@@ -48,6 +48,7 @@ class LingrBot < Sinatra::Base
 
   get '/deploy' do
     EventHandler.post_lingr 'deploying...'
+    'ok'
   end
 end
 
