@@ -49,6 +49,7 @@ class LingrBot < Sinatra::Base
   post '/deploy' do
     EventHandler.post_lingr 'deploying...'
     p `pwd`
+    p `whoami`
     EventHandler.reload
     EventHandler.post_lingr 'deployed...'
     'ok'
