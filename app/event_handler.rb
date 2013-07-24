@@ -333,18 +333,18 @@ module EventHandler
     name = evt.player.name
     @crouching_counter ||= {}
     @crouching_counter[name] ||= 0
-    jump_counter_notify.call(evt)
     if evt.sneaking?
+      # counting up
       @crouching_counter[name] += 1
       jump_counter_notify.call(evt)
-      later sec(1) do
-        @crouching_counter[name] -= 1
-        jump_counter_notify.call(evt)
-      end
-    else
       if @crouching_counter[name] == 5
         evt.player.send_message "superjump!"
         # super jump code here
+      end
+      # counting down
+      later sec(3) do
+        @crouching_counter[name] -= 1
+        jump_counter_notify.call(evt)
       end
     end
 
