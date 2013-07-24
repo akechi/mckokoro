@@ -335,7 +335,7 @@ module EventHandler
     end
 
     # Superjump
-    jump_counter_notify = lambda { |player|
+    jump_counter_notify = -> (player) {
       player.send_message "jump power : #{ @crouching_counter[player.name] }"
     }
     name = evt.player.name
