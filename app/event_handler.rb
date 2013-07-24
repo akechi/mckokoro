@@ -343,7 +343,7 @@ module EventHandler
         # super jump code here
       end
       # counting down
-      if @crouching_countingdown == false
+      unless @crouching_countingdown
         @crouching_countingdown = true
         func = lambda {
           later sec(1) do
