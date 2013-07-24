@@ -327,16 +327,21 @@ module EventHandler
     end
 
     # Superjump
+    jump_counter_notify = lambda { |evt|
+      evt.player.send_message "jump power : #{ @crouching_counter[evt.player.name] }"
+    }
     @crouching_counter ||= {}
     @crouching_counter[evt.player.name] ||= 0
-    evt.player.send_message "jump power : #{ @crouching_counter[evt.player.name] }"
+    jump_counter_notify.call(evt)
     if evt.sneaking?
       @crouching_counter[evt.player.name] += 1
       later sec(1) do
         @crouching_counter[evt.player.name] -= 1
+        jump_counter_notify.call(evt)
       end
     else
       if @crouching_counter[evt.player.name] == 5
+        evt.player.send_message "superjump!"
         # super jump code here
       end
     end
