@@ -203,10 +203,11 @@ module EventHandler
 
     case evt.block.type
     when Material::SAND
-      evt.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+      the_block = evt.block
+      the_block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
       diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
       diffs.each do |x, y, z|
-        block = evt.location.clone.add(x, y, z).block
+        block = the_block.location.clone.add(x, y, z).block
         block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
       end
     end
