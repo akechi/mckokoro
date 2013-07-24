@@ -321,13 +321,14 @@ module EventHandler
   def on_player_toggle_sneak(evt)
     # Lingr
     if evt.sneaking?
-      post_lingr "#{evt.player.name} sneaking..."
+      # post_lingr "#{evt.player.name} sneaking..."
     else
-      post_lingr "#{evt.player.name} stood up."
+      # post_lingr "#{evt.player.name} stood up."
     end
 
     # Superjump
     @crouching_counter ||= {}
+    @crouching_counter[evt.player.name] ||= 0
     evt.player.send_message "jump power : #{ @crouching_counter[evt.player.name] }"
     if evt.sneaking?
       @crouching_counter[evt.player.name] += 1
