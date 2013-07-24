@@ -49,8 +49,9 @@ class LingrBot < Sinatra::Base
   post '/deploy' do
     EventHandler.post_lingr 'deploying...'
     system 'cd ~/git/mckokoro; git pull --rebase'
+    p :pulled
     EventHandler.reload
-    EventHandler.post_lingr 'deployed!'
+    EventHandler.post_lingr '...deployed!'
     'ok, deployed.'
   end
 end
