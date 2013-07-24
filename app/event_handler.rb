@@ -343,21 +343,21 @@ module EventHandler
         # super jump code here
       end
       # counting down
-      unless @crouching_countingdown
-        @crouching_countingdown = true
-        func = lambda {
-          later sec(1) do
-            @crouching_counter[name] -= 1
-            jump_counter_notify.call(evt.player)
-            if @crouching_counter[name] > 0
-              func.call()
-            else
-              @crouching_countingdown = false
-            end
-          end
-        }
-        func.call()
-      end
+      # unless @crouching_countingdown
+      #   @crouching_countingdown = true
+      #   func = lambda {
+      #     later sec(1) do
+      #       @crouching_counter[name] -= 1
+      #       jump_counter_notify.call(evt.player)
+      #       if @crouching_counter[name] > 0
+      #         func.call()
+      #       else
+      #         @crouching_countingdown = false
+      #       end
+      #     end
+      #   }
+      #   func.call()
+      # end
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
@@ -535,6 +535,14 @@ module EventHandler
 
   def periodically
     Bukkit.online_players.each do |player|
+      # Superjump counter counting down
+      player.tap do |p|
+        if @crouching_counter[p.name] > 1
+          @crouching_counter[p.name] -= 1
+          p.send_message "jump power : #{@crouching_counter[p.name]}"
+        end
+      end
+      
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
       # loc = xzs.
       #   map {|x, z| player.location.clone.add(x, 0, z) }.
