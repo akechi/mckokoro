@@ -59,7 +59,7 @@ module EventHandler
   end
 
   def on_player_login(evt)
-    post_lingr "#{evt.player.name} logged in!"
+    post_lingr "#{evt.player.name} logged in."
 
     Bukkit.online_players.each do |player|
       update_hide_player(player, evt.player)
@@ -330,17 +330,19 @@ module EventHandler
     jump_counter_notify = lambda { |evt|
       evt.player.send_message "jump power : #{ @crouching_counter[evt.player.name] }"
     }
+    name = evt.player.name
     @crouching_counter ||= {}
-    @crouching_counter[evt.player.name] ||= 0
+    @crouching_counter[name] ||= 0
     jump_counter_notify.call(evt)
     if evt.sneaking?
-      @crouching_counter[evt.player.name] += 1
+      @crouching_counter[name] += 1
+      jump_counter_notify.call(evt)
       later sec(1) do
-        @crouching_counter[evt.player.name] -= 1
+        @crouching_counter[name] -= 1
         jump_counter_notify.call(evt)
       end
     else
-      if @crouching_counter[evt.player.name] == 5
+      if @crouching_counter[name] == 5
         evt.player.send_message "superjump!"
         # super jump code here
       end
