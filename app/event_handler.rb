@@ -202,7 +202,7 @@ module EventHandler
     evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
 
     case evt.block.type
-    when Material::STONE
+    when Material::SAND
       evt.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
     end
   end
