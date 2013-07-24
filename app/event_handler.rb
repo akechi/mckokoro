@@ -343,21 +343,19 @@ module EventHandler
         # super jump code here
       end
       # counting down
-      lambda {
-        if @crouching_countingdown == false
-          @crouching_countingdown = true
-          func = lambda {
-            later sec(1) do
-              @crouching_counter[name] -= 1
-              jump_counter_notify.call(evt.player)
-              if @crouching_counter[name] > 0
-                func.call()
-              end
+      if @crouching_countingdown == false
+        @crouching_countingdown = true
+        func = lambda {
+          later sec(1) do
+            @crouching_counter[name] -= 1
+            jump_counter_notify.call(evt.player)
+            if @crouching_counter[name] > 0
+              func.call()
             end
-          }
-          @crouching_countingdown = false
-        end
-      }.call()
+          end
+        }
+        @crouching_countingdown = false
+      end
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
