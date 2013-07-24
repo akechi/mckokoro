@@ -333,6 +333,7 @@ module EventHandler
     name = evt.player.name
     @crouching_counter ||= {}
     @crouching_counter[name] ||= 0
+    @crouching_countingdown ||= false
     if evt.sneaking?
       # counting up
       @crouching_counter[name] += 1
@@ -343,12 +344,12 @@ module EventHandler
       end
       # counting down
       lambda {
-        @crouching_countingdown ||= false
         if @crouching_countingdown == false
           @crouching_countingdown = true
           func = lambda {
             later sec(1) do
               @crouching_counter[name] -= 1
+              jump_counter_notify.call(evt.player)
               if @crouching_counter[name] > 0
                 func.call()
               end
