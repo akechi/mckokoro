@@ -570,6 +570,10 @@ module EventHandler
   def strike_lightning(loc)
     loc.world.strike_lightning_effect(loc)
   end
+
+  def sleep(*x)
+    warn "Don't use it"
+  end
 end
 
 EventHandler
