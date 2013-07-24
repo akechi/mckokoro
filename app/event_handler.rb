@@ -327,16 +327,17 @@ module EventHandler
     end
 
     # Superjump
+    name = evt.player.name
     @crouching_counter ||= {}
-    @crouching_counter[evt.player.name] ||= 0
-    evt.player.send_message "jump power: #{ @crouching_counter[evt.player.name] }"
+    @crouching_counter[name] ||= 0
+    evt.player.send_message "jump power for #{name}: #{ @crouching_counter[name] }"
     if evt.sneaking?
-      @crouching_counter[evt.player.name] += 1
+      @crouching_counter[name] += 1
       later sec(1) do
-        @crouching_counter[evt.player.name] -= 1
+        @crouching_counter[name] -= 1
       end
     else
-      if @crouching_counter[evt.player.name] == 5
+      if @crouching_counter[name] == 5
         # super jump code here
       end
     end
