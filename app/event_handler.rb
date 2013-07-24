@@ -319,11 +319,27 @@ module EventHandler
   HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
                 Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
+    # Lingr
     if evt.sneaking?
       post_lingr "#{evt.player.name} sneaking..."
     else
       post_lingr "#{evt.player.name} stood up."
     end
+
+    # Superjump
+    @crouching_counter ||= {}
+    evt.player.send_message "jump power : #{ @crouching_counter[evt.player.name] }"
+    if evt.sneaking?
+      @crouching_counter[evt.player.name] += 1
+      later sec(1) do
+        @crouching_counter[evt.player.name] -= 1
+      end
+    else
+      if @crouching_counter[evt.player.name] == 5
+        # super jump code here
+      end
+    end
+
     #player_update_speed(evt.player, snp: evt.sneaking?)
     player = evt.player
     if player.equipment.boots && HARD_BOOTS.include?(player.equipment.boots.type)
