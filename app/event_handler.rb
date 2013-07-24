@@ -351,10 +351,12 @@ module EventHandler
             jump_counter_notify.call(evt.player)
             if @crouching_counter[name] > 0
               func.call()
+            else
+              @crouching_countingdown = false
             end
           end
         }
-        @crouching_countingdown = false
+        func.call()
       end
     end
 
