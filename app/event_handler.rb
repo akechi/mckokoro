@@ -327,7 +327,7 @@ module EventHandler
     end
 
     # Superjump
-    jump_counter_notify = lambda { |plyer|
+    jump_counter_notify = lambda { |player|
       player.send_message "jump power : #{ @crouching_counter[player.name] }"
     }
     name = evt.player.name
@@ -343,6 +343,7 @@ module EventHandler
       end
       # counting down
       lambda {
+        @crouching_countingdown ||= false
         if @crouching_countingdown == false
           @crouching_countingdown = true
           func = lambda {
