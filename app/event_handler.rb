@@ -195,6 +195,8 @@ module EventHandler
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
       end
+    when Material::AIR
+      evt.player.send_message 'ok'
     end
   end
 
