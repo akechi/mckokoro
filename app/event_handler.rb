@@ -188,14 +188,15 @@ module EventHandler
   end
 
   def on_player_interact(evt)
-    return unless evt.clicked_block
-    case evt.clicked_block.type
-    when Material::DIRT
-      if evt.player.item_in_hand.type == Material::SEEDS
-        consume_item(evt.player)
-        evt.clicked_block.type = Material::GRASS
+    if evt.clicked_block
+      case evt.clicked_block.type
+      when Material::DIRT
+        if evt.player.item_in_hand.type == Material::SEEDS
+          consume_item(evt.player)
+          evt.clicked_block.type = Material::GRASS
+        end
       end
-    when Material::AIR
+    else
       evt.player.send_message 'ok'
     end
   end
