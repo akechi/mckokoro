@@ -8,6 +8,7 @@ import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
 import 'org.bukkit.material.MaterialData'
+import 'org.bukkit.entity.Horse'
 
 require 'set'
 require 'digest/sha1'
@@ -197,7 +198,8 @@ module EventHandler
         end
       end
     else
-      evt.player.send_message 'ok'
+      loc = evt.player.location
+      loc.world.spawn(loc, Horse)
     end
   end
 
