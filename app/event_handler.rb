@@ -363,7 +363,7 @@ module EventHandler
       if @crouching_counter[name] == 5
         evt.player.send_message "superjump!"
         evt.player.fall_distance = 0.0
-        evt.player.velocity = evt.player.velocity.tap{|v| v.y = 1.4 }
+        evt.player.velocity = evt.player.velocity.tap{|v| v.setY 1.4 }
         # (.setVelocity player (doto (.getVelocity player) (.setY 1.4)))
       end
     end
