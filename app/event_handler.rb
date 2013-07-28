@@ -398,7 +398,7 @@ module EventHandler
     when Player
       case projectile
       when Arrow
-        projectile.velocity = projectile.velocity.multiply(0.5.to_java Java.float)
+        projectile.velocity = projectile.velocity.multiply(jfloat(0.5)
       end
     end
   end
