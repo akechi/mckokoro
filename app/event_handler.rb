@@ -201,7 +201,9 @@ module EventHandler
       loc = evt.player.location
       horse = loc.world.spawn_entity(loc, EntityType::HORSE)
       horse.domestication = horse.max_domestication
-      horse.passenger = evt.player
+      later 0 do
+        horse.passenger = evt.player
+      end
       later sec(60) do
         horse.damage(horse.max_health)
       end
