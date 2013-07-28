@@ -547,7 +547,7 @@ module EventHandler
     Bukkit.online_players.each do |player|
       # Superjump counter counting down
       player.tap do |p|
-        if @crouching_counter[p.name] > 0
+        if @crouching_counter[p.name] && @crouching_counter[p.name] > 0
           @crouching_counter[p.name] -= 1
           p.send_message "jump power : #{@crouching_counter[p.name]}"
         end
