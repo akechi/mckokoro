@@ -198,17 +198,17 @@ module EventHandler
         end
       end
     else
-      if evt.player.sprinting?
-        loc = evt.player.location
-        horse = loc.world.spawn_entity(loc, EntityType::HORSE)
-        horse.domestication = horse.max_domestication
-        later 0 do
-          evt.player.vehicle = horse
-        end
-        later sec(60) do
-          horse.damage(horse.max_health)
-        end
-      end
+      #if evt.player.sprinting?
+      #  loc = evt.player.location
+      #  horse = loc.world.spawn_entity(loc, EntityType::HORSE)
+      #  horse.domestication = horse.max_domestication
+      #  later 0 do
+      #    evt.player.vehicle = horse
+      #  end
+      #  later sec(60) do
+      #    horse.damage(horse.max_health)
+      #  end
+      #end
     end
   end
 
