@@ -362,6 +362,8 @@ module EventHandler
       jump_counter_notify.call(evt.player)
       if @crouching_counter[name] == 5
         evt.player.send_message "superjump!"
+        evt.player.fall_distance = 0.0
+        evt.player.velocity = evt.player.velocity.setY 1.4
         # super jump code here
       end
       # counting down
