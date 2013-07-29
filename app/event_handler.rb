@@ -200,6 +200,7 @@ module EventHandler
         when Material::SEEDS
           consume_item(evt.player)
           evt.clicked_block.type = Material::GRASS
+        end
       else
         case evt.player.item_in_hand.type
         when Material::TNT
