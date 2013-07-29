@@ -348,7 +348,7 @@ module EventHandler
 
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
-    when EntityDamageEvent::DamageCause::EXPLODE
+    when EntityDamageEvent::DamageCause::BLOCK_EXPLOSION
       # killerqueen
       case evt.entity
       when Player
