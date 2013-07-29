@@ -206,7 +206,7 @@ module EventHandler
         when Material::TNT
           # killerqueen...!!
           evt.player.send_message "KILLERQUEEN...!!"
-          explode(evt.player.getLocation, 2, false)
+          explode(evt.player.getLocation, 1, false)
         end
       end
     else
