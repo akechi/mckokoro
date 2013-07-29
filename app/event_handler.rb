@@ -33,6 +33,10 @@ module EventHandler
     @db = File.readable?(@db_path) ? JSON.load(File.read @db_path) : {'achievement' => {'block-place' => {}}}
   end
 
+  def let(x)
+    yield x
+  end
+
   def on_lingr(message)
     return if Bukkit.getOnlinePlayers.empty?
     later 0 do
