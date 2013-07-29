@@ -208,7 +208,7 @@ module EventHandler
           @explode_toleranted_players ||= {}
           evt.player.send_message "KILLERQUEEN...!!"
           @explode_toleranted_players[evt.player.name] ||= true
-          explode(evt.clicked_block.getLocation, 2, false)
+          explode(evt.clicked_block.getLocation, 0, false)
           later 0 do
             @explode_toleranted_players[evt.player.name] = false
           end
