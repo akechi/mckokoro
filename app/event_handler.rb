@@ -200,11 +200,12 @@ module EventHandler
         when Material::SEEDS
           consume_item(evt.player)
           evt.clicked_block.type = Material::GRASS
-        when Mateial::TNT
+      else
+        case evt.player.item_in_hand.type
+        when Material::TNT
           # killerqueen...!!
           explode(evt.player.getLocation, 1, true)
         end
-        
       end
     else
       if evt.player.sprinting?
