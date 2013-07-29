@@ -321,7 +321,6 @@ module EventHandler
       evt.tap do |evt|
         block_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}.block
         if block_below.type == Material::GRASS
-          evt.entity.send_message "Itakunai!"
           evt.cancelled = true
           # grass will be spread
           block_below.type = Material::DIRT
