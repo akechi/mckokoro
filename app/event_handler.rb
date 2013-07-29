@@ -317,6 +317,20 @@ module EventHandler
   def on_entity_damage(evt)
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
+      # on grass, zenzen itakunai.
+      evt.tap do |evt|
+        block_below = evt.entity.location.block.dup.tap do |b|
+          b.get_block(b.add(0, -1, 0))
+        end
+        if block_below.type == Material::GRASS
+          evt.cancelled = true
+          # grass will be spread
+          block_below.type = Material::DIRT
+          # bound
+          evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+        end
+      end
+
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
     when EntityDamageEvent::DamageCause::LAVA
