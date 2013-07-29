@@ -447,10 +447,11 @@ module EventHandler
 
   def kickory(block, player)
     block.break_naturally(player.item_in_hand)
-    return if rand(30) == 0
-    [[0, 1, 0], [1, 1, 0], [0, 1, 1], [-1, 1, 0], [0, 1, -1]].each do |x, y, z|
-      loc = block.location.clone.add(x, y, z)
-      kickory(loc.block, player) if loc.block.type == Material::LOG
+    unless player.sneaking?
+      [[0, 1, 0], [1, 1, 0], [0, 1, 1], [-1, 1, 0], [0, 1, -1]].each do |x, y, z|
+        loc = block.location.clone.add(x, y, z)
+        kickory(loc.block, player) if loc.block.type == Material::LOG
+      end
     end
   end
 
