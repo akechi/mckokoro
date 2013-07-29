@@ -205,8 +205,13 @@ module EventHandler
         case evt.player.item_in_hand.type
         when Material::TNT
           # killerqueen...!!
+          @explode_toleranted_players ||= {}
           evt.player.send_message "KILLERQUEEN...!!"
+          @explode_toleranted_players[evt.player.name] ||= true
           explode(evt.clicked_block.getLocation, 2, false)
+          later 0 do
+            @explode_toleranted_players[evt.player.name] = false
+          end
         end
       end
     else
@@ -343,6 +348,15 @@ module EventHandler
 
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
+    when EntityDamageEvent::DamageCause::EXPLODE
+      # killerqueen
+      case evt.entity
+      when Player
+        player = evt.entity
+        if @explode_toleranted_players[player.name] == true
+          evt.cancelled = true
+        end
+      end
     when EntityDamageEvent::DamageCause::LAVA
       evt.cancelled = true
       evt.entity.food_level -= 1 rescue nil
