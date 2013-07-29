@@ -319,9 +319,7 @@ module EventHandler
     when EntityDamageEvent::DamageCause::FALL
       # on grass, zenzen itakunai.
       evt.tap do |evt|
-        block_below = evt.entity.location.dup.tap do |l|
-          l.get_block(l.add(0, -1, 0))
-        end
+        block_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}.block
         if block_below.type == Material::GRASS
           player.send_message "Itakunai!"
           evt.cancelled = true
