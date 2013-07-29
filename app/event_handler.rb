@@ -204,7 +204,8 @@ module EventHandler
         case evt.player.item_in_hand.type
         when Material::TNT
           # killerqueen...!!
-          explode(evt.player.getLocation, 1, true)
+          evt.player.send_message "KILLERQUEEN...!!"
+          explode(evt.player.getLocation, 2, false)
         end
       end
     else
