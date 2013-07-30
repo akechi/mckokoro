@@ -9,6 +9,7 @@ import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
 import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.entity.EntityType'
+import 'org.bukkit.event.block.Action'
 
 require 'set'
 require 'digest/sha1'
@@ -204,13 +205,18 @@ module EventHandler
       else
         case evt.player.item_in_hand.type
         when Material::TNT
-          # killerqueen...!!
-          @explode_toleranted_players ||= {}
-          evt.player.send_message "KILLERQUEEN...!!"
-          @explode_toleranted_players[evt.player.name] ||= true
-          explode(evt.clicked_block.getLocation, 0, false)
-          later 0 do
-            @explode_toleranted_players[evt.player.name] = false
+          case evt.action
+          when Action::LEFT_CLICK_BLOCK
+            # killerqueen...!!
+            @explode_toleranted_players ||= {}
+            evt.player.send_message "KILLERQUEEN...!!"
+            @explode_toleranted_players[evt.player.name] ||= true
+            explode(evt.clicked_block.getLocation, 0, false)
+            later 0 do
+              @explode_toleranted_players[evt.player.name] = false
+            end
+          else
+            # TODO
           end
         end
       end
