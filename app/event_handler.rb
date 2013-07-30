@@ -353,7 +353,7 @@ module EventHandler
       case evt.entity
       when Player
         player = evt.entity
-        if @explode_toleranted_players[player.name] == true
+        if @explode_toleranted_players[player.name]
           evt.cancelled = true
         end
       end
