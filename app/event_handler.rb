@@ -211,7 +211,9 @@ module EventHandler
             @explode_toleranted_players ||= {}
             evt.player.send_message "KILLERQUEEN...!!"
             @explode_toleranted_players[evt.player.name] ||= true
-            explode(evt.clicked_block.getLocation, 0, false)
+            location_around(evt.clicked_block.location) do |loc|
+              explode(loc, 0, false)
+            end
             later 0 do
               @explode_toleranted_players[evt.player.name] = false
             end
@@ -242,6 +244,7 @@ module EventHandler
     when Material::SAND
       the_block = evt.block
       the_block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+      # TODO use location_around
       diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
       diffs.each do |x, y, z|
         block = the_block.location.clone.add(x, y, z).block
@@ -628,6 +631,12 @@ module EventHandler
 
   def sleep(*x)
     warn "Don't use it"
+  end
+
+  def location_around(loc)
+    [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]].map {|x, y, z|
+      yield loc.clone.add(x, y, z)
+    }
   end
 end
 
