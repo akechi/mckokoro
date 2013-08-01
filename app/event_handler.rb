@@ -544,7 +544,7 @@ module EventHandler
       # TODO: move lingr room-id to config.yml to change.
       # TODO: moge following codes to lingr module.
       param = {
-        room: 'computer_science',
+        room: 'mcujm',
         bot: 'mcsakura',
         text: text,
         bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
