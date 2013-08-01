@@ -385,8 +385,8 @@ module EventHandler
     end
   end
 
-  HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
-                Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
+  #HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
+  #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
     # Lingr
     if evt.sneaking?
@@ -415,27 +415,28 @@ module EventHandler
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
-    player = evt.player
-    if player.equipment.boots && HARD_BOOTS.include?(player.equipment.boots.type)
-      if !evt.player.on_ground? && evt.sneaking?
-        later 0 do
-          newloc = player.location
-          newloc.x = newloc.x.to_i.to_f - 0.5
-          newloc.z = newloc.z.to_i.to_f - 0.5
-          player.teleport newloc
-          play_effect(newloc, Effect::ENDER_SIGNAL)
-          player.velocity = Vector.new(0.0, -1.0, 0.0)
-        end
-        loc = (1..4).lazy.
-          map {|y| evt.player.location.clone.add(0, -y, 0) }.
-          find {|l| l.block.type != Material::AIR }
-        later sec(0.2) do
-          if loc && loc.block.type == Material::STONE
-            loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
-          end
-        end
-      end
-    end
+
+    #player = evt.player
+    #if player.equipment.boots && HARD_BOOTS.include?(player.equipment.boots.type)
+    #  if !evt.player.on_ground? && evt.sneaking?
+    #    later 0 do
+    #      newloc = player.location
+    #      newloc.x = newloc.x.to_i.to_f - 0.5
+    #      newloc.z = newloc.z.to_i.to_f - 0.5
+    #      player.teleport newloc
+    #      play_effect(newloc, Effect::ENDER_SIGNAL)
+    #      player.velocity = Vector.new(0.0, -1.0, 0.0)
+    #    end
+    #    loc = (1..4).lazy.
+    #      map {|y| evt.player.location.clone.add(0, -y, 0) }.
+    #      find {|l| l.block.type != Material::AIR }
+    #    later sec(0.2) do
+    #      if loc && loc.block.type == Material::STONE
+    #        loc.block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+    #      end
+    #    end
+    #  end
+    #end
   end
 
   def on_projectile_launch(evt)
