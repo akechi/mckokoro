@@ -214,10 +214,11 @@ module EventHandler
         end
       end
 
+      # seeding
       case evt.clicked_block.type
       when Material::DIRT
-        case evt.player.item_in_hand.type
-        when Material::SEEDS
+        case [ evt.player.item_in_hand.type, evt.action ]
+        when [ Material::SEEDS, Action::RIGHT_CLICK_BLOCK ]
           consume_item(evt.player)
           evt.clicked_block.type = Material::GRASS
         end
