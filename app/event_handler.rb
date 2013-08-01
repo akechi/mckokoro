@@ -533,30 +533,6 @@ module EventHandler
     Bukkit.add_recipe bread_furnace
   end
 
-  #def spawn(loc, klass)
-  #  loc.world.spawnEntity(loc, EntityType::EXPERIENCE_ORB)
-  #end
-
-  def post_lingr(text)
-    Thread.start do
-      # Send chat for lingr room
-      # TODO: move lingr room-id to config.yml to change.
-      # TODO: moge following codes to lingr module.
-      param = {
-        room: 'mcujm',
-        bot: 'mcsakura',
-        text: text,
-        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
-      }.tap {|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
-
-      query_string = param.map {|e|
-        e.map {|s| ERB::Util.url_encode s.to_s }.join '='
-      }.join '&'
-      #broadcast "http://lingr.com/api/room/say?#{query_string}"
-      open "http://lingr.com/api/room/say?#{query_string}"
-    end
-  end
-
   def on_command(sender, cmd, label, args)
     case label
     when 'lingr'
@@ -626,10 +602,39 @@ module EventHandler
     end
   end
 
+  #
+  # Utility functions
+  #
+
+  def post_lingr(text)
+    Thread.start do
+      # Send chat for lingr room
+      # TODO: move lingr room-id to config.yml to change.
+      # TODO: moge following codes to lingr module.
+      param = {
+        room: 'mcujm',
+        bot: 'mcsakura',
+        text: text,
+        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
+      }.tap {|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+
+      query_string = param.map {|e|
+        e.map {|s| ERB::Util.url_encode s.to_s }.join '='
+      }.join '&'
+      #broadcast "http://lingr.com/api/room/say?#{query_string}"
+      open "http://lingr.com/api/room/say?#{query_string}"
+    end
+  end
+
+  #def spawn(loc, klass)
+  #  loc.world.spawnEntity(loc, EntityType::EXPERIENCE_ORB)
+  #end
+
   def strike_lightning(loc)
     loc.world.strike_lightning_effect(loc)
   end
 
+  # dummy
   def sleep(*x)
     warn "Don't use it"
   end
