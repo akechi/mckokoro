@@ -635,13 +635,7 @@ module EventHandler
   end
 
   def location_around(loc, size = 1)
-    location_list = 1.upto(2).map{ |n|
-      n.tap{ |n|
-        break [n] * 3 + [-1 * n] * 3 + [0,0]
-      }.combination(3).to_a.uniq.map{|a|
-        a.permutation.to_a.uniq
-      }
-    }.flatten(2)
+    location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0,0,0]
     location_list.map do |x,y,z|
       yield loc.clone.add(x, y, z)
     end
