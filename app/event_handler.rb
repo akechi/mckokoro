@@ -377,7 +377,7 @@ module EventHandler
       if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
         evt.cancelled = true
       else
-        evt.player.walk_speed = 0.5
+        evt.player.walk_speed = 0.4
       end
     else
       evt.player.walk_speed = 0.2
