@@ -398,7 +398,8 @@ module EventHandler
 
     # Superjump
     jump_counter_notify = ->(player) {
-      player.send_message "jump power : #{ @crouching_counter[player.name] }"
+      # Disable instead of delete for debuging
+      # player.send_message "jump power : #{ @crouching_counter[player.name] }"
     }
     name = evt.player.name
     @crouching_counter ||= {}
