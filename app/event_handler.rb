@@ -195,35 +195,32 @@ module EventHandler
 
   def on_player_interact(evt)
     if evt.clicked_block
-      case evt.player.item_in_hand.type
-      when Material::TNT
-        case evt.action
-        when Action::LEFT_CLICK_BLOCK
-          # killerqueen...!!
-          @explode_toleranted_players ||= {}
-          evt.player.send_message "KILLERQUEEN...!!"
-          @explode_toleranted_players[evt.player.name] ||= true
-          location_around(evt.clicked_block.location) do |loc|
-            explode(loc, 0, false)
-          end
-          later 0 do
-            @explode_toleranted_players[evt.player.name] = false
-          end
-        else
-          # TODO
+
+      # killerqueen
+      case [ evt.player.item_in_hand.type, evt.action ]
+      when [ Material::TNT, Action::LEFT_CLICK_BLOCK ]
+        @explode_toleranted_players ||= {}
+        evt.player.send_message "KILLERQUEEN...!!"
+        @explode_toleranted_players[evt.player.name] ||= true
+        # effect only
+        # TODO: long distance / not only block
+        location_around(evt.clicked_block.location) do |loc|
+          explode(loc, 0, false)
+        end
+        # TODO: explode focusing entity (mob or block)
+
+        later 0 do
+          @explode_toleranted_players[evt.player.name] = false
         end
       end
 
       # seeding
-      case evt.clicked_block.type
-      when Material::DIRT
-        case [ evt.player.item_in_hand.type, evt.action ]
-        when [ Material::SEEDS, Action::RIGHT_CLICK_BLOCK ]
-          consume_item(evt.player)
-          evt.clicked_block.type = Material::GRASS
-        end
-      else
+      case [ evt.clicked_block.type, evt.player.item_in_hand.type, evt.action ]
+      when [ Material::DIRT, Material::SEEDS, Action::RIGHT_CLICK_BLOCK ]
+        consume_item(evt.player)
+        evt.clicked_block.type = Material::GRASS
       end
+
     else
       if evt.player.sprinting?
         loc = evt.player.location
