@@ -198,7 +198,7 @@ module EventHandler
 
       # killerqueen
       case [ evt.player.item_in_hand.type, evt.action ]
-      when [ Material::TNT, Action::LEFT_CLICK_BLOCK ]
+      when [ Material::GUNPOWDER, Action::LEFT_CLICK_BLOCK ]
         @explode_toleranted_players ||= {}
         evt.player.send_message "KILLERQUEEN...!!"
         @explode_toleranted_players[evt.player.name] ||= true
