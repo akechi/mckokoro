@@ -634,9 +634,9 @@ module EventHandler
     warn "Don't use it"
   end
 
-  def location_around(loc, size = 1)
+  def location_around(loc, size)
     location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0,0,0]
-    location_list.map do |x,y,z|
+    location_list.each do |x,y,z|
       yield loc.clone.add(x, y, z)
     end
   end
