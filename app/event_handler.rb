@@ -204,7 +204,7 @@ module EventHandler
         @explode_toleranted_players[evt.player.name] ||= true
         # effect only
         # TODO: long distance / not only block
-        location_around(evt.clicked_block.location) do |loc|
+        location_around(evt.clicked_block.location, 2) do |loc|
           explode(loc, 0, false)
         end
         # TODO: explode focusing entity (mob or block)
