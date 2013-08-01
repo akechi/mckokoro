@@ -205,7 +205,7 @@ module EventHandler
         # effect only
         # TODO: long distance / not only block
         location_around(evt.clicked_block.location, 2) do |loc|
-          explode(loc, 0, false)
+          explode(loc, 0, false) if rand(9) < 5
         end
         # TODO: explode focusing entity (mob or block)
 
@@ -639,9 +639,6 @@ module EventHandler
     location_list.map do |x,y,z|
       yield loc.clone.add(x, y, z)
     end
-    # [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]].map {|x, y, z|
-    #   yield loc.clone.add(x, y, z)
-    # }
   end
 end
 
