@@ -205,7 +205,7 @@ module EventHandler
         # effect only
         # TODO: long distance / not only block
         location_around(evt.clicked_block.location, 2) do |loc|
-          explode(loc, 0, false) if rand(9) < 5
+          explode(loc, 0, false) if rand(9) < 2
         end
         # TODO: explode focusing entity (mob or block)
 
