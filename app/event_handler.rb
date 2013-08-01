@@ -503,18 +503,6 @@ module EventHandler
     end
   end
 
-  def play_effect(loc, eff)
-    loc.world.playEffect(loc, eff, nil)
-  end
-
-  def sec(n)
-    (n * 20).to_i
-  end
-
-  def jfloat(rubyfloat)
-    rubyfloat.to_java Java.float
-  end
-
   def update_hide_player(p1, p2)
     p1.hide_player(p2) if p2.op? && !p1.op?
     p2.hide_player(p1) if p1.op? && !p2.op?
@@ -605,6 +593,18 @@ module EventHandler
   #
   # Utility functions
   #
+
+  def play_effect(loc, eff)
+    loc.world.playEffect(loc, eff, nil)
+  end
+
+  def sec(n)
+    (n * 20).to_i
+  end
+
+  def jfloat(rubyfloat)
+    rubyfloat.to_java Java.float
+  end
 
   def post_lingr(text)
     Thread.start do
