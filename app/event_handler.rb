@@ -609,7 +609,7 @@ module EventHandler
       later sec(0.5) do
         crouching_countdown.call
       end
-      
+
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
       # loc = xzs.
       #   map {|x, z| player.location.clone.add(x, 0, z) }.
