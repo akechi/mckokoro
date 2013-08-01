@@ -634,6 +634,8 @@ module EventHandler
     warn "Don't use it"
   end
 
+  # location_around(loc_centre, 2) {|loc| ... }
+  # will do something around the centre (loc_centre) with width 2
   def location_around(loc, size)
     location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0,0,0]
     location_list.each do |x,y,z|
