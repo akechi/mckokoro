@@ -408,7 +408,7 @@ module EventHandler
       @crouching_counter[name] += 1
       jump_counter_notify.call(evt.player)
       if @crouching_counter[name] == 5
-        evt.player.send_message "superjump!"
+        # evt.player.send_message "superjump!"
         evt.player.fall_distance = 0.0
         evt.player.velocity = evt.player.velocity.tap{|v| v.setY jfloat(1.4) }
       end
@@ -600,7 +600,7 @@ module EventHandler
         player.tap do |p|
           if @crouching_counter && @crouching_counter[p.name] && @crouching_counter[p.name] > 0
             @crouching_counter[p.name] -= 1
-            p.send_message "jump power : #{@crouching_counter[p.name]}"
+            # p.send_message "jump power : #{@crouching_counter[p.name]}"
           end
         end
       end
