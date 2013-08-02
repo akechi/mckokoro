@@ -3,7 +3,7 @@ module Job
 
   module_function
 
-  @job_player = {}
+  @job_player ||= {}
 
   def reload
     EventHandler.later 0 do
