@@ -197,7 +197,7 @@ module EventHandler
     case evt.block_placed.type
     when Material::DIRT
       b = evt.block_placed
-      if b.location.clone.add(0, -1, 0).block.type == Material::AIR
+      unless b.location.clone.add(0, -1, 0).block.type.solid?
         later 0 do
           fall_block(b)
         end
