@@ -211,19 +211,13 @@ module EventHandler
       # killerqueen
       case [ evt.player.item_in_hand.type, evt.action ]
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ]
-        @explode_toleranted_players ||= {}
         evt.player.send_message "KILLERQUEEN...!!"
-        @explode_toleranted_players[evt.player.name] ||= true
         # effect only
         # TODO: long distance / not only block
         location_around(evt.clicked_block.location, 2) do |loc|
           explode(loc, 0, false) if rand(9) < 2
         end
         # TODO: explode focusing entity (mob or block)
-
-        later 0 do
-          @explode_toleranted_players[evt.player.name] = false
-        end
       end
 
       # SPADE can remove grass from dirt
@@ -404,13 +398,13 @@ module EventHandler
       #explode(evt.getEntity.getLocation, 1, false)
     when EntityDamageEvent::DamageCause::BLOCK_EXPLOSION
       # killerqueen
-      case evt.entity
-      when Player
-        player = evt.entity
-        if @explode_toleranted_players[player.name]
-          evt.cancelled = true
-        end
-      end
+      # case evt.entity
+      # when Player
+      #   player = evt.entity
+      #   if @explode_toleranted_players[player.name]
+      #     evt.cancelled = true
+      #   end
+      # end
     when EntityDamageEvent::DamageCause::LAVA
       evt.cancelled = true
       evt.entity.food_level -= 1 rescue nil
