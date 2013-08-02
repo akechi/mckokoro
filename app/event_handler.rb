@@ -8,6 +8,7 @@ import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
 import 'org.bukkit.material.MaterialData'
+import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
 import 'org.bukkit.event.block.Action'
 
