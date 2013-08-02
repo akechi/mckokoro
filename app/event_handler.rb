@@ -576,6 +576,7 @@ module EventHandler
       # temporary
       case sender
       when Player
+        args = args.to_a
         if args[0]
           Job.become(sender, args[0].to_sym)
         end
