@@ -377,7 +377,8 @@ module EventHandler
       when Player
         player = evt.damager.shooter
         if Job.of(player) == :archer
-          evt.damage *= 0.8
+          # because it's fast
+          evt.damage *= 0.85
         else
           evt.damage *= 2
         end
