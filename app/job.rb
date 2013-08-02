@@ -1,4 +1,6 @@
 module Job
+  JOBS = [:neet, :killerqueen]
+
   module_function
 
   @job_player = {}
@@ -14,7 +16,7 @@ module Job
   end
 
   def become(player, new_job)
-    unless [:killerqueen].include? new_job
+    unless JOBS.include? new_job
       warn "job #{new_job.inspect} isn't available"
       return
     end
