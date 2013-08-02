@@ -526,7 +526,7 @@ module EventHandler
   end
 
   def consume_item(player)
-    if player.item_in_hand.amount == 0
+    if player.item_in_hand.amount == 1
       player.item_in_hand = ItemStack.new(Material::AIR)
     else
       player.item_in_hand.amount -= 1
