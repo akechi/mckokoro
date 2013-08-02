@@ -14,7 +14,7 @@ module Job
   end
 
   def become(player, new_job)
-    unless %s[killerqueen].include? new_jo
+    unless %s[killerqueen].include? new_job
       warn "job #{new_job.inspect} isn't available"
       return
     end
