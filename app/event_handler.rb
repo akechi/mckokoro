@@ -252,16 +252,6 @@ module EventHandler
         end
       end
     end
-
-    unless evt.cancelled
-      unless evt.block.type.solid?
-        block_above = evt.block.location.clone.tap {|l| l.add(0, 1, 0) }.block
-        case block_above
-        when Material::DIRT
-          fall_block(block_above)
-        end
-      end
-    end
   end
 
   AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
@@ -316,6 +306,17 @@ module EventHandler
     #later 0 do
     #  evt.getBlock.setType(Material::STONE)
     #end
+    #
+
+    unless evt.cancelled
+      unless evt.block.type.solid?
+        block_above = evt.block.location.clone.tap {|l| l.add(0, 1, 0) }.block
+        case block_above
+        when Material::DIRT
+          fall_block(block_above)
+        end
+      end
+    end
   end
 
   def on_food_level_change(evt)
