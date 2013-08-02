@@ -381,7 +381,7 @@ module EventHandler
   end
 
   def on_entity_damage(evt)
-    if evt.entity.class == Player && Job.of(evt.entity) == :muteki
+    if Player === evt.entity && Job.of(evt.entity) == :muteki
       evt.entity.send_message 'You are muteki'
       evt.cancelled = true
       return
