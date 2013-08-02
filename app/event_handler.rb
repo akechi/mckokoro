@@ -316,7 +316,7 @@ module EventHandler
             case block_above.type
             when Material::DIRT
               fall_block(block_above)
-              fall_block.(block_above)
+              fall_dirts_above.(block_above)
             end
           end
         end
