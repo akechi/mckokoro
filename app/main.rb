@@ -54,6 +54,7 @@ class LingrBot < Sinatra::Base
     end
     p :pulled
     EventHandler.reload
+    Job.reload
     EventHandler.post_lingr '...deployed!'
     'ok, deployed.'
   end
@@ -64,4 +65,5 @@ Thread.start do
 end
 
 require 'event_handler'
+require 'job'
 EventHandler # this is necessary
