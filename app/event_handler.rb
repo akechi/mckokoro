@@ -544,6 +544,7 @@ module EventHandler
     when "mckokoro"
       p :good
       false
+
     when "inv"
       case sender
       when Player
