@@ -225,6 +225,15 @@ module EventHandler
         end
       end
 
+      # SPADE can remove grass from dirt
+      case [ evt.clicked_block.type, evt.action ]
+      when [ Material::GRASS, Action::LEFT_CLICK_BLOCK ]
+        if SPADES.include? evt.player.item_in_hand.type
+          evt.clicked_block.type = Material::DIRT
+          drop_item(evt.clicked_block.location, ItemStack.new(Material::SEEDS)) if rand(3) == 0
+        end
+      end
+
       # seeding
       case [ evt.clicked_block.type, evt.player.item_in_hand.type, evt.action ]
       when [ Material::DIRT, Material::SEEDS, Action::RIGHT_CLICK_BLOCK ]
@@ -267,6 +276,14 @@ module EventHandler
 
   AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
           Material::IRON_AXE,  Material::GOLD_AXE]
+  SPADES = [Material::STONE_SPADE, Material::WOOD_SPADE, Material::DIAMOND_SPADE,
+          Material::IRON_SPADE,  Material::GOLD_SPADE]
+  HOES = [Material::STONE_HOE, Material::WOOD_HOE, Material::DIAMOND_HOE,
+          Material::IRON_HOE,  Material::GOLD_HOE]
+  PICKAXES = [Material::STONE_PICKAXE, Material::WOOD_PICKAXE, Material::DIAMOND_PICKAXE,
+          Material::IRON_PICKAXE,  Material::GOLD_PICKAXE]
+  SWORDS = [Material::STONE_SWORD, Material::WOOD_SWORD, Material::DIAMOND_SWORD,
+          Material::IRON_SWORD,  Material::GOLD_SWORD]
 
   def on_inventory_open(evt)
   end
