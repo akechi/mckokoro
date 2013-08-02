@@ -205,6 +205,14 @@ module EventHandler
     end
   end
 
+
+  def on_player_interact_entity(evt)
+    if evt.clicked_entity
+      evt.player.send_message "you clicked entity!"
+    end
+  end
+
+
   def on_player_interact(evt)
     if evt.clicked_block
 
