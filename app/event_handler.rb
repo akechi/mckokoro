@@ -310,7 +310,7 @@ module EventHandler
 
     unless evt.cancelled
       fall_dirts_above = ->(base_block) {
-        later sec(0.5) do
+        later sec(0.1) do
           unless base_block.type.solid?
             block_above = base_block.location.clone.tap {|l| l.add(0, 1, 0) }.block
             case block_above.type
