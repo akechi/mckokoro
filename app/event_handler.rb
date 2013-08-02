@@ -375,7 +375,12 @@ module EventHandler
     when Arrow
       case evt.damager.shooter
       when Player
-        evt.damage *= 2
+        player = evt.damager.shooter
+        if Job.of(player) == :archer
+          evt.damage *= 0.8
+        else
+          evt.damage *= 2
+        end
       end
     end
   end
