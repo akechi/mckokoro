@@ -309,15 +309,19 @@ module EventHandler
     #
 
     unless evt.cancelled
-      later 0 do
-        unless evt.block.type.solid?
-          block_above = evt.block.location.clone.tap {|l| l.add(0, 1, 0) }.block
-          case block_above.type
-          when Material::DIRT
-            fall_block(block_above)
+      fall_dirts_above = ->(base_block) {
+        later 0 do
+          unless base_block.type.solid?
+            block_above = base_block.location.clone.tap {|l| l.add(0, 1, 0) }.block
+            case block_above.type
+            when Material::DIRT
+              fall_block(block_above)
+              fall_block.(block_above)
+            end
           end
         end
-      end
+      }
+      fall_dirts_above.(evt.block)
     end
   end
 
