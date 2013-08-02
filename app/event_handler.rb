@@ -309,11 +309,15 @@ module EventHandler
     #
 
     unless evt.cancelled
+      p 'ok...'
       later 0 do
+        p 'ready?'
         unless evt.block.type.solid?
           block_above = evt.block.location.clone.tap {|l| l.add(0, 1, 0) }.block
+          p block_above.type
           case block_above
           when Material::DIRT
+            p 'fall it!'
             fall_block(block_above)
           end
         end
