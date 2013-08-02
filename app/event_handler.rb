@@ -156,6 +156,10 @@ module EventHandler
           [Material::ROTTEN_FLESH],
           [ItemStack.new(Material::TORCH, rand(9) + 1)] + (rand(20) == 0 ? [head] : []))
       end
+    when Horse
+      drop_replace.(
+        [],
+        [SpawnEgg.new(EntityType::HORSE).toItemStack(1)])
     when Sheep
       drop_replace.([Material::WOOL], [ItemStack.new(Material::STRING)])
     end
