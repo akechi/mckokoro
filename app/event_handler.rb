@@ -209,6 +209,15 @@ module EventHandler
   def on_player_interact_entity(evt)
     case evt.right_clicked
     when Villager
+      # job change
+      location_around(evt.right_clicked.location, 1) do |loc|
+        case loc.block.type
+        when Material::ENCHANTMENT_TABLE
+          evt.player.send_message "found enchant table around villager!"
+        when Material::CHEST
+          evt.player.send_message "found chest around villager!"
+        end
+      end
       evt.player.send_message "you right clicked villager!"
     else
       evt.player.send_message "you right clicked something!"
