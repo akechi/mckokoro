@@ -573,8 +573,14 @@ module EventHandler
         true
       end
     when "mckokoro"
-      p :good
-      false
+      # temporary
+      case sender
+      when Player
+        sender.send_message "your job is #{Job.of(sender)}"
+        true
+      else
+        false
+      end
     when "inv"
       case sender
       when Player
