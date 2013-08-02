@@ -208,16 +208,17 @@ module EventHandler
   def on_player_interact(evt)
     if evt.clicked_block
 
-      # killerqueen
-      case [ evt.player.item_in_hand.type, evt.action ]
-      when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ]
-        evt.player.send_message "KILLERQUEEN...!!"
-        # effect only
-        # TODO: long distance / not only block
-        location_around(evt.clicked_block.location, 2) do |loc|
-          explode(loc, 0, false) if rand(9) < 2
+      if Job.of(evt.player) == :killerqueen
+        case [ evt.player.item_in_hand.type, evt.action ]
+        when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ]
+          evt.player.send_message "KILLERQUEEN...!!"
+          # effect only
+          # TODO: long distance / not only block
+          location_around(evt.clicked_block.location, 2) do |loc|
+            explode(loc, 0, false) if rand(9) < 2
+          end
+          # TODO: explode focusing entity (mob or block)
         end
-        # TODO: explode focusing entity (mob or block)
       end
 
       # SPADE can remove grass from dirt
