@@ -493,7 +493,11 @@ module EventHandler
     when Player
       case projectile
       when Arrow
-        projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
+        if Job.of(shooter) == :archer
+          projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
+        else
+          projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
+        end
       end
     end
   end
