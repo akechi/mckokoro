@@ -207,8 +207,11 @@ module EventHandler
 
 
   def on_player_interact_entity(evt)
-    if evt.clicked_entity
-      evt.player.send_message "you clicked entity!"
+    case evt.right_clicked
+    when Villager
+      evt.player.send_message "you right clicked villager!"
+    else
+      evt.player.send_message "you right clicked something!"
     end
   end
 
