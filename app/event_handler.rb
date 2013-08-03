@@ -209,12 +209,12 @@ module EventHandler
     case evt.right_clicked
     when Villager
       # job change
-      let(nil) do |(enchanted_table, chest)|
+      let(nil) do |(enchantment_table, chest)|
         evt.player.send_message "you right clicked villager!"
         blocks = location_around(evt.right_clicked.location, 1).map(&:block)
-        enchanted_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
+        enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
         chest = blocks.find {|b| Material::CHEST === b.type }
-        if enchanted_table && chest
+        if enchantment_table && chest
           inv = loc.block.state.inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
