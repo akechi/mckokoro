@@ -212,7 +212,7 @@ module EventHandler
       let evt do |evt|
         enchanted_table, chest = nil
         evt.player.send_message "you right clicked villager!"
-        location_around(evt.right_clicked.location, 1) do |loc|
+        location_around(evt.right_clicked.location, 1).each do |loc|
           case loc.block.type
           when Material::ENCHANTMENT_TABLE
             enchanted_table = loc.block
@@ -244,7 +244,7 @@ module EventHandler
           evt.player.send_message "KILLERQUEEN...!!"
           # effect only
           # TODO: long distance / not only block
-          location_around(evt.clicked_block.location, 2) do |loc|
+          location_around(evt.clicked_block.location, 2).each do |loc|
             explode(loc, 0, false) if rand(9) < 2
           end
           # TODO: explode focusing entity (mob or block)
@@ -736,13 +736,13 @@ module EventHandler
     warn "Don't use it"
   end
 
-  # location_around(loc_centre, 2) {|loc| ... }
+  # location_around(loc_centre, 2).each {|loc| ... }
   # will do something around the centre (loc_centre) with width 2
   def location_around(loc, size)
     location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0,0,0]
-    location_list.each do |x,y,z|
-      yield loc.clone.add(x, y, z)
-    end
+    location_list.map {|x,y,z|
+      loc.clone.add(x, y, z)
+    }
   end
 end
 
