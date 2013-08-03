@@ -205,13 +205,11 @@ module EventHandler
     end
   end
 
-
   def on_player_interact_entity(evt)
-
     case evt.right_clicked
     when Villager
       # job change
-      let evt do |evt| 
+      let evt do |evt|
         enchanted_table, chest = nil
         evt.player.send_message "you right clicked villager!"
         location_around(evt.right_clicked.location, 1) do |loc|
@@ -220,7 +218,7 @@ module EventHandler
           when Material::CHEST; chest = loc.block
           end
         end
-        unless enchanted_table.nil? || chest.nil?
+        if enchanted_table && chest
           inv = loc.block.state.inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
