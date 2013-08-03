@@ -515,7 +515,7 @@ module EventHandler
       case defender
       when Player
         if defender.blocking?
-          evt.damager.damage(evt.damage, evt.damager)
+          evt.damager.damage(evt.damage, defender)
           evt.cancelled = true
         end
       end
