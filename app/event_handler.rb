@@ -212,11 +212,11 @@ module EventHandler
       let evt do |evt|
         enchanted_table, chest = nil
         evt.player.send_message "you right clicked villager!"
-        locs = location_around(evt.right_clicked.location, 1)
-        locs.each do |loc|
-          case loc.block.type
-          when Material::ENCHANTMENT_TABLE; enchanted_table = loc.block
-          when Material::CHEST; chest = loc.block
+        blocks = location_around(evt.right_clicked.location, 1).map(&:block)
+        blocks.each do |block|
+          case block.type
+          when Material::ENCHANTMENT_TABLE; enchanted_table = block
+          when Material::CHEST; chest = block
           end
         end
         if enchanted_table && chest
