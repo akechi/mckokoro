@@ -243,8 +243,12 @@ module EventHandler
 
     player = evt.player
 
-    fill_two_blocks(
+    result = fill_two_blocks(
       player, @player_block_place_lasttime[player], evt.block_placed)
+    if result
+      # remove the tripwire
+      evt.block_placed.type = Material::AIR
+    end
 
     @player_block_place_lasttime[player] = evt.block_placed
 
