@@ -187,6 +187,8 @@ module EventHandler
     return if !block1 || !block2
     if block1.type != block2.type
       player.send_message "Failed! #{block1.type} isn't #{block2.type}."
+    elsif block1.location == block2.location
+      player.send_message 'Failed! same places.'
     else
       player.send_message 'success!'
     end
