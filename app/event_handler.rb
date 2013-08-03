@@ -201,7 +201,7 @@ module EventHandler
         player.send_message "Success!"
         set_base_axis = :"set#{base_axis.to_s.upcase}"
         range = block1.send(base_axis)..block2.send(base_axis)
-        if range.size > 100
+        if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
           player.send_message "Failed! the range size is too big #{range.size}"
           return
         end
