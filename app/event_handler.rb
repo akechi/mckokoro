@@ -264,7 +264,7 @@ module EventHandler
       amounts[s.type] ||= 0
       amounts[s.type] -= s.amount
     end
-    return amounts.all? {|k,v| v == 0 }
+    amounts.all? {|k,v| v == 0 }
   end
 
 
