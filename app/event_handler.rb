@@ -208,8 +208,10 @@ module EventHandler
         range.each do |b|
           loc = block1.location.tap {|l| l.send(set_base_axis, b) }
           #player.send_message loc.to_s
-          loc.block.type = block1.type
-          loc.block.state.data = block1.state.data
+          unless loc.block.type.solid?
+            loc.block.type = block1.type
+            loc.block.state.data = block1.state.data
+          end
         end
         # TODO
       else # == 3
