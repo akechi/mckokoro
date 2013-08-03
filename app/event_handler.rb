@@ -274,7 +274,10 @@ module EventHandler
       break a
     end
     inv.contents.each do |s|
-      amounts[s.type] -= s.amount if s && amounts[s.type]
+      if s
+        amounts[s.type] ||= 0
+        amounts[s.type] -= s.amount
+      end
     end
     return amounts.all? {|k,v| v == 0 }
   end
@@ -309,8 +312,10 @@ module EventHandler
         chest = blocks.find {|b| Material::CHEST === b.type }
         if enchantment_table && chest
           player.send_message "Job change!"
+          inv = chest.state.inventory
           @job_recipes.each do |name, recipe|
-            if player_job_changable?(player, chest.state.inventory, name)
+            if player_job_changable?(player, inv, name)
+              inv.clear
               Job.become(player, name)
               player.send_message "Now your job is #{Job.of(player)}"
             end
