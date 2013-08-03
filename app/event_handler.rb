@@ -251,20 +251,80 @@ module EventHandler
     end
   end
 
+
+  def player_job_changable?(player,inv,job)
+    # initialize
+    @job_exp ||= {}
+    @job_exp[evt.player.name] ||= {}
+    @job_exp[evt.player.name][:novice] ||= 0
+    
+    job_exp = @job_exp[player.name]
+    recipe = @job_recipes[job]
+    # masteries check
+    recipe[:masteries].each do |name, exp|
+      job_exp[name] ||= 0
+      if job_exp[name] < exp
+        player.send_message "You need #{ exp - job_exp[name] }exp at #{ name } job to change to #{ job }!"
+        return false
+      end
+    end
+    # votive check
+    return inventory_match?(inv, recipe[:votive])
+  end
+
+
+  def inventory_match?(inv,item_stacks)
+    amouts = {}.tap do |r|
+      item_stacks.each do |s|
+        r[s.type] ||= 0
+        r[s.type] += s.amount
+      end
+    end
+    inv.contains.each do |s|
+      r[s.type] -= s.amount if r[s.type]
+    end
+    return r.all? {|k,v| v == 0 }
+  end
+
+
   def on_player_interact_entity(evt)
     case evt.right_clicked
     when Villager
       # job change
+      # job recipes
+      # TODO: move to each Job class
+      @job_recipes ||= {}
+      @boj_recipes[:novice] ||= {
+        masteries: { novice: 0 },
+        votive: [
+          ItemStack.new(Material::SUGAR, 1),
+          ItemStack.new(Material::COBBLESTONE, 1)
+        ]
+      }
+      @job_recipes[:killerqueen] ||= {
+        masteries: { novice: 0 },
+        votive: [
+          ItemStack.new(Material::SULPHUR, 64),
+          ItemStack.new(Material::SUGAR, 64),
+          ItemStack.new(Material::DIAMOND, 32)
+        ]
+      }
+      # job change by villager
       let(nil) do |(enchantment_table, chest)|
+        player = evt.player
         blocks = location_around(evt.right_clicked.location, 1).map(&:block)
         enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
         chest = blocks.find {|b| Material::CHEST === b.type }
         if enchantment_table && chest
-          evt.player.send_message "Job change!"
-          inv = chest.state.inventory
-          inv.contents.each do |stack|
-            evt.player.send_message "[CHEST] found #{ stack.amount } #{ stack.type }" if stack
-          end
+          player.send_message "Job change!"
+          @job_recipes.each do |name, recipe|
+            if player_job_changable?(plauer, chest.state.inventory, name)
+              Job.become(player, name)
+              player.send_message "Now your job is #{Job.of(player)}"
+            else
+              player.send_message "Failed to change job..."
+            end
+          end 
         end
       end
     else
