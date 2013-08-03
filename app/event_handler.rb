@@ -215,7 +215,7 @@ module EventHandler
         chest = blocks.find {|b| Material::CHEST === b.type }
         if enchantment_table && chest
           evt.player.send_message "Job change!"
-          inv = loc.block.state.block_inventory
+          inv = chest.block_inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
           end
