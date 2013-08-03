@@ -195,7 +195,10 @@ module EventHandler
       when 1
         player.send_message 'Success! .. but not implemented yet'
       when 2
-        player.send_message 'Success!'
+        base_axis =
+          !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
+        block1, block2 = [block1, block2].sort_by(&base_axis)
+        player.send_message "Success! from #{block1} to #{block2}"
         # TODO
       else # == 3
         player.send_message 'Failed! same places.'
