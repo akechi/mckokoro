@@ -252,6 +252,24 @@ module EventHandler
   end
 
 
+  def inventory_match?(inv,item_stacks)
+    amounts = {}.tap do |a|
+      item_stacks.each do |s|
+        a[s.type] ||= 0
+        a[s.type] += s.amount
+      end
+      break a
+    end
+    inv.contents.each do |s|
+      if s
+        amounts[s.type] ||= 0
+        amounts[s.type] -= s.amount
+      end
+    end
+    return amounts.all? {|k,v| v == 0 }
+  end
+
+
   def on_player_interact_entity(evt)
     case evt.right_clicked
     when Villager
