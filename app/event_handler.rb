@@ -177,23 +177,26 @@ module EventHandler
   end
 
   def fill_two_blocks(player, block1, block2)
-    return if !block1 or !block2
+    return false if !block1 or !block2
     cond =
       block1.type == Material::TRIPWIRE_HOOK &&
       block2.type == Material::TRIPWIRE_HOOK
-    return unless cond
+    return false unless cond
     block1 = contacting_block(block1)
     block2 = contacting_block(block2)
-    return if !block1 || !block2
+    return false if !block1 || !block2
     if block1.type != block2.type
       player.send_message "Failed! #{block1.type} isn't #{block2.type}."
+      false
     else
       vec = block2.location.clone.subtract(block1.location)
       case [vec.x, vec.y, vec.z].count(&:zero?)
       when 0
         player.send_message 'Failed! give 2 points on same face.'
+        false
       when 1
         player.send_message 'Success! .. but not implemented yet'
+        false
       when 2
         base_axis =
           !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
@@ -203,19 +206,21 @@ module EventHandler
         range = block1.send(base_axis)..block2.send(base_axis)
         if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
           player.send_message "Failed! the range size is too big #{range.size}"
-          return
-        end
-        range.each do |b|
-          loc = block1.location.tap {|l| l.send(set_base_axis, b) }
-          #player.send_message loc.to_s
-          unless loc.block.type.solid?
-            loc.block.type = block1.type
-            loc.block.state.data = block1.state.data
+          false
+        else
+          range.each do |b|
+            loc = block1.location.tap {|l| l.send(set_base_axis, b) }
+            #player.send_message loc.to_s
+            unless loc.block.type.solid?
+              loc.block.type = block1.type
+              loc.block.state.data = block1.state.data
+            end
           end
+          true
         end
-        # TODO
       else # == 3
         player.send_message 'Failed! same places.'
+        false
       end
     end
   end
