@@ -4,6 +4,8 @@ module Job
   module_function
 
   @job_player ||= {}
+  @job_exp ||= {}
+  @job_recipes ||= {}
 
   def reload
     EventHandler.later 0 do
@@ -12,7 +14,10 @@ module Job
   end
 
   def of(player)
-    @job_player[player] || :neet
+    unless @job_player[player]
+      become player, :novice
+    end
+    @job_player[player]
   end
 
   def become(player, new_job)
@@ -21,6 +26,8 @@ module Job
       return
     end
 
+    @job_exp[player] ||= {}
+    @job_exp[player][new_job] ||= 0
     @job_player[player] = new_job
   end
 end

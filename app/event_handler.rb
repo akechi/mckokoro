@@ -255,25 +255,24 @@ module EventHandler
   def player_job_changable?(player,inv,job)
     # initialize
     @job_exp ||= {}
-    @job_exp[player.name] ||= {}
-    @job_exp[player.name][:novice] ||= 0
+    Job.of player
 
-    player.send_message "Checking if you can change job to #{ job }..."
+    # player.send_message "Checking if you can change job to #{ job }..."
     
-    job_exp = @job_exp[player.name]
+    job_exp = @job_exp[player]
     recipe = @job_recipes[job]
     # masteries check
-    player.send_message "Checking if you have enough job exp..."
+    # player.send_message "Checking if you have enough job exp..."
     recipe[:masteries].each do |name, exp|
       job_exp[name] ||= 0
       if job_exp[name] < exp
-        player.send_message "You need #{ exp - job_exp[name] }exp at #{ name } job to change to #{ job }!"
+        # player.send_message "You need #{ exp - job_exp[name] }exp at #{ name } job to change to #{ job }!"
         return false
       end
     end
-    player.send_message "Yay! you have enough exp!"
+    # player.send_message "Yay! you have enough exp!"
     # votive check
-    player.send_message "Checking if you set enough votive..."
+    # player.send_message "Checking if you set enough votive..."
     return inventory_match?(inv, recipe[:votive])
   end
 
@@ -299,7 +298,6 @@ module EventHandler
       # job change
       # job recipes
       # TODO: move to each Job class
-      @job_recipes ||= {}
       @job_recipes[:novice] ||= {
         masteries: { novice: 0 },
         votive: [
@@ -327,8 +325,6 @@ module EventHandler
             if player_job_changable?(player, chest.state.inventory, name)
               Job.become(player, name)
               player.send_message "Now your job is #{Job.of(player)}"
-            else
-              player.send_message "Failed to change job..."
             end
           end 
         end
