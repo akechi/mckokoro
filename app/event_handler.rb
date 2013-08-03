@@ -176,10 +176,21 @@ module EventHandler
     post_lingr "#{player.name} died: #{evt.death_message.sub(/^#{player.name}/, '')} at (#{player.location.x.to_i}, #{player.location.z.to_i}) in #{player.location.world.name}."
   end
 
+  def fill_two_blocks(player, block1, block2)
+    player.send_message "#{block1.location}, #{block2.location}"
+  end
+
+  @player_block_place_lasttime ||= {}
   def on_block_place(evt)
     return unless evt.canBuild
 
     player = evt.player
+
+    fill_two_blocks(
+      player, @player_block_place_lasttime[player], evt.block_placed)
+
+    @player_block_place_lasttime[player] = evt.block_placed
+
     unless @db['achievement']['block-place'][player.name]
       if evt.block_placed.type == Material::WORKBENCH
         player.send_message "[ACHIEVEMENT UNLOCKED]"
