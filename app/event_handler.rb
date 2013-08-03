@@ -190,7 +190,9 @@ module EventHandler
     elsif block1.location == block2.location
       player.send_message 'Failed! same places.'
     else
-      player.send_message 'success!'
+      player.send_message 'Success!'
+      vec = block2.clone.subtract(block1)
+      player.send_message vec.to_s
     end
   end
 
