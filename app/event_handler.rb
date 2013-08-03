@@ -299,7 +299,6 @@ module EventHandler
 
   def on_player_interact(evt)
     if evt.clicked_block
-
       if Job.of(evt.player) == :killerqueen
         case [ evt.player.item_in_hand.type, evt.action ]
         when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ]
@@ -323,8 +322,8 @@ module EventHandler
       end
 
       # seeding
-      case [ evt.clicked_block.type, evt.player.item_in_hand.type, evt.action ]
-      when [ Material::DIRT, Material::SEEDS, Action::RIGHT_CLICK_BLOCK ]
+      case [ evt.clicked_block.type, evt.action, evt.player.item_in_hand.type ]
+      when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS ]
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
       end
