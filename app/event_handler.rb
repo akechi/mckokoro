@@ -211,7 +211,7 @@ module EventHandler
     case evt.right_clicked
     when Villager
       # job change
-      evt.let do |evt| 
+      let evt do |evt| 
         location_around(evt.right_clicked.location, 1) do |loc|
           case loc.block.type
           when Material::ENCHANTMENT_TABLE
