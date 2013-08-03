@@ -211,7 +211,9 @@ module EventHandler
     case evt.right_clicked
     when Villager
       # job change
+      enchanted_table, chest = nil
       let evt do |evt| 
+        evt.player.send_message "you right clicked villager!"
         location_around(evt.right_clicked.location, 1) do |loc|
           case loc.block.type
           when Material::ENCHANTMENT_TABLE
@@ -222,8 +224,7 @@ module EventHandler
             evt.player.send_message "found chest around villager!"
           end
         end
-        evt.player.send_message "you right clicked villager!"
-        if defined?( enchanted_table ) && defined?( chest )
+        unless enchanted_table.nil? || chest.nil?
           inv = loc.block.state.inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
