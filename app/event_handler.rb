@@ -184,14 +184,19 @@ module EventHandler
     if cond
       block1 = contacting_block(block1)
       block2 = contacting_block(block2)
-      player.send_message "#{block1}, #{block2}"
+      if block1 && block2
+        player.send_message "#{block1}, #{block2}"
+      end
     end
   end
 
   # assuming the block has BlockFace
   def contacting_block(block)
     face = block.state.data.facing
-    warn "block #{block}'s face is nil" unless face
+    unless face
+      warn "block #{block}'s face is nil"
+      nil
+    end
     block.location.clone.tap {|loc|
       loc.subtract(face.mod_x, face.mod_y, face.mod_z)
     }.block
