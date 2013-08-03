@@ -181,12 +181,14 @@ module EventHandler
     cond =
       block1.type == Material::TRIPWIRE_HOOK &&
       block2.type == Material::TRIPWIRE_HOOK
-    if cond
-      block1 = contacting_block(block1)
-      block2 = contacting_block(block2)
-      if block1 && block2
-        player.send_message "#{block1}, #{block2}"
-      end
+    return unless cond
+    block1 = contacting_block(block1)
+    block2 = contacting_block(block2)
+    return if !block1 || !block2
+    if block1.type != block2.type
+      player.send_message "Failed! #{block1.type} isn't #{block2.type}."
+    else
+      player.send_message 'success!'
     end
   end
 
