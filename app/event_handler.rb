@@ -252,7 +252,7 @@ module EventHandler
   end
 
 
-  def inventory_match?(inv,item_stacks)
+  def inventory_match?(inv, item_stacks)
     amounts = let({}) do |a|
       item_stacks.each do |s|
         a[s.type] ||= 0
@@ -264,7 +264,7 @@ module EventHandler
       amounts[s.type] ||= 0
       amounts[s.type] -= s.amount
     end
-    amounts.all? {|k,v| v == 0 }
+    amounts.all? {|k, v| v == 0 }
   end
 
 
@@ -814,8 +814,8 @@ module EventHandler
   # location_around(loc_centre, 2).each {|loc| ... }
   # will do something around the centre (loc_centre) with width 2
   def location_around(loc, size)
-    location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0,0,0]
-    location_list.map {|x,y,z|
+    location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0, 0, 0]
+    location_list.map {|x, y, z|
       loc.clone.add(x, y, z)
     }
   end
