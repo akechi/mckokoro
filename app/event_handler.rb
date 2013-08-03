@@ -213,12 +213,8 @@ module EventHandler
         enchanted_table, chest = nil
         evt.player.send_message "you right clicked villager!"
         blocks = location_around(evt.right_clicked.location, 1).map(&:block)
-        blocks.each do |block|
-          case block.type
-          when Material::ENCHANTMENT_TABLE; enchanted_table = block
-          when Material::CHEST; chest = block
-          end
-        end
+        enchanted_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
+        chest = blocks.find {|b| Material::CHEST === b.type }
         if enchanted_table && chest
           inv = loc.block.state.inventory
           inv.contents.each do |stack|
