@@ -210,12 +210,12 @@ module EventHandler
     when Villager
       # job change
       let(nil) do |(enchantment_table, chest)|
-        evt.player.send_message "you right clicked villager!"
         blocks = location_around(evt.right_clicked.location, 1).map(&:block)
         enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
         chest = blocks.find {|b| Material::CHEST === b.type }
         if enchantment_table && chest
-          inv = loc.block.state.inventory
+          evt.player.send_message "Job change!"
+          inv = loc.block.state.block_inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
           end
