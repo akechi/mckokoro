@@ -178,9 +178,25 @@ module EventHandler
 
   def fill_two_blocks(player, block1, block2)
     return if !block1 or !block2
-    if block1 != block2 && block1.type == Material::TRIPWIRE_HOOK && block2.type == Material::TRIPWIRE_HOOK
-      player.send_message "#{block1.location}, #{block2.location}"
+    cond =
+      block1.type == Material::TRIPWIRE_HOOK &&
+      block2.type == Material::TRIPWIRE_HOOK
+    if cond
+      block1 = contacting_block(block1)
+      block2 = contacting_block(block2)
+      player.send_message "#{block1}, #{block2}"
     end
+  end
+
+  # assuming the block has BlockFace
+  def contacting_block(block)
+    face = block.face
+    warn "block #{block}'s face is nil" unless face
+    block.location.clone.tap {|loc|
+      loc.add_x face.mod_x
+      loc.add_y face.mod_y
+      loc.add_z face.mod_z
+    }.block
   end
 
   @player_block_place_lasttime ||= {}
