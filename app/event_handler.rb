@@ -200,7 +200,12 @@ module EventHandler
         block1, block2 = [block1, block2].sort_by(&base_axis)
         player.send_message "Success!"
         set_base_axis = :"set#{base_axis.to_s.upcase}"
-        (block1.send(base_axis)..block2.send(base_axis)).each do |b|
+        range = block1.send(base_axis)..block2.send(base_axis)
+        if range.size > 100
+          player.send_message "Failed! the range size is too big #{range.size}"
+          return
+        end
+        range.each do |b|
           loc = block1.location.tap {|l| l.send(set_base_axis, b) }
           #player.send_message loc.to_s
           loc.block.type = block1.type
