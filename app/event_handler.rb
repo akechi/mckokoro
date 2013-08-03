@@ -205,9 +205,7 @@ module EventHandler
     end
   end
 
-
   def on_player_interact_entity(evt)
-
     case evt.right_clicked
     when Villager
       # job change
