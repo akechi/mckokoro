@@ -281,13 +281,13 @@ module EventHandler
   def inventory_match?(inv,item_stacks)
     amounts = {}.tap do |a|
       item_stacks.each do |s|
-        a[s.type.to_s] ||= 0
-        a[s.type.to_s] += s.amount
+        a[s.type] ||= 0
+        a[s.type] += s.amount
       end
       break a
     end
-    inv.contains.each do |s|
-      amounts[s.type.to_s] -= s.amount if s && amounts[s.type.to_s]
+    inv.contents.each do |s|
+      amounts[s.type] -= s.amount if s && amounts[s.type]
     end
     return amounts.all? {|k,v| v == 0 }
   end
