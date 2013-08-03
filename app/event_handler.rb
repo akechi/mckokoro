@@ -275,14 +275,14 @@ module EventHandler
       # job recipes
       # TODO: move to each Job class
       Job.set_recipe(:novice, {
-        masteries: { novice: 0 },
+        masteries: {novice: 0},
         votive: [
           ItemStack.new(Material::SUGAR, 1),
           ItemStack.new(Material::COBBLESTONE, 1)
         ]
       })
       Job.set_recipe(:killerqueen, {
-        masteries: { novice: 0 },
+        masteries: {novice: 0},
         votive: [
           ItemStack.new(Material::SULPHUR, 64),
           ItemStack.new(Material::SUGAR, 64),
