@@ -494,20 +494,24 @@ module EventHandler
   end
 
   def on_entity_damage_by_entity(evt)
+    defender = evt.entity
     case evt.damager
     when Arrow
-      case evt.damager.shooter
-      when Player
-        player = evt.damager.shooter
-        if Job.of(player) == :archer
-          # because it's fast
-          evt.damage *= 0.85
-        else
-          evt.damage *= 2
+      if Player === defender && defender.blocking?
+        evt.damage = 0
+      else
+        case evt.damager.shooter
+        when Player
+          player = evt.damager.shooter
+          if Job.of(player) == :archer
+            # because it's fast
+            evt.damage *= 0.85
+          else
+            evt.damage *= 2
+          end
         end
       end
     when LivingEntity
-      defender = evt.entity
       case defender
       when Player
         if defender.blocking?
