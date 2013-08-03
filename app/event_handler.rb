@@ -178,7 +178,7 @@ module EventHandler
 
   def fill_two_blocks(player, block1, block2)
     return if !block1 or !block2
-    if block1.type == Material::TRIPWIRE_HOOK && block2.type == Material::TRIPWIRE_HOOK
+    if block1 != block2 && block1.type == Material::TRIPWIRE_HOOK && block2.type == Material::TRIPWIRE_HOOK
       player.send_message "#{block1.location}, #{block2.location}"
     end
   end
