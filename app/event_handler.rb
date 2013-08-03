@@ -260,11 +260,9 @@ module EventHandler
       end
       a
     end
-    inv.contents.each do |s|
-      if s
-        amounts[s.type] ||= 0
-        amounts[s.type] -= s.amount
-      end
+    inv.contents.to_a.compact.each do |s|
+      amounts[s.type] ||= 0
+      amounts[s.type] -= s.amount
     end
     return amounts.all? {|k,v| v == 0 }
   end
