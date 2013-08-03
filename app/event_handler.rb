@@ -214,12 +214,12 @@ module EventHandler
         case loc.block.type
         when Material::ENCHANTMENT_TABLE
           evt.player.send_message "found enchant table around villager!"
+        when Material::CHEST
+          evt.player.send_message "found chest around villager!"
           inv = loc.block.inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
           end
-        when Material::CHEST
-          evt.player.send_message "found chest around villager!"
         end
       end
       evt.player.send_message "you right clicked villager!"
