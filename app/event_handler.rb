@@ -279,6 +279,7 @@ module EventHandler
         r[s.type] ||= 0
         r[s.type] += s.amount
       end
+      break r
     end
     inv.contains.each do |s|
       r[s.type] -= s.amount if s && r[s.type]
