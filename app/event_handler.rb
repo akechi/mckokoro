@@ -258,11 +258,12 @@ module EventHandler
     @job_exp[player.name] ||= {}
     @job_exp[player.name][:novice] ||= 0
 
-    player.send_message "Checking if you can change job..."
+    player.send_message "Checking if you can change job to #{ job }..."
     
     job_exp = @job_exp[player.name]
     recipe = @job_recipes[job]
     # masteries check
+    player.send_message "Checking if you have enough job exp..."
     recipe[:masteries].each do |name, exp|
       job_exp[name] ||= 0
       if job_exp[name] < exp
@@ -270,7 +271,9 @@ module EventHandler
         return false
       end
     end
+    player.send_message "Yay! you have enough exp!"
     # votive check
+    player.send_message "Checking if you set enough votive..."
     return inventory_match?(inv, recipe[:votive])
   end
 
