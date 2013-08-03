@@ -294,7 +294,7 @@ module EventHandler
       # job recipes
       # TODO: move to each Job class
       @job_recipes ||= {}
-      @boj_recipes[:novice] ||= {
+      @job_recipes[:novice] ||= {
         masteries: { novice: 0 },
         votive: [
           ItemStack.new(Material::SUGAR, 1),
