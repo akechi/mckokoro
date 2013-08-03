@@ -257,6 +257,8 @@ module EventHandler
     @job_exp ||= {}
     @job_exp[player.name] ||= {}
     @job_exp[player.name][:novice] ||= 0
+
+    player.send_message "Checking if you can change job..."
     
     job_exp = @job_exp[player.name]
     recipe = @job_recipes[job]
