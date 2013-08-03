@@ -198,11 +198,13 @@ module EventHandler
         base_axis =
           !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
         block1, block2 = [block1, block2].sort_by(&base_axis)
-        player.send_message "Success! from #{block1} to #{block2}"
+        player.send_message "Success!"
         set_base_axis = :"set#{base_axis.to_s.upcase}"
         (block1.send(base_axis)..block2.send(base_axis)).each do |b|
           loc = block1.location.tap {|l| l.send(set_base_axis, b) }
-          player.send_message loc.to_s
+          #player.send_message loc.to_s
+          loc.block.type = block1.type
+          loc.block.state = block1.state
         end
         # TODO
       else # == 3
