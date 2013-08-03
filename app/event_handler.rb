@@ -253,26 +253,14 @@ module EventHandler
 
 
   def player_job_changable?(player,inv,job)
-    # initialize
-    @job_exp ||= {}
-    Job.of player
-
-    # player.send_message "Checking if you can change job to #{ job }..."
-    
-    job_exp = @job_exp[player]
-    recipe = @job_recipes[job]
+    recipe = Job.recipe job
     # masteries check
-    # player.send_message "Checking if you have enough job exp..."
     recipe[:masteries].each do |name, exp|
-      job_exp[name] ||= 0
-      if job_exp[name] < exp
-        # player.send_message "You need #{ exp - job_exp[name] }exp at #{ name } job to change to #{ job }!"
+      if Job.exp(player, name) < exp
         return false
       end
     end
-    # player.send_message "Yay! you have enough exp!"
     # votive check
-    # player.send_message "Checking if you set enough votive..."
     return inventory_match?(inv, recipe[:votive])
   end
 
@@ -298,21 +286,21 @@ module EventHandler
       # job change
       # job recipes
       # TODO: move to each Job class
-      @job_recipes[:novice] ||= {
+      Job.set_recipe(:novice, {
         masteries: { novice: 0 },
         votive: [
           ItemStack.new(Material::SUGAR, 1),
           ItemStack.new(Material::COBBLESTONE, 1)
         ]
-      }
-      @job_recipes[:killerqueen] ||= {
+      })
+      Job.set_recipe(:killerqueen, {
         masteries: { novice: 0 },
         votive: [
           ItemStack.new(Material::SULPHUR, 64),
           ItemStack.new(Material::SUGAR, 64),
           ItemStack.new(Material::DIAMOND, 32)
         ]
-      }
+      })
       # job change by villager
       let(nil) do |(enchantment_table, chest)|
         player = evt.player

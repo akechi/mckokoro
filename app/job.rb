@@ -13,6 +13,19 @@ module Job
     end
   end
 
+  def set_recipe(job, recipe)
+    @job_recipes[job] = recipe
+  end
+
+  def recipe(job)
+    @job_recipes[job]
+  end
+
+  def exp(player,job)
+    @job_exp[player] ||= {}
+    @job_exp[player][job] ||= 0
+  end
+
   def of(player)
     unless @job_player[player]
       become player, :novice
@@ -26,8 +39,6 @@ module Job
       return
     end
 
-    @job_exp[player] ||= {}
-    @job_exp[player][new_job] ||= 0
     @job_player[player] = new_job
   end
 end
