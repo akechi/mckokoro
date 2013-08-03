@@ -177,6 +177,7 @@ module EventHandler
   end
 
   def fill_two_blocks(player, block1, block2)
+    return if !block1 or !block2
     player.send_message "#{block1.location}, #{block2.location}"
   end
 
