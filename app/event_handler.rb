@@ -314,17 +314,17 @@ module EventHandler
       end
 
     else
-      if evt.player.sprinting?
-        loc = evt.player.location
-        horse = loc.world.spawn_entity(loc, EntityType::HORSE)
-        horse.domestication = horse.max_domestication
-        #later 0 do
-        #  evt.player.vehicle = horse
-        #end
-        later sec(60) do
-          horse.damage(horse.max_health)
-        end
-      end
+      #if evt.player.sprinting?
+      #  loc = evt.player.location
+      #  horse = loc.world.spawn_entity(loc, EntityType::HORSE)
+      #  horse.domestication = horse.max_domestication
+      #  #later 0 do
+      #  #  evt.player.vehicle = horse
+      #  #end
+      #  later sec(60) do
+      #    horse.damage(horse.max_health)
+      #  end
+      #end
     end
   end
 
@@ -447,16 +447,29 @@ module EventHandler
   end
 
   def on_entity_damage_by_entity(evt)
+    defender = evt.entity
     case evt.damager
     when Arrow
-      case evt.damager.shooter
+      if Player === defender && defender.blocking?
+        evt.damage = 0
+      else
+        case evt.damager.shooter
+        when Player
+          player = evt.damager.shooter
+          if Job.of(player) == :archer
+            # because it's fast
+            evt.damage *= 0.85
+          else
+            evt.damage *= 2
+          end
+        end
+      end
+    when LivingEntity
+      case defender
       when Player
-        player = evt.damager.shooter
-        if Job.of(player) == :archer
-          # because it's fast
-          evt.damage *= 0.85
-        else
-          evt.damage *= 2
+        if defender.blocking?
+          evt.damager.damage(evt.damage, defender)
+          evt.cancelled = true
         end
       end
     end
