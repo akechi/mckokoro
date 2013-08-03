@@ -217,7 +217,7 @@ module EventHandler
           evt.player.send_message "Job change!"
           inv = chest.state.inventory
           inv.contents.each do |stack|
-            evt.player.send_message "[CHEST] found #{ stack.amount } #{ stack.data }"
+            evt.player.send_message "[CHEST] found #{ stack.amount } #{ stack.data }" if stack
           end
         end
       end
