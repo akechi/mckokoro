@@ -255,8 +255,8 @@ module EventHandler
   def player_job_changable?(player,inv,job)
     # initialize
     @job_exp ||= {}
-    @job_exp[evt.player.name] ||= {}
-    @job_exp[evt.player.name][:novice] ||= 0
+    @job_exp[player.name] ||= {}
+    @job_exp[player.name][:novice] ||= 0
     
     job_exp = @job_exp[player.name]
     recipe = @job_recipes[job]
