@@ -318,7 +318,7 @@ module EventHandler
         if enchantment_table && chest
           player.send_message "Job change!"
           @job_recipes.each do |name, recipe|
-            if player_job_changable?(plauer, chest.state.inventory, name)
+            if player_job_changable?(player, chest.state.inventory, name)
               Job.become(player, name)
               player.send_message "Now your job is #{Job.of(player)}"
             else
