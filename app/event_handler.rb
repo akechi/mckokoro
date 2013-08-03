@@ -204,7 +204,7 @@ module EventHandler
           loc = block1.location.tap {|l| l.send(set_base_axis, b) }
           #player.send_message loc.to_s
           loc.block.type = block1.type
-          loc.block.state = block1.state
+          loc.block.state.data = block1.state.data
         end
         # TODO
       else # == 3
