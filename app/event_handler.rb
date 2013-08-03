@@ -222,7 +222,7 @@ module EventHandler
             evt.player.send_message "found chest around villager!"
           end
         end
-        unless enchanted_table.nil? || chest.nil?
+        if enchanted_table && chest
           inv = loc.block.state.inventory
           inv.contents.each do |stack|
             evt.player.send_message "[CHEST] found #{ stack.amound } #{ type.data }"
