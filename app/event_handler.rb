@@ -506,6 +506,15 @@ module EventHandler
           evt.damage *= 2
         end
       end
+    when LivingEntity
+      defender = evt.entity
+      case defender
+      when Player
+        if defender.blocking?
+          evt.damager.damage(evt.damage, evt.damager)
+          evt.cancelled = true
+        end
+      end
     end
   end
 
