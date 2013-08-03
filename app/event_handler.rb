@@ -190,7 +190,7 @@ module EventHandler
 
   # assuming the block has BlockFace
   def contacting_block(block)
-    face = block.face
+    face = block.state.facing
     warn "block #{block}'s face is nil" unless face
     block.location.clone.tap {|loc|
       loc.add_x face.mod_x
