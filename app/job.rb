@@ -26,6 +26,56 @@ module Job
     @job_exp[player][job] ||= 0
   end
 
+
+  def player_job_changable?(player,inv,job)
+    recipe = Job.recipe job
+    # masteries check
+    recipe[:masteries].each do |name, exp|
+      if Job.exp(player, name) < exp
+        return false
+      end
+    end
+    # votive check
+    return inventory_match?(inv, recipe[:votive])
+  end
+
+
+  def inventory_match?(inv,item_stacks)
+    amounts = {}.tap do |a|
+      item_stacks.each do |s|
+        a[s.type] ||= 0
+        a[s.type] += s.amount
+      end
+      break a
+    end
+    inv.contents.each do |s|
+      if s
+        amounts[s.type] ||= 0
+        amounts[s.type] -= s.amount
+      end
+    end
+    return amounts.all? {|k,v| v == 0 }
+  end
+
+  def job_change_event(evt)
+    enchantment_table, chest = nil
+    player = evt.player
+    blocks = location_around(evt.right_clicked.location, 1).map(&:block)
+    enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
+    chest = blocks.find {|b| Material::CHEST === b.type }
+    if enchantment_table && chest
+      player.send_message "Job change!"
+      inv = chest.state.inventory
+      @job_recipes.each do |name, recipe|
+        if player_job_changable?(player, inv, name)
+          inv.clear
+          Job.become(player, name)
+          player.send_message "Now your job is #{Job.of(player)}"
+        end
+      end 
+    end
+  end
+
   def of(player)
     unless @job_player[player]
       become player, :novice
