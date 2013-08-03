@@ -187,12 +187,19 @@ module EventHandler
     return if !block1 || !block2
     if block1.type != block2.type
       player.send_message "Failed! #{block1.type} isn't #{block2.type}."
-    elsif block1.location == block2.location
-      player.send_message 'Failed! same places.'
     else
-      player.send_message 'Success!'
       vec = block2.location.clone.subtract(block1.location)
-      player.send_message vec.to_s
+      case [vec.x, vec.y, vec.z].count(&:zero?)
+      when 0
+        player.send_message 'Failed! give 2 points on same face.'
+      when 1
+        player.send_message 'Success! .. but not implemented yet'
+      when 2
+        player.send_message 'Success!'
+        # TODO
+      else # == 3
+        player.send_message 'Failed! same places.'
+      end
     end
   end
 
