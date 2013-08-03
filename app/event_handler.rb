@@ -216,12 +216,8 @@ module EventHandler
         evt.player.send_message "you right clicked villager!"
         location_around(evt.right_clicked.location, 1) do |loc|
           case loc.block.type
-          when Material::ENCHANTMENT_TABLE
-            enchanted_table = loc.block
-            evt.player.send_message "found enchant table around villager!"
-          when Material::CHEST
-            chest = loc.block
-            evt.player.send_message "found chest around villager!"
+          when Material::ENCHANTMENT_TABLE; enchanted_table = loc.block
+          when Material::CHEST; chest = loc.block
           end
         end
         unless enchanted_table.nil? || chest.nil?
