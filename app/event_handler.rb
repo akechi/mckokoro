@@ -193,9 +193,7 @@ module EventHandler
     face = block.state.data.facing
     warn "block #{block}'s face is nil" unless face
     block.location.clone.tap {|loc|
-      loc.add_x face.mod_x
-      loc.add_y face.mod_y
-      loc.add_z face.mod_z
+      loc.add(face.mod_x, face.mod_y, face.mod_z)
     }.block
   end
 
