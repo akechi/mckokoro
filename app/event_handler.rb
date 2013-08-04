@@ -226,7 +226,7 @@ module EventHandler
 
   def fill_two_blocks2(player, base_block, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
-    (0...size).each do |diff|
+    (0..size).each do |diff|
       loc = base_block.location.tap {|l|
         l.send(set_base_axis, l.send(base_axis) + diff)
       }
