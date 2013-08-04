@@ -384,6 +384,7 @@ module EventHandler
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         player.velocity = player.velocity.tap{|v| v.setY jfloat(1.4) }
+        consume_item(player)
       end
       # TODO
     else
@@ -393,8 +394,9 @@ module EventHandler
         x, z =
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
-        player.velocity = Vector.new(2 * x, 1.0, 2 * z)
+        player.velocity = Vector.new(2 * x, 0.5, 2 * z)
         player.fall_distance = 0.0
+        consume_item(player)
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(1.0)
