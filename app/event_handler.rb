@@ -380,6 +380,11 @@ module EventHandler
   def feather_freedom_move(player, action)
     return unless player.item_in_hand.type == Material::FEATHER
     if player.sneaking?
+      case action
+      when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
+        player.fall_distance = 0.0
+        player.velocity = evt.player.velocity.tap{|v| v.setY jfloat(1.4) }
+      end
       # TODO
     else
       case action
