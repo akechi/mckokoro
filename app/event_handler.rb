@@ -429,8 +429,9 @@ module EventHandler
         evt.entity.shooter.item_in_hand &&
         evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
       if cond
-        soft_blocks = [Material::GRASS, Material::DIRT, Material::GRAVEL]
-        location_around(evt.entity.location, 2).each do |loc|
+        soft_blocks =
+          [Material::GRASS, Material::DIRT, Material::GRAVEL, Material::STONE]
+        location_around(evt.entity.location, 1).each do |loc|
           b = loc.block
           cond =
             soft_blocks.include?(b.type) &&
