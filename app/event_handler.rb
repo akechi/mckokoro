@@ -215,8 +215,8 @@ module EventHandler
 
   def fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
     player.send_message 'Success!!!'
-    sizev = v2 - v1
-    sizew = w2 - w1
+    sizev = v2 - v1 + 1
+    sizew = w2 - w1 + 1
     itemstacks = player.inventory.contents.to_a.compact.select {|is|
       is.type == block1.type
     }
@@ -226,7 +226,7 @@ module EventHandler
       false
     else
       later 0 do
-        (0..sizew).each do |wdiff|
+        (0...sizew).each do |wdiff|
           baseloc = block1.location.tap {|l|
             l.send(:"set#{v.to_s.upcase}", v1)
             l.send(:"set#{w.to_s.upcase}", w1 + wdiff)
@@ -240,7 +240,7 @@ module EventHandler
 
   def fill_two_blocks3(player, base_block, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
-    (0..size).each do |diff|
+    (0...size).each do |diff|
       loc = baseloc.clone.tap {|l|
         l.send(set_base_axis, l.send(base_axis) + diff)
       }
