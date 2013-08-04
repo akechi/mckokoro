@@ -266,10 +266,10 @@ module EventHandler
       }
       #player.send_message loc.to_s
       unless loc.block.type.solid?
-        player.send_message [:before, loc.block.type, loc.block.state.data].to_s
+        player.send_message [:before, loc.block.type.to_s, loc.block.state.data.to_s].to_s
         loc.block.type = basetype
         loc.block.state.data = basestatedata
-        player.send_message [:after, loc.block.type, loc.block.state.data].to_s
+        player.send_message [:after, loc.block.type.to_s, loc.block.state.data.to_s].to_s
       end
     end
   end
