@@ -216,16 +216,14 @@ module EventHandler
   def fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
     sizev = v2 - v1 + 1
     sizew = w2 - w1 + 1
-    itemstacks = player.inventory.contents.to_a.compact.select {|is|
-      is.type == block1.type
-    }
-    your_amount = itemstacks.map(&:amount).inject(:+)
+    itemstacks = player.inventory.all(block1.type)
+    your_amount = itemstacks.map {|k, v| v.amount }.inject(:+)
     if sizev * sizew - 2 > your_amount
       player.send_message "Failed! the size is too big #{sizev}x#{sizew}-2 > #{your_amount}"
       false
     else
       player.send_message 'Success!!!'
-      itemstacks.each do |is|
+      itemstacks.each do |idx, is|
         if your_amount == 0
           break
         elsif your_amount > is.amount
@@ -234,6 +232,7 @@ module EventHandler
         else # your_amount <= is.amount
           is.amount -= your_amount
         end
+        player.inventory.set_item(idx, is)
       end
       later 0 do
         (0...sizew).each do |wdiff|
