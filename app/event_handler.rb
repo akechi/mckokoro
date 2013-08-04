@@ -199,16 +199,26 @@ module EventHandler
         block1, block2 = [block1, block2].sort_by(&base_axis1)
         player.send_message 'Success!!!'
         range = block1.send(base_axis1)..block2.send(base_axis1)
-        result = fill_two_blocks2(player, block1, range, base_axis1)
-        result # verbose on purpose
+        if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
+          player.send_message "Failed! the range size is too big #{range.size}"
+          false
+        else
+          result = fill_two_blocks2(player, block1, range, base_axis1)
+          result # verbose on purpose
+        end
       when 2
         base_axis =
           !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
         block1, block2 = [block1, block2].sort_by(&base_axis)
         player.send_message "Success!"
         range = block1.send(base_axis)..block2.send(base_axis)
-        result = fill_two_blocks2(player, block1, range, base_axis)
-        result # verbose on purpose
+        if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
+          player.send_message "Failed! the range size is too big #{range.size}"
+          false
+        else
+          result = fill_two_blocks2(player, block1, range, base_axis)
+          result # verbose on purpose
+        end
       else # == 3
         player.send_message 'Failed! same places.'
         false
@@ -218,19 +228,13 @@ module EventHandler
 
   def fill_two_blocks2(player, base_block, range, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
-    if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
-      player.send_message "Failed! the range size is too big #{range.size}"
-      false
-    else
-      range.each do |b|
-        loc = base_block.location.tap {|l| l.send(set_base_axis, b) }
-        #player.send_message loc.to_s
-        unless loc.block.type.solid?
-          loc.block.type = base_block.type
-          loc.block.state.data = base_block.state.data
-        end
+    range.each do |b|
+      loc = base_block.location.tap {|l| l.send(set_base_axis, b) }
+      #player.send_message loc.to_s
+      unless loc.block.type.solid?
+        loc.block.type = base_block.type
+        loc.block.state.data = base_block.state.data
       end
-      true
     end
   end
 
