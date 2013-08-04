@@ -857,8 +857,30 @@ module EventHandler
     end
   end
 
+  def holy_water(living_entities)
+    liquid = [
+      Material::WATER, Material::STATIONARY_WATER,
+      Material::LAVA, Material::STATIONARY_LAVA]
+    monsters = living_entities.select {|e| Monster === e }
+    monsters.select {|m|
+      liquid.include?(m.location.block.type) &&
+        m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
+    }.each do |m|
+      m.damage(4)
+    end
+  end
+  private :holy_water
+
   def periodically
-    Bukkit.online_players.each do |player|
+    online_players = Bukkit.online_players
+    nearby_living_entities = online_players.
+      map {|p| p.get_nearby_entities(20, 20, 20) }.
+      flatten(1).
+      to_set.
+      select {|e| LivingEntity === e }
+    holy_water(nearby_living_entities)
+
+    online_players.each do |player|
       # Superjump counter counting down
       crouching_countdown = -> do
         player.tap do |p|
