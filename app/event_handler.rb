@@ -433,7 +433,6 @@ module EventHandler
         location_around(evt.entity.location, 2).each do |loc|
           b = loc.block
           cond =
-            rand(5) != 0 &&
             loc.y >= evt.entity.shooter.location.y
             soft_blocks.include?(b.type)
           if cond
@@ -458,11 +457,10 @@ module EventHandler
 
         phi = (player.location.yaw + 90 + 360) % 360
         x, z =
-          Math.cos((phi + rand(30) - 15) / 180.0 * Math::PI),
-          Math.sin((phi + rand(30) - 15) / 180.0 * Math::PI)
+          Math.cos((phi + rand(20) - 15) / 180.0 * Math::PI),
+          Math.sin((phi + rand(20) - 15) / 180.0 * Math::PI)
 
-        snowball.velocity =
-          Vector.new(x * rand(0.5), 0.4, z * rand(0.5))
+        snowball.velocity = Vector.new(x, 0.3, z)
       end
       true
     else
