@@ -635,10 +635,10 @@ module EventHandler
       #     evt.cancelled = true
       #   end
       # end
-    when EntityDamageEvent::DamageCause::LAVA
-      evt.cancelled = true
-      evt.entity.food_level -= 1 rescue nil
-    end
+    # when EntityDamageEvent::DamageCause::LAVA
+    #   evt.cancelled = true
+    #   evt.entity.food_level -= 1 rescue nil
+    # end
   end
 
   def on_player_toggle_sprint(evt)
