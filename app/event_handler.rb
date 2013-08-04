@@ -410,7 +410,7 @@ module EventHandler
   private :feather_freedom_move
 
   def seeding_hoe(player, action)
-    return unless player.item_in_hand.type == Material::GOLD_HOE
+    return false unless player.item_in_hand.type == Material::GOLD_HOE
     case action
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
       5.times do
@@ -427,13 +427,18 @@ module EventHandler
         snowball.velocity =
           Vector.new((x + rand - 0.5) * 0.2, 0.4, (z + rand - 0.5))
       end
+      true
+    else
+      false
     end
   end
   private :seeding_hoe
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
-    seeding_hoe(evt.player, evt.action)
+    seeded_p = seeding_hoe(evt.player, evt.action)
+    return if seeded_p
+
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
         case [ evt.player.item_in_hand.type, evt.action ]
