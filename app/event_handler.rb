@@ -409,8 +409,22 @@ module EventHandler
   end
   private :feather_freedom_move
 
+  def seeding_hoe(player, action)
+    return unless player.item_in_hand.type == Material::GOLD_HOE
+    case action
+    when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
+      #1.times do
+      #  loc = player.location
+      #  snowball = loc.world.spawn_entity(loc, EntityType:: SNOWBALL)
+      #  player.launch_projectile(Snowball)
+      #end
+    end
+  end
+  private :seeding_hoe
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
+    seeding_hoe(evt.player, evt.action)
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
         case [ evt.player.item_in_hand.type, evt.action ]
