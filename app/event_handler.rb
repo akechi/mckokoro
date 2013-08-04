@@ -232,6 +232,7 @@ module EventHandler
         else # your_amount <= is.amount
           is.amount -= your_amount
         end
+        player.send_message "#{idx} #{is}"
         player.inventory.set_item(idx, is)
       end
       later 0 do
