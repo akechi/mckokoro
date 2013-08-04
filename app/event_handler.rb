@@ -224,6 +224,7 @@ module EventHandler
       false
     else
       player.send_message 'Success!!!'
+      player.send_message "cost: #{cost_amount}"
       itemstacks.each do |idx, is|
         player.send_message "before #{idx} #{is}"
         if cost_amount == 0
