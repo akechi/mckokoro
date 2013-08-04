@@ -220,7 +220,10 @@ module EventHandler
     player.send_message "debug #{itemstacks}"
     cost_amount = sizev * sizew - 2
     your_amount = itemstacks.map {|k, v| v.amount }.inject(0, :+)
-    if cost_amount > your_amount
+    if cost_amount > 1000
+      player.send_message "Failed! the size, #{cost_amount}, is bigger than 1,000!"
+      false
+    elsif cost_amount > your_amount
       player.send_message "Failed! the size is too big #{sizev}x#{sizew}-2 > #{cost_amount}"
       false
     else
