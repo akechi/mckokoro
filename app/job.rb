@@ -55,7 +55,7 @@ module Job
           Job.become(player, name)
           player.send_message "Now your job is #{Job.of(player)}"
         end
-      end 
+      end
     end
   end
 
