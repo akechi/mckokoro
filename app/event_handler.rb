@@ -638,7 +638,7 @@ module EventHandler
     # when EntityDamageEvent::DamageCause::LAVA
     #   evt.cancelled = true
     #   evt.entity.food_level -= 1 rescue nil
-    # end
+    end
   end
 
   def on_player_toggle_sprint(evt)
