@@ -202,8 +202,9 @@ module EventHandler
         fill_two_blocks3(v, w, v1, v2, w1, w2, player, block1)
       when 2
         v = !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
+        w = block1.send([:x, :y, :z].find {|s| vec.send(s).zero? })
         v1, v2 = [block1, block2].map(&v).sort
-        w1 = w2 = block1.send([:x, :y, :z].find {|s| vec.send(s).zero? })
+        w1 = w2 = block1.send(w)
         fill_two_blocks3(v, w, v1, v2, w1, w2, player, block1)
       else # == 3
         player.send_message 'Failed! same places.'
