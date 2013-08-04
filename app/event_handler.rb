@@ -229,9 +229,11 @@ module EventHandler
         if cost_amount == 0
           break
         elsif cost_amount > is.amount
+          player.send_message "reduce #{is} to 0"
           cost_amount -= is.amount
           is.type = Material::AIR
         else # cost_amount <= is.amount
+          player.send_message "reduce #{is} a little bit"
           is.amount -= cost_amount
         end
         player.send_message "after #{idx} #{is}"
