@@ -421,11 +421,20 @@ module EventHandler
   end
   private :feather_freedom_move
 
+  def on_projectile_hit(evt)
+    case evt.entity
+    when Snowball
+      if Player === evt.entity.shooter
+        evt.entity.shooter.send_message evt.entity.location.block.type.to_s
+      end
+    end
+  end
+
   def seeding_hoe(player, action)
     return false unless player.item_in_hand.type == Material::GOLD_HOE
     case action
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
-      30.times do
+      3.times do
         loc = player.location
         loc_above = loc.clone.tap{|l| l.add(0, 1, 0) }
         snowball = loc.world.spawn_entity(loc_above, EntityType:: SNOWBALL)
