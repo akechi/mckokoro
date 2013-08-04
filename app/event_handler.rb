@@ -212,16 +212,18 @@ module EventHandler
           fill_two_blocks2(player, block1, baseloc, size1, v)
         end
       when 2
-        base_axis =
-          !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
-        block1, block2 = [block1, block2].sort_by(&base_axis)
+        v = !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
+        v1, v2 = [block1, block2].map(&v).sort
         player.send_message "Success!"
-        size = block2.send(base_axis) - block1.send(base_axis)
+        size = v2 - v1
         if size > 100
           player.send_message "Failed! the size is too big #{size}"
           false
         else
-          fill_two_blocks2(player, block1, block1.location, size, base_axis)
+          baseloc = block1.location.tap {|l|
+            l.send(:"set#{v.to_s.upcase}", v1)
+          }
+          fill_two_blocks2(player, block1, block1.location, size, v)
         end
       else # == 3
         player.send_message 'Failed! same places.'
