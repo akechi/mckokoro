@@ -245,13 +245,15 @@ module EventHandler
         player.inventory.set_item(idx, is)
       end
       player.update_inventory
+      basetype = block1.type
+      basestatedata = block1.state.data
       later 0 do
         (0...sizew).each do |wdiff|
           baseloc = block1.location.tap {|l|
             l.send(:"set#{v.to_s.upcase}", v1)
             l.send(:"set#{w.to_s.upcase}", w1 + wdiff)
           }
-          fill_two_blocks3(player, block1, baseloc, sizev, v)
+          fill_two_blocks3(player, basetype, basestatedata, baseloc, sizev, v)
         end
       end
       true
@@ -259,10 +261,8 @@ module EventHandler
   end
   private :fill_two_blocks2
 
-  def fill_two_blocks3(player, base_block, baseloc, size, base_axis)
+  def fill_two_blocks3(player, basetype, basestatedate, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
-    basetype = base_block.type
-    basestatedata = base_block.state.data
     (0...size).each do |diff|
       loc = baseloc.clone.tap {|l|
         l.send(set_base_axis, l.send(base_axis) + diff)
