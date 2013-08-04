@@ -195,16 +195,17 @@ module EventHandler
         player.send_message 'Failed! give 2 points on same face.'
         false
       when 1
-        base_axis1, base_axis2 = [:x, :y, :z].reject {|s| vec.send(s).zero? }
-        block1, block2 = [block1, block2].sort_by(&base_axis1)
+        # projection from (x, y, z) to (v, w)
+        v, w = [:x, :y, :z].reject {|s| vec.send(s).zero? }
+        block1, block2 = [block1, block2].sort_by(&v)
         player.send_message 'Success!!!'
-        size1 = block2.send(base_axis1) - block1.send(base_axis1)
+        size1 = block2.send(v) - block1.send(v)
         if size1 > 100
           player.send_message "Failed! the size is too big #{size1}"
           false
         else
           baseloc = block1.location
-          fill_two_blocks2(player, block1, baseloc, size1, base_axis1)
+          fill_two_blocks2(player, block1, baseloc, size1, v)
         end
       when 2
         base_axis =
