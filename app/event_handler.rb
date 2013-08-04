@@ -393,7 +393,7 @@ module EventHandler
         x, z =
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
-        player.velocity = Vector.new(2 * x, 0.5, 2 * z)
+        player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
         consume_item(player) if rand(2) == 0
         player.fall_distance = 0.0
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
