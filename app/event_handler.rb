@@ -379,12 +379,12 @@ module EventHandler
 
   def feather_freedom_move(player, action)
     return unless player.item_in_hand.type == Material::FEATHER
-    player.fall_distance = 0.0
     if player.sneaking?
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         player.velocity = player.velocity.tap{|v| v.setY jfloat(1.4) }
-        consume_item(player) if rand(9) == 0
+        consume_item(player) if rand(2) == 0
+        player.fall_distance = 0.0
       end
     else
       case action
@@ -394,14 +394,16 @@ module EventHandler
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
         player.velocity = Vector.new(2 * x, 0.5, 2 * z)
-        consume_item(player) if rand(9) == 0
+        consume_item(player) if rand(2) == 0
+        player.fall_distance = 0.0
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(0)
           v.setY jfloat(0)
           v.setZ jfloat(0)
         end
-        consume_item(player) if rand(9) == 0
+        consume_item(player) if rand(2) == 0
+        player.fall_distance = 0.0
       end
     end
   end
