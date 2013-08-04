@@ -384,9 +384,8 @@ module EventHandler
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         player.velocity = player.velocity.tap{|v| v.setY jfloat(1.4) }
-        consume_item(player)
+        consume_item(player) if rand(9) == 0
       end
-      # TODO
     else
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
@@ -395,14 +394,14 @@ module EventHandler
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
         player.velocity = Vector.new(2 * x, 0.5, 2 * z)
-        player.fall_distance = 0.0
-        consume_item(player)
+        consume_item(player) if rand(9) == 0
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(0)
           v.setY jfloat(0)
           v.setZ jfloat(0)
         end
+        consume_item(player) if rand(9) == 0
       end
     end
   end
