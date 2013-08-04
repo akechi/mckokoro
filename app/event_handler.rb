@@ -198,12 +198,15 @@ module EventHandler
         base_axis1, base_axis2 = [:x, :y, :z].reject {|s| vec.send(s).zero? }
         block1, block2 = [block1, block2].sort_by(&base_axis1)
         player.send_message 'Success!!!'
-        range = block1.send(base_axis1)..block2.send(base_axis1)
-        if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
-          player.send_message "Failed! the range size is too big #{range.size}"
+        range1 = block1.send(base_axis1)..block2.send(base_axis1)
+        if range1.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
+          player.send_message "Failed! the range size is too big #{range1.size}"
           false
         else
-          fill_two_blocks2(player, block1, range, base_axis1)
+          range1.each do |s1|
+            range2 = s1..s1
+            fill_two_blocks2(player, block1, range2, base_axis1)
+          end
         end
       when 2
         base_axis =
