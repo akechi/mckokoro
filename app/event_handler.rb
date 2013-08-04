@@ -808,7 +808,7 @@ module EventHandler
         loc = player.location
         unless @phantom_ladder[loc]
           @phantom_ladder[loc] = true
-          player.send_block_change(loc Material::LADDER, 0)
+          player.send_block_change(loc, Material::LADDER, 0)
           later sec(5) do
             @phantom_ladder[loc] = false
             player.send_block_change(loc, loc.block.type, loc.block.data)
