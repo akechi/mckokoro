@@ -217,6 +217,7 @@ module EventHandler
     sizev = v2 - v1 + 1
     sizew = w2 - w1 + 1
     itemstacks = player.inventory.all(block1.type)
+    player.send_message "debug #{itemstacks}"
     your_amount = itemstacks.map {|k, v| v.amount }.inject(0, :+)
     if sizev * sizew - 2 > your_amount
       player.send_message "Failed! the size is too big #{sizev}x#{sizew}-2 > #{your_amount}"
@@ -224,6 +225,7 @@ module EventHandler
     else
       player.send_message 'Success!!!'
       itemstacks.each do |idx, is|
+        player.send_message "before #{idx} #{is}"
         if your_amount == 0
           break
         elsif your_amount > is.amount
@@ -232,7 +234,7 @@ module EventHandler
         else # your_amount <= is.amount
           is.amount -= your_amount
         end
-        player.send_message "#{idx} #{is}"
+        player.send_message "after #{idx} #{is}"
         player.inventory.set_item(idx, is)
       end
       later 0 do
