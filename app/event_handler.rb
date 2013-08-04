@@ -413,7 +413,7 @@ module EventHandler
     return unless player.item_in_hand.type == Material::GOLD_HOE
     case action
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
-      1.times do
+      5.times do
         loc = player.location
         snowball = loc.world.spawn_entity(loc, EntityType:: SNOWBALL)
         snowball.shooter = player
@@ -423,7 +423,8 @@ module EventHandler
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
 
-        snowball.velocity = Vector.new(x*0.2, 0.1, z*0.2)
+        snowball.velocity =
+          Vector.new(x*0.2 + rand - 0.5, 0.4, z*0.2 + rand - 0.5)
       end
     end
   end
