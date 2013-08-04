@@ -195,7 +195,7 @@ module EventHandler
         player.send_message 'Failed! give 2 points on same face.'
         false
       when 1
-        player.send_message 'Success! .. but not implemented yet'
+        player.send_message 'Success!.. but not implemented yet'
         false
       when 2
         base_axis =
@@ -203,25 +203,30 @@ module EventHandler
         block1, block2 = [block1, block2].sort_by(&base_axis)
         player.send_message "Success!"
         set_base_axis = :"set#{base_axis.to_s.upcase}"
-        range = block1.send(base_axis)..block2.send(base_axis)
-        if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
-          player.send_message "Failed! the range size is too big #{range.size}"
-          false
-        else
-          range.each do |b|
-            loc = block1.location.tap {|l| l.send(set_base_axis, b) }
-            #player.send_message loc.to_s
-            unless loc.block.type.solid?
-              loc.block.type = block1.type
-              loc.block.state.data = block1.state.data
-            end
-          end
-          true
-        end
+        result = fill_two_blocks2(player, block1, block2, base_axis)
+        result # verbose on purpose
       else # == 3
         player.send_message 'Failed! same places.'
         false
       end
+    end
+  end
+
+  def fill_two_blocks2(player, block1, block2, base_axis)
+    range = block1.send(base_axis)..block2.send(base_axis)
+    if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
+      player.send_message "Failed! the range size is too big #{range.size}"
+      false
+    else
+      range.each do |b|
+        loc = block1.location.tap {|l| l.send(set_base_axis, b) }
+        #player.send_message loc.to_s
+        unless loc.block.type.solid?
+          loc.block.type = block1.type
+          loc.block.state.data = block1.state.data
+        end
+      end
+      true
     end
   end
 
