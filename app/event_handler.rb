@@ -261,7 +261,7 @@ module EventHandler
   end
   private :fill_two_blocks2
 
-  def fill_two_blocks3(player, basetype, basestatedate, baseloc, size, base_axis)
+  def fill_two_blocks3(player, basetype, basestatedata, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
     (0...size).each do |diff|
       loc = baseloc.clone.tap {|l|
