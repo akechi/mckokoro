@@ -413,11 +413,18 @@ module EventHandler
     return unless player.item_in_hand.type == Material::GOLD_HOE
     case action
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
-      #1.times do
-      #  loc = player.location
-      #  snowball = loc.world.spawn_entity(loc, EntityType:: SNOWBALL)
-      #  player.launch_projectile(Snowball)
-      #end
+      1.times do
+        loc = player.location
+        snowball = loc.world.spawn_entity(loc, EntityType:: SNOWBALL)
+        snowball.shooter = player
+
+        phi = (player.location.yaw + 90) % 360
+        x, z =
+          Math.cos(phi / 180.0 * Math::PI),
+          Math.sin(phi / 180.0 * Math::PI)
+
+        snowball.velocity = Vector.new(x, 1.5, y)
+      end
     end
   end
   private :seeding_hoe
