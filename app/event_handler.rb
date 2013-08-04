@@ -287,14 +287,16 @@ module EventHandler
 
     player = evt.player
 
-    result = fill_two_blocks(
-      player, @player_block_place_lasttime[player], evt.block_placed)
-    if result
-      # remove the tripwires
-      break_naturally_by_dpickaxe(evt.block_placed)
-      break_naturally_by_dpickaxe(@player_block_place_lasttime[player])
-      @player_block_place_lasttime[player] = nil
-      return
+    if Job.of(player) == :archtect
+      result = fill_two_blocks(
+        player, @player_block_place_lasttime[player], evt.block_placed)
+        if result
+          # remove the tripwires
+          break_naturally_by_dpickaxe(evt.block_placed)
+          break_naturally_by_dpickaxe(@player_block_place_lasttime[player])
+          @player_block_place_lasttime[player] = nil
+          return
+        end
     end
 
     @player_block_place_lasttime[player] = evt.block_placed
