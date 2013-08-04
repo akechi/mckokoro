@@ -219,6 +219,7 @@ module EventHandler
       when 2
         v = !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
         v1, v2 = [block1, block2].map(&v).sort
+        w1 = w2 = block1.send([:x, :y, :z].find {|s| vec.send(s).zero? })
         player.send_message "Success!"
         size = v2 - v1
         if size > 100
