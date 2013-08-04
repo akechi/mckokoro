@@ -858,7 +858,7 @@ module EventHandler
   end
 
   def break_naturally_by_dpickaxe(block)
-    block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE)
+    block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
   end
 end
 
