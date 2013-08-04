@@ -198,7 +198,7 @@ module EventHandler
         base_axis1, base_axis2 = [:x, :y, :z].reject {|s| vec.send(s).zero? }
         block1, block2 = [block1, block2].sort_by(&base_axis1)
         player.send_message 'Success!!!'
-        range = block1.send(base_axis)..block2.send(base_axis)
+        range = block1.send(base_axis1)..block2.send(base_axis1)
         result = fill_two_blocks2(player, block1, range, base_axis1)
         result # verbose on purpose
       when 2
