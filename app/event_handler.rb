@@ -421,11 +421,11 @@ module EventHandler
 
         phi = (player.location.yaw + 90 + 360) % 360
         x, z =
-          Math.cos(phi / 180.0 * Math::PI),
-          Math.sin(phi / 180.0 * Math::PI)
+          Math.cos((phi + rand(30) - 15) / 180.0 * Math::PI),
+          Math.sin((phi + rand(30) - 15) / 180.0 * Math::PI)
 
         snowball.velocity =
-          Vector.new((x + rand - 0.5) * 0.2, 0.4, (z + rand - 0.5))
+          Vector.new(x * 0.2, 0.4, z * 0.2)
       end
       true
     else
