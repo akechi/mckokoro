@@ -635,6 +635,10 @@ module EventHandler
           end
         end
       end
+    when Snowball
+      if Player === defender && evt.damager.shooter == defender
+        evt.cancelled = true
+      end
     when LivingEntity
       case defender
       when Player
