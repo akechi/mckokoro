@@ -392,7 +392,7 @@ module EventHandler
         x, z =
           Math.cos(player.location.yaw / 180.0 * Math::PI),
           Math.sin(player.location.yaw / 180.0 * Math::PI)
-        player.velocity = Velocity.new(2 * x, 0, 2 * z)
+        player.velocity = Vector.new(2 * x, 0, 2 * z)
       end
     end
   end
