@@ -254,6 +254,7 @@ module EventHandler
       true
     end
   end
+  private :fill_two_blocks2
 
   def fill_two_blocks3(player, base_block, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
@@ -268,6 +269,7 @@ module EventHandler
       end
     end
   end
+  private :fill_two_blocks3
 
   # assuming the block has BlockFace
   def contacting_block(block)
