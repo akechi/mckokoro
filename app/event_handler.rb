@@ -390,6 +390,10 @@ module EventHandler
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         # ujihisa will implement here
+        x, z =
+          Math.cos(player.location.yaw / 180.0 * Math::PI),
+          Math.sin(player.location.yaw / 180.0 * Math::PI)
+        player.velocity = Vector.new(2 * x, 0, 2 * z)
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(1.0)
