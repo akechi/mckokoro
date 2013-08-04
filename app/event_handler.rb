@@ -237,6 +237,7 @@ module EventHandler
         player.send_message "after #{idx} #{is}"
         player.inventory.set_item(idx, is)
       end
+      player.update_inventory
       later 0 do
         (0...sizew).each do |wdiff|
           baseloc = block1.location.tap {|l|
