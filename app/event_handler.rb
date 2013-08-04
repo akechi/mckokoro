@@ -195,8 +195,11 @@ module EventHandler
         player.send_message 'Failed! give 2 points on same face.'
         false
       when 1
-        player.send_message 'Success!.. but not implemented yet'
-        false
+        base_axis1, base_axis2 = [:x, :y, :z].reject {|s| vec.send(s).zero? }
+        block1, block2 = [block1, block2].sort_by(&base_axis1)
+        player.send_message 'Success!!!'
+        result = fill_two_blocks2(player, block1, block2, base_axis1)
+        result # verbose on purpose
       when 2
         base_axis =
           !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
