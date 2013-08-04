@@ -254,6 +254,7 @@ module EventHandler
       # remove the tripwires
       evt.block_placed.type = Material::AIR
       @player_block_place_lasttime[player].type = Material::AIR
+      @player_block_place_lasttime[player] = nil
       return
     end
 
