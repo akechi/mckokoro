@@ -203,8 +203,7 @@ module EventHandler
           player.send_message "Failed! the range size is too big #{range.size}"
           false
         else
-          result = fill_two_blocks2(player, block1, range, base_axis1)
-          result # verbose on purpose
+          fill_two_blocks2(player, block1, range, base_axis1)
         end
       when 2
         base_axis =
@@ -216,8 +215,7 @@ module EventHandler
           player.send_message "Failed! the range size is too big #{range.size}"
           false
         else
-          result = fill_two_blocks2(player, block1, range, base_axis)
-          result # verbose on purpose
+          fill_two_blocks2(player, block1, range, base_axis)
         end
       else # == 3
         player.send_message 'Failed! same places.'
