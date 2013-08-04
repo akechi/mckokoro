@@ -355,7 +355,7 @@ module EventHandler
       if evt.player.item_in_hand.type == Material::AIR
         vec = evt.right_clicked.location.clone.subtract(evt.player.location).to_vector
         vec = vec.normalize
-        vec.y = 0.2
+        vec.y = jfloat(0.2)
         evt.right_clicked.velocity = vec
       end
     when Villager
