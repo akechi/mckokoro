@@ -864,8 +864,8 @@ module EventHandler
     monsters = creatures.select {|e| Monster === e }
     p monsters
     monsters.select {|m|
-      liquid.include?(m.location.block.type) #&&
-        #m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
+      liquid.include?(m.location.block.type) &&
+        m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
     }.each do |m|
       m.damage(4)
     end
@@ -874,11 +874,10 @@ module EventHandler
 
   def periodically
     online_players = Bukkit.online_players
-    nearby_creatures = online_players.
-      map {|p| p.get_nearby_entities(20, 20, 20) }.
-      flatten(1).
-      to_set.
-      select {|e| Creature === e }
+    nearby_creatures = online_players.map {|p|
+      p.get_nearby_entities(20, 20, 20).
+        select {|e| Creature === e }
+    }.flatten(1).to_set
     holy_water(nearby_creatures)
 
     online_players.each do |player|
