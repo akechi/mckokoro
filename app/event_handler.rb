@@ -429,12 +429,14 @@ module EventHandler
         evt.entity.shooter.item_in_hand &&
         evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
       if cond
-        block = evt.entity.location.block
-        block_below =
-          evt.entity.location.clone.tap {|l| l.add(0, -1, 0) }.block
         soft_blocks = [Material::GRASS, Material::DIRT, Material::GRAVEL]
-        [block, block_below].each do |b|
-          if rand(2) == 0 && soft_blocks.include?(b.type)
+        location_around(evt.entity.location, 1).each do |loc|
+          b = loc.block
+          cond =
+            rand(2) == 0 &&
+            loc.y >= evt.entity.shooter.location.y
+            soft_blocks.include?(b.type)
+          if cond
             break_naturally_by_dpickaxe(b)
             evt.entity.remove
             break
