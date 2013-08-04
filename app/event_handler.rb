@@ -454,7 +454,7 @@ module EventHandler
       3.times do
         loc = player.location
         loc_above = loc.clone.tap{|l| l.add(0, 1, 0) }
-        snowball = loc.world.spawn_entity(loc_above, EntityType:: SNOWBALL)
+        snowball = spawn(loc_above, EntityType:: SNOWBALL)
         snowball.shooter = player
 
         phi = (player.location.yaw + 90 + 360) % 360
@@ -1019,12 +1019,17 @@ module EventHandler
     end
   end
 
-  #def spawn(loc, klass)
-  #  loc.world.spawnEntity(loc, EntityType::EXPERIENCE_ORB)
-  #end
+  def spawn(loc, etype)
+    loc.world.spawn_entity(loc, etype)
+  end
 
   def strike_lightning(loc)
     loc.world.strike_lightning_effect(loc)
+  end
+
+  def haveitem(pname, iname, num)
+    Bukkit.get_player(pname).item_in_hand =
+      ItemStack.new(eval("Material::#{iname.to_s.upcase}"), num)
   end
 
   # dummy
