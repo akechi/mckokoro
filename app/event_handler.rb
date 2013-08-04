@@ -199,13 +199,13 @@ module EventHandler
         v, w = [:x, :y, :z].reject {|s| vec.send(s).zero? }
         v1, v2 = [block1, block2].map(&v).sort
         w1, w2 = [block1, block2].map(&w).sort
-        fill_two_blocks3(v, w, v1, v2, w1, w2, player, block1)
+        fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
       when 2
         v = !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
         w = [:x, :y, :z].find {|s| vec.send(s).zero? }
         v1, v2 = [block1, block2].map(&v).sort
         w1 = w2 = block1.send(w)
-        fill_two_blocks3(v, w, v1, v2, w1, w2, player, block1)
+        fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
       else # == 3
         player.send_message 'Failed! same places.'
         false
@@ -213,7 +213,7 @@ module EventHandler
     end
   end
 
-  def fill_two_blocks3(v, w, v1, v2, w1, w2, player, block1)
+  def fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
     player.send_message 'Success!!!'
     sizev = v2 - v1
     sizew = w2 - w1
@@ -227,13 +227,13 @@ module EventHandler
             l.send(:"set#{v.to_s.upcase}", v1)
             l.send(:"set#{w.to_s.upcase}", w1 + wdiff)
           }
-          fill_two_blocks2(player, block1, baseloc, sizev, v)
+          fill_two_blocks3(player, block1, baseloc, sizev, v)
         end
       end
     end
   end
 
-  def fill_two_blocks2(player, base_block, baseloc, size, base_axis)
+  def fill_two_blocks3(player, base_block, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
     (0..size).each do |diff|
       loc = baseloc.clone.tap {|l|
