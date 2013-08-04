@@ -246,8 +246,9 @@ module EventHandler
     result = fill_two_blocks(
       player, @player_block_place_lasttime[player], evt.block_placed)
     if result
-      # remove the tripwire
+      # remove the tripwires
       evt.block_placed.type = Material::AIR
+      @player_block_place_lasttime[player].type = Material::AIR
       return
     end
 
