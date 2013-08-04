@@ -206,12 +206,14 @@ module EventHandler
           player.send_message "Failed! the size is too big #{sizev}*#{sizew}"
           false
         else
-          (0..sizew).each do |wdiff|
-            baseloc = block1.location.tap {|l|
-              l.send(:"set#{v.to_s.upcase}", v1)
-              l.send(:"set#{w.to_s.upcase}", w1 + wdiff)
-            }
-            fill_two_blocks2(player, block1, baseloc, sizev, v)
+          later 0 do
+            (0..sizew).each do |wdiff|
+              baseloc = block1.location.tap {|l|
+                l.send(:"set#{v.to_s.upcase}", v1)
+                l.send(:"set#{w.to_s.upcase}", w1 + wdiff)
+              }
+              fill_two_blocks2(player, block1, baseloc, sizev, v)
+            end
           end
         end
       when 2
@@ -226,7 +228,9 @@ module EventHandler
           baseloc = block1.location.tap {|l|
             l.send(:"set#{v.to_s.upcase}", v1)
           }
-          fill_two_blocks2(player, block1, block1.location, size, v)
+          later 0 do
+            fill_two_blocks2(player, block1, block1.location, size, v)
+          end
         end
       else # == 3
         player.send_message 'Failed! same places.'
