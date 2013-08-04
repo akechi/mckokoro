@@ -862,7 +862,6 @@ module EventHandler
       Material::WATER, Material::STATIONARY_WATER,
       Material::LAVA, Material::STATIONARY_LAVA]
     monsters = creatures.select {|e| Monster === e }
-    p monsters
     monsters.select {|m|
       liquid.include?(m.location.block.type) &&
         m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
