@@ -390,8 +390,8 @@ module EventHandler
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         x, z =
-          Math.cos(player.yaw / 180.0 * Math::PI),
-          Math.sin(player.yaw / 180.0 * Math::PI)
+          Math.cos(player.location.yaw / 180.0 * Math::PI),
+          Math.sin(player.location.yaw / 180.0 * Math::PI)
         player.velocity = Velocity.new(2 * x, 0, 2 * z)
       end
     end
