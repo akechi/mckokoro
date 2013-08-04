@@ -200,16 +200,17 @@ module EventHandler
         v1, v2 = [block1, block2].map(&v).sort
         w1, w2 = [block1, block2].map(&w).sort
         player.send_message 'Success!!!'
-        size1 = v2 - v1
-        if size1 > 100
-          player.send_message "Failed! the size is too big #{size1}"
+        sizev = v2 - v1
+        sizew = w2 - w1
+        if sizev * sizew > 100
+          player.send_message "Failed! the size is too big #{sizev}*#{sizew}"
           false
         else
           baseloc = block1.location.tap {|l|
             l.send(:"set#{v.to_s.upcase}", v1)
             l.send(:"set#{w.to_s.upcase}", w1)
           }
-          fill_two_blocks2(player, block1, baseloc, size1, v)
+          fill_two_blocks2(player, block1, baseloc, sizev, v)
         end
       when 2
         v = !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
