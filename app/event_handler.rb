@@ -857,11 +857,11 @@ module EventHandler
     end
   end
 
-  def holy_water(living_entities)
+  def holy_water(creatures)
     liquid = [
       Material::WATER, Material::STATIONARY_WATER,
       Material::LAVA, Material::STATIONARY_LAVA]
-    monsters = living_entities.select {|e| Monster === e }
+    monsters = creatures.select {|e| Monster === e }
     p monsters
     monsters.select {|m|
       liquid.include?(m.location.block.type) &&
@@ -878,8 +878,8 @@ module EventHandler
       map {|p| p.get_nearby_entities(20, 20, 20) }.
       flatten(1).
       to_set.
-      select {|e| LivingEntity === e }
-    holy_water(nearby_living_entities)
+      select {|e| Creature === e }
+    holy_water(nearby_creatures)
 
     online_players.each do |player|
       # Superjump counter counting down
