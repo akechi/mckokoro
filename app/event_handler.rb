@@ -399,9 +399,9 @@ module EventHandler
         consume_item(player)
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
-          v.setX jfloat(1.0)
-          v.setY jfloat(1.0)
-          v.setZ jfloat(1.0)
+          v.setX jfloat(0)
+          v.setY jfloat(0)
+          v.setZ jfloat(0)
         end
       end
     end
