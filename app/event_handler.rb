@@ -217,7 +217,10 @@ module EventHandler
     player.send_message 'Success!!!'
     sizev = v2 - v1
     sizew = w2 - w1
-    if sizev * sizew > 100
+    itemstacks = player.inventory.contents.to_a.compact.select {|is|
+      is.type == block1.type
+    }
+    if sizev * sizew > itemstacks.map(&:amount).inject(:+)
       player.send_message "Failed! the size is too big #{sizev}*#{sizew}"
       false
     else
