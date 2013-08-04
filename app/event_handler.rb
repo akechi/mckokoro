@@ -217,7 +217,7 @@ module EventHandler
     sizev = v2 - v1 + 1
     sizew = w2 - w1 + 1
     itemstacks = player.inventory.all(block1.type)
-    your_amount = itemstacks.map {|k, v| v.amount }.inject(:+)
+    your_amount = itemstacks.map {|k, v| v.amount }.inject(0, :+)
     if sizev * sizew - 2 > your_amount
       player.send_message "Failed! the size is too big #{sizev}x#{sizew}-2 > #{your_amount}"
       false
