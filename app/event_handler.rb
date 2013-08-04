@@ -874,7 +874,7 @@ module EventHandler
 
   def periodically
     online_players = Bukkit.online_players
-    nearby_living_entities = online_players.
+    nearby_creatures = online_players.
       map {|p| p.get_nearby_entities(20, 20, 20) }.
       flatten(1).
       to_set.
