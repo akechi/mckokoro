@@ -437,7 +437,10 @@ module EventHandler
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
     seeded_p = seeding_hoe(evt.player, evt.action)
-    return if seeded_p
+    if seeded_p
+      evt.cancelled = true
+      return
+    end
 
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
