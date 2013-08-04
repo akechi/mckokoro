@@ -425,7 +425,11 @@ module EventHandler
     case evt.entity
     when Snowball
       if Player === evt.entity.shooter
-        evt.entity.shooter.send_message evt.entity.location.block.type.to_s
+        block_below =
+          evt.entity.location.clone.tap {|l| l.add(0, -1, 0) }.block
+        if block_below.type == Material::GRASS
+          block_below.type = Material::DIRT
+        end
       end
     end
   end
