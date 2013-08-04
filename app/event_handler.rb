@@ -424,11 +424,21 @@ module EventHandler
   def on_projectile_hit(evt)
     case evt.entity
     when Snowball
-      if Player === evt.entity.shooter
+      cond =
+        Player === evt.entity.shooter &&
+        evt.entity.shooter.item_in_hand &&
+        evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
+      if cond
+        block = evt.entity.location.block
         block_below =
           evt.entity.location.clone.tap {|l| l.add(0, -1, 0) }.block
-        if block_below.type == Material::GRASS
-          block_below.type = Material::DIRT
+        soft_blocks = [Material::GRASS, Material::DIRT, Material::GRAVEL]
+        [block, block_below].each do |b|
+          if rand(2) == 0 && soft_blocks.include?(b.type)
+            break_naturally_by_dpickaxe(b)
+            evt.entity.remove
+            break
+          end
         end
       end
     end
