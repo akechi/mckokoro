@@ -203,7 +203,7 @@ module EventHandler
           player.send_message "Failed! the size is too big #{size1}"
           false
         else
-          fill_two_blocks2(player, block1, size1, base_axis1)
+          fill_two_blocks2(player, block1, baseloc, size1, base_axis1)
         end
       when 2
         base_axis =
@@ -215,7 +215,7 @@ module EventHandler
           player.send_message "Failed! the size is too big #{size}"
           false
         else
-          fill_two_blocks2(player, block1, size, base_axis)
+          fill_two_blocks2(player, block1, block1.loc, size, base_axis)
         end
       else # == 3
         player.send_message 'Failed! same places.'
@@ -224,10 +224,10 @@ module EventHandler
     end
   end
 
-  def fill_two_blocks2(player, base_block, size, base_axis)
+  def fill_two_blocks2(player, base_block, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
     (0..size).each do |diff|
-      loc = base_block.location.tap {|l|
+      loc = baseloc.clone.tap {|l|
         l.send(set_base_axis, l.send(base_axis) + diff)
       }
       #player.send_message loc.to_s
