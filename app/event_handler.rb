@@ -433,8 +433,8 @@ module EventHandler
         location_around(evt.entity.location, 2).each do |loc|
           b = loc.block
           cond =
+            soft_blocks.include?(b.type) &&
             loc.y >= evt.entity.shooter.location.y
-            soft_blocks.include?(b.type)
           if cond
             break_naturally_by_dpickaxe(b)
             evt.entity.remove
@@ -457,8 +457,8 @@ module EventHandler
 
         phi = (player.location.yaw + 90 + 360) % 360
         x, z =
-          Math.cos((phi + rand(20) - 15) / 180.0 * Math::PI),
-          Math.sin((phi + rand(20) - 15) / 180.0 * Math::PI)
+          Math.cos((phi + rand(40) - 15) / 180.0 * Math::PI),
+          Math.sin((phi + rand(40) - 15) / 180.0 * Math::PI)
 
         snowball.velocity = Vector.new(x, 0.3, z)
       end
