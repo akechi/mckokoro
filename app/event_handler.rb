@@ -197,14 +197,18 @@ module EventHandler
       when 1
         # projection from (x, y, z) to (v, w)
         v, w = [:x, :y, :z].reject {|s| vec.send(s).zero? }
-        block1, block2 = [block1, block2].sort_by(&v)
+        v1, v2 = [block1, block2].map(&v).sort
+        w1, w2 = [block1, block2].map(&w).sort
         player.send_message 'Success!!!'
-        size1 = block2.send(v) - block1.send(v)
+        size1 = v2 - v1
         if size1 > 100
           player.send_message "Failed! the size is too big #{size1}"
           false
         else
-          baseloc = block1.location
+          baseloc = block1.location.tap {|l|
+            l.send(:"set#{v.to_s.upcase}", v1)
+            l.send(:"set#{w.to_s.upcase}", w1)
+          }
           fill_two_blocks2(player, block1, baseloc, size1, v)
         end
       when 2
