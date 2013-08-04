@@ -230,18 +230,16 @@ module EventHandler
       player.send_message 'Success!!!'
       player.send_message "cost: #{cost_amount}"
       itemstacks.each do |idx, is|
-        player.send_message "before #{idx} #{is}"
         if cost_amount == 0
           break
         elsif cost_amount > is.amount
-          player.send_message "reduce #{is} to 0"
+          #player.send_message "reduce #{is} to 0"
           cost_amount -= is.amount
           is.type = Material::AIR
         else # cost_amount <= is.amount
-          player.send_message "reduce #{is} a little bit"
+          #player.send_message "reduce #{is} a little bit"
           is.amount -= cost_amount
         end
-        player.send_message "after #{idx} #{is}"
         player.inventory.set_item(idx, is)
       end
       player.update_inventory
