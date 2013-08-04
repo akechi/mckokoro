@@ -202,7 +202,6 @@ module EventHandler
           !vec.x.zero? ? :x : !vec.y.zero? ? :y : :z
         block1, block2 = [block1, block2].sort_by(&base_axis)
         player.send_message "Success!"
-        set_base_axis = :"set#{base_axis.to_s.upcase}"
         result = fill_two_blocks2(player, block1, block2, base_axis)
         result # verbose on purpose
       else # == 3
@@ -213,6 +212,7 @@ module EventHandler
   end
 
   def fill_two_blocks2(player, block1, block2, base_axis)
+    set_base_axis = :"set#{base_axis.to_s.upcase}"
     range = block1.send(base_axis)..block2.send(base_axis)
     if range.to_a.size > 100 # Range#size doesn't work on jruby...? TODO
       player.send_message "Failed! the range size is too big #{range.size}"
