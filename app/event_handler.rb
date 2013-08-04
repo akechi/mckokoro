@@ -802,17 +802,15 @@ module EventHandler
 
   def on_player_move(evt)
     player = evt.player
-    if player.name == "ujm" # buggy!
-      if player.sneaking?
-        @phantom_ladder ||= {}
-        loc = player.location
-        unless @phantom_ladder[loc]
-          @phantom_ladder[loc] = true
-          player.send_block_change(loc, Material::LADDER, 0)
-          later sec(5) do
-            @phantom_ladder[loc] = false
-            player.send_block_change(loc, loc.block.type, loc.block.data)
-          end
+    if player.sneaking?
+      @phantom_ladder ||= {}
+      loc = player.location
+      unless @phantom_ladder[loc]
+        @phantom_ladder[loc] = true
+        player.send_block_change(loc, Material::LADDER, 0)
+        later sec(5) do
+          @phantom_ladder[loc] = false
+          player.send_block_change(loc, loc.block.type, loc.block.data)
         end
       end
     end
