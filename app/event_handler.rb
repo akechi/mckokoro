@@ -358,6 +358,10 @@ module EventHandler
         vec = vec.normalize.multiply(0.5)
         vec.set_y jfloat(0.1)
         evt.right_clicked.velocity = vec
+        later sec(0.1) do
+          evt.right_clicked.velocity.set_x jfloat(0.0)
+          evt.right_clicked.velocity.set_z jfloat(0.0)
+        end
       end
     when Villager
       # job change
