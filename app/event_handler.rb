@@ -256,8 +256,8 @@ module EventHandler
       player, @player_block_place_lasttime[player], evt.block_placed)
     if result
       # remove the tripwires
-      evt.block_placed.type = Material::AIR
-      @player_block_place_lasttime[player].type = Material::AIR
+      break_naturally_by_dpickaxe(evt.block_placed)
+      break_naturally_by_dpickaxe(@player_block_place_lasttime[player])
       @player_block_place_lasttime[player] = nil
       return
     end
@@ -855,6 +855,10 @@ module EventHandler
     location_list.map {|x, y, z|
       loc.clone.add(x, y, z)
     }
+  end
+
+  def break_naturally_by_dpickaxe(block)
+    block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE)
   end
 end
 
