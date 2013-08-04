@@ -214,17 +214,27 @@ module EventHandler
   end
 
   def fill_two_blocks2(v, w, v1, v2, w1, w2, player, block1)
-    player.send_message 'Success!!!'
     sizev = v2 - v1 + 1
     sizew = w2 - w1 + 1
     itemstacks = player.inventory.contents.to_a.compact.select {|is|
       is.type == block1.type
     }
-    player.send_message "you have #{itemstacks.map(&:amount).inject(:+)}"
-    if sizev * sizew > itemstacks.map(&:amount).inject(:+)
-      player.send_message "Failed! the size is too big #{sizev}*#{sizew}"
+    your_amount = itemstacks.map(&:amount).inject(:+)
+    if sizev * sizew - 2 > your_amount
+      player.send_message "Failed! the size is too big #{sizev}x#{sizew}-2 > #{your_amount}"
       false
     else
+      player.send_message 'Success!!!'
+      itemstacks.each do |is|
+        if your_amount == 0
+          break
+        elsif your_amount > is.amount
+          your_amount -= is.amount
+          is.type = Material::AIR
+        else # your_amount <= is.amount
+          is.amount -= your_amount
+        else
+      end
       later 0 do
         (0...sizew).each do |wdiff|
           baseloc = block1.location.tap {|l|
