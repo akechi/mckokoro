@@ -864,8 +864,8 @@ module EventHandler
     monsters = creatures.select {|e| Monster === e }
     p monsters
     monsters.select {|m|
-      liquid.include?(m.location.block.type) &&
-        m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
+      liquid.include?(m.location.block.type) #&&
+        #m.location.tap {|l| l.add(0, -1, 0) }.block.type == Material::LAPIS_BLOCK
     }.each do |m|
       m.damage(4)
     end
