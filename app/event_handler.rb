@@ -419,7 +419,7 @@ module EventHandler
         snowball = loc.world.spawn_entity(loc_above, EntityType:: SNOWBALL)
         snowball.shooter = player
 
-        phi = (player.location.yaw + 90) % 360
+        phi = (player.location.yaw + 90 + 360) % 360
         x, z =
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
