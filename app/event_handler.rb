@@ -354,7 +354,8 @@ module EventHandler
     when Player
       if evt.player.item_in_hand.type == Material::AIR
         vec = evt.right_clicked.location.clone.subtract(evt.player.location).to_vector
-        vec = vec.normalize
+        vec.set_y jfloat(0.0)
+        vec = vec.normalize.multiply(0.5)
         vec.set_y jfloat(0.2)
         evt.right_clicked.velocity = vec
       end
