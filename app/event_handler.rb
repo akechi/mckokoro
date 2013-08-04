@@ -243,7 +243,7 @@ module EventHandler
       end
       player.update_inventory
       basetype = block1.type
-      basestatedata = block1.state.data
+      basestatedata = block1.state.raw_data
       later 0 do
         (0...sizew).each do |wdiff|
           baseloc = block1.location.tap {|l|
@@ -268,7 +268,7 @@ module EventHandler
       unless loc.block.type.solid?
         player.send_message [:before, loc.block.type.to_s, loc.block.state.data.to_s].to_s
         loc.block.type = basetype
-        loc.block.state.data = basestatedata
+        loc.block.state.raw_data = basestatedata
         player.send_message [:after, loc.block.type.to_s, loc.block.state.data.to_s].to_s
       end
     end
