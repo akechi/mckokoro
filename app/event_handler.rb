@@ -203,6 +203,7 @@ module EventHandler
           player.send_message "Failed! the size is too big #{size1}"
           false
         else
+          baseloc = block1.location
           fill_two_blocks2(player, block1, baseloc, size1, base_axis1)
         end
       when 2
@@ -215,7 +216,7 @@ module EventHandler
           player.send_message "Failed! the size is too big #{size}"
           false
         else
-          fill_two_blocks2(player, block1, block1.loc, size, base_axis)
+          fill_two_blocks2(player, block1, block1.location, size, base_axis)
         end
       else # == 3
         player.send_message 'Failed! same places.'
