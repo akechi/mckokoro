@@ -423,7 +423,7 @@ module EventHandler
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
 
-        snowball.velocity = Vector.new(x*0.5, 1.0, z*0.5)
+        snowball.velocity = Vector.new(x*0.2, 0.7, z*0.2)
       end
     end
   end
