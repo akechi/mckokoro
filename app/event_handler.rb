@@ -415,7 +415,8 @@ module EventHandler
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
       5.times do
         loc = player.location
-        snowball = loc.world.spawn_entity(loc, EntityType:: SNOWBALL)
+        loc.clone.tap{|l| l.add(0, 1, 0) }
+        snowball = loc.world.spawn_entity(loc_above, EntityType:: SNOWBALL)
         snowball.shooter = player
 
         phi = (player.location.yaw + 90) % 360
