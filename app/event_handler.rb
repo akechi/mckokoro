@@ -230,6 +230,7 @@ module EventHandler
           fill_two_blocks3(player, block1, baseloc, sizev, v)
         end
       end
+      true
     end
   end
 
