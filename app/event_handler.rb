@@ -261,14 +261,16 @@ module EventHandler
 
   def fill_two_blocks3(player, base_block, baseloc, size, base_axis)
     set_base_axis = :"set#{base_axis.to_s.upcase}"
+    basetype = base_block.type
+    basestatedata = base_block.state.data
     (0...size).each do |diff|
       loc = baseloc.clone.tap {|l|
         l.send(set_base_axis, l.send(base_axis) + diff)
       }
       #player.send_message loc.to_s
       unless loc.block.type.solid?
-        loc.block.type = base_block.type
-        loc.block.state.data = base_block.state.data
+        loc.block.type = basetype
+        loc.block.state.data = basestatedata
       end
     end
   end
