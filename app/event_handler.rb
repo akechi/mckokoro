@@ -233,7 +233,7 @@ module EventHandler
           is.type = Material::AIR
         else # your_amount <= is.amount
           is.amount -= your_amount
-        else
+        end
       end
       later 0 do
         (0...sizew).each do |wdiff|
