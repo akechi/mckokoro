@@ -433,7 +433,7 @@ module EventHandler
         location_around(evt.entity.location, 1).each do |loc|
           b = loc.block
           cond =
-            rand(2) == 0 &&
+            rand(5) != 0 &&
             loc.y >= evt.entity.shooter.location.y
             soft_blocks.include?(b.type)
           if cond
