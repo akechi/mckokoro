@@ -5,9 +5,9 @@ website: http://ujihisa.blogspot.com
 author: Tatsuhiro Ujihisa
 description: ask @ujm
 commands:
-  mckokoro:
+  mck:
     description: debugging
-    usage: /mckokoro [anything]
+    usage: /mck [anything]
   inv:
     description: Inventory Everywhere.
     usage: /inv

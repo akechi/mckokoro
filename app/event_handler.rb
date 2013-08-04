@@ -773,7 +773,7 @@ module EventHandler
         post_lingr args.to_a.join ' '
         true
       end
-    when "mckokoro"
+    when "mck"
       # temporary
       case sender
       when Player
