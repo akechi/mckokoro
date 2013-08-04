@@ -387,13 +387,13 @@ module EventHandler
     case evt.block.type
     when Material::SAND
       the_block = evt.block
-      the_block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+      break_naturally_by_dpickaxe(the_block)
       # TODO use location_around
       diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
       diffs.each do |x, y, z|
         block = the_block.location.clone.add(x, y, z).block
         if block.type == Material::SAND
-          block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+          break_naturally_by_dpickaxe(block)
         end
       end
     end
@@ -693,7 +693,7 @@ module EventHandler
   end
 
   def kickory(block, player)
-    block.break_naturally(player.item_in_hand)
+    break_naturally_by_dpickaxe(block)
     unless player.sneaking?
       [[0, 1, 0], [1, 1, 0], [0, 1, 1], [-1, 1, 0], [0, 1, -1]].each do |x, y, z|
         loc = block.location.clone.add(x, y, z)
