@@ -377,8 +377,21 @@ module EventHandler
     end
   end
 
+  def feather_freedom_move(player, action)
+    return unless player.item_in_hand.type == Material::FEATHER
+    if player.sneaking?
+      # TODO
+    else
+      case action
+      when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
+        # ujihisa will implement here
+      end
+    end
+  end
+  private :feather_freedom_move
 
   def on_player_interact(evt)
+    feather_freedom_move(evt.player, evt.action)
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
         case [ evt.player.item_in_hand.type, evt.action ]
