@@ -525,11 +525,13 @@ module EventHandler
 
         # explode block ( air ni kaeru dake... )
         if killerqueen_explodable_blocks.include? target.type
-          target.type = Material::AIR if target.location(player.location) <= explodable_distance
-          # effect only
-          explode(target.location, 0, false)
-          location_around(target.location, 1).each do |loc|
-            explode(loc, 0, false) if rand(9) < 2
+          if target.location(player.location) <= explodable_distance
+            target.type = Material::AIR
+            # effect only
+            explode(target.location, 0, false)
+            location_around(target.location, 1).each do |loc|
+              explode(loc, 0, false) if rand(9) < 2
+            end
           end
         # explode TNT (can be long distance)
         elsif target.type == Material::TNT
@@ -554,6 +556,8 @@ module EventHandler
     # end
 
     # sonic_boom(evt.player, evt.action)
+
+    killerqueen_explode(evt)
 
 
     if evt.clicked_block
