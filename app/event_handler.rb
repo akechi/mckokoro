@@ -496,6 +496,7 @@ module EventHandler
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
+    player = evt.player
 
     # seeded_p = bulldozer_hoe(evt.player, evt.action)
     # if seeded_p
@@ -505,26 +506,28 @@ module EventHandler
 
     # sonic_boom(evt.player, evt.action)
 
-    if evt.clicked_block
-      player = evt.player
 
-      if Job.of(player) == :killerqueen
-        case [ player.item_in_hand.type, evt.action ]
-        when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
-          player.send_message "KILLERQUEEN...!!"
+    # JOB::KILLERQUEEN
+    if Job.of(player) == :killerqueen
+      case [ player.item_in_hand.type, evt.action ]
+      when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
+        player.send_message "KILLERQUEEN...!!"
 
-          target_blocks = player.getLastTwoTargetBlocks(nil, 200)
-          player.send_message "1: #{ target_blocks[0] }"
-          player.send_message "2: #{ target_blocks[1] }"
-          
-          # effect only
-          # TODO: long distance / not only block
-          # location_around(evt.clicked_block.location, 2).each do |loc|
-          #   explode(loc, 0, false) if rand(9) < 2
-          # end
-          # TODO: explode focusing entity (mob or block)
-        end
+        target_blocks = player.last_two_target_blocks(nil, 1000)
+        player.send_message "1: #{ target_blocks[0].type }"
+        player.send_message "2: #{ target_blocks[1].type }"
+
+        # effect only
+        # TODO: long distance / not only block
+        # location_around(evt.clicked_block.location, 2).each do |loc|
+        #   explode(loc, 0, false) if rand(9) < 2
+        # end
+        # TODO: explode focusing entity (mob or block)
       end
+    end
+
+
+    if evt.clicked_block
 
       # SPADE can remove grass from dirt
       case [ evt.clicked_block.type, evt.action ]
