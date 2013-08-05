@@ -799,8 +799,10 @@ module EventHandler
     when Skeleton
       case projectile
       when Arrow
-        projectile.velocity = projectile.velocity.multiply(jfloat(0.6))
-        projectile.velocity.add(Vector.new(0.0, 1.0, 0.0))
+        projectile.velocity = projectile.velocity.tap {|v|
+          v.multiply(jfloat(0.6))
+          v.add(0.0, 1.0, 0.0)
+        }
       end
     end
   end
