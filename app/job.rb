@@ -42,15 +42,14 @@ module Job
   def change_event(player, blocks)
     enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
     chest = blocks.find {|b| Material::CHEST === b.type }
-    if enchantment_table && chest
-      player.send_message "Job change!"
-      inv = chest.state.inventory
-      @job_recipes.each do |name, recipe|
-        if player_job_changable?(player, inv, name)
-          inv.clear
-          Job.become(player, name)
-          player.send_message "Now your job is #{Job.of(player)}"
-        end
+    return unless enchantment_table && chest
+    player.send_message "Job change!"
+    inv = chest.state.inventory
+    @job_recipes.each do |name, recipe|
+      if player_job_changable?(player, inv, name)
+        inv.clear
+        Job.become(player, name)
+        player.send_message "Now your job is #{Job.of(player)}"
       end
     end
   end
