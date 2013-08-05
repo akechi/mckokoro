@@ -425,30 +425,32 @@ module EventHandler
   def on_projectile_hit(evt)
     case evt.entity
     when Snowball
-      cond =
-        Player === evt.entity.shooter &&
-        evt.entity.shooter.item_in_hand &&
-        evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
-      if cond
-        soft_blocks =
-          [Material::GRASS, Material::DIRT, Material::GRAVEL,
-           Material::SAND]
-        location_around(evt.entity.location, 1).each do |loc|
-          b = loc.block
-          cond =
-            soft_blocks.include?(b.type) &&
-            loc.y >= evt.entity.shooter.location.y
-          if cond
-            break_naturally_by_dpickaxe(b)
-            evt.entity.remove
-            break
-          end
-        end
-      end
+      # this is for Job bulldozer vvvvv
+      # cond =
+      #   Player === evt.entity.shooter &&
+      #   evt.entity.shooter.item_in_hand &&
+      #   evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
+      # if cond
+      #   soft_blocks =
+      #     [Material::GRASS, Material::DIRT, Material::GRAVEL,
+      #      Material::SAND]
+      #   location_around(evt.entity.location, 1).each do |loc|
+      #     b = loc.block
+      #     cond =
+      #       soft_blocks.include?(b.type) &&
+      #       loc.y >= evt.entity.shooter.location.y
+      #     if cond
+      #       break_naturally_by_dpickaxe(b)
+      #       evt.entity.remove
+      #       break
+      #     end
+      #   end
+      # end
+      # this is for Job bulldozer ^^^^^
     end
   end
 
-  def seeding_hoe(player, action)
+  def bulldozer_hoe(player, action)
     return false unless player.item_in_hand.type == Material::GOLD_HOE
     case action
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
@@ -470,7 +472,7 @@ module EventHandler
       false
     end
   end
-  private :seeding_hoe
+  private :bulldozer_hoe
 
   # def sonic_boom(player, action)
   #   return unless player.item_in_hand.type == Material::GOLD_SWORD
@@ -494,11 +496,13 @@ module EventHandler
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
-    seeded_p = seeding_hoe(evt.player, evt.action)
-    if seeded_p
-      evt.cancelled = true
-      return
-    end
+
+    # seeded_p = bulldozer_hoe(evt.player, evt.action)
+    # if seeded_p
+    #   evt.cancelled = true
+    #   return
+    # end
+
     # sonic_boom(evt.player, evt.action)
 
     if evt.clicked_block
