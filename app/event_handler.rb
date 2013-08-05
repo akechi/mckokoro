@@ -800,9 +800,7 @@ module EventHandler
       case projectile
       when Arrow
         projectile.velocity = projectile.velocity.multiply(jfloat(0.6))
-        later 0 do
-          projectile.velocity.add(0.0, 0.3, 0.0)
-        end
+        projectile.velocity.add(Vector.new(0.0, 0.3, 0.0))
       end
     end
   end
