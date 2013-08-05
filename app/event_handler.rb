@@ -658,6 +658,8 @@ module EventHandler
           else
             evt.damage *= 2
           end
+        when Skeleton
+          evt.damage *= 2
         end
       end
     when Snowball
@@ -793,6 +795,11 @@ module EventHandler
         else
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
+      end
+    when Skeleton
+      case projectile
+      when Arrow
+        projectile.velocity = projectile.velocity.multiply(jfloat(0.8))
       end
     end
   end
