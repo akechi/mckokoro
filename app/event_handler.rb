@@ -472,39 +472,25 @@ module EventHandler
   end
   private :seeding_hoe
 
-  def sonic_boom(player, action)
-    return unless player.item_in_hand.type == Material::GOLD_SWORD
-    case action
-    when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
-      loc = player.eye_location
-      bin = spawn(loc, EntityType::FISHING_HOOK)
-      phi = (player.location.yaw + 90) % 360
-      x, z =
-        Math.cos(phi / 180.0 * Math::PI),
-        Math.sin(phi / 180.0 * Math::PI)
-      bin.shooter = player
-      later 0 do
-        bin.velocity = Vector.new(x * 10, 0.1, z * 10)
-      end
-      later sec(2) do
-        bin.remove
-      end
-
-      # #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
-      # transparent_set = nil
-      # _, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
-      # return if block2.type == Material::AIR
-      # loc = block2.location
-      # target, _ = block2.chunk.entities.
-      #   map {|e| [e, e.location.distance(loc)] }.
-      #   select {|e, d| d < 3 }.
-      #   min_by {|e, d| d }
-      # if target
-      #   target.damage(2, player)
-      # end
-    end
-  end
-  private :sonic_boom
+  # def sonic_boom(player, action)
+  #   return unless player.item_in_hand.type == Material::GOLD_SWORD
+  #   case action
+  #   when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
+  #     #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
+  #     transparent_set = nil
+  #     _, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
+  #     return if block2.type == Material::AIR
+  #     loc = block2.location
+  #     target, _ = block2.chunk.entities.
+  #       map {|e| [e, e.location.distance(loc)] }.
+  #       select {|e, d| d < 3 }.
+  #       min_by {|e, d| d }
+  #     if target
+  #       target.damage(2, player)
+  #     end
+  #   end
+  # end
+  # private :sonic_boom
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
@@ -513,7 +499,7 @@ module EventHandler
       evt.cancelled = true
       return
     end
-    sonic_boom(evt.player, evt.action)
+    # sonic_boom(evt.player, evt.action)
 
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
