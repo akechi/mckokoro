@@ -526,6 +526,7 @@ module EventHandler
         # explode block ( air ni kaeru dake... )
         case target.type
         when *killerqueen_explodable_blocks
+          player.send_message 'cool beans'
           if target.location.distance(player.location) <= explodable_distance
             target.type = Material::AIR
             # effect only
