@@ -558,14 +558,16 @@ module EventHandler
         # explode
         case target.type
         when *killerqueen_explodable_blocks
-          target.type = Material::AIR if target_distance <= explodable_distance
+          if target_distance <= explodable_distance
+            target.type = Material::AIR
+            consume_item(player) if rand(3) == 0
+          end
         when Material::TNT
           # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
+          consume_item(player) if rand(3) == 0
         end
-        # consume item
-        consume_item(player) if rand(3) == 0
       end
     end
   end
