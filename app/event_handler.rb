@@ -520,7 +520,7 @@ module EventHandler
         Material::LEAVES,
         Material::COBBLESTONE,
         Material::STONE,
-        Material::COAL_BLOCK,
+        Material::COAL_ORE,
         Material::WEB
       ]
       case [ player.item_in_hand.type, evt.action ]
