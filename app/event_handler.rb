@@ -531,18 +531,24 @@ module EventHandler
         when *killerqueen_explodable_blocks
           if target.location.distance(player.location) <= explodable_distance
             target.type = Material::AIR
+            explode(target.location, 0, false)
+            location_around(target.location, 1).each do |loc|
+              explode(loc, 0, false) if rand(9) < 2
+            end
           end
         when Material::TNT
           # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
         else
+          if target.location.distance(player.location) <= explodable_distance
+            target.type = Material::AIR
+            explode(target.location, 0, false)
+            location_around(target.location, 1).each do |loc|
+              explode(loc, 0, false) if rand(9) < 2
+            end
+          end
           # nop
-        end
-        # effect
-        explode(target.location, 0, false)
-        location_around(target.location, 1).each do |loc|
-          explode(loc, 0, false) if rand(9) < 2
         end
 
         # consume gunpowder
