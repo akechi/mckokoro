@@ -453,7 +453,7 @@ module EventHandler
     when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
       3.times do
         loc = player.location
-        loc_above = loc.clone.tap{|l| l.add(0, 1, 0) }
+        loc_above = add_loc(loc, 0, 1, 0)
         snowball = spawn(loc_above, EntityType:: SNOWBALL)
         snowball.shooter = player
 
@@ -608,7 +608,7 @@ module EventHandler
       fall_chain_above = ->(base_block) {
         later sec(0.1) do
           unless base_block.type.solid?
-            block_above = base_block.location.clone.tap {|l| l.add(0, 1, 0) }.block
+            block_above = add_loc(base_block.location, 0, 1, 0) }.block
             case block_above.type
             when Material::DIRT, Material::LEAVES
               fall_block(block_above)
@@ -1030,6 +1030,10 @@ module EventHandler
   def haveitem(pname, iname, num)
     Bukkit.get_player(pname).item_in_hand =
       ItemStack.new(eval("Material::#{iname.to_s.upcase}"), num)
+  end
+
+  def add_loc(loc, x, y, z)
+    loc.clone.tap {|l| l.add(x, y, z) }
   end
 
   # dummy
