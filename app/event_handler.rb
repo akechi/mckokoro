@@ -506,15 +506,22 @@ module EventHandler
     # sonic_boom(evt.player, evt.action)
 
     if evt.clicked_block
-      if Job.of(evt.player) == :killerqueen
-        case [ evt.player.item_in_hand.type, evt.action ]
-        when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ]
-          evt.player.send_message "KILLERQUEEN...!!"
+      player = evt.player
+
+      if Job.of(player) == :killerqueen
+        case [ player.item_in_hand.type, evt.action ]
+        when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
+          player.send_message "KILLERQUEEN...!!"
+
+          target_blocks = player.getLastTwoTargetBlocks(nil, 200)
+          player.send_message "1: #{ target_blocks[0] }"
+          player.send_message "2: #{ target_blocks[1] }"
+          
           # effect only
           # TODO: long distance / not only block
-          location_around(evt.clicked_block.location, 2).each do |loc|
-            explode(loc, 0, false) if rand(9) < 2
-          end
+          # location_around(evt.clicked_block.location, 2).each do |loc|
+          #   explode(loc, 0, false) if rand(9) < 2
+          # end
           # TODO: explode focusing entity (mob or block)
         end
       end
