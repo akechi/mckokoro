@@ -47,7 +47,7 @@ module EventHandler
     end
 
     case message['text']
-    when /^!mck (\w+) (cow|chicken|pig|minecart|arrow|zombie)/
+    when /^!mck (\w+) (cow|chicken|pig|minecart|arrow|zombie|ocelot)/
       pname = $1
       ename = $2
       player = Bukkit.get_player(pname)
