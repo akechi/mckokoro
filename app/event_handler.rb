@@ -529,7 +529,6 @@ module EventHandler
         _, target = player.get_last_two_target_blocks(nil, 100).to_a
         return if target.type == Material::AIR
 
-        # explode block ( air ni kaeru dake... )
         case target.type
         when *killerqueen_explodable_blocks
           if target.location.distance(player.location) <= explodable_distance
@@ -538,11 +537,13 @@ module EventHandler
             location_around(target.location, 1).each do |loc|
               explode(loc, 0, false) if rand(9) < 2
             end
+            consume_item(player) if rand(3) == 0
           end
         when Material::TNT
           # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
+          consume_item(player) if rand(3) == 0
         else
           if target.location.distance(player.location) <= explodable_distance
             target.type = Material::AIR
@@ -550,12 +551,9 @@ module EventHandler
             location_around(target.location, 1).each do |loc|
               explode(loc, 0, false) if rand(9) < 2
             end
+            consume_item(player) if rand(3) == 0
           end
-          # nop
         end
-
-        # consume gunpowder
-        consume_item(player) if rand(3) == 0
       end
     end
   end
