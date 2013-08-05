@@ -524,7 +524,8 @@ module EventHandler
         return if target.type == Material::AIR
 
         # explode block ( air ni kaeru dake... )
-        if killerqueen_explodable_blocks.include? target.type
+        case target.type
+        when *killerqueen_explodable_blocks
           if target.location(player.location) <= explodable_distance
             target.type = Material::AIR
             # effect only
@@ -533,10 +534,12 @@ module EventHandler
               explode(loc, 0, false) if rand(9) < 2
             end
           end
-        # explode TNT (can be long distance)
-        elsif target.type == Material::TNT
+        elsif Material::TNT
+          # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
+        else
+          # nop
         end
 
         # consume gunpowder
@@ -668,10 +671,6 @@ module EventHandler
       drop_item(evt.block.location, ItemStack.new(Material::SUGAR))
       evt.block.removeMetadata("salt", @plugin)
     end
-    #later 0 do
-    #  evt.getBlock.setType(Material::STONE)
-    #end
-    #
 
     unless evt.cancelled
       fall_chain_above = ->(base_block) {
