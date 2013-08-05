@@ -535,7 +535,7 @@ module EventHandler
 
         # explode block ( air ni kaeru dake... )
         target.type = Material::AIR if killerqueen_explodable_blocks.include? target.type
-        
+
         # effect only
         explode(target.location, 0, false)
         location_around(target.location, 1).each do |loc|
