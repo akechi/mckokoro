@@ -45,6 +45,15 @@ module EventHandler
     later 0 do
       broadcast "[lingr] #{message['nickname']}: #{message['text']}"
     end
+
+    case message
+    when /^!mck (\w+) (\w+)/
+      pname = $1
+      entity = $2
+      player = Bukkit.get_player(pname)
+      return unless player
+      player.send_message "test #{entity.upcase}"
+    end
   end
 
   def reload
