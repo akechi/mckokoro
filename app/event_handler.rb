@@ -61,6 +61,9 @@ module EventHandler
       evt.cancelled = true
       reload
       broadcast '(reloading event handler)'
+    elsif evt.message == 'hi'
+      post_lingr("#{evt.player.name}: #{evt.message}")
+      post_lingr_to('computer_science', "#{evt.player.name}: #{evt.message}")
     else
       post_lingr("#{evt.player.name}: #{evt.message}")
     end
@@ -1087,12 +1090,16 @@ module EventHandler
   end
 
   def post_lingr(text)
+    post_lingr_to('mcujm', text)
+  end
+
+  def post_lingr_to(room, text)
     Thread.start do
       # Send chat for lingr room
       # TODO: move lingr room-id to config.yml to change.
       # TODO: moge following codes to lingr module.
       param = {
-        room: 'mcujm',
+        room: room,
         bot: 'mcsakura',
         text: text,
         bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
