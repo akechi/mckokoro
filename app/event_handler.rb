@@ -60,7 +60,7 @@ module EventHandler
         end
       return unless etype
       player.send_message "test #{etype}"
-      entity = spawn(player.loc, etype)
+      entity = spawn(player.location, etype)
       player.set_passenger entity
     end
   end
