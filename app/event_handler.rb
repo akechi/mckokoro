@@ -542,6 +542,7 @@ module EventHandler
           explode(loc, 0, false) if rand(9) < 2
         end
         # consume gunpowder
+        consume_item(player) if rand(3) == 0
       end
     end
 
