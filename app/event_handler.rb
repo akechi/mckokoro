@@ -800,8 +800,8 @@ module EventHandler
       case projectile
       when Arrow
         projectile.velocity = projectile.velocity.tap {|v|
-          v.multiply(jfloat(0.6))
-          v.add(Vector.new(0.0, 0.2, 0.0))
+          v.multiply(jfloat(0.4))
+          v.add(Vector.new(0.0, 0.3, 0.0))
         }
       end
     end
