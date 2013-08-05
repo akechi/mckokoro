@@ -477,7 +477,7 @@ module EventHandler
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       loc = player.eye_location
-      bin = spawn_entity(loc, EntityType::THROWN_EXP_BOTTLE)
+      bin = spawn(loc, EntityType::THROWN_EXP_BOTTLE)
       phi = (player.location.yaw + 90) % 360
       x, z =
         Math.cos(phi / 180.0 * Math::PI),
