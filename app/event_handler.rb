@@ -801,7 +801,7 @@ module EventHandler
       when Arrow
         projectile.velocity = projectile.velocity.tap {|v|
           v.multiply(jfloat(0.6))
-          v.add(0.0, 1.0, 0.0)
+          v.add(jfloat(0.0), jfloat(1.0), jfloat(0.0))
         }
       end
     end
