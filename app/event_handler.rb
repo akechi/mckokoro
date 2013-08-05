@@ -513,7 +513,7 @@ module EventHandler
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
         player.send_message "KILLERQUEEN...!!"
 
-        _, target = player.get_last_two_target_blocks(nil, 20)
+        _, target = player.get_last_two_target_blocks(nil, 20).to_a
         return if target.type == Material::AIR
 
         # explode block
