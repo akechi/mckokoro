@@ -58,7 +58,10 @@ module EventHandler
         rescue
           nil
         end
+      return unless etype
       player.send_message "test #{etype}"
+      entity = spawn(player.loc, etype)
+      player.set_passenger entity
     end
   end
 
