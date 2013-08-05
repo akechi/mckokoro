@@ -43,14 +43,16 @@ module Job
     enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
     chest = blocks.find {|b| Material::CHEST === b.type }
     return unless enchantment_table && chest
-    player.send_message "Job change!"
     inv = chest.state.inventory
-    @job_recipes.find {|name, recipe|
+    name, recipe = @job_recipes.find {|name, recipe|
       player_job_changable?(player, inv, name)
-    }.each do |name, recipe|
+    }
+    if name
       inv.clear
       Job.become(player, name)
-      player.send_message "Now your job is #{Job.of(player)}"
+      player.send_message "Job change! Now your job is #{Job.of(player)}"
+    else
+      player.send_message "Job change failed!"
     end
   end
 
