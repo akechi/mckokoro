@@ -528,9 +528,9 @@ module EventHandler
         player.send_message "KILLERQUEEN...!!"
 
         # 20 if cat on player head and have uekibachi
-        explodable_distanse = 8
+        explodable_distance = 8
 
-        _, target = player.get_last_two_target_blocks(nil, explodable_distanse).to_a
+        _, target = player.get_last_two_target_blocks(nil, explodable_distance).to_a
         return if target.type == Material::AIR
 
         # explode block ( air ni kaeru dake... )
