@@ -47,7 +47,7 @@ module EventHandler
     end
 
     case message
-    when /^!mck (\w+) (\w+)/
+    when /^\w: !mck (\w+) (\w+)/
       pname = $1
       entity = $2
       player = Bukkit.get_player(pname)
