@@ -509,6 +509,16 @@ module EventHandler
 
     # JOB::KILLERQUEEN
     if Job.of(player) == :killerqueen
+      killerqueen_explodable_blocks = [
+        Material::SAND,
+        Material::WOOL,
+        Material::WOOD,
+        Material::DIRT,
+        Material::GRASS,
+        Material::LEAVES,
+        Material::COBBLESTONE,
+        Material::STONE
+      ]
       case [ player.item_in_hand.type, evt.action ]
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
         player.send_message "KILLERQUEEN...!!"
@@ -516,12 +526,15 @@ module EventHandler
         _, target = player.get_last_two_target_blocks(nil, 20).to_a
         return if target.type == Material::AIR
 
-        # explode block
-        explode(target.location, 1, false)
+        # explode block ( air ni kaeru dake... )
+        target.type = Material::AIR if killerqueen_explodable_blocks.include? target.type
+        
         # effect only
+        explode(target.location, 0, false)
         location_around(target.location, 1).each do |loc|
           explode(loc, 0, false) if rand(9) < 2
         end
+        # consume gunpowder
       end
     end
 
