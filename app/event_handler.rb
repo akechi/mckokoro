@@ -526,7 +526,7 @@ module EventHandler
         # explode block ( air ni kaeru dake... )
         case target.type
         when *killerqueen_explodable_blocks
-          if target.location(player.location) <= explodable_distance
+          if target.location.distance(player.location) <= explodable_distance
             target.type = Material::AIR
             # effect only
             explode(target.location, 0, false)
