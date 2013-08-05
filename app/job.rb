@@ -39,10 +39,8 @@ module Job
     return EventHandler.inventory_match?(inv, recipe[:votive])
   end
 
-
-  def change_event(player, location)
+  def change_event(player, blocks)
     enchantment_table, chest = nil
-    blocks = EventHandler.location_around(location, 1).map(&:block)
     enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
     chest = blocks.find {|b| Material::CHEST === b.type }
     if enchantment_table && chest

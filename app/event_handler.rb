@@ -384,7 +384,10 @@ module EventHandler
         ]
       })
       # job change by villager
-      Job.change_event(evt.player, evt.right_clicked.location)
+      location = evt.right_clicked.location
+      Job.change_event(
+        evt.player,
+        location_around(location, 1).map(&:block))
     else
       #evt.player.send_message "you right clicked something!"
     end
