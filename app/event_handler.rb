@@ -479,7 +479,7 @@ module EventHandler
       #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
       transparent_set = nil
       block1, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
-      player.send_message [block1, block2].to_s
+      player.send_message [block1.type.to_s, block2.type.to_s].to_s
     end
   end
   private :sonic_boom
