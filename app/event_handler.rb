@@ -513,11 +513,15 @@ module EventHandler
         Material::SAND,
         Material::WOOL,
         Material::WOOD,
+        Material::FENCE,
         Material::DIRT,
         Material::GRASS,
+        Material::WHEAT.
         Material::LEAVES,
         Material::COBBLESTONE,
-        Material::STONE
+        Material::STONE,
+        Material::COAL_BLOCK,
+        Material::WEB,
       ]
       case [ player.item_in_hand.type, evt.action ]
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
