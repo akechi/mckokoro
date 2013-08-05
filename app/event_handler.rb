@@ -512,18 +512,16 @@ module EventHandler
       case [ player.item_in_hand.type, evt.action ]
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
         player.send_message "KILLERQUEEN...!!"
-        
 
         _, target = player.get_last_two_target_blocks(nil, 20)
         return if target.type == Material::AIR
 
-        # effect only
-        # TODO: long distance / not only block
+        # explode block
         explode(target.location, 1, false)
+        # effect only
         location_around(target.location, 1).each do |loc|
           explode(loc, 0, false) if rand(9) < 2
         end
-        # TODO: explode focusing entity (mob or block)
       end
     end
 
