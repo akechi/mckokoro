@@ -12,7 +12,6 @@ import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
 import 'org.bukkit.event.block.Action'
-import 'org.bukkit.entity.Arrow'
 
 require 'set'
 require 'digest/sha1'
@@ -478,8 +477,16 @@ module EventHandler
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       loc = player.eye_location
-      #bin = spawn_entity(loc, EntityType::THROWN_EXP_BOTTLE)
-      player.launch_projectile(Arrow.to_java Arrow)
+      bin = spawn_entity(loc, EntityType::THROWN_EXP_BOTTLE)
+      phi = (player.location.yaw + 90) % 360
+      x, z =
+        Math.cos(phi / 180.0 * Math::PI),
+        Math.sin(phi / 180.0 * Math::PI)
+      bin.shooter = player
+      later 0 do
+        bin.velocity = Vector.new(x * 2, 0.4, z * 2)
+      end
+
       # #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
       # transparent_set = nil
       # _, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
