@@ -40,10 +40,9 @@ module Job
   end
 
 
-  def job_change_event(evt)
+  def job_change_event(player, location)
     enchantment_table, chest = nil
-    player = evt.player
-    blocks = EventHandler.location_around(evt.right_clicked.location, 1).map(&:block)
+    blocks = EventHandler.location_around(location, 1).map(&:block)
     enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
     chest = blocks.find {|b| Material::CHEST === b.type }
     if enchantment_table && chest

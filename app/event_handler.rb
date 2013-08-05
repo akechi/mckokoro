@@ -384,7 +384,7 @@ module EventHandler
         ]
       })
       # job change by villager
-      Job.job_change_event(evt)
+      Job.job_change_event(evt.player, evt.right_clicked.location)
     else
       #evt.player.send_message "you right clicked something!"
     end
