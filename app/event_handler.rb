@@ -477,7 +477,7 @@ module EventHandler
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
-      block1, block2 = player.get_last_two_target_blocks(transparent_set, 30)
+      block1, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
       player.send_message [block1, block2].to_s
     end
   end
