@@ -608,7 +608,7 @@ module EventHandler
       fall_chain_above = ->(base_block) {
         later sec(0.1) do
           unless base_block.type.solid?
-            block_above = add_loc(base_block.location, 0, 1, 0) }.block
+            block_above = add_loc(base_block.location, 0, 1, 0).block
             case block_above.type
             when Material::DIRT, Material::LEAVES
               fall_block(block_above)
