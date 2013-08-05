@@ -495,7 +495,7 @@ module EventHandler
   # private :sonic_boom
 
 
-  def killerqueen(evt)
+  def killerqueen_explode(evt)
     # JOB::KILLERQUEEN
     player = evt.player
     if Job.of(player) == :killerqueen
@@ -520,17 +520,23 @@ module EventHandler
         # 20 if cat on player head and have uekibachi
         explodable_distance = 8
 
-        _, target = player.get_last_two_target_blocks(nil, explodable_distance).to_a
+        _, target = player.get_last_two_target_blocks(nil, 100).to_a
         return if target.type == Material::AIR
 
         # explode block ( air ni kaeru dake... )
-        target.type = Material::AIR if killerqueen_explodable_blocks.include? target.type
-
-        # effect only
-        explode(target.location, 0, false)
-        location_around(target.location, 1).each do |loc|
-          explode(loc, 0, false) if rand(9) < 2
+        if killerqueen_explodable_blocks.include? target.type
+          target.type = Material::AIR if target.location(player.location) <= explodable_distance
+          # effect only
+          explode(target.location, 0, false)
+          location_around(target.location, 1).each do |loc|
+            explode(loc, 0, false) if rand(9) < 2
+          end
+        # explode TNT (can be long distance)
+        elsif target.type == Material::TNT
+          target.type = Material::AIR
+          explode(target.location, 3, false)
         end
+
         # consume gunpowder
         consume_item(player) if rand(3) == 0
       end
