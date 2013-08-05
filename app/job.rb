@@ -45,12 +45,12 @@ module Job
     return unless enchantment_table && chest
     player.send_message "Job change!"
     inv = chest.state.inventory
-    @job_recipes.each do |name, recipe|
-      if player_job_changable?(player, inv, name)
-        inv.clear
-        Job.become(player, name)
-        player.send_message "Now your job is #{Job.of(player)}"
-      end
+    @job_recipes.select {|name, recipe|
+      player_job_changable?(player, inv, name)
+    }.each do |name, recipe|
+      inv.clear
+      Job.become(player, name)
+      player.send_message "Now your job is #{Job.of(player)}"
     end
   end
 
