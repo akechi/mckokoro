@@ -471,6 +471,15 @@ module EventHandler
   end
   private :seeding_hoe
 
+  def sonic_boom(player, action)
+    return unless player.item_in_hand.type == Material::GOLD_SWORD
+    case action
+    when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
+      player.send_message [:cool].to_s
+    end
+  end
+  private :sonic_boom
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
     seeded_p = seeding_hoe(evt.player, evt.action)
@@ -478,6 +487,7 @@ module EventHandler
       evt.cancelled = true
       return
     end
+    sonic_boom(evt.player, evt.action)
 
     if evt.clicked_block
       if Job.of(evt.player) == :killerqueen
