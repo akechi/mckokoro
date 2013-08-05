@@ -513,7 +513,7 @@ module EventHandler
       when [ Material::SULPHUR, Action::LEFT_CLICK_BLOCK ], [ Material::SULPHUR, Action::LEFT_CLICK_AIR ]
         player.send_message "KILLERQUEEN...!!"
 
-        target_blocks = player.last_two_target_blocks(nil, 1000)
+        target_blocks = player.get_last_two_target_blocks(nil, 1000)
         player.send_message "1: #{ target_blocks[0].type }"
         player.send_message "2: #{ target_blocks[1].type }"
 
