@@ -483,8 +483,7 @@ module EventHandler
       loc = block2.location
       target, _ = block2.chunk.entities.
         map {|e| [e, e.location.distance(loc)] }.
-        map {|x| p x }.
-        select {|e, d| d < 1.5 }.
+        select {|e, d| d < 3 }.
         min_by {|e, d| d }
       if target
         target.damage(2, player)
