@@ -484,7 +484,10 @@ module EventHandler
         Math.sin(phi / 180.0 * Math::PI)
       bin.shooter = player
       later 0 do
-        bin.velocity = Vector.new(x * 2, 0.4, z * 2)
+        bin.velocity = Vector.new(x * 10, 0.1, z * 10)
+      end
+      later sec(2) do
+        bin.remove
       end
 
       # #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
