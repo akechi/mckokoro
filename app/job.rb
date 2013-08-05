@@ -40,7 +40,6 @@ module Job
   end
 
   def change_event(player, blocks)
-    enchantment_table, chest = nil
     enchantment_table = blocks.find {|b| Material::ENCHANTMENT_TABLE === b.type }
     chest = blocks.find {|b| Material::CHEST === b.type }
     if enchantment_table && chest
