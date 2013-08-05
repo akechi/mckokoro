@@ -494,20 +494,10 @@ module EventHandler
   # end
   # private :sonic_boom
 
-  def on_player_interact(evt)
-    feather_freedom_move(evt.player, evt.action)
-    player = evt.player
 
-    # seeded_p = bulldozer_hoe(evt.player, evt.action)
-    # if seeded_p
-    #   evt.cancelled = true
-    #   return
-    # end
-
-    # sonic_boom(evt.player, evt.action)
-
-
+  def killerqueen(evt)
     # JOB::KILLERQUEEN
+    player = evt.player
     if Job.of(player) == :killerqueen
       killerqueen_explodable_blocks = [
         Material::SAND,
@@ -545,6 +535,19 @@ module EventHandler
         consume_item(player) if rand(3) == 0
       end
     end
+  end
+
+
+  def on_player_interact(evt)
+    feather_freedom_move(evt.player, evt.action)
+
+    # seeded_p = bulldozer_hoe(evt.player, evt.action)
+    # if seeded_p
+    #   evt.cancelled = true
+    #   return
+    # end
+
+    # sonic_boom(evt.player, evt.action)
 
 
     if evt.clicked_block
