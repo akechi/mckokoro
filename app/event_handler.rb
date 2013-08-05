@@ -659,7 +659,7 @@ module EventHandler
             evt.damage *= 2
           end
         when Skeleton
-          evt.damage *= 5
+          evt.damage *= 2
         end
       end
     when Snowball
