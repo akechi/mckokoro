@@ -475,8 +475,8 @@ module EventHandler
     return unless player.item_in_hand.type == Material::GOLD_SWORD
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
-      blocks = player.get_last_two_blocks([Material::AIR].to_set, 30)
-      player.send_message [blocks].to_s
+      block1, block2 = player.get_last_two_target_blocks([Material::AIR].to_set, 30)
+      player.send_message [block1, block2].to_s
     end
   end
   private :sonic_boom
