@@ -534,7 +534,7 @@ module EventHandler
               explode(loc, 0, false) if rand(9) < 2
             end
           end
-        elsif Material::TNT
+        when Material::TNT
           # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
