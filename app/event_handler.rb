@@ -478,8 +478,16 @@ module EventHandler
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
       transparent_set = nil
-      block1, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
-      player.send_message [block1.type.to_s, block2.type.to_s].to_s
+      _, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
+      return if block2.type == Material::AIR
+      loc = block2.location
+      target, _ = block2.chunk.entities.
+        map {|e| [e, e.location.distance(loc)] }.
+        select {|e, d| d < 1.5 }.
+        min_by {|e, d| d }
+      if target
+        target.damage(2, player)
+      end
     end
   end
   private :sonic_boom
