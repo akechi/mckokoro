@@ -430,7 +430,7 @@ module EventHandler
         evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
       if cond
         soft_blocks =
-          [Material::GRASS, Material::DIRT, Material::GRAVEL, Material::STONE,
+          [Material::GRASS, Material::DIRT, Material::GRAVEL,
            Material::SAND]
         location_around(evt.entity.location, 1).each do |loc|
           b = loc.block
