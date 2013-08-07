@@ -479,8 +479,10 @@ module EventHandler
       # end
       # this is for Job bulldozer ^^^^^
     when Arrow
-      loc = evt.entity.location
-      if loc.block.type == Material::SKULL
+      loc0 = evt.entity.location
+      loc1 = loc0.tap {|l| l.add evt.entity.velocity.normalize }
+      loc = [loc0, loc1].find {|loc| loc.block.type == Material::SKULL }
+      if loc
         strike_lightning(loc)
         20.times do
           drop_item(loc, ItemStack.new(Material::DIRT, 1))
