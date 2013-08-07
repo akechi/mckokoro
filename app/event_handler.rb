@@ -506,7 +506,7 @@ module EventHandler
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       arrow = JavaWrapper.launch_arrow(player)
       loc = add_loc(player.location, 0, 3, 0)
-      cow = spawn(loc, EntityType::CREEPER)
+      cow = spawn(loc, EntityType::SQUID)
       cow.set_leash_holder arrow
     end
   end
