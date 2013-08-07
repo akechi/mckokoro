@@ -485,11 +485,13 @@ module EventHandler
       shooter = evt.entity.shooter
       if loc && shooter
         strike_lightning(loc)
-        10.times do
-          drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
-        end
         if Player === shooter
-          shooter.send_message "distance: #{shooter.location.distance(loc).to_i}"
+          distance = shooter.location.distance(loc).to_i
+          shooter.send_message "distance: #{distance}"
+          bonus = [(d ** 3) / 300, 64].min
+          bonus.times do
+            drop_item(loc, ItemStack.new(Material::APPLE, 1))
+          end
         end
       end
     end
