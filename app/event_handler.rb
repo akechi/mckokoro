@@ -1071,6 +1071,24 @@ module EventHandler
   end
   private :holy_water
 
+  def cactus_shoot(blocks_nearby)
+    cactuses = blocks_nearby.select {|p, l|
+      l.block.type == Material::CACTUS &&
+        add_loc(l, 0, 1, 0).block.type == Material::AIR
+    }
+    cactuses.each do |p, l|
+      next if rand(2) == 0
+      dummy_chicken = spawn(add_loc(l, 0, 1, 0), EntityType::CHICKEN)
+      later 0 do
+        unless dummy_chicken.dead?
+          JavaWrapper.launch_arrow(dummy_chicken)
+          dummy_chicken.remove
+        end
+      end
+    end
+  end
+  private :cactus_shoot
+
   def periodically
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
@@ -1078,6 +1096,11 @@ module EventHandler
         select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
+
+    blocks_nearby = online_players.inject({}) {|memo, p|
+      memo.merge p => location_around(p.location, 20)
+    }
+    cactus_shoot(blocks_nearby)
 
     online_players.each do |player|
       # Superjump counter counting down
