@@ -618,6 +618,8 @@ module EventHandler
       when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, HOES ]
         location_around(evt.clicked_block.location, 10).each do |loc|
           loc.block.type = Material::SOIL if loc.block.type == Material::DIRT
+          # Inochi wo karitoru katachi wo shiteru darou?
+          evt.player.send_message "The shape looks like, the DEATH."
         end
       end
 
