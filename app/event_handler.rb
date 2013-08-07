@@ -1067,8 +1067,7 @@ module EventHandler
       end
     end
 
-    # sponge
-    sponge_movement(move_to, player)
+    sponge_movement(evt.to, player)
   end
 
   def on_server_command(evt)
