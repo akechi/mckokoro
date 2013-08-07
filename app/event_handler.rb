@@ -505,9 +505,10 @@ module EventHandler
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       arrow = JavaWrapper.launch_arrow(player)
+      arrow.velocity = arrow.velocity.multiply(2.0)
       loc = add_loc(player.location, 0, 3, 0)
-      cow = spawn(loc, EntityType::SQUID)
-      cow.set_leash_holder arrow
+      chicken = spawn(loc, EntityType::CHICKEN)
+      chicken.set_leash_holder arrow
     end
   end
   private :sonic_boom
