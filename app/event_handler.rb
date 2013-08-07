@@ -506,7 +506,7 @@ module EventHandler
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       arrow = JavaWrapper.launch_arrow(player)
       cow = spawn(player.location, EntityType::COW)
-      cow.leash_holder = arrow
+      cow.set_leash_holder arrow
     end
   end
   private :sonic_boom
