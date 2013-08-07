@@ -1056,8 +1056,10 @@ module EventHandler
       return unless more.empty? # TODO don't use return
       return unless @sponge_previous_location[player] == adjuscent_sponge # TODO ditto
       unless rand(10) == 0
-        later 0 do
-          player.teleport(add_loc(adjuscent_sponge, 0, 1, 0))
+        later 1 do
+          newloc = add_loc(adjuscent_sponge, 0, 1, 0)
+          @sponge_previous_location[player] = newloc
+          player.teleport(newloc)
         end
       end
     end
