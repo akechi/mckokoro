@@ -773,10 +773,10 @@ module EventHandler
             # because it's fast
             evt.damage *= 0.85
           else
-            evt.damage *= 2
+            evt.damage *= 2.0
           end
         when Skeleton
-          evt.damage *= 2
+          evt.damage *= 2.0
         end
       end
     when Snowball
