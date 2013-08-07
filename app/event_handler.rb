@@ -615,7 +615,7 @@ module EventHandler
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
       # grim reaper
-      when *( HOES.map { |hoe| [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ] } )
+      when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
           if [ Material::DIRT, Material::GRASS ].include? loc.block.type
             upper = add_loc(loc, 0, 1, 0).block
