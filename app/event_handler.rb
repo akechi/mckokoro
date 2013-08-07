@@ -622,6 +622,7 @@ module EventHandler
             if [ Material::LONG_GRASS, Material::AIR ].include? upper.type
               upper.type = Material::AIR 
               loc.block.type = Material::SOIL
+              play_effect(newloc, Effect::ENDER_SIGNAL) if rand(4) == 0
             end
           end
         end
