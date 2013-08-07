@@ -97,9 +97,9 @@ module EventHandler
   def on_player_login(evt)
     post_lingr "#{evt.player.name} logged in."
 
-    Bukkit.online_players.each do |player|
-      update_hide_player(player, evt.player)
-    end
+    # Bukkit.online_players.each do |player|
+    #   update_hide_player(player, evt.player)
+    # end
 
     later 0 do
       player = evt.player
