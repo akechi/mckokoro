@@ -1072,17 +1072,19 @@ module EventHandler
   private :holy_water
 
   def cactus_shoot(blocks_nearby)
-    cactuses = blocks_nearby.select {|p, l|
-      l.block.type == Material::CACTUS &&
-        add_loc(l, 0, 1, 0).block.type == Material::AIR
-    }
-    cactuses.each do |p, l|
-      next if rand(2) == 0
-      dummy_chicken = spawn(add_loc(l, 0, 1, 0), EntityType::CHICKEN)
-      later 0 do
-        unless dummy_chicken.dead?
-          JavaWrapper.launch_arrow(dummy_chicken)
-          dummy_chicken.remove
+    cactuses.each do |p, ls|
+      ls = ls.select {|l|
+        l.block.type == Material::CACTUS &&
+          add_loc(l, 0, 1, 0).block.type == Material::AIR
+      }
+      ls.each do |l|
+        next if rand(2) == 0
+        dummy_chicken = spawn(add_loc(l, 0, 1, 0), EntityType::CHICKEN)
+        later 0 do
+          unless dummy_chicken.dead?
+            JavaWrapper.launch_arrow(dummy_chicken)
+            dummy_chicken.remove
+          end
         end
       end
     end
