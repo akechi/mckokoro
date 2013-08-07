@@ -489,7 +489,7 @@ module EventHandler
           drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
         end
         if Player === shooter
-          shooter.send_message "distance: #{shooter.location.distance(loc)}"
+          shooter.send_message "distance: #{shooter.location.distance(loc).to_i}"
         end
       end
     end
