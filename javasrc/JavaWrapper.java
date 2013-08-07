@@ -2,15 +2,15 @@ package com.github.ujihisa.Mckokoro;
 import org.bukkit.entity.*;
 
 public class JavaWrapper {
-  Arrow launchArrow(LivingEntity e) {
+  static Arrow launchArrow(LivingEntity e) {
     return e.launchProjectile(Arrow.class);
   }
 
-  Egg launchEgg(LivingEntity e) {
+  static Egg launchEgg(LivingEntity e) {
     return e.launchProjectile(Egg.class);
   }
 
-  Snowball launchSnowball(LivingEntity e) {
+  static Snowball launchSnowball(LivingEntity e) {
     return e.launchProjectile(Snowball.class);
   }
 }
