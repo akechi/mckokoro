@@ -502,6 +502,9 @@ module EventHandler
             end
           end
         end
+        if rand(50) == 0
+          loc.block.type = Material::AIR
+        end
       end
     end
   end
