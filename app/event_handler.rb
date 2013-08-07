@@ -619,8 +619,8 @@ module EventHandler
         location_around(evt.clicked_block.location, 10).each do |loc|
           loc.block.type = Material::SOIL if loc.block.type == Material::DIRT
           # Inochi wo karitoru katachi wo shiteru darou?
-          evt.player.send_message "The shape looks like, the DEATH."
         end
+        evt.player.send_message "The shape looks like, the DEATH."
       end
 
     else
