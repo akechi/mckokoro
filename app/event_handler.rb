@@ -1053,6 +1053,7 @@ module EventHandler
       adjuscent_sponge, *more = location_around(loc_below, 2).select {|l|
         l.block.type == Material::SPONGE
       }
+      player.send_message "ad: #{adjuscent_sponge} #{more}"
       return unless more.empty? # TODO don't use return
       return unless @sponge_previous_location[player] == adjuscent_sponge # TODO ditto
       unless rand(10) == 0
