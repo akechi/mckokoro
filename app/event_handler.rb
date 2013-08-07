@@ -502,6 +502,7 @@ module EventHandler
 
   def sonic_boom(player, action)
     return unless player.item_in_hand.type == Material::GOLD_SWORD
+    return unless Job.of(player) == :debug
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       arrow = JavaWrapper.launch_arrow(player)
