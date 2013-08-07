@@ -615,7 +615,7 @@ module EventHandler
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
       # grim reaper
-      when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, HOES ]
+      when HOES.map { |hoe| [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ]}
         location_around(evt.clicked_block.location, 10).each do |loc|
           loc.block.type = Material::SOIL if loc.block.type == Material::DIRT
           # Inochi wo karitoru katachi wo shiteru darou?
