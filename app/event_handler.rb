@@ -505,7 +505,7 @@ module EventHandler
     case action
     when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
       arrow = JavaWrapper.launch_arrow(player)
-      cow = spawn(player.location, EntityType::COW)
+      cow = spawn(add_loc(player.location, 0, 3, 0), EntityType::COW)
       cow.set_leash_holder arrow
     end
   end
