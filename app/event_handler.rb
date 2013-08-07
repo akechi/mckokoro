@@ -1050,7 +1050,7 @@ module EventHandler
     # sponge
     loc_below = add_loc(evt.to, 0, -1, 0)
     if loc_below.block.type == Material::SPONGE
-      adjuscent_sponge, *more = location_around(loc_below, 1).select {|l|
+      adjuscent_sponge, *more = location_around(loc_below, 2).select {|l|
         l.block.type == Material::SPONGE
       }
       return unless more.empty? # TODO don't use return
