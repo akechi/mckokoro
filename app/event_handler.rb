@@ -617,10 +617,17 @@ module EventHandler
       # grim reaper
       when *( HOES.map { |hoe| [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ] } )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
-          loc.block.type = Material::SOIL if [ Material::DIRT, Material::GRASS ].include? loc.block.type
+          if [ Material::DIRT, Material::GRASS ].include? loc.block.type
+            upper = add_loc(loc, 0, 1, 0).block
+            if [ Material::LONG_GRASS, Material::AIR ].include? upper.type
+              upper.type = Material::AIR 
+              loc.block.type = Material::SOIL
+            end
+          end
         end
         # Inochi wo karitoru katachi wo shiteru darou?
-        evt.player.send_message "The shape looks like, the DEATH."
+        broadcast "The shape looks like--"
+        broadcast "                the DEATH."
       end
 
     else
