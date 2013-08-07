@@ -1012,13 +1012,15 @@ module EventHandler
       } - [loc_below, @sponge_previous_location[player]]
       player.send_message "ad #{adjuscent_sponge}, #{more}"
       return unless more.empty?
-      unless rand(10) == 0
-        later 5 do
-          newloc = add_loc(adjuscent_sponge, 0, 1, 0)
-          @sponge_previous_location[player] = newloc
-          player.teleport(newloc)
-          sponge_movement(newloc, player)
-        end
+      if rand(10) == 0
+        player.send_message 'force cancel'
+        return
+      end
+      later 5 do
+        newloc = add_loc(adjuscent_sponge, 0, 1, 0)
+        @sponge_previous_location[player] = newloc
+        player.teleport(newloc)
+        sponge_movement(newloc, player)
       end
     end
   end
