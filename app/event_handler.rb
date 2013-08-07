@@ -1020,7 +1020,7 @@ module EventHandler
         newloc = add_loc(adjuscent_sponge, 0, 1, 0)
         @sponge_previous_location[player] = newloc
         player.teleport(newloc)
-        sponge_movement(newloc, player)
+        #sponge_movement(newloc, player)
       end
     end
   end
