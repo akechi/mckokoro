@@ -1092,7 +1092,7 @@ module EventHandler
   def periodically
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
-      p.get_nearby_entities(20, 20, 20).
+      p.get_nearby_entities(2, 2, 2).
         select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
