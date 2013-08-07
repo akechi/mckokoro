@@ -480,11 +480,11 @@ module EventHandler
       # this is for Job bulldozer ^^^^^
     when Arrow
       loc = evt.entity.location
-      if evt.entity.shooter && Player === evt.entity.shooter
-        evt.entity.shooter.send_message "destination: #{loc.block}"
-      end
       if loc.block.type == Material::SKULL
         strike_lightning(loc)
+        20.times do
+          drop_item(loc, ItemStack.new(Material::DIRT, 1))
+        end
       end
     end
   end
