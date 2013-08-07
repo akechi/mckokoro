@@ -76,13 +76,18 @@ module EventHandler
   end
 
   def on_async_player_chat(evt)
+    @last_chat_message ||= []
     #p :chat, evt.getPlayer
+
+    last_pname, last_message = @last_chat_message
+    @last_chat_message = [evt.player.name, evt.message]
     if evt.player.op? && evt.message == "reload"
       evt.cancelled = true
       reload
       broadcast '(reloading event handler)'
-    elsif evt.message == 'hi'
+    elsif evt.message == last_message
       post_lingr("#{evt.player.name}: #{evt.message}")
+      post_lingr_to('computer_science', "#{last_pname}: #{evt.message}")
       post_lingr_to('computer_science', "#{evt.player.name}: #{evt.message}")
     else
       post_lingr("#{evt.player.name}: #{evt.message}")
