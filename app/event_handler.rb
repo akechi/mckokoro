@@ -500,7 +500,7 @@ module EventHandler
   end
   private :bulldozer_hoe
 
-  def sonic_boom(player, action)
+  def chicken_arrow(player, action)
     return unless player.item_in_hand.type == Material::GOLD_SWORD
     return unless Job.of(player) == :debug
     case action
@@ -514,7 +514,7 @@ module EventHandler
       chicken.set_leash_holder arrow
     end
   end
-  private :sonic_boom
+  private :chicken_arrow
 
 
   def killerqueen_explode(evt)
@@ -580,7 +580,7 @@ module EventHandler
     #   return
     # end
 
-    sonic_boom(evt.player, evt.action)
+    chicken_arrow(evt.player, evt.action)
 
     killerqueen_explode(evt)
 
