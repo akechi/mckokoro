@@ -1016,7 +1016,7 @@ module EventHandler
         player.send_message 'force cancel'
         return
       end
-      later 5 do
+      later sec(1) do
         newloc = add_loc(adjuscent_sponge, 0, 1, 0)
         @sponge_previous_location[player] = newloc
         player.teleport(newloc)
