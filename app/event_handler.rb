@@ -1003,28 +1003,6 @@ module EventHandler
     end
   end
 
-  def sponge_movement(move_to, player)
-    @sponge_previous_location ||= {}
-    loc_below = add_loc(move_to, 0, -1, 0)
-    if loc_below.block.type == Material::SPONGE
-      adjuscent_sponge, *more = location_around(loc_below, 1).select {|l|
-        l.block.type == Material::SPONGE
-      } - [loc_below, @sponge_previous_location[player]]
-      player.send_message "ad #{adjuscent_sponge}, #{more}"
-      return unless more.empty?
-      if rand(10) == 0
-        player.send_message 'force cancel'
-        return
-      end
-      later sec(1) do
-        newloc = add_loc(adjuscent_sponge, 0, 1, 0)
-        @sponge_previous_location[player] = newloc
-        player.teleport(newloc)
-        #sponge_movement(newloc, player)
-      end
-    end
-  end
-
   def on_player_move(evt)
     player = evt.player
     # if player.sneaking?
@@ -1068,8 +1046,6 @@ module EventHandler
         end
       end
     end
-
-    sponge_movement(evt.to, player)
   end
 
   def on_server_command(evt)
