@@ -516,7 +516,6 @@ module EventHandler
   end
   private :chicken_arrow
 
-
   def killerqueen_explode(evt)
     # JOB::KILLERQUEEN
     player = evt.player
@@ -1018,6 +1017,21 @@ module EventHandler
     #     end
     #   end
     # end
+
+    # fastladder
+    if player.location.block.type == Material::LADDER
+      diff_y = evt.to.y - evt.from.y
+      case player.location.pitch
+      when -90.0 # up
+        if diff_y > 0
+          player.send_message 'up'
+        end
+      when 90.0 #down
+        if diff_y < 0
+          player.send_message 'down'
+        end
+      end
+    end
   end
 
   def on_server_command(evt)
