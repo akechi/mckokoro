@@ -1,5 +1,5 @@
 module Job
-  JOBS = [:novice, :killerqueen, :archer, :muteki, :archtect]
+  JOBS = [:novice, :killerqueen, :archer, :muteki, :archtect, :debug]
 
   module_function
 
