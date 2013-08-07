@@ -487,10 +487,14 @@ module EventHandler
         strike_lightning(loc)
         if Player === shooter
           distance = shooter.location.distance(loc).to_i
-          bonus = [(distance ** 3) / 300, 64].min
+          bonus = (distance ** 3) / 300
           shooter.send_message "distance: #{distance}, bonus: #{bonus}"
           bonus.times do
-            drop_item(loc, ItemStack.new(Material::APPLE, 1))
+            if rand(30) == 0
+              drop_item(loc, ItemStack.new(Material::DIAMOND_INGOT, 1))
+            else
+              drop_item(loc, ItemStack.new(Material::APPLE, 1))
+            end
           end
         end
       end
