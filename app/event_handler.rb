@@ -591,6 +591,15 @@ module EventHandler
 
     if evt.clicked_block
 
+      # Grim Reaper
+      Job.set_recipe(:grimreaper, {
+        masteries: {novice: 0},
+        votive: [
+          ItemStack.new(Material::SUGAR, 1),
+          ItemStack.new(Material::STONE_HOE, 1)
+        ]
+      })
+
       # SPADE can remove grass from dirt
       case [ evt.clicked_block.type, evt.action ]
       when [ Material::GRASS, Action::LEFT_CLICK_BLOCK ]
@@ -605,6 +614,11 @@ module EventHandler
       when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS ]
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
+      # grim reaper
+      when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, HOES ]
+        location_around(evt.clicked_block.location, 10).each do |loc|
+          loc.block.type = Material::SOIL if loc.block.type == Material::DIRT
+        end
       end
 
     else
