@@ -505,21 +505,21 @@ module EventHandler
   end
   private :bulldozer_hoe
 
-  def chicken_arrow(player, action)
-    return unless player.item_in_hand.type == Material::GOLD_SWORD
-    return unless Job.of(player) == :debug
-    case action
-    when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
-      arrow = JavaWrapper.launch_arrow(player)
-      later 0 do
-        arrow.velocity = arrow.velocity.multiply(2.0)
-      end
-      loc = add_loc(player.location, 0, 3, 0)
-      chicken = spawn(loc, EntityType::OCELOT)
-      chicken.set_leash_holder arrow
-    end
-  end
-  private :chicken_arrow
+  #def chicken_arrow(player, action)
+  #  return unless player.item_in_hand.type == Material::GOLD_SWORD
+  #  return unless Job.of(player) == :debug
+  #  case action
+  #  when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
+  #    arrow = JavaWrapper.launch_arrow(player)
+  #    later 0 do
+  #      arrow.velocity = arrow.velocity.multiply(2.0)
+  #    end
+  #    loc = add_loc(player.location, 0, 3, 0)
+  #    chicken = spawn(loc, EntityType::CHICKEN)
+  #    chicken.set_leash_holder arrow
+  #  end
+  #end
+  #private :chicken_arrow
 
   def killerqueen_explode(evt)
     # JOB::KILLERQUEEN
@@ -584,7 +584,7 @@ module EventHandler
     #   return
     # end
 
-    chicken_arrow(evt.player, evt.action)
+    #chicken_arrow(evt.player, evt.action)
 
     killerqueen_explode(evt)
 
