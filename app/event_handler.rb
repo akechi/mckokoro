@@ -1024,11 +1024,11 @@ module EventHandler
       case player.location.pitch
       when -90.0 # up
         if diff_y > 0
-          player.send_message 'up'
+          evt.to = add_loc(evt.to, 0, 1, 0)
         end
       when 90.0 #down
         if diff_y < 0
-          player.send_message 'down'
+          evt.to = add_loc(evt.to, 0, -1, 0)
         end
       end
     end
