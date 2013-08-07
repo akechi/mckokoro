@@ -42,6 +42,7 @@ module EventHandler
 
   def on_lingr(message)
     return if Bukkit.getOnlinePlayers.empty?
+    return unless message['room'] == 'mcujm'
     later 0 do
       broadcast "[lingr] #{message['nickname']}: #{message['text']}"
     end
