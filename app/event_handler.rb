@@ -482,10 +482,14 @@ module EventHandler
       loc0 = evt.entity.location
       loc1 = loc0.tap {|l| l.add evt.entity.velocity.normalize }
       loc = [loc0, loc1].find {|loc| loc.block.type == Material::SKULL }
-      if loc
+      shooter = evt.entity.shooter
+      if loc && shooter
         strike_lightning(loc)
-        20.times do
-          drop_item(loc, ItemStack.new(Material::DIRT, 1))
+        10.times do
+          drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
+        end
+        if Player === shooter
+          shooter.send_message "distance: #{shooter.location.distance(loc)}"
         end
       end
     end
