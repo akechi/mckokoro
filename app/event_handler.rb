@@ -480,7 +480,7 @@ module EventHandler
       # this is for Job bulldozer ^^^^^
     when Arrow
       loc = evt.entity.location
-      if loc.block == Material::SKULL
+      if loc.block.type == Material::SKULL
         strike_lightning(loc)
       end
     end
