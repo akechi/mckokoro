@@ -491,10 +491,12 @@ module EventHandler
           shooter.send_message "distance: #{distance}, bonus: #{bonus}"
           bonus.times do
             case rand(100)
-            when 0...5
+            when 0...2
               drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
-            when 5...15
-              drop_item(loc, ItemStack.new(Material::GOLD, 1))
+            when 2...5
+              drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
+            when 5...10
+              drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
             else
               drop_item(loc, ItemStack.new(Material::APPLE, 1))
             end
