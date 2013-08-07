@@ -1038,7 +1038,7 @@ module EventHandler
     # end
 
     # fastladder
-    if player.location.block.type == Material::LADDER
+    if player.location.block.type == Material::LADDER && !player.sneaking?
       diff_y = evt.to.y - evt.from.y
       case player.location.pitch
       when -90.0 # up
