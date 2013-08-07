@@ -500,25 +500,16 @@ module EventHandler
   end
   private :bulldozer_hoe
 
-  # def sonic_boom(player, action)
-  #   return unless player.item_in_hand.type == Material::GOLD_SWORD
-  #   case action
-  #   when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
-  #     #transparent_set = HashSet.new.tap {|s| s.add Material::AIR }
-  #     transparent_set = nil
-  #     _, block2 = player.get_last_two_target_blocks(transparent_set, 30).to_a
-  #     return if block2.type == Material::AIR
-  #     loc = block2.location
-  #     target, _ = block2.chunk.entities.
-  #       map {|e| [e, e.location.distance(loc)] }.
-  #       select {|e, d| d < 3 }.
-  #       min_by {|e, d| d }
-  #     if target
-  #       target.damage(2, player)
-  #     end
-  #   end
-  # end
-  # private :sonic_boom
+  def sonic_boom(player, action)
+    return unless player.item_in_hand.type == Material::GOLD_SWORD
+    case action
+    when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
+      arrow = JavaWrapper.launch_arrow(player)
+      cow = spawn(player.location, EntityType::COW)
+      cow.leash_holder = arrow
+    end
+  end
+  private :sonic_boom
 
 
   def killerqueen_explode(evt)
@@ -584,7 +575,7 @@ module EventHandler
     #   return
     # end
 
-    # sonic_boom(evt.player, evt.action)
+    sonic_boom(evt.player, evt.action)
 
     killerqueen_explode(evt)
 
