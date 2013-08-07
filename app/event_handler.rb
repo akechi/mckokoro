@@ -1024,12 +1024,12 @@ module EventHandler
       case player.location.pitch
       when -90.0 # up
         if diff_y > 0
-          newloc = add_loc(evt.to, 0, 1, 0)
+          newloc = add_loc(evt.to, 0, 3, 0)
           evt.to = newloc if newloc.block.type == Material::LADDER
         end
       when 90.0 #down
         if diff_y < 0
-          newloc = add_loc(evt.to, 0, -1, 0)
+          newloc = add_loc(evt.to, 0, -3, 0)
           evt.to = newloc if newloc.block.type == Material::LADDER
         end
       end
