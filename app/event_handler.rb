@@ -891,7 +891,7 @@ module EventHandler
       face = dispenser.state.data.facing
       loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
-      @earthwork_squids << [squid, face.clone]
+      @earthwork_squids << [squid, face.mod_x, face.mod_y, face.mod_z]
     end
   end
 
@@ -1277,7 +1277,7 @@ module EventHandler
 
   def earthwork_squids_work
     @earthwork_squids.each do |tuple|
-      squid, face = tuple
+      squid, mod_x, mod_y, mod_z = tuple
       unless squid.valid?
         @earthwork_squids.delete(tuple)
         next
@@ -1287,7 +1287,7 @@ module EventHandler
         next
       end
 
-      new_loc = add_loc(squid.location, face.mod_x, face.mod_y, face.mod_z)
+      new_loc = add_loc(squid.location, mod_x, mod_y, mod_z)
       soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
       if !new_loc.block.solid? || soft_blocks.include?(new_loc.block.type)
         break_naturally_by_dpickaxe(new_loc.block)
