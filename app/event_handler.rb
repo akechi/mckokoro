@@ -1310,13 +1310,17 @@ module EventHandler
       next
     end
 
-    loc.add(mod_x, mod_y, mod_z) # destructive!
-    soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
+    loc = add_loc(loc, mod_x, mod_y, mod_z)
+    soft_blocks = [ # TODO
+      Material::GRASS, Material::DIRT, Material::STONE, Material::LONG_GRASS,
+      Material::COBBLESTONE, Material::LEAVES]
     cond = soft_blocks.include?(loc.block.type)
     if cond
       break_naturally_by_dpickaxe(loc.block)
       smoke_effect(loc)
       play_sound(loc, Sound::EAT, 0.8, 0.8)
+      # update!
+      @earthwork_squids[squid][0] = loc
     end
     if cond || !loc.block.type.solid?
       squid.teleport(loc)
