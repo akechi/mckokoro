@@ -823,6 +823,8 @@ module EventHandler
   SWORDS = [Material::STONE_SWORD, Material::WOOD_SWORD, Material::DIAMOND_SWORD,
           Material::IRON_SWORD,  Material::GOLD_SWORD]
 
+  ZOMBIES = [EntityType::PIG_ZOMBIE, EntityType::ZOMBIE]
+
   def on_inventory_open(evt)
   end
 
@@ -991,13 +993,15 @@ module EventHandler
       later sec(1) do
         if item.valid?
           zombie = item.get_nearby_entities(2, 2, 2).select do |e|
-            [Zombie, PigZombie].include? e.class
+            ZOMBIES.include? e.type
           end.sample
           if zombie
             if rand(2) == 0
               play_effect(zombie.location, Effect::ENDER_SIGNAL)
-              spawn(zombie.location, EntityType::VILLAGER) if zombie === Zombie
-              spawn(zombie.location, EntityType::PIG) if zombie === PigZombie
+              spawn_type = case zombie.type
+              when EntityType::ZOMBIE; EntityType::VILLAGER
+              when EntityType::PIG_ZOMBIE; EntityType::PIG
+              spawn(zombie.location, spawn_type)
               zombie.remove
             end
             item.remove
