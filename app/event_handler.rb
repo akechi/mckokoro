@@ -1283,7 +1283,7 @@ module EventHandler
         @earthwork_squids.delete(tuple)
         next
       end
-      if rand(20) == 0
+      if rand(100) == 0
         squid.remove
         next
       end
