@@ -903,7 +903,7 @@ module EventHandler
         case defender
         when Zombie
           player.send_message 'Paper cut!'
-          evt.damage = 5 + rand(5)
+          evt.damage = 10 + rand(10)
           if rand(2) == 0
             consume_item(player)
           end
