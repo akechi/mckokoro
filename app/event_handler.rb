@@ -897,7 +897,7 @@ module EventHandler
         evt.cancelled = true
       end
     when Player
-      evt.damager = player
+      player = evt.damager
       item = player.item_in_hand
       if item && item.type == Material::PAPER
         case defender
