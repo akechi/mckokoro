@@ -1015,7 +1015,8 @@ module EventHandler
           transform_to = item_suplied_turn[item_stack.type][entity.type]
           if transform_to && rand(2) == 0
             newbie = spawn(entity.location, transform_to)
-            if Zombie === entity && entity.baby?
+            # bukkit is terrible
+            if entity.respond_to?(:baby?) && entity.baby? && newbie.respond_to?(:baby=)
               newbie.baby = true
             end
             play_effect(entity.location, Effect::ENDER_SIGNAL) # TODO: smoke
