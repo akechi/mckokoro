@@ -883,9 +883,11 @@ module EventHandler
 
   def on_block_dispense(evt)
     item = evt.item
-    broadcast item
-    #case item.type
-    #when Material::
+    case item.type
+    when Material::SPAWNER_EGG
+      evt.cancelled = true
+      spawn(evt.block.location, EntityType::VILLAGER)
+    end
   end
 
   def on_entity_damage_by_entity(evt)
