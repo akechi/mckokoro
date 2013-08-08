@@ -755,7 +755,10 @@ module EventHandler
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
         evt.clicked_block.type = Material::WOOD if rand(30) == 0
-        drop_item(evt.clicked_block.location, ItemStack.new(Material::PAPER, 1))
+        loc = add_loc(
+          evt.clicked_block.location,
+          evt.block_face.mod_x, evt.block_face.mod_y, evt.block_face.mod_z)
+        drop_item(loc, ItemStack.new(Material::PAPER, 1))
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
@@ -1157,10 +1160,10 @@ module EventHandler
   end
 
   def consume_item_durability(player, x)
-    if player.item_in_hand.durability <= x
+    if player.item_in_hand.durability >= player.item_in_hand.type.max_durability
       player.item_in_hand = ItemStack.new(Material::AIR)
     else
-      player.item_in_hand.durability -= x
+      player.item_in_hand.durability += x
     end
   end
 
