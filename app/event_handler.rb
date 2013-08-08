@@ -1292,6 +1292,7 @@ module EventHandler
       if !new_loc.block.type.solid? || soft_blocks.include?(new_loc.block.type)
         break_naturally_by_dpickaxe(new_loc.block)
         squid.teleport(new_loc)
+        squid.health = squid.max_health
 
         new_loc_above = add_loc(new_loc, 0, 1, 0)
         if !new_loc_above.block.type.solid? || soft_blocks.include?(new_loc_above.block.type)
