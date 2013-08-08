@@ -1057,6 +1057,7 @@ module EventHandler
   #HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
   #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
+    player = evt.player
     # Lingr
     if evt.sneaking?
       # post_lingr "#{evt.player.name} sneaking..."
@@ -1069,18 +1070,25 @@ module EventHandler
       # Disable instead of delete for debuging
       # player.send_message "jump power : #{ @crouching_counter[player.name] }"
     }
-    name = evt.player.name
+    name = player.name
     @crouching_counter ||= {}
     @crouching_counter[name] ||= 0
     @crouching_countingdown ||= false
     if evt.sneaking?
       # counting up
       @crouching_counter[name] += 1
-      jump_counter_notify.call(evt.player)
+      jump_counter_notify.call(player)
       if @crouching_counter[name] == 5
         # evt.player.send_message "superjump!"
-        evt.player.fall_distance = 0.0
-        evt.player.velocity = evt.player.velocity.tap{|v| v.setY jfloat(1.4) }
+        player.fall_distance = 0.0
+        player.velocity = player.velocity.tap {|v| v.set_y jfloat(1.4) }
+      end
+
+      # map teleport
+      item = player.item_in_hand
+      if item && item.type == Material::MAP
+        map = Bukkit.get_map(item.data.data)
+        player.send_message map
       end
     end
 
