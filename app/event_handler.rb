@@ -875,16 +875,16 @@ module EventHandler
     end
   end
 
-  # def on_creature_spawn(evt)
-  #   case evt.spawn_reason
-  #   when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
-  #   end
-  # end
+  def on_creature_spawn(evt)
+    # case evt.spawn_reason
+    # when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
+    # end
+  end
 
   def on_block_dispense(evt)
     item = evt.item
     case item.type
-    when Material::SPAWNER_EGG
+    when Material::MONSTER_EGG
       evt.cancelled = true
       spawn(evt.block.location, EntityType::VILLAGER)
     end
