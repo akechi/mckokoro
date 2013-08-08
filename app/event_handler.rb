@@ -888,7 +888,7 @@ module EventHandler
     # end
   end
 
-  @earthwork_squids ||= []
+  @earthwork_squids ||= {}
   def on_block_dispense(evt)
     item = evt.item
     case item.type
@@ -899,7 +899,7 @@ module EventHandler
       loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
       squid.max_health = 30
-      @earthwork_squids << [squid, loc, face.mod_x, face.mod_y, face.mod_z]
+      @earthwork_squids[squid] = [loc, face.mod_x, face.mod_y, face.mod_z]
     end
   end
 
@@ -946,6 +946,10 @@ module EventHandler
             consume_item(player)
           end
         end
+      end
+
+      if Squid === defender && @earthwork_squids[defender]
+        earthwork_squids_work(defender)
       end
     when LivingEntity
       case defender
@@ -1283,9 +1287,8 @@ module EventHandler
   end
   private :holy_water
 
-  def earthwork_squids_work
-    @earthwork_squids.each do |tuple|
-      squid, loc, mod_x, mod_y, mod_z = tuple
+  def earthwork_squids_work(squid)
+      loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
       unless squid.valid?
         @earthwork_squids.delete(tuple)
         next
@@ -1312,7 +1315,6 @@ module EventHandler
           end
         end
       end
-    end
   end
 
   def periodically
