@@ -1004,8 +1004,8 @@ module EventHandler
         EntityType::PIG => EntityType::PIG_ZOMBIE
       }
     }
+    item = evt.item_drop
     later sec(0.7) do
-      item = evt.item_drop
       item_stack = item.item_stack
       if item.valid? && item_suplied_turn[item_stack.type]
         entity = item.get_nearby_entities(2, 2, 2).select {|e|
