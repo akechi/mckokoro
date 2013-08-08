@@ -886,7 +886,10 @@ module EventHandler
     case item.type
     when Material::MONSTER_EGG
       evt.cancelled = true
-      spawn(evt.block.location, EntityType::VILLAGER)
+      dispenser = evt.block
+      face = dispenser.state.data.facing
+      broadcast face
+      spawn(dispenser.location, EntityType::VILLAGER)
     end
   end
 
