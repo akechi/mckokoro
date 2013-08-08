@@ -20,6 +20,90 @@ require 'erb'
 require 'open-uri'
 require 'json'
 
+module Util
+  def let(x)
+    yield x
+  end
+
+  def play_effect(loc, eff)
+    loc.world.playEffect(loc, eff, nil)
+  end
+
+  def sec(n)
+    (n * 20).to_i
+  end
+
+  def jfloat(rubyfloat)
+    rubyfloat.to_java Java.float
+  end
+
+  def post_lingr(text)
+    post_lingr_to('mcujm', text)
+  end
+
+  def post_lingr_to(room, text)
+    Thread.start do
+      # Send chat for lingr room
+      # TODO: move lingr room-id to config.yml to change.
+      # TODO: moge following codes to lingr module.
+      param = {
+        room: room,
+        bot: 'mcsakura',
+        text: text,
+        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
+      }.tap {|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
+
+      query_string = param.map {|e|
+        e.map {|s| ERB::Util.url_encode s.to_s }.join '='
+      }.join '&'
+      #broadcast "http://lingr.com/api/room/say?#{query_string}"
+      open "http://lingr.com/api/room/say?#{query_string}"
+    end
+  end
+
+  def spawn(loc, etype)
+    loc.world.spawn_entity(loc, etype)
+  end
+
+  def strike_lightning(loc)
+    loc.world.strike_lightning_effect(loc)
+  end
+
+  def haveitem(pname, iname, num)
+    Bukkit.get_player(pname).item_in_hand =
+      ItemStack.new(eval("Material::#{iname.to_s.upcase}"), num)
+  end
+
+  def add_loc(loc, x, y, z)
+    loc.clone.tap {|l| l.add(x, y, z) }
+  end
+
+  # dummy
+  def sleep(*x)
+    warn "Don't use it"
+  end
+
+  # location_around(loc_centre, 2).each {|loc| ... }
+  # will do something around the centre (loc_centre) with width 2
+  def location_around(loc, size)
+    location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0, 0, 0]
+    location_list.map {|x, y, z|
+      loc.clone.add(x, y, z)
+    }
+  end
+
+  def location_around_flat(loc, size)
+    location_list = ([*-size..size] * 2).combination(2).to_a.uniq - [0, 0]
+    location_list.map {|x, z|
+      loc.clone.add(x, 0, z)
+    }
+  end
+
+  def break_naturally_by_dpickaxe(block)
+    block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
+  end
+end
+
 module EventHandler
   include_package 'org.bukkit.entity'
   include Util
@@ -1166,90 +1250,6 @@ module EventHandler
       #   player.send_message 'monster!'
       # end
     end
-  end
-end
-
-module Util
-  def let(x)
-    yield x
-  end
-
-  def play_effect(loc, eff)
-    loc.world.playEffect(loc, eff, nil)
-  end
-
-  def sec(n)
-    (n * 20).to_i
-  end
-
-  def jfloat(rubyfloat)
-    rubyfloat.to_java Java.float
-  end
-
-  def post_lingr(text)
-    post_lingr_to('mcujm', text)
-  end
-
-  def post_lingr_to(room, text)
-    Thread.start do
-      # Send chat for lingr room
-      # TODO: move lingr room-id to config.yml to change.
-      # TODO: moge following codes to lingr module.
-      param = {
-        room: room,
-        bot: 'mcsakura',
-        text: text,
-        bot_verifier: '5uiqiPoYaReoNljXUNgVHX25NUg'
-      }.tap {|p| p[:bot_verifier] = Digest::SHA1.hexdigest(p[:bot] + p[:bot_verifier]) }
-
-      query_string = param.map {|e|
-        e.map {|s| ERB::Util.url_encode s.to_s }.join '='
-      }.join '&'
-      #broadcast "http://lingr.com/api/room/say?#{query_string}"
-      open "http://lingr.com/api/room/say?#{query_string}"
-    end
-  end
-
-  def spawn(loc, etype)
-    loc.world.spawn_entity(loc, etype)
-  end
-
-  def strike_lightning(loc)
-    loc.world.strike_lightning_effect(loc)
-  end
-
-  def haveitem(pname, iname, num)
-    Bukkit.get_player(pname).item_in_hand =
-      ItemStack.new(eval("Material::#{iname.to_s.upcase}"), num)
-  end
-
-  def add_loc(loc, x, y, z)
-    loc.clone.tap {|l| l.add(x, y, z) }
-  end
-
-  # dummy
-  def sleep(*x)
-    warn "Don't use it"
-  end
-
-  # location_around(loc_centre, 2).each {|loc| ... }
-  # will do something around the centre (loc_centre) with width 2
-  def location_around(loc, size)
-    location_list = ([*-size..size] * 3).combination(3).to_a.uniq - [0, 0, 0]
-    location_list.map {|x, y, z|
-      loc.clone.add(x, y, z)
-    }
-  end
-
-  def location_around_flat(loc, size)
-    location_list = ([*-size..size] * 2).combination(2).to_a.uniq - [0, 0]
-    location_list.map {|x, z|
-      loc.clone.add(x, 0, z)
-    }
-  end
-
-  def break_naturally_by_dpickaxe(block)
-    block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
   end
 end
 
