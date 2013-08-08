@@ -1001,6 +1001,7 @@ module EventHandler
               spawn_type = case zombie.type
               when EntityType::ZOMBIE; EntityType::VILLAGER
               when EntityType::PIG_ZOMBIE; EntityType::PIG
+              end
               spawn(zombie.location, spawn_type)
               zombie.remove
             end
