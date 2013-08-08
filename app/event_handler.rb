@@ -1006,8 +1006,8 @@ module EventHandler
     }
     item = evt.item_drop
     later sec(0.7) do
-      item_stack = item.item_stack
-      if item.valid? && item_suplied_turn[item_stack.type]
+      if item.valid? && item_suplied_turn[item.item_stack.type]
+        item_stack = item.item_stack
         entity = item.get_nearby_entities(2, 2, 2).select {|e|
           item_suplied_turn[item_stack.type][e.type]
         }.sample
