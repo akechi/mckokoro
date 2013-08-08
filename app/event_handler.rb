@@ -1007,7 +1007,7 @@ module EventHandler
     later sec(0.7) do
       item = evt.item_drop
       item_stack = item.item_stack
-      if item_stack? && item.valid? && item_suplied_turn[item_stack.type]
+      if item.valid? && item_suplied_turn[item_stack.type]
         entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item_stack.type][e.type] }.sample
         if item_suplied_turn[item_stack.type][entity.type] && rand(2) == 0
           spawn(entity.location, item_suplied_turn[item_stack.type][entity.type])
