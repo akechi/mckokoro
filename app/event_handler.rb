@@ -881,6 +881,8 @@ module EventHandler
     # end
   end
 
+  # TODO use this in periodically
+  @earthwork_squids ||= []
   def on_block_dispense(evt)
     item = evt.item
     case item.type
@@ -888,8 +890,9 @@ module EventHandler
       evt.cancelled = true
       dispenser = evt.block
       face = dispenser.state.data.facing
-      loc = add_loc(dispenser.location, face.mod_x * 3, face.mod_y * 3, face.mod_z * 3)
+      loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
+      @earthwork_squids << squid
     end
   end
 
