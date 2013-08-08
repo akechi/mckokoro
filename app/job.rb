@@ -1,5 +1,16 @@
+import 'org.bukkit.Effect'
+
 module Job
   JOBS = [:novice, :killerqueen, :archer, :muteki, :archtect, :grimreaper, :debug]
+  JOB_DESCRIPTIONS = {
+    novice: 'Default; no pros/cons',
+    killerqueen: '(supermomonga will write here)',
+    archer: 'Arrows goes very fast and straight. Other attacks you can give get weaker.',
+    muteki: 'Experimental! You are invinsible',
+    archtect: 'Good at building. You can fill an area with using tripwires!',
+    grimreaper: '(supermomonga will write here)',
+    debug: "(Only for mckokoro development/debugging)",
+  }
 
   module_function
 
@@ -26,7 +37,6 @@ module Job
     @job_exp[player][job] ||= 0
   end
 
-
   def player_job_changable?(player,inv,job)
     recipe = Job.recipe job
     # masteries check
@@ -50,7 +60,6 @@ module Job
     if name
       inv.clear
       Job.become(player, name)
-      player.send_message "Job change! Now your job is #{Job.of(player)}"
     else
       player.send_message "Job change failed!"
     end
@@ -70,5 +79,9 @@ module Job
     end
 
     @job_player[player] = new_job
+
+    EventHandler.play_effect(player.location, Effect::ENDER_SIGNAL)
+    player.send_message "Job change! Now your job is #{new_job)}"
+    player.send_message(JOB_DESCRIPTIONS[new_job] || '(No description available yet)')
   end
 end
