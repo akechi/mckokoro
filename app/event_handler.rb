@@ -900,6 +900,13 @@ module EventHandler
       end
     when Player
       player = evt.damager
+
+      if Job.of(player) == :archer
+        new_damage = (evt.entity.damage * 0.8).to_i
+        player.send_message "You are archer; the damage isn't #{evt.entity.damage} but #{new_damage}"
+        evt.entity.damage = new_damage
+      end
+
       item = player.item_in_hand
       if item && item.type == Material::PAPER
         case defender
