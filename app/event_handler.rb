@@ -998,10 +998,11 @@ module EventHandler
           if zombie
             if rand(2) == 0
               play_effect(zombie.location, Effect::ENDER_SIGNAL)
-              spawn_type = case zombie.type
-              when EntityType::ZOMBIE; EntityType::VILLAGER
-              when EntityType::PIG_ZOMBIE; EntityType::PIG
-              end
+              spawn_type =
+                case zombie.type
+                when EntityType::ZOMBIE; EntityType::VILLAGER
+                when EntityType::PIG_ZOMBIE; EntityType::PIG
+                end
               spawn(zombie.location, spawn_type)
               zombie.remove
             end
