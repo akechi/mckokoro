@@ -935,6 +935,7 @@ module EventHandler
             play_effect(zombie.location, Effect::ENDER_SIGNAL)
             spawn(zombie.location, EntityType::VILLAGER)
             zombie.remove
+            item.remove
           end
         end
       end
