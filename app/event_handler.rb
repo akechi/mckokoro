@@ -896,10 +896,9 @@ module EventHandler
       evt.cancelled = true
       dispenser = evt.block
       face = dispenser.state.data.facing
-      broadcast [face.mod_x, face.mod_y, face.mod_z].to_s
       loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
-      squid.max_health = 100
+      squid.max_health = 30
       @earthwork_squids << [squid, loc, face.mod_x, face.mod_y, face.mod_z]
     end
   end
@@ -1297,16 +1296,20 @@ module EventHandler
       end
 
       loc.add(mod_x, mod_y, mod_z) # destructive!
-      new_loc = loc
       soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
-      if !new_loc.block.type.solid? || soft_blocks.include?(new_loc.block.type)
-        break_naturally_by_dpickaxe(new_loc.block)
-        squid.teleport(new_loc)
+      if soft_blocks.include?(loc.block.type)
+        break_naturally_by_dpickaxe(loc.block)
+        squid.teleport(loc)
         squid.health = squid.max_health
 
-        new_loc_above = loc_above(new_loc)
-        if !new_loc_above.block.type.solid? || soft_blocks.include?(new_loc_above.block.type)
-          break_naturally_by_dpickaxe(new_loc_above.block)
+        loc = loc_above(loc)
+        if soft_blocks.include?(loc.block.type)
+          break_naturally_by_dpickaxe(loc.block)
+
+          loc = loc_above(loc)
+          if [Material::LAVA, Material::STATIONARY_LAVA].include?(loc.block.type)
+            loc.block.type = Material::GLASS
+          end
         end
       end
     end
