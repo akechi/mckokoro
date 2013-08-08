@@ -1004,7 +1004,7 @@ module EventHandler
         EntityType::PIG => EntityType::PIG_ZOMBIE
       }
     }
-    item = evt.item_drop.item_stack.first
+    item = evt.item_drop.item_stack
     broadcast "#{ item.type }"
     if item.valid? && item_suplied_turn[item.type]
       entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item.type][e.type] }.sample
