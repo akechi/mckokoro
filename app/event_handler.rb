@@ -1005,8 +1005,8 @@ module EventHandler
       }
     }
     item = evt.item_drop
+    broadcast "#{ item.type }"
     if item_suplied_turn[item.type]
-      broadcast "hi"
       entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item.type][e.type] }.sample
       if rand(2) == 0
         spawn(entity.location, item_suplied_turn[item.type][entity.type])
