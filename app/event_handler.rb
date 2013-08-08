@@ -1014,7 +1014,10 @@ module EventHandler
         if entity
           transform_to = item_suplied_turn[item_stack.type][entity.type]
           if transform_to && rand(2) == 0
-            spawn(entity.location, transform_to)
+            newbie = spawn(entity.location, transform_to)
+            if Zombie === entity && entity.baby?
+              newbie.baby = true
+            end
             play_effect(entity.location, Effect::ENDER_SIGNAL) # TODO: smoke
             entity.remove
           end
