@@ -902,9 +902,9 @@ module EventHandler
       player = evt.damager
 
       if Job.of(player) == :archer
-        new_damage = (evt.entity.damage * 0.8).to_i
+        new_damage = (evt.damage * 0.8).to_i
         player.send_message "You are archer; the damage isn't #{evt.entity.damage} but #{new_damage}"
-        evt.entity.damage = new_damage
+        evt.damage = new_damage
       end
 
       item = player.item_in_hand
