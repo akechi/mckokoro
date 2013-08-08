@@ -752,7 +752,6 @@ module EventHandler
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
       # tree -> paper
-      case [evt.clicked_block.type, evt.action, evt.player.item_in_hand.type]
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
         evt.clicked_block.type = Material::WOOD if rand(30) == 0
