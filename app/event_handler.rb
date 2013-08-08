@@ -1097,7 +1097,7 @@ module EventHandler
           loc.chunk.load
 
           animals = player.get_nearby_entities(2, 2, 2).select {|e|
-            Animals === e || Player === e
+            Animals === e || Player === e || Villager === e
           }
           ([player] + animals).each do |e|
             e.teleport(loc)
