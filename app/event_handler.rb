@@ -754,11 +754,13 @@ module EventHandler
       # tree -> paper
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
-        evt.clicked_block.type = Material::WOOD if rand(30) == 0
-        loc = add_loc(
-          evt.clicked_block.location,
-          evt.block_face.mod_x, evt.block_face.mod_y, evt.block_face.mod_z)
-        drop_item(loc, ItemStack.new(Material::PAPER, 1))
+        if rand(5) == 0
+          evt.clicked_block.type = Material::WOOD if rand(30) == 0
+          loc = add_loc(
+            evt.clicked_block.location,
+            evt.block_face.mod_x, evt.block_face.mod_y, evt.block_face.mod_z)
+            drop_item(loc, ItemStack.new(Material::PAPER, 1))
+        end
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
