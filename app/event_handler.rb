@@ -1005,21 +1005,14 @@ module EventHandler
       }
     }
     item = evt.item_drop
-    case item.item_stack.type
-    when Material::SUGAR
-      later sec(1) do
-        if item.valid?
-          zombie = item.get_nearby_entities(2, 2, 2).select { |e| Zombie === e }.sample
-          if zombie
-            if rand(2) == 0
-              play_effect(zombie.location, Effect::ENDER_SIGNAL)
-              spawn(zombie.location, item_suplied_turn[Material::SUGAR][zombie.type])
-              zombie.remove
-            end
-            item.remove
-          end
-        end
+    if item_suplied_turn[item.type]
+      entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item.type][e.type] }.sample
+      if rand(2) == 0
+        spawn(zombie.location, item_suplied_turn[item.type][entity.type])
+        play_effect(zombie.location, Effect::ENDER_SIGNAL)
+        entity.remove
       end
+      item.remove
     end
   end
 
