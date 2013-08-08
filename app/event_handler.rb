@@ -878,7 +878,7 @@ module EventHandler
   def on_creature_spawn(evt)
     broadcast evt.spawn_reason if Squid === evt.entity
     case evt.spawn_reason
-    when CreatureSpawnEvent::SpawnReason::EGG
+    when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
       broadcast 'cool'
     end
   end
