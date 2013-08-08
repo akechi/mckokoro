@@ -1289,7 +1289,7 @@ module EventHandler
 
       new_loc = add_loc(squid.location, mod_x, mod_y, mod_z)
       soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
-      if !new_loc.block.solid? || soft_blocks.include?(new_loc.block.type)
+      if !new_loc.block.type.solid? || soft_blocks.include?(new_loc.block.type)
         break_naturally_by_dpickaxe(new_loc.block)
         squid.teleport(new_loc)
       end
