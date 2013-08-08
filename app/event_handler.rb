@@ -990,7 +990,9 @@ module EventHandler
     when Material::SUGAR
       later sec(1) do
         if item.valid?
-          zombie = item.get_nearby_entities(2, 2, 2).select {|e| [Zombie, PigZombie].include? e }.sample
+          zombie = item.get_nearby_entities(2, 2, 2).select do |e|
+            [Zombie, PigZombie].include? e.class
+          end.sample
           if zombie
             if rand(2) == 0
               play_effect(zombie.location, Effect::ENDER_SIGNAL)
