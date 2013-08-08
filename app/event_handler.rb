@@ -1085,11 +1085,13 @@ module EventHandler
       end
 
       # map teleport
-      item = player.item_in_hand
-      if item && item.type == Material::MAP
-        map = Bukkit.get_map(item.data.data)
-        player.send_message map
-      end
+      if player.location.pitch == 90.0
+        item = player.item_in_hand
+        if item && item.type == Material::MAP
+          map = Bukkit.get_map(item.data.data)
+          player.send_message map.to_s
+        end
+    end
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
