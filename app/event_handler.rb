@@ -1091,7 +1091,7 @@ module EventHandler
           map = Bukkit.get_map(item.data.data)
           player.send_message [map.center_x, map.center_z].to_s
           loc = block2loc(map.world.get_highest_block_at(map.center_x, map.center_z))
-          loc = loc_above(loc)
+          loc = add_loc(loc, 0, 3, 0)
           loc.pitch = 90.0
           loc.yaw = player.location.yaw
           loc.chunk.load
