@@ -881,7 +881,6 @@ module EventHandler
     # end
   end
 
-  # TODO use this in periodically
   @earthwork_squids ||= []
   def on_block_dispense(evt)
     item = evt.item
@@ -892,7 +891,7 @@ module EventHandler
       face = dispenser.state.data.facing
       loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
-      @earthwork_squids << squid
+      @earthwork_squids << [squid, face.clone]
     end
   end
 
@@ -1276,6 +1275,27 @@ module EventHandler
   end
   private :holy_water
 
+  def earthwork_squids_work
+    @earthwork_squids.each do |tuple|
+      squid, face = tuple
+      unless squid.valid?
+        @earthwork_squids.delete(tuple)
+        next
+      end
+      if rand(10) == 0
+        squid.remove
+        next
+      end
+
+      new_loc = add_loc(squid.location, face.mod_x, face.mod_y, face.mod_z)
+      soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
+      if !new_loc.block.solid? || soft_blocks.include?(new_loc.block.type)
+        break_naturally_by_dpickaxe(new_loc.block)
+        squid.teleport(new_loc)
+      end
+    end
+  end
+
   def periodically
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
@@ -1283,6 +1303,7 @@ module EventHandler
         select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
+    earthwork_squids_work()
 
     online_players.each do |player|
       # Superjump counter counting down
