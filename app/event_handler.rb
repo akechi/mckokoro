@@ -928,6 +928,8 @@ module EventHandler
       squid = spawn(loc, EntityType::SQUID)
       squid.max_health = 30
       @earthwork_squids[squid] = [loc, face.mod_x, face.mod_y, face.mod_z]
+      players = squid.get_nearby_entities(2, 2, 2).select {|e| Player === e }
+      broadlingr "An earthwork squid started working near #{players.join ' and '}."
     end
   end
 
@@ -1183,6 +1185,11 @@ module EventHandler
 
   def broadcast(*msgs)
     Bukkit.getServer.broadcastMessage(msgs.join ' ')
+  end
+
+  def broadlingr(msg)
+    broadcast(msg)
+    post_lingr(msg)
   end
 
   def explode(loc, power, fire_p)
