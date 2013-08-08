@@ -1288,33 +1288,33 @@ module EventHandler
   private :holy_water
 
   def earthwork_squids_work(squid)
-      loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
-      unless squid.valid?
-        @earthwork_squids.delete(tuple)
-        next
-      end
-      if rand(100) == 0
-        squid.remove
-        next
-      end
+    loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
+    unless squid.valid?
+      @earthwork_squids.delete(tuple)
+      next
+    end
+    if rand(100) == 0
+      squid.remove
+      next
+    end
 
-      loc.add(mod_x, mod_y, mod_z) # destructive!
-      soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
+    loc.add(mod_x, mod_y, mod_z) # destructive!
+    soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
+    if soft_blocks.include?(loc.block.type)
+      break_naturally_by_dpickaxe(loc.block)
+      squid.teleport(loc)
+      squid.health = squid.max_health
+
+      loc = loc_above(loc)
       if soft_blocks.include?(loc.block.type)
         break_naturally_by_dpickaxe(loc.block)
-        squid.teleport(loc)
-        squid.health = squid.max_health
 
         loc = loc_above(loc)
-        if soft_blocks.include?(loc.block.type)
-          break_naturally_by_dpickaxe(loc.block)
-
-          loc = loc_above(loc)
-          if [Material::LAVA, Material::STATIONARY_LAVA].include?(loc.block.type)
-            loc.block.type = Material::GLASS
-          end
+        if [Material::LAVA, Material::STATIONARY_LAVA].include?(loc.block.type)
+          loc.block.type = Material::GLASS
         end
       end
+    end
   end
 
   def periodically
