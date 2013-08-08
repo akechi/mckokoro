@@ -928,7 +928,9 @@ module EventHandler
       squid = spawn(loc, EntityType::SQUID)
       squid.max_health = 30
       @earthwork_squids[squid] = [loc, face.mod_x, face.mod_y, face.mod_z]
-      players = squid.get_nearby_entities(2, 2, 2).select {|e| Player === e }
+      players = squid.get_nearby_entities(2, 2, 2).
+        select {|e| Player === e }.
+        map(&:name)
       broadlingr "An earthwork squid started working near #{players.join ' and '}."
     end
   end
