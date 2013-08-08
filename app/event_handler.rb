@@ -990,11 +990,12 @@ module EventHandler
     when Material::SUGAR
       later sec(1) do
         if item.valid?
-          zombie = item.get_nearby_entities(2, 2, 2).select {|e| Zombie === e }.sample
+          zombie = item.get_nearby_entities(2, 2, 2).select {|e| [Zombie, PigZombie].include? e }.sample
           if zombie
             if rand(2) == 0
               play_effect(zombie.location, Effect::ENDER_SIGNAL)
-              spawn(zombie.location, EntityType::VILLAGER)
+              spawn(zombie.location, EntityType::VILLAGER) if zombie === Zombie
+              spawn(zombie.location, EntityType::PIG) if zombie === PigZombie
               zombie.remove
             end
             item.remove
