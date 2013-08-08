@@ -1313,7 +1313,7 @@ module EventHandler
     loc = add_loc(loc, mod_x, mod_y, mod_z)
     soft_blocks = [ # TODO
       Material::GRASS, Material::DIRT, Material::STONE, Material::LONG_GRASS,
-      Material::COBBLESTONE, Material::LEAVES]
+      Material::COBBLESTONE, Material::LEAVES, Material::GRAVEL, Material::SAND]
     cond = soft_blocks.include?(loc.block.type)
     if cond
       break_naturally_by_dpickaxe(loc.block)
