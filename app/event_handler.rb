@@ -759,7 +759,8 @@ module EventHandler
           loc = add_loc(
             evt.clicked_block.location,
             evt.block_face.mod_x, evt.block_face.mod_y, evt.block_face.mod_z)
-            drop_item(loc, ItemStack.new(Material::PAPER, 1))
+          play_sound(loc, Sound::SHEEP_SHEAR)
+          drop_item(loc, ItemStack.new(Material::PAPER, 1))
         end
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
