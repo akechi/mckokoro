@@ -1300,8 +1300,13 @@ module EventHandler
 
     loc.add(mod_x, mod_y, mod_z) # destructive!
     soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
-    if soft_blocks.include?(loc.block.type)
-      break_naturally_by_dpickaxe(loc.block)
+    cond = soft_blocks.include?(loc.block.type)
+    break_naturally_by_dpickaxe(loc.block) if cond
+    if cond || !loc.block.type.solid?
+      (0...8).each do |byte|
+        loc.world.play_effect(loc, Effect::SMOKE, byte)
+        #play_effect(loc, Effect::ENDER_SIGNAL)
+      end
       squid.teleport(loc)
       squid.health = squid.max_health
 
