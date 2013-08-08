@@ -897,11 +897,12 @@ module EventHandler
         evt.cancelled = true
       end
     when Player
-      item = evt.damager.item_in_hand
+      evt.damager = player
+      item = player.item_in_hand
       if item && item.type == Material::PAPER
         case defender
         when Zombie
-          evt.damager.send_message 'Paper cut!'
+          player.send_message 'Paper cut!'
           evt.damage = 5 + rand(5)
           if rand(2) == 0
             consume_item(player)
