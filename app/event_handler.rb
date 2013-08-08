@@ -921,7 +921,7 @@ module EventHandler
     item = evt.item
     case item.type
     when Material::MONSTER_EGG
-      evt.item = ItemStack.new(Material::DIRT, 1)
+      evt.item = ItemStack.new(Material::DIRT, 1) # dirty hack
       dispenser = evt.block
       face = dispenser.state.data.facing
       loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
