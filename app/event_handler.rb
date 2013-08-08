@@ -1004,17 +1004,19 @@ module EventHandler
         EntityType::PIG => EntityType::PIG_ZOMBIE
       }
     }
-    item = evt.item_drop.item_stack
-    # if item.valid? && item_suplied_turn[item.type]
-    if item.valid? && item_suplied_turn[item.type]
-      broadcast "#{ item.type }"
-      entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item.type][e.type] }.sample
-      if rand(2) == 0
-        spawn(entity.location, item_suplied_turn[item.type][entity.type])
-        play_effect(entity.location, Effect::ENDER_SIGNAL)
-        entity.remove
+    later sec(0.7) do
+      item = evt.item_drop
+      item_stack = item.item_stack
+      if item.valid? && item_suplied_turn[item_stack.type]
+        broadcast "#{ item.type }"
+        entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item_stack.type][e.type] }.sample
+        if rand(2) == 0
+          spawn(entity.location, item_suplied_turn[item_stack.type][entity.type])
+          play_effect(entity.location, Effect::ENDER_SIGNAL)
+          entity.remove
+        end
+        item.remove
       end
-      item.remove
     end
   end
 
