@@ -921,7 +921,7 @@ module EventHandler
     item = evt.item
     case item.type
     when Material::MONSTER_EGG
-      # TODO: remove the item to dispense without using evt.cancelled = true
+      evt.item = nil
       dispenser = evt.block
       face = dispenser.state.data.facing
       loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
