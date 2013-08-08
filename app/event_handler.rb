@@ -924,19 +924,17 @@ module EventHandler
 
   def on_player_drop_item(evt)
     item = evt.item_drop
-    evt.player.send_message "delay: #{item.pickup_delay}"
     case item.item_stack.type
     when Material::SUGAR
       later sec(1) do
-        # MEMO: zombie grabs item and prevents villagers to turn
-        # TODO
-        # * make it randomely
         if item.valid?
           zombie = item.get_nearby_entities(2, 2, 2).select {|e| Zombie === e }.sample
           if zombie
-            play_effect(zombie.location, Effect::ENDER_SIGNAL)
-            spawn(zombie.location, EntityType::VILLAGER)
-            zombie.remove
+            if rand(2) == 0
+              play_effect(zombie.location, Effect::ENDER_SIGNAL)
+              spawn(zombie.location, EntityType::VILLAGER)
+              zombie.remove
+            end
             item.remove
           end
         end
