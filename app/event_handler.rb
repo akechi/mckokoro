@@ -1008,8 +1008,8 @@ module EventHandler
     if item_suplied_turn[item.type]
       entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item.type][e.type] }.sample
       if rand(2) == 0
-        spawn(zombie.location, item_suplied_turn[item.type][entity.type])
-        play_effect(zombie.location, Effect::ENDER_SIGNAL)
+        spawn(entity.location, item_suplied_turn[item.type][entity.type])
+        play_effect(entity.location, Effect::ENDER_SIGNAL)
         entity.remove
       end
       item.remove
