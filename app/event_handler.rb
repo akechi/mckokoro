@@ -1009,7 +1009,7 @@ module EventHandler
       item_stack = item.item_stack
       if item.valid? && item_suplied_turn[item_stack.type]
         entity = item.get_nearby_entities(2, 2, 2).select { |e| item_suplied_turn[item_stack.type][e.type] }.sample
-        if rand(2) == 0
+        if item_suplied_turn[item_stack.type][entity.type] && rand(2) == 0
           spawn(entity.location, item_suplied_turn[item_stack.type][entity.type])
           play_effect(entity.location, Effect::ENDER_SIGNAL)
           entity.remove
