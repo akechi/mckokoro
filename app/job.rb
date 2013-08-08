@@ -66,10 +66,7 @@ module Job
   end
 
   def of(player)
-    unless @job_player[player]
-      become player, :novice
-    end
-    @job_player[player]
+    @job_player[player] || :novice
   end
 
   def become(player, new_job)
