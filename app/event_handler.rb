@@ -22,7 +22,7 @@ require 'open-uri'
 require 'json'
 
 module Util
-  module_function
+  extend self
 
   def let(x)
     yield x
@@ -110,8 +110,8 @@ end
 module EventHandler
   include_package 'org.bukkit.entity'
   include Util
+  extend self
 
-  module_function
   def on_load(plugin)
     @plugin = plugin
     Bukkit.getScheduler.scheduleSyncRepeatingTask(
