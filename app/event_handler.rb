@@ -1319,10 +1319,11 @@ module EventHandler
       break_naturally_by_dpickaxe(loc.block)
       smoke_effect(loc)
       play_sound(loc, Sound::EAT, 0.8, 0.8)
-      # update!
-      @earthwork_squids[squid][0] = loc
     end
     if cond || !loc.block.type.solid?
+      # update!
+      @earthwork_squids[squid][0] = loc
+
       squid.teleport(loc)
       squid.health = squid.max_health
 
