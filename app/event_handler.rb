@@ -1090,7 +1090,7 @@ module EventHandler
         if item && item.type == Material::MAP
           map = Bukkit.get_map(item.data.data)
           player.send_message [map.center_x, map.center_y].to_s
-          loc = map.world.get_highest_block_at(map.center_x, map.center_y)
+          loc = map.world.get_highest_block_at(map.center_x, map.center_z)
           loc.chunk.load
           player.teleport(loc)
         end
