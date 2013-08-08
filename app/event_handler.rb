@@ -728,7 +728,6 @@ module EventHandler
 
 
     if evt.clicked_block
-
       # Grim Reaper
       Job.set_recipe(:grimreaper, {
         masteries: {novice: 0},
@@ -739,8 +738,8 @@ module EventHandler
       })
 
       # SPADE can remove grass from dirt
-      case [ evt.clicked_block.type, evt.action ]
-      when [ Material::GRASS, Action::LEFT_CLICK_BLOCK ]
+      case [evt.clicked_block.type, evt.action]
+      when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         if SPADES.include? evt.player.item_in_hand.type
           evt.clicked_block.type = Material::DIRT
           drop_item(evt.clicked_block.location, ItemStack.new(Material::SEEDS)) if rand(3) == 0
@@ -748,10 +747,16 @@ module EventHandler
       end
 
       # seeding
-      case [ evt.clicked_block.type, evt.action, evt.player.item_in_hand.type ]
-      when [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS ]
+      case [evt.clicked_block.type, evt.action, evt.player.item_in_hand.type]
+      when [Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS]
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
+      # tree -> paper
+      case [evt.clicked_block.type, evt.action, evt.player.item_in_hand.type]
+      when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
+        consume_item_durability(evt.player, 1)
+        evt.clicked_block.type = Material::WOOD if rand(30) == 0
+        drop_item(evt.clicked_block.loc, ItemStack.new(Material::PAPER, 1))
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
@@ -1150,6 +1155,14 @@ module EventHandler
 
   def drop_item(loc, istack)
     loc.getWorld.dropItemNaturally(loc, istack)
+  end
+
+  def consume_item_durability(player, x)
+    if player.item_in_hand.durability <= x
+      player.item_in_hand = ItemStack.new(Material::AIR)
+    else
+      player.item_in_hand.durability -= x
+    end
   end
 
   def consume_item(player)
