@@ -1303,11 +1303,11 @@ module EventHandler
     loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
     unless squid.valid?
       @earthwork_squids.delete(tuple)
-      next
+      return
     end
     if rand(100) == 0
-      squid.remove
-      next
+      squid.damage(squid.max_health)
+      return
     end
 
     loc = add_loc(loc, mod_x, mod_y, mod_z)
