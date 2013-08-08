@@ -1095,8 +1095,12 @@ module EventHandler
           loc.pitch = 90.0
           loc.yaw = player.location.yaw
           loc.chunk.load
-          player.teleport(loc)
-          player.fall_distance = 0.0
+
+          creatures = player.get_nearby_entities(2, 2, 2).select {|e| Creature === e }
+          ([player] + creatures).each do |e|
+            e.teleport(loc)
+            e.fall_distance = 0.0
+          end
         end
       end
     end
