@@ -5,6 +5,7 @@ import 'org.bukkit.Effect'
 import 'org.bukkit.SkullType'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
+import 'org.bukkit.event.entity.CreatureSpawnEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
@@ -871,6 +872,14 @@ module EventHandler
     when Material::POTATO_ITEM
       player.send_message "(raw potato doesn't satisfy you!)"
       evt.cancelled = true
+    end
+  end
+
+  def on_creature_spawn(evt)
+    broadcast evt.spawn_reason if Squid === evt.entity
+    case evt.spawn_reason
+    when CreatureSpawnEvent::SpawnReason::EGG
+      broadcast 'cool'
     end
   end
 
