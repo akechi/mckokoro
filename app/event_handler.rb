@@ -1167,6 +1167,7 @@ module EventHandler
       # end
     end
   end
+end
 
 module Util
   def let(x)
