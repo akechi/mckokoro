@@ -993,23 +993,27 @@ module EventHandler
   end
 
   def on_player_drop_item(evt)
+    item_suplied_turn = {
+      Material::SUGAR => {
+        EntityType::ZOMBIE => EntityType::VILLAGER,
+        EntityType::PIG_ZOMBIE => EntityType::PIG,
+        EntityType::MUSHROOM_COW => EntityType::COW
+      },
+      Material::ROTTEN_FLESH => {
+        EntityType::VILLAGER => EntityType::ZOMBIE,
+        EntityType::PIG => EntityType::PIG_ZOMBIE
+      }
+    }
     item = evt.item_drop
     case item.item_stack.type
     when Material::SUGAR
       later sec(1) do
         if item.valid?
-          zombie = item.get_nearby_entities(2, 2, 2).select do |e|
-            ZOMBIES.include? e.type
-          end.sample
+          zombie = item.get_nearby_entities(2, 2, 2).select { |e| Zombie === e }.sample
           if zombie
             if rand(2) == 0
               play_effect(zombie.location, Effect::ENDER_SIGNAL)
-              spawn_type =
-                case zombie.type
-                when EntityType::ZOMBIE; EntityType::VILLAGER
-                when EntityType::PIG_ZOMBIE; EntityType::PIG
-                end
-              spawn(zombie.location, spawn_type)
+              spawn(zombie.location, item_suplied_turn[Material::SUGAR][zombie.type])
               zombie.remove
             end
             item.remove
