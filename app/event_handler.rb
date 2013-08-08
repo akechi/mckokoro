@@ -891,6 +891,7 @@ module EventHandler
       face = dispenser.state.data.facing
       loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
+      squid.max_health = 100
       @earthwork_squids << [squid, face.mod_x, face.mod_y, face.mod_z]
     end
   end
