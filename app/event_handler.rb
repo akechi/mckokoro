@@ -759,7 +759,7 @@ module EventHandler
           loc = add_loc(
             evt.clicked_block.location,
             evt.block_face.mod_x, evt.block_face.mod_y, evt.block_face.mod_z)
-          play_sound(loc, Sound::SHEEP_SHEAR)
+          play_sound(loc, Sound::SHEEP_SHEAR, 1.0, 1.0)
           drop_item(loc, ItemStack.new(Material::PAPER, 1))
         end
       # grim reaper
