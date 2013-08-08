@@ -1282,7 +1282,7 @@ module EventHandler
         @earthwork_squids.delete(tuple)
         next
       end
-      if rand(10) == 0
+      if rand(20) == 0
         squid.remove
         next
       end
@@ -1292,6 +1292,11 @@ module EventHandler
       if !new_loc.block.type.solid? || soft_blocks.include?(new_loc.block.type)
         break_naturally_by_dpickaxe(new_loc.block)
         squid.teleport(new_loc)
+
+        new_loc_above = add_loc(new_loc, 0, 1, 0)
+        if !new_loc_above.block.type.solid? || soft_blocks.include?(new_loc_above.block.type)
+          break_naturally_by_dpickaxe(new_loc_above.block)
+        end
       end
     end
   end
