@@ -80,7 +80,7 @@ module Job
 
     @job_player[player] = new_job
 
-    EventHandler.play_effect(player.location, Effect::ENDER_SIGNAL)
+    Util.play_effect(player.location, Effect::ENDER_SIGNAL)
     player.send_message "Job change! Now your job is #{new_job)}"
     player.send_message(JOB_DESCRIPTIONS[new_job] || '(No description available yet)')
   end

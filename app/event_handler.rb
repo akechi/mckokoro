@@ -22,6 +22,7 @@ require 'json'
 
 module EventHandler
   include_package 'org.bukkit.entity'
+  include Util
 
   module_function
   def on_load(plugin)
@@ -35,10 +36,6 @@ module EventHandler
 
     @db_path = "#{@plugin.data_folder.absolute_path}/db.json"
     @db = File.readable?(@db_path) ? JSON.load(File.read @db_path) : {'achievement' => {'block-place' => {}}}
-  end
-
-  def let(x)
-    yield x
   end
 
   def on_lingr(message)
@@ -360,7 +357,6 @@ module EventHandler
       end
     end
   end
-
 
   def inventory_match?(inv, item_stacks)
     amounts = let({}) do |a|
@@ -1172,9 +1168,10 @@ module EventHandler
     end
   end
 
-  #
-  # Utility functions
-  #
+module Util
+  def let(x)
+    yield x
+  end
 
   def play_effect(loc, eff)
     loc.world.playEffect(loc, eff, nil)
