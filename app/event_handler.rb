@@ -493,6 +493,11 @@ module EventHandler
           evt.right_clicked.velocity.set_z jfloat(0.0)
         end
       end
+    when Squid
+      squid = evt.right_clicked
+      if @earthwork_squids[squid]
+        earthwork_squids_work(squid)
+      end
     when Villager
       # job change
       # job recipes
@@ -957,10 +962,6 @@ module EventHandler
             consume_item(player)
           end
         end
-      end
-
-      if Squid === defender && @earthwork_squids[defender]
-        earthwork_squids_work(defender)
       end
     when LivingEntity
       case defender
