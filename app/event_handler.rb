@@ -896,6 +896,14 @@ module EventHandler
       if Player === defender && evt.damager.shooter == defender
         evt.cancelled = true
       end
+    when Player
+      item = evt.damager.item_in_hand
+      if item && item.type == Material::PAPER
+        case defender
+        when Zombie
+          evt.damager.send_message "damage: #{evt.damage}"
+        end
+      end
     when LivingEntity
       case defender
       when Player
