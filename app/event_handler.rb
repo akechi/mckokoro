@@ -921,17 +921,19 @@ module EventHandler
     item = evt.item
     case item.type
     when Material::MONSTER_EGG
-      evt.item = ItemStack.new(Material::DIRT, 1) # dirty hack
-      dispenser = evt.block
-      face = dispenser.state.data.facing
-      loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
-      squid = spawn(loc, EntityType::SQUID)
-      squid.max_health = 30
-      @earthwork_squids[squid] = [loc, face.mod_x, face.mod_y, face.mod_z]
-      players = squid.get_nearby_entities(2, 2, 2).
-        select {|e| Player === e }.
-        map(&:name)
-      broadlingr "An earthwork squid started working near #{players.join ' and '}."
+      if item.data.spawned_type == EntityType::SQUID
+        evt.item = ItemStack.new(Material::DIRT, 1) # dirty hack
+        dispenser = evt.block
+        face = dispenser.state.data.facing
+        loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
+        squid = spawn(loc, EntityType::SQUID)
+        squid.max_health = 30
+        @earthwork_squids[squid] = [loc, face.mod_x, face.mod_y, face.mod_z]
+        players = squid.get_nearby_entities(2, 2, 2).
+          select {|e| Player === e }.
+          map(&:name)
+        broadlingr "An earthwork squid started working near #{players.join ' and '}."
+      end
     end
   end
 
