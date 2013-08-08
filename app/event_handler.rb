@@ -888,7 +888,7 @@ module EventHandler
       evt.cancelled = true
       dispenser = evt.block
       face = dispenser.state.data.facing
-      loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
+      loc = add_loc(dispenser.location, face.mod_x * 3, face.mod_y * 3, face.mod_z * 3)
       squid = spawn(loc, EntityType::SQUID)
     end
   end
