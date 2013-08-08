@@ -1322,7 +1322,6 @@ module EventHandler
         select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
-    earthwork_squids_work()
 
     online_players.each do |player|
       # Superjump counter counting down
