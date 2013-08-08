@@ -755,7 +755,7 @@ module EventHandler
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
         evt.clicked_block.type = Material::WOOD if rand(30) == 0
-        drop_item(evt.clicked_block.loc, ItemStack.new(Material::PAPER, 1))
+        drop_item(evt.clicked_block.location, ItemStack.new(Material::PAPER, 1))
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
         location_around_flat(evt.clicked_block.location, 10).each do |loc|
