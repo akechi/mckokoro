@@ -32,6 +32,16 @@ module Util
     loc.world.play_effect(loc, eff, nil)
   end
 
+  def smoke_effect(loc)
+    (0...8).each do |byte|
+      loc.world.play_effect(loc, Effect::SMOKE, byte)
+    end
+  end
+
+  def play_sound(loc, sound, volume, pitch)
+    loc.world.play_sound(loc, sound, jfloat(volume), jfloat(pitch))
+  end
+
   def sec(n)
     (n * 20).to_i
   end
@@ -1301,12 +1311,12 @@ module EventHandler
     loc.add(mod_x, mod_y, mod_z) # destructive!
     soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
     cond = soft_blocks.include?(loc.block.type)
-    break_naturally_by_dpickaxe(loc.block) if cond
+    if cond
+      break_naturally_by_dpickaxe(loc.block)
+      smoke_effect(loc)
+      play_sound(loc, Sound::EAT, 0.8, 0.8)
+    end
     if cond || !loc.block.type.solid?
-      (0...8).each do |byte|
-        loc.world.play_effect(loc, Effect::SMOKE, byte)
-        #play_effect(loc, Effect::ENDER_SIGNAL)
-      end
       squid.teleport(loc)
       squid.health = squid.max_health
 
