@@ -21,12 +21,14 @@ require 'open-uri'
 require 'json'
 
 module Util
+  module_function
+
   def let(x)
     yield x
   end
 
   def play_effect(loc, eff)
-    loc.world.playEffect(loc, eff, nil)
+    loc.world.play_effect(loc, eff, nil)
   end
 
   def sec(n)
