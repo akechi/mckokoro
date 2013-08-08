@@ -1289,7 +1289,8 @@ module EventHandler
         next
       end
 
-      new_loc = add_loc(loc, mod_x, mod_y, mod_z)
+      loc.add(mod_x, mod_y, mod_z) # destructive!
+      new_loc = loc
       soft_blocks = [Material::GRASS, Material::DIRT, Material::STONE] # TODO
       if !new_loc.block.type.solid? || soft_blocks.include?(new_loc.block.type)
         break_naturally_by_dpickaxe(new_loc.block)
