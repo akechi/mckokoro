@@ -81,6 +81,13 @@ module Util
     loc.clone.tap {|l| l.add(x, y, z) }
   end
 
+  def loc_above(loc) add_loc(loc, 0, 1, 0) end
+  def loc_below(loc) add_loc(loc, 0, -1, 0) end
+
+  def block2loc(block)
+    add_loc(block.location, 0.5, 0.0, 0.5)
+  end
+
   # dummy
   def sleep(*x)
     warn "Don't use it"
@@ -890,7 +897,7 @@ module EventHandler
       dispenser = evt.block
       face = dispenser.state.data.facing
       broadcast [face.mod_x, face.mod_y, face.mod_z].to_s
-      loc = add_loc(dispenser.location, face.mod_x, face.mod_y, face.mod_z)
+      loc = add_loc(block2loc(dispenser), face.mod_x, face.mod_y, face.mod_z)
       squid = spawn(loc, EntityType::SQUID)
       squid.max_health = 100
       @earthwork_squids << [squid, loc, face.mod_x, face.mod_y, face.mod_z]
@@ -1297,7 +1304,7 @@ module EventHandler
         squid.teleport(new_loc)
         squid.health = squid.max_health
 
-        new_loc_above = add_loc(new_loc, 0, 1, 0)
+        new_loc_above = loc_above(new_loc)
         if !new_loc_above.block.type.solid? || soft_blocks.include?(new_loc_above.block.type)
           break_naturally_by_dpickaxe(new_loc_above.block)
         end
