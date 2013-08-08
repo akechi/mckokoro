@@ -902,7 +902,7 @@ module EventHandler
       player = evt.damager
 
       if Job.of(player) == :archer
-        new_damage = (evt.damage * 0.8).to_i
+        new_damage = evt.damage == 0 ? 0 : [(evt.damage * 0.8).to_i, 1].max
         player.send_message "You are archer; the damage isn't #{evt.damage} but #{new_damage}"
         evt.damage = new_damage
       end
