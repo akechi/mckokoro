@@ -875,12 +875,17 @@ module EventHandler
     end
   end
 
-  def on_creature_spawn(evt)
-    broadcast evt.spawn_reason if Squid === evt.entity
-    case evt.spawn_reason
-    when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
-      broadcast 'cool'
-    end
+  # def on_creature_spawn(evt)
+  #   case evt.spawn_reason
+  #   when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
+  #   end
+  # end
+
+  def on_block_dispense(evt)
+    item = evt.item
+    broadcast item
+    #case item.type
+    #when Material::
   end
 
   def on_entity_damage_by_entity(evt)
