@@ -901,7 +901,11 @@ module EventHandler
       if item && item.type == Material::PAPER
         case defender
         when Zombie
-          evt.damager.send_message "damage: #{evt.damage}"
+          evt.damager.send_message 'Paper cut!'
+          evt.damage = 5 + rand(5)
+          if rand(2) == 0
+            consume_item(player)
+          end
         end
       end
     when LivingEntity
