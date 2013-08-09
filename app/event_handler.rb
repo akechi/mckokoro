@@ -964,12 +964,11 @@ module EventHandler
     # end
   end
 
-  def on_block_redstone(evt)
-    #broadcast [evt.block.to_s, evt.new_current].to_s
-  end
-
   def on_block_physics(evt)
-    broadcast evt.block.type.to_s
+    case evt.block.type
+    when Material::TRAP_DOOR
+      trapdoor_right_click(evt.block)
+    end
   end
 
   @earthwork_squids ||= {}
@@ -1261,8 +1260,8 @@ module EventHandler
   end
 
   def broadlingr(msg)
-    broadcast(msg)
-    post_lingr(msg)
+    broadcast(msg.to_s)
+    post_lingr(msg.to_s)
   end
 
   def explode(loc, power, fire_p)
