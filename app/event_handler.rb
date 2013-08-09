@@ -749,7 +749,11 @@ module EventHandler
     players_on_the_door =
       Bukkit.online_players.select {|p| p.location.block == door }
 
-    broadcast 'good!'
+    players_on_the_door.each do |p|
+      evt.entity.velocity = evt.entity.velocity.tap {|v|
+        v.add Vector.new(0.0, 1.0, 0.0)
+      }
+    end
   end
 
   def on_player_interact(evt)
