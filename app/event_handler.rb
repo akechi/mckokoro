@@ -743,6 +743,15 @@ module EventHandler
   end
   private :clock_timechange
 
+  def trapdoor_right_click(door)
+    return if !door.state.data.inverted? && !door.state.data.open?
+
+    players_on_the_door =
+      Bukkit.online_players.select {|p| p.location.block == door }
+
+    broadcast 'good!'
+  end
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
@@ -770,6 +779,8 @@ module EventHandler
 
       # SPADE can remove grass from dirt
       case [evt.clicked_block.type, evt.action]
+      when [Material::TRAPDOOR, Action::RIGHT_CLICK_BLOCK]
+        trapdoor_right_click(evt.clicked_block)
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         if SPADES.include? evt.player.item_in_hand.type
           evt.clicked_block.type = Material::DIRT
