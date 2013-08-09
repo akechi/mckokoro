@@ -723,7 +723,7 @@ module EventHandler
 
   @clock_timechange_counter ||= 0
   def clock_timechange(player)
-    return unless player.item_in_hand.type == Material::CLOCK
+    return unless player.item_in_hand.type == Material::WATCH
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
     play_effect(player.location, Effect::RECORD_PLAY, RECORDS.sample)
