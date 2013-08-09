@@ -751,7 +751,7 @@ module EventHandler
 
     players_on_the_door.each do |p|
       p.velocity = p.velocity.tap {|v|
-        v.add Vector.new(0.0, 1.0, 0.0)
+        v.add Vector.new(0.0, 5.0, 0.0)
       }
     end
   end
