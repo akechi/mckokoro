@@ -834,6 +834,9 @@ module EventHandler
         # Inochi wo karitoru katachi wo shiteru darou?
         broadcast "The shape looks like--"
         broadcast "                the DEATH."
+      when [Material::AIR, Action::RIGHT_CLICK_BLOCK, Material::SPECKLED_MELON]
+        player.send_message "lalala..."
+        # TODO: play that melody and give player a horse
       end
 
     else
@@ -966,9 +969,6 @@ module EventHandler
         end
       when Material::POTATO_ITEM
         player.send_message "(raw potato doesn't satisfy you!)"
-        evt.cancelled = true
-      when Material::SPECKLED_MELON
-        player.send_message "lalala..."
         evt.cancelled = true
       end
     end
