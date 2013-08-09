@@ -1316,7 +1316,6 @@ module EventHandler
         if args[0]
           Job.become(sender, args[0].to_sym)
         end
-        sender.send_message "your job is #{Job.of(sender)}"
         true
       else
         false
