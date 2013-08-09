@@ -1148,6 +1148,8 @@ module EventHandler
           ([player] + animals).each do |e|
             e.teleport(loc)
             e.fall_distance = 0.0
+            play_effect(player.location, Effect::ENDER_SIGNAL, nil)
+            play_sound(loc, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
           end
         end
       end
