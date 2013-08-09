@@ -746,10 +746,10 @@ module EventHandler
   def trapdoor_right_click(door)
     return if !door.state.data.inverted? && door.state.data.open?
 
-    players_on_the_door =
-      Bukkit.online_players.select {|p| p.location.block == door }
+    entities_on_the_door =
+      door.chunk.entities.select {|e| e.location.block == door }
 
-    players_on_the_door.each do |p|
+    entities_on_the_door.each do |p|
       p.velocity = p.velocity.tap {|v|
         v.add Vector.new(0.0, 3.0, 0.0)
       }
