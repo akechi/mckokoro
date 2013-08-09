@@ -743,7 +743,7 @@ module EventHandler
   end
   private :clock_timechange
 
-  def trapdoor_openclose(door, current)
+  def trapdoor_openclose(door)
     return if !door.state.data.inverted? && door.state.data.open?
     broadcast current
 
@@ -966,11 +966,12 @@ module EventHandler
   end
 
   def on_block_redstone(evt)
+  end
+
+  def on_block_physics(evt)
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block, evt.new_current)
-    when Material::STONE
-      smoke_effect(block2loc(evt.block))
     end
   end
 
