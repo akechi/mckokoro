@@ -42,8 +42,7 @@ class LingrBot < Sinatra::Base
   post '/eval' do
     halt 403 if request.ip != MY_IP
     str = request.body.string
-    p [:eval, str]
-    EventHandler.module_eval(str).inspect
+    EventHandler.module_eval(str).to_s
   end
 
   post '/deploy' do
