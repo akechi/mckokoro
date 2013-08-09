@@ -29,8 +29,8 @@ module Util
     yield x
   end
 
-  def play_effect(loc, eff)
-    loc.world.play_effect(loc, eff, nil)
+  def play_effect(loc, eff, data)
+    loc.world.play_effect(loc, eff, data)
   end
 
   def smoke_effect(loc)
@@ -728,7 +728,7 @@ module EventHandler
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
     play_effect(player.location, Effect::RECORD_PLAY, RECORDS.sample)
-    if @clock_timechange_counter % 5 == 0
+    if @clock_timechange_counter % 4 == 0
       consume_item(player)
     end
   end
@@ -792,7 +792,7 @@ module EventHandler
             if [ Material::LONG_GRASS, Material::AIR ].include? upper.type
               upper.type = Material::AIR 
               loc.block.type = Material::SOIL
-              play_effect(upper.location, Effect::ENDER_SIGNAL) if rand(4) == 0
+              play_effect(upper.location, Effect::ENDER_SIGNAL, nil) if rand(4) == 0
             end
           end
         end
@@ -1041,7 +1041,7 @@ module EventHandler
             if entity.respond_to?(:baby?) && entity.baby? && newbie.respond_to?(:baby=)
               newbie.baby = true
             end
-            play_effect(entity.location, Effect::ENDER_SIGNAL) # TODO: smoke
+            play_effect(entity.location, Effect::ENDER_SIGNAL, nil) # TODO: smoke
             entity.remove
           end
         end
