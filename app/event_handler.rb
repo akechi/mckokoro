@@ -745,7 +745,6 @@ module EventHandler
 
   def trapdoor_openclose(door)
     return if !door.state.data.inverted? && door.state.data.open?
-    broadcast current
 
     entities_on_the_door =
       door.chunk.entities.select {|e| e.location.block == door }
@@ -965,13 +964,10 @@ module EventHandler
     # end
   end
 
-  def on_block_redstone(evt)
-  end
-
   def on_block_physics(evt)
     case evt.block.type
     when Material::TRAP_DOOR
-      trapdoor_openclose(evt.block, evt.new_current)
+      trapdoor_openclose(evt.block)
     end
   end
 
