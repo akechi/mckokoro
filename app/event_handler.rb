@@ -1343,6 +1343,12 @@ module EventHandler
     squid_egg.set_ingredient(jchar('a'), Material::INK_SACK)
     squid_egg.set_ingredient(jchar('b'), Material::EGG)
     Bukkit.add_recipe squid_egg
+    # rotten egg will be zombie egg
+    zombie_egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 54))
+    zombie_egg.shape "aaa", "aba", "aaa"
+    zombie_egg.set_ingredient(jchar('a'), Material::ROTTEN_FLESH)
+    zombie_egg.set_ingredient(jchar('b'), Material::EGG)
+    Bukkit.add_recipe zombie_egg
   end
 
   def on_command(sender, cmd, label, args)
