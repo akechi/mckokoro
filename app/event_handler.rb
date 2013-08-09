@@ -750,7 +750,7 @@ module EventHandler
       Bukkit.online_players.select {|p| p.location.block == door }
 
     players_on_the_door.each do |p|
-      evt.entity.velocity = evt.entity.velocity.tap {|v|
+      p.velocity = p.velocity.tap {|v|
         v.add Vector.new(0.0, 1.0, 0.0)
       }
     end
