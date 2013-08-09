@@ -123,6 +123,15 @@ module Util
   def break_naturally_by_dpickaxe(block)
     block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
   end
+
+  def night?(world)
+    13500 < world.time
+  end
+
+  RECORDS =
+    [Material::GOLD_RECORD, Material::GREEN_RECORD, Material::RECORD_10,
+     Material::RECORD_11, Material::RECORD_3, Material::RECORD_4, Material::RECORD_5,
+     Material::RECORD_6, Material::RECORD_7, Material::RECORD_8, Material::RECORD_9]
 end
 
 module EventHandler
@@ -712,6 +721,17 @@ module EventHandler
     end
   end
 
+  @clock_timechange_counter ||= 0
+  def clock_timechange(player)
+    return unless player.item_in_hand.type == Material::CLOCK
+    to_time = night?(player.world) ? 0 : 16000
+    player.world.time = to_time
+    play_effect(player.location, Effect::RECORD_PLAY, RECORDS.sample)
+    if @clock_timechange_counter % 5 == 0
+      consume_item(player)
+    end
+  end
+  private :clock_timechange
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
@@ -725,17 +745,18 @@ module EventHandler
     #chicken_arrow(evt.player, evt.action)
 
     killerqueen_explode(evt)
+    clock_timechange(evt.player)
 
 
     if evt.clicked_block
       # Grim Reaper
-      Job.set_recipe(:grimreaper, {
-        masteries: {novice: 0},
-        votive: [
-          ItemStack.new(Material::SUGAR, 1),
-          ItemStack.new(Material::STONE_HOE, 1)
-        ]
-      })
+      Job.set_recipe(
+        :grimreaper,
+        {
+          masteries: {novice: 0},
+          votive: [
+            ItemStack.new(Material::SUGAR, 1),
+            ItemStack.new(Material::STONE_HOE, 1)]})
 
       # SPADE can remove grass from dirt
       case [evt.clicked_block.type, evt.action]
