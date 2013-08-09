@@ -744,7 +744,7 @@ module EventHandler
   private :clock_timechange
 
   def trapdoor_right_click(door)
-    return if !door.state.data.inverted? && !door.state.data.open?
+    return if !door.state.data.inverted? && door.state.data.open?
 
     players_on_the_door =
       Bukkit.online_players.select {|p| p.location.block == door }
