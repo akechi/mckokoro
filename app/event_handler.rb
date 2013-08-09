@@ -53,6 +53,10 @@ module Util
     rubyfloat.to_java Java.float
   end
 
+  def jchar(rubystring)
+    rubystring[0].ord
+  end
+
   def post_lingr(text)
     post_lingr_to('mcujm', text)
   end
@@ -1336,8 +1340,8 @@ module EventHandler
     # inked egg will be squid egg
     squid_egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 94))
     squid_egg.shape "aaa", "aba", "aaa"
-    squid_egg.set_ingredient('a'[0], Material::INK_SACK)
-    squid_egg.set_ingredient('b'[0], Material::EGG)
+    squid_egg.set_ingredient(jchar('a'), Material::INK_SACK)
+    squid_egg.set_ingredient(jchar('b'), Material::EGG)
     Bukkit.add_recipe squid_egg
   end
 
