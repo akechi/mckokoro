@@ -743,8 +743,9 @@ module EventHandler
   end
   private :clock_timechange
 
-  def trapdoor_openclose(door)
+  def trapdoor_openclose(door, current)
     return if !door.state.data.inverted? && door.state.data.open?
+    broadcast current
 
     entities_on_the_door =
       door.chunk.entities.select {|e| e.location.block == door }
@@ -971,9 +972,6 @@ module EventHandler
     when Material::STONE
       smoke_effect(block2loc(evt.block))
     end
-  end
-
-  def on_block_physics(evt)
   end
 
   @earthwork_squids ||= {}
