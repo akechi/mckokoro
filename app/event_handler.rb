@@ -723,7 +723,6 @@ module EventHandler
 
   @clock_timechange_counter ||= 0
   def clock_timechange(player)
-    broadcast [player, player.item_in_hand, player.item_in_hand.type].map(&:to_s).to_s
     return unless player.item_in_hand.type == Material::WATCH
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
@@ -731,6 +730,7 @@ module EventHandler
     if @clock_timechange_counter % 4 == 0
       consume_item(player)
     end
+    @clock_timechange_counter += 1
   end
   private :clock_timechange
 
