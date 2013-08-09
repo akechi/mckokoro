@@ -837,9 +837,9 @@ module EventHandler
       end
 
 
-      case [ player.item_in_hand.type, evt.action ]
-      when [ Material::SPECKLED_MELON, Action::LEFT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::LEFT_CLICK_AIR ]
-        player.send_message "lalala..."
+      case [ evt.player.item_in_hand.type, evt.action ]
+      when [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_AIR ]
+        evt.player.send_message "lalala..."
         # TODO: play that melody and give player a horse
       end
 
