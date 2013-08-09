@@ -1337,18 +1337,21 @@ module EventHandler
       ItemStack.new(Material::BREAD),
       Material::WHEAT)
     Bukkit.add_recipe bread_furnace
-    # inked egg will be squid egg
-    squid_egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 94))
-    squid_egg.shape "aaa", "aba", "aaa"
-    squid_egg.set_ingredient(jchar('a'), Material::INK_SACK)
-    squid_egg.set_ingredient(jchar('b'), Material::EGG)
-    Bukkit.add_recipe squid_egg
-    # rotten egg will be zombie egg
-    zombie_egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 54))
-    zombie_egg.shape "aaa", "aba", "aaa"
-    zombie_egg.set_ingredient(jchar('a'), Material::ROTTEN_FLESH)
-    zombie_egg.set_ingredient(jchar('b'), Material::EGG)
-    Bukkit.add_recipe zombie_egg
+    # Eggs!
+    egg_recipes = [
+      { egg_id: 32, ingredient: Material::SULPHUR },      # Creeper
+      { egg_id: 33, ingredient: Material::BONE },         # Skeleton
+      { egg_id: 54, ingredient: Material::ROTTEN_FLESH }, # Zombie
+      { egg_id: 55, ingredient: Material::SLIME_BALL },   # Slime
+      { egg_id: 94, ingredient: Material::INK_SACK }      # Squid
+    ]
+    egg_recipes.each do |r|
+      egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, r[:egg_id]))
+      egg.shape "aaa", "aba", "aaa"
+      egg.set_ingredient(jchar('a'), r[:ingredient])
+      egg.set_ingredient(jchar('b'), Material::EGG)
+      Bukkit.add_recipe egg
+    end
   end
 
   def on_command(sender, cmd, label, args)
