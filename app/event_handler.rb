@@ -1321,10 +1321,20 @@ module EventHandler
     recipes.
       reject {|r| r.result.type == Material::BREAD }.
       each {|r| Bukkit.add_recipe r }
+    # bread furnace
     bread_furnace = FurnaceRecipe.new(
       ItemStack.new(Material::BREAD),
       Material::WHEAT)
     Bukkit.add_recipe bread_furnace
+    # bread furnace
+    bread_furnace = FurnaceRecipe.new(
+      ItemStack.new(Material::BREAD),
+      Material::WHEAT)
+    Bukkit.add_recipe bread_furnace
+    # 16 squid ink will be egg
+    squid_egg = ShapelessRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 94))
+    squid_egg.add_ngredient(16, Material::INK_SACK)
+    Bukkit.add_recipe squid_egg
   end
 
   def on_command(sender, cmd, label, args)
@@ -1342,8 +1352,15 @@ module EventHandler
       case sender
       when Player
         args = args.to_a
-        if args[0]
-          Job.become(sender, args[0].to_sym)
+        mck_cmd = args[0]
+        if mck_cmd
+          case mck_cmd.to_sym
+          when :job
+            Job.become(sender, args[1].to_sym) if args[1]
+          when :update_recipe
+            update_recipes
+            broadcast "Recipe updated!"
+          end
         end
         true
       else
