@@ -754,7 +754,7 @@ module EventHandler
 
     entities_on_the_door.each do |p|
       p.velocity = p.velocity.tap {|v|
-        v.add Vector.new(facing.mod_x.to_f, 2.0, facing.mod_z.to_f)
+        v.add Vector.new(facing.mod_x* 2.0, 2.0, facing.mod_z * 2.0)
       }
     end
   end
