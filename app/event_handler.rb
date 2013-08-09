@@ -744,7 +744,9 @@ module EventHandler
   private :clock_timechange
 
   def trapdoor_openclose(door)
-    return if !door.state.data.inverted? && door.state.data.open?
+    return if door.state.data.inverted?
+    broadcast 'ok'
+    return if door.state.data.open?
 
     entities_on_the_door =
       door.chunk.entities.select {|e| e.location.block == door }
