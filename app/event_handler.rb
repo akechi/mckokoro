@@ -779,7 +779,7 @@ module EventHandler
 
       # SPADE can remove grass from dirt
       case [evt.clicked_block.type, evt.action]
-      when [Material::TRAPDOOR, Action::RIGHT_CLICK_BLOCK]
+      when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_right_click(evt.clicked_block)
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         if SPADES.include? evt.player.item_in_hand.type
