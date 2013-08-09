@@ -743,7 +743,7 @@ module EventHandler
   end
   private :clock_timechange
 
-  def trapdoor_right_click(door)
+  def trapdoor_openclose(door)
     return if !door.state.data.inverted? && door.state.data.open?
 
     entities_on_the_door =
@@ -751,7 +751,7 @@ module EventHandler
 
     entities_on_the_door.each do |p|
       p.velocity = p.velocity.tap {|v|
-        v.add Vector.new(0.0, 3.0, 0.0)
+        v.add Vector.new(0.0, 2.0, 0.0)
       }
     end
   end
@@ -784,7 +784,7 @@ module EventHandler
       # SPADE can remove grass from dirt
       case [evt.clicked_block.type, evt.action]
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
-        trapdoor_right_click(evt.clicked_block)
+        trapdoor_openclose(evt.clicked_block)
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         if SPADES.include? evt.player.item_in_hand.type
           evt.clicked_block.type = Material::DIRT
@@ -967,7 +967,7 @@ module EventHandler
   def on_block_physics(evt)
     case evt.block.type
     when Material::TRAP_DOOR
-      trapdoor_right_click(evt.block)
+      trapdoor_openclose(evt.block)
     end
   end
 
