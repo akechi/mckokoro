@@ -952,22 +952,26 @@ module EventHandler
     #evt.getEntity.setVelocity(Vector.new(0.0, 2.0, 0.0))
     player = evt.entity
     eating_p = player.food_level < evt.food_level
-    case player.item_in_hand.type
-    when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
-      player.send_message "(food poisoning!)"
-      @food_poisoning_player << player
-      later sec(60) do
-        if Bukkit.online_players.include? player and @food_poisoning_player.include? player
-          # TODO supermomonga
-          # food poisoning. the player may die in the worst case.
-          @food_poisoning_player.delete player
+    if eating_p
+      case player.item_in_hand.type
+      when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
+        player.send_message "(food poisoning!)"
+        @food_poisoning_player << player
+        later sec(60) do
+          if Bukkit.online_players.include? player and @food_poisoning_player.include? player
+            # TODO supermomonga
+            # food poisoning. the player may die in the worst case.
+            @food_poisoning_player.delete player
+          end
         end
+      when Material::POTATO_ITEM
+        player.send_message "(raw potato doesn't satisfy you!)"
+        evt.cancelled = true
+      when Material::SPECKLED_MELON
+        player.send_message "lalala..."
+        evt.cancelled = true
       end
-    when Material::POTATO_ITEM
-      player.send_message "(raw potato doesn't satisfy you!)"
-      evt.cancelled = true
     end
-    player.send_message "You eating #{ player.item_in_hand.type }"
   end
 
   def on_creature_spawn(evt)
