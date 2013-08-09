@@ -748,13 +748,13 @@ module EventHandler
     # the below condition is buggy with RS input
     return if door.state.data.open?
 
-    broadcast door.state.data.facing
+    facing = broadcast door.state.data.facing
     entities_on_the_door =
       door.chunk.entities.select {|e| e.location.block == door }
 
     entities_on_the_door.each do |p|
       p.velocity = p.velocity.tap {|v|
-        v.add Vector.new(0.0, 2.0, 0.0)
+        v.add Vector.new(facing.mod_x, 2.0, facing.mod_z)
       }
     end
   end
