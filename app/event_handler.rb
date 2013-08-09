@@ -1335,7 +1335,7 @@ module EventHandler
     Bukkit.add_recipe bread_furnace
     # inked egg will be squid egg
     squid_egg = ShapedRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 94))
-    squid_egg.shape "aaa\naba\naaa"
+    squid_egg.shape "aaa", "aba", "aaa"
     squid_egg.set_ingredient('a'[0], Material::INK_SACK)
     squid_egg.set_ingredient('b'[0], Material::EGG)
     Bukkit.add_recipe squid_egg
