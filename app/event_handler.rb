@@ -964,13 +964,16 @@ module EventHandler
     # end
   end
 
-  def on_block_physics(evt)
+  def on_block_redstone(evt)
     case evt.block.type
     when Material::TRAP_DOOR
-      trapdoor_openclose(evt.block)
+      trapdoor_openclose(evt.block, evt.new_current)
     when Material::STONE
       smoke_effect(block2loc(evt.block))
     end
+  end
+
+  def on_block_physics(evt)
   end
 
   @earthwork_squids ||= {}
