@@ -964,6 +964,10 @@ module EventHandler
     # end
   end
 
+  def on_block_redstone(evt)
+    broadcast [evt.block.to_s, evt.new_current].to_s
+  end
+
   @earthwork_squids ||= {}
   def on_block_dispense(evt)
     item = evt.item
