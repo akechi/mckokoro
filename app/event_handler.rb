@@ -1339,8 +1339,8 @@ module EventHandler
     Bukkit.add_recipe bread_furnace
     # Eggs!
     egg_recipes = [
-      { egg_id: 32, ingredient: Material::SULPHUR },      # Creeper
-      { egg_id: 33, ingredient: Material::BONE },         # Skeleton
+      { egg_id: 50, ingredient: Material::SULPHUR },      # Creeper
+      { egg_id: 51, ingredient: Material::BONE },         # Skeleton
       { egg_id: 54, ingredient: Material::ROTTEN_FLESH }, # Zombie
       { egg_id: 55, ingredient: Material::SLIME_BALL },   # Slime
       { egg_id: 94, ingredient: Material::INK_SACK }      # Squid
