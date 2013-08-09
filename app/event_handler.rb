@@ -1454,11 +1454,8 @@ module EventHandler
     online_players.each do |player|
       # Superjump counter counting down
       crouching_countdown = -> do
-        player.tap do |p|
-          if @crouching_counter && @crouching_counter[p.name] && @crouching_counter[p.name] > 0
-            @crouching_counter[p.name] -= 1
-            # p.send_message "jump power : #{@crouching_counter[p.name]}"
-          end
+        if @crouching_counter && @crouching_counter[player.name] && @crouching_counter[player.name] > 0
+          @crouching_counter[player.name] -= 1
         end
       end
       # count down every 0.5 sec
