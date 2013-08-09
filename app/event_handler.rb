@@ -967,6 +967,7 @@ module EventHandler
       player.send_message "(raw potato doesn't satisfy you!)"
       evt.cancelled = true
     end
+    player.send_message "You eating #{ player.item_in_hand.type }"
   end
 
   def on_creature_spawn(evt)
