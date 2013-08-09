@@ -968,6 +968,8 @@ module EventHandler
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
+    when Material::STONE
+      smoke_effect(block2loc(evt.block))
     end
   end
 
