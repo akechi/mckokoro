@@ -834,7 +834,11 @@ module EventHandler
         # Inochi wo karitoru katachi wo shiteru darou?
         broadcast "The shape looks like--"
         broadcast "                the DEATH."
-      when [Material::AIR, Action::RIGHT_CLICK_BLOCK, Material::SPECKLED_MELON]
+      end
+
+
+      case [ player.item_in_hand.type, evt.action ]
+      when [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_AIR ]
         player.send_message "lalala..."
         # TODO: play that melody and give player a horse
       end
