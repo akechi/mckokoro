@@ -1335,7 +1335,7 @@ module EventHandler
     Bukkit.add_recipe bread_furnace
     # 16 squid ink will be egg
     squid_egg = ShapelessRecipe.new(ItemStack.new(Material::MONSTER_EGG, 1, 94))
-    squid_egg.add_ngredient(16, Material::INK_SACK)
+    squid_egg.add_igredient(16, Material::INK_SACK)
     Bukkit.add_recipe squid_egg
   end
 
