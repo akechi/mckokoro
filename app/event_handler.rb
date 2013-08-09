@@ -965,7 +965,11 @@ module EventHandler
   end
 
   def on_block_redstone(evt)
-    broadcast [evt.block.to_s, evt.new_current].to_s
+    #broadcast [evt.block.to_s, evt.new_current].to_s
+  end
+
+  def on_block_physics(evt)
+    broadcast evt.block.type.to_s
   end
 
   @earthwork_squids ||= {}
