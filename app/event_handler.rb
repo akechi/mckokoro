@@ -287,8 +287,8 @@ module EventHandler
     case evt.entity.item_stack.type
     when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
-    when Material::EGG
-      evt.cancelled = true
+    #when Material::EGG
+    #  evt.cancelled = true
     end
   end
 
@@ -920,14 +920,14 @@ module EventHandler
       end
     when Material::LEAVES
       if rand(3) == 0
-        drop_item(evt.block.location, ItemStack.new(Material::STICK))
-        drop_item(evt.block.location, ItemStack.new(Material::EGG))
+        drop_item(evt.block.location, ItemStack.new(Material::STICK, 1))
+        drop_item(evt.block.location, ItemStack.new(Material::EGG, 1))
       end
     when Material::GRASS
       evt.cancelled = true
       evt.block.type = Material::DIRT
     when Material::LONG_GRASS
-      drop_item(evt.block.location, ItemStack.new(Material::SEEDS))
+      drop_item(evt.block.location, ItemStack.new(Material::SEEDS, 1))
     when Material::STONE
       case rand(5)
       when 0
