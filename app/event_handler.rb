@@ -922,7 +922,7 @@ module EventHandler
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
         player.send_message "#{ location_around(broken_block.location, 2).to_a.size } locs around the block"
-        location_around(broken_block.location, 2).each do |loc|
+        location_around(broken_block.location, 1).each do |loc|
           block = loc.block
           if loc.y >= player.location.y
             break_naturally_by_dpickaxe(block) if block.type == broken_block.type
