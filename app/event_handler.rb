@@ -1079,6 +1079,15 @@ module EventHandler
       if Player === defender && evt.damager.shooter == defender
         evt.cancelled = true
       end
+    when Egg
+      if Villager === defender && Player === evt.damager.shooter
+        villager = defender
+        player = evt.damager.shooter
+
+        evt.cancelled = true
+        evt.entity.remove
+        villager.set_leash_holder player
+      end
     when Player
       player = evt.damager
 
