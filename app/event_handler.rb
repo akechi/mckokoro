@@ -921,10 +921,12 @@ module EventHandler
     if Job.of(player) == :bulldozer
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-        player.send_message "#{ location_around(broken_block.location, 2).to_a.size } locs around the block"
-        location_around(broken_block.location, 1).each do |loc|
+        locs = location_around(broken_block.location, 2)
+        player.send_message "#{locs.size} locs around the block"
+        locs.each do |loc|
           block = loc.block
           if loc.y >= player.location.y
+            player.send_message loc.to_s
             break_naturally_by_dpickaxe(block) if block.type == broken_block.type
           end
         end
