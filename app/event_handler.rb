@@ -923,7 +923,9 @@ module EventHandler
       player.send_message "flat!"
       location_around(broken_block.location, 2).each do |loc|
         block = loc.block
-        break_naturally_by_dpickaxe(block) if block.type == broken_block.type
+        if loc.y >= player.location.y
+          break_naturally_by_dpickaxe(block) if block.type == broken_block.type
+        end
       end
     end
 
