@@ -211,7 +211,7 @@ module EventHandler
       evt.cancelled = true
       reload
       broadcast '(reloading event handler)'
-    elsif if last_pname && /\|$/ =~ evt.message
+    elsif last_pname && /\|$/ =~ evt.message
       message = evt.message.sub(/\|$/, '')
       post_lingr("#{evt.player.name}: #{message}")
       post_lingr_to('computer_science', "#{last_pname}: #{last_message}")
