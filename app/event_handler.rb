@@ -1348,9 +1348,9 @@ module EventHandler
       ItemStack.new(Material::BREAD),
       Material::WHEAT)
     Bukkit.add_recipe bread_furnace
-    # Eggs!
+    # Eggs
     egg_recipes = [
-      { egg_id: 50, ingredient: Material::SULPHUR },      # Creeper
+      # { egg_id: 50, ingredient: Material::SULPHUR },      # Creeper
       { egg_id: 51, ingredient: Material::BONE },         # Skeleton
       { egg_id: 54, ingredient: Material::ROTTEN_FLESH }, # Zombie
       { egg_id: 55, ingredient: Material::SLIME_BALL },   # Slime
