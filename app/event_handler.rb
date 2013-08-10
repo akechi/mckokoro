@@ -911,7 +911,7 @@ module EventHandler
     # flatdesigner
     case broken_block.type
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-      location_around(block.location, 2) do |loc|
+      location_around(broken_block.location, 2) do |loc|
         loc.block.type = Material::AIR if loc.block.type == broken_block.type
       end
     end
