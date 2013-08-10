@@ -921,7 +921,7 @@ module EventHandler
     if Job.of(player) == :bulldozer
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-        locs = location_around(broken_block.location, 2)
+        locs = location_around(broken_block.location, 1)
         player.send_message "#{locs.size} locs around the block"
         locs.each do |loc|
           block = loc.block
