@@ -921,9 +921,9 @@ module EventHandler
     case broken_block.type
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
       player.send_message "flat!"
-      location_around(broken_block.location, 2) do |loc|
-        player.send_message "block #{ loc.block }"
-        break_naturally_by_dpickaxe(loc.block)
+      location_around(broken_block.location, 2).each do |loc|
+        block = loc.block
+        break_naturally_by_dpickaxe(block) if block.type == broken_block.type
       end
     end
 
