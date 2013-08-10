@@ -916,7 +916,7 @@ module EventHandler
   def on_block_break(evt)
     broken_block = evt.block
 
-    # flatdesigner
+    # bulldozer
     case broken_block.type
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
       evt.player.send_message "flat!"
