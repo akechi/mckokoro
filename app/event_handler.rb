@@ -130,6 +130,14 @@ module Util
     block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
   end
 
+  def break_naturally_by_daxe(block)
+    block.break_naturally(ItemStack.new(Material::DIAMOND_AXE))
+  end
+
+  def break_naturally_by_dspade(block)
+    block.break_naturally(ItemStack.new(Material::DIAMOND_SPADE))
+  end
+
   def night?(world)
     13500 < world.time
   end
