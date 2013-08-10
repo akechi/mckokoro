@@ -913,11 +913,7 @@ module EventHandler
     #p evt.chat_message
   end
 
-  def on_block_break(evt)
-    broken_block = evt.block
-    player = evt.player
-
-    # bulldozer
+  def bulldozer_break(broken_block, player)
     if Job.of(player) == :bulldozer
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
@@ -927,12 +923,22 @@ module EventHandler
             if block.type == broken_block.type
               later 0 do
                 break_naturally_by_dpickaxe(block)
+                # TODO
+                # consume_item_durability(player, 1)
               end
             end
           end
         end
       end
     end
+  end
+  private :bulldozer_break
+
+  def on_block_break(evt)
+    broken_block = evt.block
+    player = evt.player
+
+    bulldozer_break(broken_block, player)
 
     case evt.block.type
     #when Material::SUGAR_CANE_BLOCK
