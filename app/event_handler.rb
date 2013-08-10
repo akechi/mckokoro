@@ -1479,7 +1479,7 @@ module EventHandler
   def earthwork_squids_work(squid)
     loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
     unless squid.valid?
-      @earthwork_squids.delete(tuple)
+      @earthwork_squids.delete(squid)
       return
     end
     if rand(100) == 0
