@@ -2,12 +2,15 @@ import 'org.bukkit.Effect'
 
 module Job
   Util.silence_warnings do
-    JOBS = [:novice, :killerqueen, :archer, :bulldozer, :muteki, :archtect, :grimreaper, :debug]
+    JOBS = [
+      :novice, :killerqueen, :archer, :bulldozer, :muteki, :archtect,
+      :grimreaper, :debug]
+
     JOB_DESCRIPTIONS = {
       novice: 'Default; no pros/cons',
       killerqueen: '(supermomonga will write here)',
       archer: 'Arrows goes very fast and straight. Other attacks you can give get weaker.',
-      bulldozer: 'roadroller da!!!',
+      bulldozer: 'Fast/efficient dig to flat terrains easily',
       muteki: 'Experimental! You are invinsible',
       archtect: 'Good at building. You can fill an area with using tripwires!',
       grimreaper: '(supermomonga will write here)',
@@ -15,7 +18,7 @@ module Job
     }
   end
 
-  module_function
+  extend self
 
   @job_player ||= {}
   @job_exp ||= {}
@@ -44,12 +47,10 @@ module Job
     recipe = Job.recipe job
     # masteries check
     recipe[:masteries].each do |name, exp|
-      if Job.exp(player, name) < exp
-        return false
-      end
+      return false if Job.exp(player, name) < exp
     end
     # votive check
-    return EventHandler.inventory_match?(inv, recipe[:votive])
+    EventHandler.inventory_match?(inv, recipe[:votive])
   end
 
   def change_event(player, blocks)
