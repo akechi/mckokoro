@@ -1085,7 +1085,7 @@ module EventHandler
         player = evt.damager.shooter
 
         evt.cancelled = true
-        evt.entity.remove
+        evt.damager.remove
         villager.set_leash_holder player
       end
     when Player
