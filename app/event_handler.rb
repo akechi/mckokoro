@@ -915,12 +915,14 @@ module EventHandler
 
   def on_block_break(evt)
     broken_block = evt.block
+    player = evt.player
 
     # bulldozer
     case broken_block.type
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-      evt.player.send_message "flat!"
+      player.send_message "flat!"
       location_around(broken_block.location, 2) do |loc|
+        player.send_message "block #{ loc.block }"
         break_naturally_by_dpickaxe(loc.block)
       end
     end
