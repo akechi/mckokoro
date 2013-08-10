@@ -927,7 +927,8 @@ module EventHandler
           block = loc.block
           if loc.y >= player.location.y
             player.send_message "x:#{ loc.x } y:#{ loc.y } z:#{ loc.z }"
-            break_naturally_by_dpickaxe(block) if block.type == broken_block.type
+            # break_naturally_by_dpickaxe(block) if block.type == broken_block.type
+            block.type = Material::AIR if block.type == broken_block.type
           end
         end
       end
