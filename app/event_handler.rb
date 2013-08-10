@@ -918,10 +918,13 @@ module EventHandler
         evt.player.send_message "(cut tree leaves that may have wood sticks.)"
         evt.cancelled = true
       end
+
+      if rand(10) == 0
+        drop_item(evt.block.location, ItemStack.new(Material::EGG, 1))
+      end
     when Material::LEAVES
       if rand(3) == 0
         drop_item(evt.block.location, ItemStack.new(Material::STICK, 1))
-        drop_item(evt.block.location, ItemStack.new(Material::EGG, 1))
       end
     when Material::GRASS
       evt.cancelled = true
