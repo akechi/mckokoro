@@ -921,6 +921,7 @@ module EventHandler
     when Material::LEAVES
       if rand(3) == 0
         drop_item(evt.block.location, ItemStack.new(Material::STICK))
+        drop_item(evt.block.location, ItemStack.new(Material::EGG))
       end
     when Material::GRASS
       evt.cancelled = true
@@ -986,9 +987,11 @@ module EventHandler
   end
 
   def on_creature_spawn(evt)
-    # case evt.spawn_reason
+    case evt.spawn_reason
     # when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
-    # end
+    when CreatureSpawnEvent::SpawnReason::EGG
+      evt.cancelled = true
+    end
   end
 
   def on_block_physics(evt)
