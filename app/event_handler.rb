@@ -926,7 +926,7 @@ module EventHandler
         locs.each do |loc|
           block = loc.block
           if loc.y >= player.location.y
-            player.send_message loc.to_s
+            player.send_message "x:#{ loc.x } y:#{ loc.y } z:#{ loc.z }"
             break_naturally_by_dpickaxe(block) if block.type == broken_block.type
           end
         end
