@@ -247,6 +247,11 @@ module EventHandler
           player.send_message "Note that you can't place any blocks at first..."
           player.send_message "You need to unlock that by making a Workbench."
         end
+
+        later sec(120) do
+          player.send_message 'You may want to check browser map as well.'
+          player.send_message 'http://mck.supermomonga.com'
+        end
       end
     end
   end
