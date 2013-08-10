@@ -2,11 +2,12 @@ import 'org.bukkit.Effect'
 
 module Job
   Util.silence_warnings do
-    JOBS = [:novice, :killerqueen, :archer, :muteki, :archtect, :grimreaper, :debug]
+    JOBS = [:novice, :killerqueen, :archer, :flatdesigner, :muteki, :archtect, :grimreaper, :debug]
     JOB_DESCRIPTIONS = {
       novice: 'Default; no pros/cons',
       killerqueen: '(supermomonga will write here)',
       archer: 'Arrows goes very fast and straight. Other attacks you can give get weaker.',
+      flatdesigner: 'I love flat design.',
       muteki: 'Experimental! You are invinsible',
       archtect: 'Good at building. You can fill an area with using tripwires!',
       grimreaper: '(supermomonga will write here)',

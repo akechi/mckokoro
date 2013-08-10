@@ -906,6 +906,16 @@ module EventHandler
   end
 
   def on_block_break(evt)
+    broken_block = evt.block
+
+    # flatdesigner
+    case broken_block.type
+    when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
+      location_around(block.location, 2) do |loc|
+        loc.block.type = Material::AIR if loc.block.type == broken_block.type
+      end
+    end
+
     case evt.block.type
     #when Material::SUGAR_CANE_BLOCK
     #  evt.cancelled = true
