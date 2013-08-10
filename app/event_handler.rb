@@ -918,10 +918,10 @@ module EventHandler
     player = evt.player
 
     # bulldozer
-    later 0 do
-      if Job.of(player) == :bulldozer
-        case broken_block.type
-        when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
+    if Job.of(player) == :bulldozer
+      case broken_block.type
+      when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
+        later 0 do
           locs = location_around(broken_block.location, 1)
           player.send_message "#{locs.size} locs around the block"
           locs.each do |loc|
