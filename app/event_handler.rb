@@ -916,10 +916,10 @@ module EventHandler
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
     tool_block_type_table = [
-      [SPADES, 1, [Material::DIRT, Material::GRASS]],
-      [SPADES, 1, [Material::SAND]],
-      [PICKAXES, 3, [Material::STONE, Material::COAL_ORE]],
-      [PICKAXES, 2, [Material::COBBLESTONE]]]
+      [SPADES, 2, [Material::DIRT, Material::GRASS]],
+      [SPADES, 2, [Material::SAND]],
+      [PICKAXES, 4, [Material::STONE, Material::COAL_ORE]],
+      [PICKAXES, 3, [Material::COBBLESTONE]]]
     _, d_damage, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
