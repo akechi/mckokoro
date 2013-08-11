@@ -916,12 +916,11 @@ module EventHandler
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
     tool_block_type_table = [
-      [SPADES, [Material::DIRT, Material::GRASS]],
-      [SPADES, [Material::SAND]],
-      [PICKAXES, [Material::STONE, Material::COAL_ORE]],
-      # stone and cobblestones are different on purpose
-      [PICKAXES, [Material::COBBLESTONE]]]
-    _, block_group = tool_block_type_table.find {|tools, _|
+      [SPADES, 1, [Material::DIRT, Material::GRASS]],
+      [SPADES, 1, [Material::SAND]],
+      [PICKAXES, 3, [Material::STONE, Material::COAL_ORE]],
+      [PICKAXES, 2, [Material::COBBLESTONE]]]
+    _, d_damage, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
     return unless block_group
@@ -932,9 +931,9 @@ module EventHandler
     return if blocks.empty?
     later 0 do
       blocks.each do |block|
+        break if player.item_in_hand.type == Material::AIR
         break_naturally_by_dpickaxe(block)
-        # TODO
-        # consume_item_durability(player, 1)
+        consume_item_durability(player, d_damage)
       end
     end
   end
@@ -1354,11 +1353,11 @@ module EventHandler
     loc.getWorld.dropItemNaturally(loc, istack)
   end
 
-  def consume_item_durability(player, x)
+  def consume_item_durability(player, d_damage)
     if player.item_in_hand.durability >= player.item_in_hand.type.max_durability
       player.item_in_hand = ItemStack.new(Material::AIR)
     else
-      player.item_in_hand.durability += x
+      player.item_in_hand.durability += d_damage
     end
   end
 
