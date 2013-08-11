@@ -1527,7 +1527,7 @@ module EventHandler
 
     # experimental
     if player.name == 'ujm'
-      if player.velocity.y <= 0.0 && SWORDS.include? player.item_in_hand.type
+      if player.velocity.y <= 0.0 && SWORDS.include?(player.item_in_hand.type)
         player.velocity = player.velocity.set_y jfloat(0.0)
       end
     end
