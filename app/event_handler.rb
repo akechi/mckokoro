@@ -808,7 +808,7 @@ module EventHandler
         if v_orbs[n] && v_orbs[n].valid?
           orb = v_orbs[n]
           orb.teleport orb_loc
-          orb.velocity = orb.velocity.set_y jfloat(0.1)
+          orb.velocity = orb.velocity.set_y jfloat(0.0)
         else
           orb = spawn(orb_loc, EntityType::SNOWBALL)
           v_orbs[n] = orb
