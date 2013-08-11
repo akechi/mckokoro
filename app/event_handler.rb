@@ -1586,9 +1586,9 @@ module EventHandler
           @crouching_counter[player.name] -= 1
         end
       end
-      # count down every 0.5 sec
+      # count down every sec
       crouching_countdown.call
-      later sec(0.5) do
+      later sec(1) do
         crouching_countdown.call
       end
 
