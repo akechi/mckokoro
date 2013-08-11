@@ -1639,7 +1639,7 @@ module EventHandler
     player = Bukkit.get_player('ujm')
     if player
       if SWORDS.include? player.item_in_hand.type
-        player.velocity.set_y = jfloat(0.0)
+        player.velocity = player.velocity.set_y jfloat(0.0)
       end
     end
 
