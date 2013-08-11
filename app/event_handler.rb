@@ -794,12 +794,15 @@ module EventHandler
     visual_orb_amount = 12
     distance = 3
 
+    rotation_phi = @remilia_visual_tick.tap{ |t| t += 1 } % 360.0
+
     phi_pitch = phi_pitch(base_loc)
     player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
 
+
     visual_orb_amount.times.each do |n|
       phi_add = 360.0 / visual_orb_amount * n
-      phi_yaw = phi_yaw(base_loc) + phi_add
+      phi_yaw = phi_yaw(base_loc) + phi_add + rotation_phi
       rad = phi_yaw / 180.0 * Math::PI
       x, z =
         Math.cos(rad) * distance,
