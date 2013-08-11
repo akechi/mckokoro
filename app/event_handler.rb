@@ -918,10 +918,14 @@ module EventHandler
     blocks =
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-        location_around(broken_block.location, 1).
-          select {|loc| loc.y >= player.location.y }.
-          map(&:block).
-          select {|block| block.type == broken_block.type }
+        if SPADES.include? player.item_in_hand.type
+          location_around(broken_block.location, 1).
+            select {|loc| loc.y >= player.location.y }.
+            map(&:block).
+            select {|block| block.type == broken_block.type }
+        else
+          []
+        end
       else
         []
       end
