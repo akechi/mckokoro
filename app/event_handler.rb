@@ -915,19 +915,23 @@ module EventHandler
 
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
-    case broken_block.type
-    when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-      blocks = location_around(broken_block.location, 1).select {|loc|
-        loc.y >= player.location.y
-      }.map(&:block).select {|block|
-        block.type == broken_block.type
-      }
-      later 0 do
-        blocks.each do |block|
-          break_naturally_by_dpickaxe(block)
-          # TODO
-          # consume_item_durability(player, 1)
-        end
+    blocks =
+      case broken_block.type
+      when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
+        location_around(broken_block.location, 1).select {|loc|
+          loc.y >= player.location.y
+        }.map(&:block).select {|block|
+          block.type == broken_block.type
+        }
+      else
+        []
+      end
+    return if blocks.empty?
+    later 0 do
+      blocks.each do |block|
+        break_naturally_by_dpickaxe(block)
+        # TODO
+        # consume_item_durability(player, 1)
       end
     end
   end
