@@ -818,9 +818,6 @@ module EventHandler
 
   def on_player_interact(evt)
 
-    if %w[supermomonga ujm].include? evt.player.name
-      remilia_visual_orb(evt.player)
-    end
 
 
     feather_freedom_move(evt.player, evt.action)
@@ -1523,6 +1520,8 @@ module EventHandler
   def on_player_move(evt)
     player = evt.player
     diff_y = evt.to.y - evt.from.y
+
+    remilia_visual_orb(evt.player)
 
     # experimental
     if diff_y < 0 && SWORDS.include?(player.item_in_hand.type)
