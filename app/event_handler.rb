@@ -919,11 +919,11 @@ module EventHandler
     return unless Job.of(player) == :bulldozer
     return if player.sneaking?
     tool_block_type_table = [
-      [SPADES, 2, [Material::DIRT, Material::GRASS]],
-      [SPADES, 2, [Material::SAND]],
-      [PICKAXES, 3, [Material::STONE, Material::COAL_ORE]],
-      [PICKAXES, 2, [Material::COBBLESTONE]]]
-    _, d_damage, block_group = tool_block_type_table.find {|tools, _|
+      [SPADES, [Material::DIRT, Material::GRASS]],
+      [SPADES, [Material::SAND]],
+      [PICKAXES, [Material::STONE, Material::COAL_ORE]],
+      [PICKAXES, [Material::COBBLESTONE]]]
+    _, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
     return unless block_group
@@ -936,7 +936,7 @@ module EventHandler
       blocks.each do |block|
         break if player.item_in_hand.type == Material::AIR
         break_naturally_by_dpickaxe(block)
-        consume_item_durability(player, d_damage)
+        consume_item_durability(player, 1) if 7 > rand(10) # 70%
       end
     end
   end
