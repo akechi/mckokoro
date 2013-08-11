@@ -794,7 +794,8 @@ module EventHandler
     visual_orb_amount = 12
     distance = 3
 
-    rotation_phi = @remilia_visual_tick.tap{ @remilia_visual_tick += 1 } % 360.0
+    rotation_amount = 5
+    rotation_phi = @remilia_visual_tick.tap{ @remilia_visual_tick += rotation_amount } % 360.0
 
     phi_pitch = phi_pitch(base_loc)
     player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
