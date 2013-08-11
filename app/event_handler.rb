@@ -1635,6 +1635,14 @@ module EventHandler
   end
 
   def periodically
+    # experimental
+    player = Bukkit.get_player('ujm')
+    if player
+      if SWORDS.include? player.item_in_hand.type
+        player.velocity.set_y = jfloat(0.0)
+      end
+    end
+
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
