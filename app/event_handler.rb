@@ -1120,7 +1120,8 @@ module EventHandler
         when Zombie
           player.send_message 'Paper cut!'
           evt.damage = 10 + rand(10)
-          if rand(2) == 0
+          defender.no_damage_ticks = 0
+          if rand(10) == 0
             consume_item(player)
           end
         end
