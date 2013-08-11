@@ -937,7 +937,7 @@ module EventHandler
       blocks.each do |block|
         break if player.item_in_hand.type == Material::AIR
         break_naturally_by_dpickaxe(block)
-        consume_item_durability(player, 1) if 7 > rand(9) # 70%
+        consume_item_durability(player, 1) if 7 > rand(10) # 70%
       end
     end
   end
