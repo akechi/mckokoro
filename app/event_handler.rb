@@ -801,6 +801,7 @@ module EventHandler
         x, z =
           Math.cos(rad) * distance,
           Math.sin(rad) * distance
+        # TODO use util
         orb_loc = base_loc.clone
         orb_loc.add(x, 0, z)
 
