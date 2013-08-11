@@ -798,9 +798,10 @@ module EventHandler
           # wow
         else
           distance = 3
+          phi_add = 360.0 / visual_orb_amount * n
 
           orb_loc = base_loc.clone
-          phi = phi_yaw base_loc
+          phi = phi_yaw(base_loc) + phi_add
           rad = phi / 180.0 * Math::PI
           x, z =
             Math.cos(rad) * distance,
