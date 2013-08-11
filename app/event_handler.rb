@@ -790,8 +790,8 @@ module EventHandler
       @remilia_visual_orbs[p.name] ||= []
       if Job.of(p) == :remilia
         v_orbs = @remilia_visual_orbs[p.name]
-        v_orbs[0] ||= spawn(p.location.clone.add(1,1,1),    EntityType::EXPERIENCE_ORB)
-        v_orbs[1] ||= spawn(p.location.clone.add(-1,-1,-1), EntityType::EXPERIENCE_ORB)
+        v_orbs[0] = spawn(p.location.clone.add( 2, 2, 2), EntityType::EXPERIENCE_ORB)
+        v_orbs[1] = spawn(p.location.clone.add(-2,-2,-2), EntityType::EXPERIENCE_ORB)
         v_orbs[0].experience = 0
         v_orbs[1].experience = 0
       end
