@@ -881,7 +881,7 @@ module EventHandler
     case evt.block.type
     when Material::SAND
       the_block = evt.block
-      unless loc_above(the_block.location).liquid?
+      unless loc_above(the_block.location).block.liquid?
         break_naturally_by_dpickaxe(the_block)
         # TODO use something like location_around
         diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
