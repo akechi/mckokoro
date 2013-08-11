@@ -919,13 +919,13 @@ module EventHandler
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
       location_around(broken_block.location, 1).select {|loc|
         loc.y >= player.location.y
-      }.map(&:block).each do |block|
-        if block.type == broken_block.type
-          later 0 do
-            break_naturally_by_dpickaxe(block)
-            # TODO
-            # consume_item_durability(player, 1)
-          end
+      }.map(&:block).select {|block|
+        block.type == broken_block.type
+      }.each do |block|
+        later 0 do
+          break_naturally_by_dpickaxe(block)
+          # TODO
+          # consume_item_durability(player, 1)
         end
       end
     end
