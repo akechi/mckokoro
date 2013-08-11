@@ -799,6 +799,7 @@ module EventHandler
             orb_loc = base_loc.clone
             phi = phi_yaw base_loc
             x, z = Math.cos(phi / 180.0 * Math::PI), Math.sin(phi / 180.0 * Math::PI)
+            p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
             p.send_message "x: #{ x }, z: #{ z }"
             orb = spawn(orb_loc, EntityType::SNOWBALL)
             # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
