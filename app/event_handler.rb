@@ -784,37 +784,34 @@ module EventHandler
   end
 
 
-  def remilia_visual_orb(player)
-    Bukkit.online_players.select {|p|
-      Job.of(p) == :remilia
-    }.each do |p|
-      @remilia_visual_orbs ||= {}
-      @remilia_visual_orbs[p.name] ||= []
-      v_orbs = @remilia_visual_orbs[p.name]
-      base_loc = p.location
-      visual_orb_amount = 12
-      distance = 3
-      visual_orb_amount.times.each do |n|
-        phi_add = 360.0 / visual_orb_amount * n
-        phi = phi_yaw(base_loc) + phi_add
-        rad = phi / 180.0 * Math::PI
-        x, z =
-          Math.cos(rad) * distance,
-          Math.sin(rad) * distance
-        # TODO use util
-        orb_loc = base_loc.clone
-        orb_loc.add(x, 0, z)
+  def remilia_visual_orb(p)
+    return unless Job.of(p) == :remilia
+    @remilia_visual_orbs ||= {}
+    @remilia_visual_orbs[p.name] ||= []
+    v_orbs = @remilia_visual_orbs[p.name]
+    base_loc = p.location
+    visual_orb_amount = 12
+    distance = 3
+    visual_orb_amount.times.each do |n|
+      phi_add = 360.0 / visual_orb_amount * n
+      phi = phi_yaw(base_loc) + phi_add
+      rad = phi / 180.0 * Math::PI
+      x, z =
+        Math.cos(rad) * distance,
+        Math.sin(rad) * distance
+      # TODO use util
+      orb_loc = base_loc.clone
+      orb_loc.add(x, 0, z)
 
-        if v_orbs[n] && v_orbs[n].valid?
-          orb = v_orbs[n]
-          orb.teleport orb_loc
-          orb.velocity = orb.velocity.set_y jfloat(0.0)
-        else
-          orb = spawn(orb_loc, EntityType::SNOWBALL)
-          v_orbs[n] = orb
-          # TODO
-          # orb.experience = 0
-        end
+      if v_orbs[n] && v_orbs[n].valid?
+        orb = v_orbs[n]
+        orb.teleport orb_loc
+        orb.velocity = orb.velocity.set_y jfloat(0.0)
+      else
+        orb = spawn(orb_loc, EntityType::SNOWBALL)
+        v_orbs[n] = orb
+        # TODO
+        # orb.experience = 0
       end
     end
   end
