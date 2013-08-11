@@ -1524,6 +1524,14 @@ module EventHandler
 
   def on_player_move(evt)
     player = evt.player
+
+    # experimental
+    if player.name == 'ujm'
+      if player.velocity.y <= 0.0 && SWORDS.include? player.item_in_hand.type
+        player.velocity = player.velocity.set_y jfloat(0.0)
+      end
+    end
+
     # if player.sneaking?
     #   @phantom_ladder ||= {}
     #   loc = player.location
@@ -1636,14 +1644,6 @@ module EventHandler
   end
 
   def periodically
-    # experimental
-    player = Bukkit.get_player('ujm')
-    if player
-      if SWORDS.include? player.item_in_hand.type
-        player.velocity = player.velocity.set_y jfloat(0.0)
-      end
-    end
-
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
