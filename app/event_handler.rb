@@ -793,26 +793,27 @@ module EventHandler
       v_orbs = @remilia_visual_orbs[p.name]
       base_loc = p.location
       visual_orb_amount = 12
+      distance = 3
       visual_orb_amount.times.each do |n|
-        if v_orbs[n] && v_orbs[n].valid?
-          # wow
-        else
-          distance = 3
-          phi_add = 360.0 / visual_orb_amount * n
+        phi_add = 360.0 / visual_orb_amount * n
+        orb_loc = base_loc.clone
+        phi = phi_yaw(base_loc) + phi_add
+        rad = phi / 180.0 * Math::PI
+        x, z =
+          Math.cos(rad) * distance,
+          Math.sin(rad) * distance
+        orb_loc.add(x, 0, z)
 
-          orb_loc = base_loc.clone
-          phi = phi_yaw(base_loc) + phi_add
-          rad = phi / 180.0 * Math::PI
-          x, z =
-            Math.cos(rad) * distance,
-            Math.sin(rad) * distance
+        if v_orbs[n] && v_orbs[n].valid?
+          orb = v_orbs[n]
+          orb.location = orb_loc
+        else
+          orb = spawn(orb_loc, EntityType::SNOWBALL)
+          v_orbs[n] = orb
           # p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
           # p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
-          orb_loc.add(x, 0, z)
-          orb = spawn(orb_loc, EntityType::SNOWBALL)
           # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
           # orb.experience = 0
-          v_orbs[n] = orb
         end
       end
     end
