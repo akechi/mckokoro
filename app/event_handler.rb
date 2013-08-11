@@ -835,19 +835,21 @@ module EventHandler
         end
       # grim reaper
       when *( HOES.map { |hoe| [ [ Material::DIRT, Action::RIGHT_CLICK_BLOCK, hoe ], [ Material::GRASS, Action::RIGHT_CLICK_BLOCK, hoe ] ] }.flatten 1 )
-        location_around_flat(evt.clicked_block.location, 10).each do |loc|
-          if [ Material::DIRT, Material::GRASS ].include? loc.block.type
-            upper = add_loc(loc, 0, 1, 0).block
-            if [ Material::LONG_GRASS, Material::AIR ].include? upper.type
-              upper.type = Material::AIR 
-              loc.block.type = Material::SOIL
-              play_effect(upper.location, Effect::ENDER_SIGNAL, nil) if rand(4) == 0
+        if Job.of(player) == :grimreaper
+          location_around_flat(evt.clicked_block.location, 10).each do |loc|
+            if [ Material::DIRT, Material::GRASS ].include? loc.block.type
+              upper = add_loc(loc, 0, 1, 0).block
+              if [ Material::LONG_GRASS, Material::AIR ].include? upper.type
+                upper.type = Material::AIR 
+                loc.block.type = Material::SOIL
+                play_effect(upper.location, Effect::ENDER_SIGNAL, nil) if rand(4) == 0
+              end
             end
           end
+          # Inochi wo karitoru katachi wo shiteru darou?
+          broadcast "The shape looks like--"
+          broadcast "                the DEATH."
         end
-        # Inochi wo karitoru katachi wo shiteru darou?
-        broadcast "The shape looks like--"
-        broadcast "                the DEATH."
       end
 
 
