@@ -1043,6 +1043,11 @@ module EventHandler
   end
 
   def on_block_physics(evt)
+    # tmp
+    [Bukkit.get_player("mozukusoba"), Bukkit.get_player("ujm")].each do |player|
+      player.send_block_change(evt.block.location, Material::SPONGE, 0)
+    end
+
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
