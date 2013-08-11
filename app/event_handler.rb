@@ -786,9 +786,9 @@ module EventHandler
 
   def remilia_visual_orb
     Bukkit.online_players.each do |p|
-      @remilia_visual_orbs ||= {}
-      @remilia_visual_orbs[p.name] ||= []
       if Job.of(p) == :remilia
+        @remilia_visual_orbs ||= {}
+        @remilia_visual_orbs[p.name] ||= []
         v_orbs = @remilia_visual_orbs[p.name]
         base_loc = p.location
         visual_orb_amount = 12
