@@ -917,11 +917,12 @@ module EventHandler
     return unless Job.of(player) == :bulldozer
     case broken_block.type
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
-      location_around(broken_block.location, 1).select {|loc|
+      blocks = location_around(broken_block.location, 1).select {|loc|
         loc.y >= player.location.y
       }.map(&:block).select {|block|
         block.type == broken_block.type
-      }.each do |block|
+      }
+      blocks.each do |block|
         later 0 do
           break_naturally_by_dpickaxe(block)
           # TODO
