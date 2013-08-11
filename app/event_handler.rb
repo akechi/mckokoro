@@ -922,8 +922,8 @@ module EventHandler
       }.map(&:block).select {|block|
         block.type == broken_block.type
       }
-      blocks.each do |block|
-        later 0 do
+      later 0 do
+        blocks.each do |block|
           break_naturally_by_dpickaxe(block)
           # TODO
           # consume_item_durability(player, 1)
