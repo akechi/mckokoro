@@ -916,7 +916,7 @@ module EventHandler
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
     block_type_table =
-      [SPADES, [Material::DIRT, Material::GRASS, Material::SAND]]
+      [[SPADES, [Material::DIRT, Material::GRASS, Material::SAND]]]
     _, btypes = block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
