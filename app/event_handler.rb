@@ -819,7 +819,7 @@ module EventHandler
 
   def on_player_interact(evt)
 
-    if evt.player.name == 'supermomonga'
+    if %w[supermomonga ujm].include? evt.player.name
       remilia_visual_orb()
     end
 
