@@ -790,7 +790,7 @@ module EventHandler
     @remilia_visual_orbs ||= {}
     @remilia_visual_orbs[player.name] ||= []
     v_orbs = @remilia_visual_orbs[player.name]
-    base_loc = player.location
+    base_loc = player.location.clone.add(0, 1, 0)
     visual_orb_amount = 12
     distance = 3
 
