@@ -919,6 +919,7 @@ module EventHandler
       case broken_block.type
       when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
         if SPADES.include? player.item_in_hand.type
+          player.send_message 'cool'
           location_around(broken_block.location, 1).
             select {|loc| loc.y >= player.location.y }.
             map(&:block).
