@@ -929,6 +929,7 @@ module EventHandler
       else
         []
       end
+    player.send_message blocks.to_s
     return if blocks.empty?
     later 0 do
       blocks.each do |block|
