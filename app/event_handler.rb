@@ -1316,12 +1316,12 @@ module EventHandler
     when Player
       case projectile
       when Arrow
+        later sec(0.7) do
+          projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
+        end
+
         if Job.of(shooter) == :archer
           projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
-        elsif shooter.name == 'ujm' # experimental
-          later sec(0.7) do
-            projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
-          end
         else
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
