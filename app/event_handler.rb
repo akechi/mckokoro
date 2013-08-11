@@ -918,8 +918,8 @@ module EventHandler
     tool_block_type_table = [
       [SPADES, 2, [Material::DIRT, Material::GRASS]],
       [SPADES, 2, [Material::SAND]],
-      [PICKAXES, 4, [Material::STONE, Material::COAL_ORE]],
-      [PICKAXES, 3, [Material::COBBLESTONE]]]
+      [PICKAXES, 3, [Material::STONE, Material::COAL_ORE]],
+      [PICKAXES, 2, [Material::COBBLESTONE]]]
     _, d_damage, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
