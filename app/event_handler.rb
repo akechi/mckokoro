@@ -1121,6 +1121,9 @@ module EventHandler
           player.send_message 'Paper cut!'
           evt.damage = 10 + rand(10)
           defender.no_damage_ticks = 0
+          later 0 do
+            defender.velocity = defender.velocity.zero if defender.valid?
+          end
           if rand(10) == 0
             consume_item(player)
           end
