@@ -806,7 +806,7 @@ module EventHandler
 
         if v_orbs[n] && v_orbs[n].valid?
           orb = v_orbs[n]
-          orb.location = orb_loc
+          orb.teleport orb_loc
         else
           orb = spawn(orb_loc, EntityType::SNOWBALL)
           v_orbs[n] = orb
