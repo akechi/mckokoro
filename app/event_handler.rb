@@ -1598,6 +1598,17 @@ module EventHandler
     }.flatten(1).to_set
     holy_water(nearby_creatures)
 
+    online_players.each do |p|
+      @remilia_visual_orbs ||= {}
+      @remilia_visual_orbs[p.name] ||= []
+      if Job.of(p) == :remilia
+        v_orbs = @remilia_visual_orbs[p.name]
+        v_orbs[0] ||= spawn(p.location.clone.add(1,1,1), ExperienceOrb)
+        v_orbs[1] ||= spawn(p.location.clone.add(-1,-1,-1), ExperienceOrb)
+      end
+    end
+
+
     online_players.each do |player|
       # Superjump counter counting down
       crouching_countdown = -> do
