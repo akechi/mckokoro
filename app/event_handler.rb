@@ -796,12 +796,12 @@ module EventHandler
       distance = 3
       visual_orb_amount.times.each do |n|
         phi_add = 360.0 / visual_orb_amount * n
-        orb_loc = base_loc.clone
         phi = phi_yaw(base_loc) + phi_add
         rad = phi / 180.0 * Math::PI
         x, z =
           Math.cos(rad) * distance,
           Math.sin(rad) * distance
+        orb_loc = base_loc.clone
         orb_loc.add(x, 0, z)
 
         if v_orbs[n] && v_orbs[n].valid?
