@@ -784,12 +784,12 @@ module EventHandler
   end
 
 
-  def remilia_visual_orb(p)
-    return unless Job.of(p) == :remilia
+  def remilia_visual_orb(player)
+    return unless Job.of(player) == :remilia
     @remilia_visual_orbs ||= {}
-    @remilia_visual_orbs[p.name] ||= []
-    v_orbs = @remilia_visual_orbs[p.name]
-    base_loc = p.location
+    @remilia_visual_orbs[player.name] ||= []
+    v_orbs = @remilia_visual_orbs[player.name]
+    base_loc = player.location
     visual_orb_amount = 12
     distance = 3
     visual_orb_amount.times.each do |n|
