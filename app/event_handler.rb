@@ -917,6 +917,7 @@ module EventHandler
 
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
+    return if player.sneaking?
     tool_block_type_table = [
       [SPADES, 2, [Material::DIRT, Material::GRASS]],
       [SPADES, 2, [Material::SAND]],
