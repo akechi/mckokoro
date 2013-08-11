@@ -1524,10 +1524,11 @@ module EventHandler
 
   def on_player_move(evt)
     player = evt.player
+    diff_y = evt.to.y - evt.from.y
 
     # experimental
     if player.name == 'ujm'
-      if player.velocity.y < 0.0 && SWORDS.include?(player.item_in_hand.type)
+      if diff_y < 0 && SWORDS.include?(player.item_in_hand.type)
         player.fall_distance = 0.0
         player.velocity = player.velocity.set_y jfloat(0.0)
       end
@@ -1548,7 +1549,6 @@ module EventHandler
 
     # fastladder
     if player.location.block.type == Material::LADDER && !player.sneaking?
-      diff_y = evt.to.y - evt.from.y
       case player.location.pitch
       when -90.0 # up
         if diff_y > 0
