@@ -1118,11 +1118,14 @@ module EventHandler
       if item && item.type == Material::PAPER
         case defender
         when Zombie
-          player.send_message 'Paper cut!'
-          evt.damage = 10 + rand(10)
+          evt.damage = 9
           defender.no_damage_ticks = 0
           later 0 do
-            defender.velocity = defender.velocity.zero if defender.valid?
+            if defender.valid?
+              defender.velocity = defender.velocity.zero
+            else
+              player.send_message 'Paper cut!'
+            end
           end
           if rand(10) == 0
             consume_item(player)
