@@ -919,8 +919,7 @@ module EventHandler
     when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
       location_around(broken_block.location, 1).select {|loc|
         loc.y >= player.location.y
-      }.each do |loc|
-        block = loc.block
+      }.map(&:block).each do |block|
         if block.type == broken_block.type
           later 0 do
             break_naturally_by_dpickaxe(block)
