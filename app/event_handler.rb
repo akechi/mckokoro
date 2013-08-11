@@ -786,16 +786,21 @@ module EventHandler
 
   def remilia_visual_orb(player)
     return unless Job.of(player) == :remilia
+    @remilia_visual_tick ||= 0
     @remilia_visual_orbs ||= {}
     @remilia_visual_orbs[player.name] ||= []
     v_orbs = @remilia_visual_orbs[player.name]
     base_loc = player.location
     visual_orb_amount = 12
     distance = 3
+
+    phi_pitch = phi_pitch(base_loc)
+    player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
+
     visual_orb_amount.times.each do |n|
       phi_add = 360.0 / visual_orb_amount * n
-      phi = phi_yaw(base_loc) + phi_add
-      rad = phi / 180.0 * Math::PI
+      phi_yaw = phi_yaw(base_loc) + phi_add
+      rad = phi_yaw / 180.0 * Math::PI
       x, z =
         Math.cos(rad) * distance,
         Math.sin(rad) * distance
@@ -1637,6 +1642,11 @@ module EventHandler
 
   def phi_yaw(location)
     (location.yaw + 90 + 360) % 360
+  end
+
+  def phi_pitch(location)
+    # test
+    (location.pitch + 90 + 360) % 360
   end
 
   def periodically
