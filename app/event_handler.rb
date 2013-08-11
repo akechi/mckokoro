@@ -784,7 +784,7 @@ module EventHandler
   end
 
 
-  def remilia_visual_orb
+  def remilia_visual_orb(player)
     Bukkit.online_players.select {|p|
       Job.of(p) == :remilia
     }.each do |p|
@@ -822,7 +822,7 @@ module EventHandler
   def on_player_interact(evt)
 
     if %w[supermomonga ujm].include? evt.player.name
-      remilia_visual_orb()
+      remilia_visual_orb(evt.player)
     end
 
 
