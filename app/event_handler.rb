@@ -804,8 +804,9 @@ module EventHandler
             x, z =
               Math.cos(rad) * distance,
               Math.sin(rad) * distance
-            p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
-            p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
+            # p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
+            # p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
+            orb_loc.add(x, 0, z)
             orb = spawn(orb_loc, EntityType::SNOWBALL)
             # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
             # orb.experience = 0
