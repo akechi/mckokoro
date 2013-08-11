@@ -915,22 +915,22 @@ module EventHandler
 
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
+    spade_block_types =
+      [Material::DIRT, Material::GRASS, Material::SAND, Material::STONE]
     blocks =
       case broken_block.type
-      when Material::DIRT, Material::GRASS, Material::SAND, Material::STONE
+      when *spade_block_types
         if SPADES.include? player.item_in_hand.type
-          player.send_message 'cool'
           location_around(broken_block.location, 1).
             select {|loc| loc.y >= player.location.y }.
             map(&:block).
-            select {|block| block.type == broken_block.type }
+            select {|block| spade_block_types.include? block.type }
         else
           []
         end
       else
         []
       end
-    player.send_message blocks.to_s
     return if blocks.empty?
     later 0 do
       blocks.each do |block|
