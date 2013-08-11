@@ -785,33 +785,33 @@ module EventHandler
 
 
   def remilia_visual_orb
-    Bukkit.online_players.each do |p|
-      if Job.of(p) == :remilia
-        @remilia_visual_orbs ||= {}
-        @remilia_visual_orbs[p.name] ||= []
-        v_orbs = @remilia_visual_orbs[p.name]
-        base_loc = p.location
-        visual_orb_amount = 12
-        visual_orb_amount.times.each do |n|
-          if v_orbs[n] && v_orbs[n].valid?
-            # wow
-          else
-            distance = 3
+    Bukkit.online_players.select {|p|
+      Job.of(p) == :remilia
+    }.each do |p|
+      @remilia_visual_orbs ||= {}
+      @remilia_visual_orbs[p.name] ||= []
+      v_orbs = @remilia_visual_orbs[p.name]
+      base_loc = p.location
+      visual_orb_amount = 12
+      visual_orb_amount.times.each do |n|
+        if v_orbs[n] && v_orbs[n].valid?
+          # wow
+        else
+          distance = 3
 
-            orb_loc = base_loc.clone
-            phi = phi_yaw base_loc
-            rad = phi / 180.0 * Math::PI
-            x, z =
-              Math.cos(rad) * distance,
-              Math.sin(rad) * distance
-            # p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
-            # p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
-            orb_loc.add(x, 0, z)
-            orb = spawn(orb_loc, EntityType::SNOWBALL)
-            # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
-            # orb.experience = 0
-            v_orbs[n] = orb
-          end
+          orb_loc = base_loc.clone
+          phi = phi_yaw base_loc
+          rad = phi / 180.0 * Math::PI
+          x, z =
+            Math.cos(rad) * distance,
+            Math.sin(rad) * distance
+          # p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
+          # p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
+          orb_loc.add(x, 0, z)
+          orb = spawn(orb_loc, EntityType::SNOWBALL)
+          # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
+          # orb.experience = 0
+          v_orbs[n] = orb
         end
       end
     end
