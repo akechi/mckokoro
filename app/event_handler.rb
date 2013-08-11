@@ -918,7 +918,7 @@ module EventHandler
     block_type_table =
       [SPADES, [Material::DIRT, Material::GRASS, Material::SAND]]
     _, btypes = block_type_table.find {|tools, _|
-      tools.include? player.item_in_hand
+      tools.include? player.item_in_hand.type
     }
     return unless btypes
     blocks = location_around(broken_block.location, 1).
