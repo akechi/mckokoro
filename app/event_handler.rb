@@ -790,10 +790,19 @@ module EventHandler
       @remilia_visual_orbs[p.name] ||= []
       if Job.of(p) == :remilia
         v_orbs = @remilia_visual_orbs[p.name]
-        v_orbs[0] = spawn(p.location.clone.add( 2, 2, 2), EntityType::EXPERIENCE_ORB)
-        v_orbs[1] = spawn(p.location.clone.add(-2,-2,-2), EntityType::EXPERIENCE_ORB)
-        v_orbs[0].experience = 0
-        v_orbs[1].experience = 0
+        base_loc = p.location
+        visual_orb_amount = 12
+        visual_orb_amount.times.each do |n|
+          if v_orbs[n] && v_orbs[n].valid?
+            # wow
+          else
+            orb_loc = base_loc.clone
+            orb = spawn(orb_loc, EntityType::SNOWBALL)
+            # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
+            # orb.experience = 0
+            v_orbs[n] = orb
+          end
+        end
       end
     end
   end
@@ -1609,6 +1618,10 @@ module EventHandler
         end
       end
     end
+  end
+
+  def phi_yaw(location)
+    (location.yaw + 90 + 360) % 360
   end
 
   def periodically
