@@ -1319,8 +1319,8 @@ module EventHandler
         if Job.of(shooter) == :archer
           projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
         elsif shooter.name == 'ujm' # experimental
-          later sec(0.8) do
-            projectile.velocity = projectile.velocity.multiply(jfloat(-1.2))
+          later sec(0.7) do
+            projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
           end
         else
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
