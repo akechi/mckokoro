@@ -796,11 +796,13 @@ module EventHandler
           if v_orbs[n] && v_orbs[n].valid?
             # wow
           else
+            distance = 2
+
             orb_loc = base_loc.clone
             phi = phi_yaw base_loc
             x, z = Math.cos(phi / 180.0 * Math::PI), Math.sin(phi / 180.0 * Math::PI)
             p.send_message "yaw: #{ base_loc.yaw }, phi: #{ phi }"
-            p.send_message "x: #{ x }, z: #{ z }"
+            p.send_message "x: #{ x }, z: #{ z } ... #{ Math.sqrt( x ** 2 + z ** 2  ) }"
             orb = spawn(orb_loc, EntityType::SNOWBALL)
             # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
             # orb.experience = 0
