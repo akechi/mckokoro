@@ -764,9 +764,11 @@ module EventHandler
   private :clock_timechange
 
   def trapdoor_openclose(door)
-    return if door.state.data.inverted?
     # the below condition is buggy with RS input
-    return if door.state.data.open?
+    cond =
+      !door.state.data.inverted? && door.state.data.open? or
+      door.state.data.inverted? && !door.state.data.open?
+    return if cond
 
     facing = door.state.data.facing
     entities_on_the_door =
