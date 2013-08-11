@@ -920,7 +920,7 @@ module EventHandler
     return if player.sneaking?
     tool_block_type_table = [
       [SPADES, [Material::DIRT, Material::GRASS]],
-      [SPADES, [Material::SAND]],
+      [SPADES, [Material::SAND, Material::GRAVEL]],
       [PICKAXES, [Material::STONE, Material::COAL_ORE]],
       [PICKAXES, [Material::COBBLESTONE]]]
     _, block_group = tool_block_type_table.find {|tools, _|
