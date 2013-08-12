@@ -845,26 +845,25 @@ module EventHandler
   end
 
 
-  def barrage_visual_orb(player)
+  def barrage_visual_orb(player, name, distance, visual_orb_amount, rotation_amount_by_tick)
     return unless Job.of(player) == :barrage
-    @barrage_visual_tick ||= 0
+    @barrage_visual_tick ||= {}
+    @barrage_visual_tick[name] ||= 0
     @barrage_visual_orbs ||= {}
-    @barrage_visual_orbs[player.name] ||= []
-    v_orbs = @barrage_visual_orbs[player.name]
+    @barrage_visual_orbs[name] ||= {}
+    @barrage_visual_orbs[name][player.name] ||= []
+    v_orbs = @barrage_visual_orbs[name][player.name]
     base_loc = player.location.clone.add(0, 1, 0)
-    @visual_orb_amount = 24
-    distance = 5
 
-    rotation_amount_by_tick = 1
-    rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
+    rotation_phi = @barrage_visual_tick[name].tap{ @barrage_visual_tick[name] += rotation_amount_by_tick } % 360.0
     # rotation_phi = 0
 
     # phi_pitch = phi_pitch(base_loc)
     # player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
 
 
-    @visual_orb_amount.times.each do |n|
-      phi_add = ( 360.0 / @visual_orb_amount ) * n
+    visual_orb_amount.times.each do |n|
+      phi_add = ( 360.0 / visual_orb_amount ) * n
       phi_yaw = phi_yaw(base_loc) + phi_add + rotation_phi
       rad = phi_yaw / 180.0 * Math::PI
       x, z =
@@ -1724,7 +1723,8 @@ module EventHandler
     }.flatten(1).to_set
 
     online_players.each do |player|
-      barrage_visual_orb(player)
+      barrage_visual_orb(player, :inside, 3, 5, 1)
+      barrage_visual_orb(player, :outside, 5, 12, -2)
     end
 
   end
