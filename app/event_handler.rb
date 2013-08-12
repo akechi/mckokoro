@@ -853,7 +853,7 @@ module EventHandler
     v_orbs = @barrage_visual_orbs[player.name]
     base_loc = player.location.clone.add(0, 1, 0)
     visual_orb_amount = 36
-    distance = 3
+    distance = 4
 
     rotation_amount_by_tick = 1
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
