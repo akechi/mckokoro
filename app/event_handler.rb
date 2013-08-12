@@ -214,7 +214,9 @@ module EventHandler
   def on_load(plugin)
     @plugin = plugin
     Bukkit.getScheduler.scheduleSyncRepeatingTask(
-      @plugin, -> { self.periodically }, 0, sec(1))
+      @plugin, -> { self.periodically_sec }, 0, sec(1))
+    Bukkit.getScheduler.scheduleSyncRepeatingTask(
+      @plugin, -> { self.periodically_tick }, 0, 1)
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
@@ -1703,7 +1705,17 @@ module EventHandler
     end
   end
 
-  def periodically
+
+  def periodically_tick
+    online_players = Bukkit.online_players
+    nearby_creatures = online_players.map {|p|
+      p.get_nearby_entities(2, 2, 2).
+        select {|e| Creature === e }
+    }.flatten(1).to_set
+
+  end
+
+  def periodically_sec
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
