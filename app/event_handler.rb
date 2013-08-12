@@ -884,7 +884,7 @@ module EventHandler
         # orb = spawn(orb_loc, EntityType::SNOWBALL)
         # orb = spawn(orb_loc, EntityType::FIREBALL)
 
-        orb = player.launch_projectile(EnderPearl)
+        orb = player.launch_projectile(EnderPearl.new)
         # orb = spawn(orb_loc, EntityType::ENDER_PEARL)
 
 
