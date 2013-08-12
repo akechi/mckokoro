@@ -998,7 +998,7 @@ module EventHandler
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
     
-    location_name = ->(lines){ lines.map(&:downcase).join("_").gsub(/\s/, '').sub(/(_{2,})/, '_').sub(/_$/, '') }
+    location_name = ->(lines){ lines.map(&:downcase).join("_").gsub(/[^a-zA-Z_]/, '').sub(/(_{2,})/, '_').sub(/_$/, '') }
 
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
