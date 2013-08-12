@@ -1009,10 +1009,10 @@ module EventHandler
 
     player.damage 1 if player.item_in_hand.type == Material::AIR
 
-    player.send_message "#{ damaged_block.type }"
+    # player.send_message "#{ damaged_block.type }"
 
     case damaged_block.type
-    when Material::SIGN
+    when Material::SIGN, Material::SIGN_POST
       sign_command(player, damaged_block.state)
     when Material::SAND
       unless loc_above(the_block.location).block.liquid?
