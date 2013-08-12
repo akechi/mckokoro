@@ -1014,8 +1014,13 @@ module EventHandler
         name = location_name.call args
         if @sign_location_list[name]
           loc = @sign_location_list[name]
-          player.teleport loc
-          player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
+          safety_loc = location_around_flat(loc, 2).first
+          if safety_loc
+            player.teleport loc
+            player.send_message "Teleport to #{ name }"
+          else
+            player.send_message "No such location or there aren't safety place around the sign."
+          end
         end
       when :location
         name = location_name.call args
