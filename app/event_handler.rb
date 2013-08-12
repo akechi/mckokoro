@@ -1018,7 +1018,9 @@ module EventHandler
         end
       when :location
         name = location_name.call args
-        @sign_location_list[name] = sign_state.location.clone
+        loc = sign_state.location.clone
+        @sign_location_list[name] = loc
+        player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
       when :locationlist
         @sign_location_list.each do |name, loc|
           player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
