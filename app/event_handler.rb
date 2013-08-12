@@ -1540,7 +1540,11 @@ module EventHandler
     end
 
     # fastwater
-    if diff_y > 0 && player.location.pitch == -90.0 # going up, looking above
+    cond =
+      diff_y > 0 &&
+      player.location.pitch == -90.0 &&  # going up, looking above
+      !player.sneaking?
+    if cond
       block = player.location.block
       if block.type == Material::STATIONARY_WATER && block.data == 8 # flowing downward
         (1..7).each do |i|
