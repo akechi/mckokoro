@@ -1040,7 +1040,7 @@ module EventHandler
     # player.send_message "#{ damaged_block.type }"
 
     case damaged_block.type
-    when Material::SIGN, Material::SIGN_POST
+    when Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN
       sign_command(player, damaged_block.state)
     when Material::SAND
       unless loc_above(damaged_block.location).block.liquid?
