@@ -998,7 +998,7 @@ module EventHandler
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
     
-    location_name = ->(lines) { lines.map(&:downcase).join("_").sub(/-{2,}/,'') }
+    location_name = ->(lines){ lines.map(&:downcase).join("_").sub(/(_{2,})/, '_').sub(/_$/, '') }
 
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
@@ -1040,12 +1040,12 @@ module EventHandler
     when Material::SIGN, Material::SIGN_POST
       sign_command(player, damaged_block.state)
     when Material::SAND
-      unless loc_above(the_block.location).block.liquid?
-        break_naturally_by_dpickaxe(the_block)
+      unless loc_above(damaged_block.location).block.liquid?
+        break_naturally_by_dpickaxe(damaged_block)
         # TODO use something like location_around
         diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
         diffs.each do |x, y, z|
-          block = the_block.location.clone.add(x, y, z).block
+          block = damaged_block.location.clone.add(x, y, z).block
           if block.type == Material::SAND
             break_naturally_by_dpickaxe(block)
           end
