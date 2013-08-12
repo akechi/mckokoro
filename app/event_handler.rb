@@ -859,7 +859,7 @@ module EventHandler
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
 
     phi_pitch = phi_pitch(base_loc)
-    player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
+    # player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
 
 
     visual_orb_amount.times.each do |n|
@@ -1563,7 +1563,7 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    barrage_visual_orb(player)
+    # barrage_visual_orb(player)
 
     # mimic
     mimicer = @mimic_player[player]
@@ -1713,9 +1713,9 @@ module EventHandler
         select {|e| Creature === e }
     }.flatten(1).to_set
 
-    # online_players.each do |player|
-    #   barrage_visual_orb(player)
-    # end
+    online_players.each do |player|
+      barrage_visual_orb(player)
+    end
 
   end
 
