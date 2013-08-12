@@ -1014,7 +1014,7 @@ module EventHandler
         name = location_name.call args
         if @sign_location_list[name]
           loc = @sign_location_list[name]
-          safety_loc = location_around_flat(loc, 2).first
+          safety_loc = location_around_flat(loc, 2).find{ |loc| loc.block.type == Material::AIR }
           if safety_loc
             player.teleport safety_loc
             player.send_message "Teleport to #{ name }"
