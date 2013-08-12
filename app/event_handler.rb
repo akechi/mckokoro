@@ -880,6 +880,7 @@ module EventHandler
           v.set_x jfloat(0.0)
           v.set_y jfloat(0.0)
           v.set_z jfloat(0.0)
+          break v
         }
       else
         orb = spawn(orb_loc, EntityType::SNOWBALL)
