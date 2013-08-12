@@ -1563,6 +1563,7 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
+    barrage_visual_orb(player)
 
     # mimic
     mimicer = @mimic_player[player]
@@ -1713,7 +1714,6 @@ module EventHandler
     }.flatten(1).to_set
 
     online_players.each do |player|
-      barrage_visual_orb(player)
     end
 
   end
