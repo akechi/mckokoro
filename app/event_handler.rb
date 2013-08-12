@@ -1014,6 +1014,7 @@ module EventHandler
         name = location_name.call args
         if @sign_location_list[name]
           loc = @sign_location_list[name]
+          player.teleport loc
           player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
         end
       when :location
