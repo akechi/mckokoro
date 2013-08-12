@@ -880,7 +880,7 @@ module EventHandler
         orb.velocity = orb.velocity.set_y jfloat(0.0)
         orb.velocity = orb.velocity.set_z jfloat(0.0)
       else
-        orb = spawn(orb_loc, EntityType::SNOWBALL)
+        # orb = spawn(orb_loc, EntityType::SNOWBALL)
         # TODO find the best entity to use visual orbs
 
         # orb = drop_item(orb_loc, ItemStack.new(Material::ENDER_PEARL, 1))
@@ -889,8 +889,8 @@ module EventHandler
 
 
         # Exp orb is move to user in client side vision.
-        # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
-        # orb.experience = 0
+        orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
+        orb.experience = 0
 
         v_orbs[n] = orb
       end
@@ -1725,8 +1725,9 @@ module EventHandler
     }.flatten(1).to_set
 
     online_players.each do |player|
-      barrage_visual_orb(player, :inside, 3, 5, 1)
-      barrage_visual_orb(player, :outside, 5, 12, -2)
+      # barrage_visual_orb(player, :inside, 3, 5, 1)
+      # barrage_visual_orb(player, :outside, 5, 12, -2)
+      barrage_visual_orb(player, :orb, 5, 24, 1)
     end
 
   end
