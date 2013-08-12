@@ -794,18 +794,18 @@ module EventHandler
   end
 
 
-  def remilia_visual_orb(player)
-    return unless Job.of(player) == :remilia
-    @remilia_visual_tick ||= 0
-    @remilia_visual_orbs ||= {}
-    @remilia_visual_orbs[player.name] ||= []
-    v_orbs = @remilia_visual_orbs[player.name]
+  def barrage_visual_orb(player)
+    return unless Job.of(player) == :barrage
+    @barrage_visual_tick ||= 0
+    @barrage_visual_orbs ||= {}
+    @barrage_visual_orbs[player.name] ||= []
+    v_orbs = @barrage_visual_orbs[player.name]
     base_loc = player.location.clone.add(0, 1, 0)
     visual_orb_amount = 12
     distance = 3
 
     rotation_amount = 2
-    rotation_phi = @remilia_visual_tick.tap{ @remilia_visual_tick += rotation_amount } % 360.0
+    rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount } % 360.0
 
     phi_pitch = phi_pitch(base_loc)
     player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
@@ -1541,7 +1541,7 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    remilia_visual_orb(evt.player)
+    barrage_visual_orb(evt.player)
 
     # mimic
     mimicer = @mimic_player[player]
