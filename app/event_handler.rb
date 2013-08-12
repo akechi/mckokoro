@@ -1725,12 +1725,12 @@ module EventHandler
     }.flatten(1).to_set
 
     online_players.each do |player|
-      # barrage_visual_orb(player, :inside, 3, 5, 1)
-      # barrage_visual_orb(player, :outside, 5, 12, -2)
-      barrage_visual_orb(player, :exp1, 3,  6,  1)
-      barrage_visual_orb(player, :exp2, 4, 12, -2)
-      barrage_visual_orb(player, :exp3, 5, 24,  3)
-      barrage_visual_orb(player, :exp4, 6, 36, -4)
+      barrage_visual_orb(player, :inside, 2, 5, 1)
+      barrage_visual_orb(player, :outside, 4, 12, -3)
+      # barrage_visual_orb(player, :exp1, 3,  6,  1)
+      # barrage_visual_orb(player, :exp2, 4, 12, -2)
+      # barrage_visual_orb(player, :exp3, 5, 24,  3)
+      # barrage_visual_orb(player, :exp4, 6, 36, -4)
     end
 
   end
