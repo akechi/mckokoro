@@ -516,7 +516,7 @@ module EventHandler
     amounts.all? {|k, v| v == 0 }
   end
 
-  @mimic_player[player] ||= {}
+  @mimic_player ||= {}
   def on_player_interact_entity(evt)
     player = evt.player
     case evt.right_clicked
