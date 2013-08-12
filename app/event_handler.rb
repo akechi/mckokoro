@@ -875,9 +875,9 @@ module EventHandler
       orb_loc.add(x, 0, z)
 
       if v_orbs[n] && v_orbs[n].valid?
-        # orb = v_orbs[n]
-        # orb.teleport orb_loc
-        # orb.velocity = orb.velocity.set_y jfloat(0.0)
+        orb = v_orbs[n]
+        orb.teleport orb_loc
+        orb.velocity = orb.velocity.set_y jfloat(0.0)
       else
         # orb = spawn(orb_loc, EntityType::SNOWBALL)
         # TODO find the best entity to use visual orbs
