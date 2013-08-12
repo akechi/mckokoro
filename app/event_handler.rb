@@ -852,8 +852,8 @@ module EventHandler
     @barrage_visual_orbs[player.name] ||= []
     v_orbs = @barrage_visual_orbs[player.name]
     base_loc = player.location.clone.add(0, 1, 0)
-    @visual_orb_amount = 6
-    distance = 3
+    @visual_orb_amount = 24
+    distance = 5
 
     rotation_amount_by_tick = 1
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
@@ -879,12 +879,10 @@ module EventHandler
         orb.teleport orb_loc
         orb.velocity = orb.velocity.set_y jfloat(0.0)
       else
-        # orb = spawn(orb_loc, EntityType::SNOWBALL)
+        orb = spawn(orb_loc, EntityType::SNOWBALL)
         # TODO find the best entity to use visual orbs
-        # orb = spawn(orb_loc, EntityType::SNOWBALL)
-        # orb = spawn(orb_loc, EntityType::FIREBALL)
 
-        orb = drop_item(orb_loc, ItemStack.new(Material::ENDER_PEARL, 1))
+        # orb = drop_item(orb_loc, ItemStack.new(Material::ENDER_PEARL, 1))
         # orb = player.launch_projectile(EnderPearl.new)
         # orb = spawn(orb_loc, EntityType::ENDER_PEARL)
 
