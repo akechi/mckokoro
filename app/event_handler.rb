@@ -882,8 +882,11 @@ module EventHandler
         # orb = spawn(orb_loc, EntityType::SNOWBALL)
         # TODO find the best entity to use visual orbs
         # orb = spawn(orb_loc, EntityType::SNOWBALL)
-        orb = spawn(orb_loc, EntityType::ENDER_PEARL)
         # orb = spawn(orb_loc, EntityType::FIREBALL)
+
+        orb = player.launch_projectile(EnderPearl)
+        # orb = spawn(orb_loc, EntityType::ENDER_PEARL)
+
 
         # Exp orb is move to user in client side vision.
         # orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
