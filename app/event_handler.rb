@@ -1288,6 +1288,12 @@ module EventHandler
       # post_lingr "#{evt.player.name} stood up."
     end
 
+    # experimental
+    if player.name == 'ujm' && evt.sneaking?
+      block = player.location
+      player.send_message [block.type, block.data].map(&:to_s).to_s
+    end
+
     # Superjump
     jump_counter_notify = ->(player) {
       # Disable instead of delete for debuging
