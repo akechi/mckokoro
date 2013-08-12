@@ -516,19 +516,29 @@ module EventHandler
     amounts.all? {|k, v| v == 0 }
   end
 
-
+  @mimic_player[player] ||= {}
   def on_player_interact_entity(evt)
+    player = evt.player
     case evt.right_clicked
     when Player
-      if evt.player.item_in_hand.type == Material::AIR
-        vec = evt.right_clicked.location.clone.subtract(evt.player.location).to_vector
-        vec.set_y jfloat(0.0)
-        vec = vec.normalize.multiply(jfloat(0.5))
-        vec.set_y jfloat(0.1)
-        evt.right_clicked.velocity = vec
-        later sec(0.1) do
-          evt.right_clicked.velocity.set_x jfloat(0.0)
-          evt.right_clicked.velocity.set_z jfloat(0.0)
+      if player.item_in_hand.type == Material::AIR
+        target = evt.right_clicked
+        if Job.of(player) == :mimic
+          @mimic_player[target] = player
+          later sec(20) do
+            @mimic_player[target] = nil if @mimic_player[target] == player
+            player.send_message "finished mimicing #{target.name}'s behaviour"
+          end
+        else
+          vec = target.location.clone.subtract(player.location).to_vector
+          vec.set_y jfloat(0.0)
+          vec = vec.normalize.multiply(jfloat(0.5))
+          vec.set_y jfloat(0.1)
+          target.velocity = vec
+          later sec(0.1) do
+            target.velocity.set_x jfloat(0.0)
+            target.velocity.set_z jfloat(0.0)
+          end
         end
       end
     when Squid
@@ -1532,6 +1542,15 @@ module EventHandler
     diff_y = evt.to.y - evt.from.y
 
     remilia_visual_orb(evt.player)
+
+    # mimic
+    mimicer = @mimic_player[player]
+    if mimicer
+      mimic_loc = add_loc(evt.to, rand - 0.5, 0.0, rand - 0.5)
+      unless mimic_loc.block.solid?
+        mimicer.teleport(mimic_loc)
+      end
+    end
 
     # experimental
     if diff_y < 0 && SWORDS.include?(player.item_in_hand.type)

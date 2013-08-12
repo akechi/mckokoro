@@ -4,7 +4,7 @@ module Job
   Util.silence_warnings do
     JOBS = [
       :novice, :killerqueen, :archer, :bulldozer, :muteki, :archtect,
-      :grimreaper, :debug, :remilia]
+      :grimreaper, :debug, :remilia, :mimic]
 
     JOB_DESCRIPTIONS = {
       novice: 'Default; no pros/cons',
@@ -16,6 +16,7 @@ module Job
       grimreaper: '(supermomonga will write here)',
       debug: "(Only for mckokoro development/debugging)",
       remilia: 'Remilia Scarlet',
+      mimic: 'Acts like somebody else',
     }
   end
 
