@@ -1571,7 +1571,7 @@ module EventHandler
     end
 
     # experimental
-    if diff_y < 0 && SWORDS.include?(player.item_in_hand.type)
+    if diff_y < 0 && player.blocking? #SWORDS.include?(player.item_in_hand.type)
       player.fall_distance = 0.0
       player.velocity = player.velocity.set_y jfloat(0.0)
     end
