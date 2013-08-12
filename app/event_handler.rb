@@ -1290,7 +1290,7 @@ module EventHandler
 
     # experimental
     if player.name == 'ujm' && evt.sneaking?
-      block = player.location
+      block = player.location.block
       player.send_message [block.type, block.data].map(&:to_s).to_s
     end
 
