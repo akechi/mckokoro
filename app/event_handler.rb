@@ -1539,23 +1539,20 @@ module EventHandler
       player.velocity = player.velocity.set_y jfloat(0.0)
     end
 
-    # experimental
-    if player.name == 'ujm'
-      if diff_y > 0 && player.location.pitch == -90.0 # going up, looking above
-        block = player.location.block
-        if block.type == Material::STATIONARY_WATER && block.data == 8 # flowing downward
-          (1..7).each do |i|
-            newloc = add_loc(evt.to, 0, i, 0)
-            if newloc.block.type == Material::STATIONARY_WATER
-              evt.to = newloc
-            else
-              break
-            end
+    # fastwater
+    if diff_y > 0 && player.location.pitch == -90.0 # going up, looking above
+      block = player.location.block
+      if block.type == Material::STATIONARY_WATER && block.data == 8 # flowing downward
+        (1..7).each do |i|
+          newloc = add_loc(evt.to, 0, i, 0)
+          if newloc.block.type == Material::STATIONARY_WATER
+            evt.to = newloc
+          else
+            break
           end
         end
       end
     end
-
 
     # if player.sneaking?
     #   @phantom_ladder ||= {}
