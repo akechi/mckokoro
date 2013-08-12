@@ -1009,7 +1009,7 @@ module EventHandler
 
     player.damage 1 if player.item_in_hand.type == Material::AIR
 
-
+    player.send_message "#{ damaged_block.type }"
 
     case damaged_block.type
     when Material::SIGN
