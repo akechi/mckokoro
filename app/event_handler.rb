@@ -916,6 +916,9 @@ module EventHandler
 
 
     if evt.clicked_block
+      if evt.action == Action::RIGHT_CLICK_AIR && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
+        sign_command(evt.player, evt.clicked_block.state)
+      end
       # Grim Reaper
       Job.set_recipe(
         :grimreaper,
@@ -1046,8 +1049,6 @@ module EventHandler
     # player.send_message "#{ damaged_block.type }"
 
     case damaged_block.type
-    when Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN
-      sign_command(player, damaged_block.state)
     when Material::SAND
       unless loc_above(damaged_block.location).block.liquid?
         break_naturally_by_dpickaxe(damaged_block)
