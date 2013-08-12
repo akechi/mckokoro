@@ -995,14 +995,14 @@ module EventHandler
   end
 
   def sign_command(player, sign_state)
-    @sign_location_list ||= []
+    @sign_location_list ||= {}
 
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
-    player.send_message "l1: #{ raw_command }"
-    player.send_message "l2: #{ args[0] }"
-    player.send_message "l3: #{ args[1] }"
-    player.send_message "l4: #{ args[2] }"
+    # player.send_message "l1: #{ raw_command }"
+    # player.send_message "l2: #{ args[0] }"
+    # player.send_message "l3: #{ args[1] }"
+    # player.send_message "l4: #{ args[2] }"
 
     if raw_command =~ /<(.+)>/
       command = $1.to_sym
