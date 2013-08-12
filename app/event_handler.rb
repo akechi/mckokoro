@@ -1426,7 +1426,7 @@ module EventHandler
         later sec(0.7) do
           if projectile.valid?
             #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
-            vel = projectile.velocity.multiply(jfloat(-1.1))
+            vel = projectile.velocity.multiply(jfloat(-0.9))
             projectile.remove
             item = drop_item(projectile.location, ItemStack.new(Material::ARROW, 1))
             later 0 do
