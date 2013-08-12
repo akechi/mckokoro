@@ -999,8 +999,13 @@ module EventHandler
     args = 1.upto(3).map {|n| sign_state.get_line n }
     player.send_message "l1: #{ command }"
     player.send_message "l2: #{ args[0] }"
-    player.send_message "l3: #{ args[0] }"
-    player.send_message "l4: #{ args[0] }"
+    player.send_message "l3: #{ args[1] }"
+    player.send_message "l4: #{ args[2] }"
+
+    if command
+      player.send_message "exec #{ command } command."
+    end
+
   end
 
   def on_block_damage(evt)
