@@ -1002,7 +1002,7 @@ module EventHandler
     player.send_message "l3: #{ args[1] }"
     player.send_message "l4: #{ args[2] }"
 
-    unless raw_command =~ /<(.+)>/
+    if raw_command =~ /<(.+)>/
       command = $1.to_sym
       player.send_message "exec #{ command } command."
     end
