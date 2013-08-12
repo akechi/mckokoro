@@ -994,8 +994,11 @@ module EventHandler
     end
   end
 
+
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
+    
+    location_name = ->(lines) { lines.map(&:downcase).join("_").sub(/-{2,}/,'') }
 
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
@@ -1008,13 +1011,13 @@ module EventHandler
       command = $1.to_sym
       case command
       when :warp
-        name = args.map(&:downcase).join "_"
+        name = location_name.call args
         if @sign_location_list[name]
           loc = @sign_location_list[name]
           player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
         end
       when :location
-        name = args.map(&:downcase).join "_"
+        name = location_name.call args
         @sign_location_list[name] = sign_state.location.clone
       when :locationlist
         @sign_location_list.each do |name, loc|
