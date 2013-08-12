@@ -857,7 +857,7 @@ module EventHandler
 
     rotation_amount_by_tick = 1
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
-    rotation_phi = 0
+    # rotation_phi = 0
 
     # phi_pitch = phi_pitch(base_loc)
     # player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
