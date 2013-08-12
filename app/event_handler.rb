@@ -916,8 +916,7 @@ module EventHandler
 
 
     if evt.clicked_block
-      evt.player.send_message "#{ evt.action }, #{ evt.clicked_block.type }"
-      if evt.action == Action::RIGHT_CLICK_AIR && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
+      if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
         sign_command(evt.player, evt.clicked_block.state)
       end
       # Grim Reaper
