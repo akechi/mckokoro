@@ -142,6 +142,56 @@ module Util
     13500 < world.time
   end
 
+  def phi_yaw(location)
+    (location.yaw + 90 + 360) % 360
+  end
+
+  def phi_pitch(location)
+    # test
+    (location.pitch + 90 + 360) % 360
+  end
+
+  def fall_block(block)
+    loc = block.location
+    loc.world.spawn_falling_block(loc, block.type, block.data)
+    block.type = Material::AIR
+  end
+
+  def broadcast(*msgs)
+    Bukkit.getServer.broadcastMessage(msgs.join ' ')
+  end
+
+  def broadlingr(msg)
+    broadcast(msg.to_s)
+    post_lingr(msg.to_s)
+  end
+
+  def explode(loc, power, fire_p)
+    loc.getWorld.createExplosion(loc, power.to_f, fire_p)
+  end
+
+  def drop_item(loc, istack)
+    loc.getWorld.dropItemNaturally(loc, istack)
+  end
+
+  def consume_item_durability(player, d_damage)
+    if player.item_in_hand.durability >= player.item_in_hand.type.max_durability
+      player.item_in_hand = ItemStack.new(Material::AIR)
+    else
+      player.item_in_hand.durability += d_damage
+    end
+  end
+
+  def consume_item(player)
+    if player.item_in_hand.amount == 1
+      player.item_in_hand = ItemStack.new(Material::AIR)
+    else
+      player.item_in_hand.amount -= 1
+    end
+  end
+
+
+
   def silence_warnings
     old_verbose, $VERBOSE = $VERBOSE, nil
     yield
@@ -1411,45 +1461,6 @@ module EventHandler
     Bukkit.getScheduler.scheduleSyncDelayedTask(@plugin, block, tick)
   end
 
-  def broadcast(*msgs)
-    Bukkit.getServer.broadcastMessage(msgs.join ' ')
-  end
-
-  def broadlingr(msg)
-    broadcast(msg.to_s)
-    post_lingr(msg.to_s)
-  end
-
-  def explode(loc, power, fire_p)
-    loc.getWorld.createExplosion(loc, power.to_f, fire_p)
-  end
-
-  def drop_item(loc, istack)
-    loc.getWorld.dropItemNaturally(loc, istack)
-  end
-
-  def consume_item_durability(player, d_damage)
-    if player.item_in_hand.durability >= player.item_in_hand.type.max_durability
-      player.item_in_hand = ItemStack.new(Material::AIR)
-    else
-      player.item_in_hand.durability += d_damage
-    end
-  end
-
-  def consume_item(player)
-    if player.item_in_hand.amount == 1
-      player.item_in_hand = ItemStack.new(Material::AIR)
-    else
-      player.item_in_hand.amount -= 1
-    end
-  end
-
-  def fall_block(block)
-    loc = block.location
-    loc.world.spawn_falling_block(loc, block.type, block.data)
-    block.type = Material::AIR
-  end
-
   def kickory(block, player)
     break_naturally_by_dpickaxe(block)
     unless player.sneaking?
@@ -1681,15 +1692,6 @@ module EventHandler
         end
       end
     end
-  end
-
-  def phi_yaw(location)
-    (location.yaw + 90 + 360) % 360
-  end
-
-  def phi_pitch(location)
-    # test
-    (location.pitch + 90 + 360) % 360
   end
 
   def periodically
