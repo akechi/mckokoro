@@ -994,12 +994,27 @@ module EventHandler
     end
   end
 
-  def on_block_damage(evt)
-    evt.player.damage 1 if evt.player.item_in_hand.type == Material::AIR
+  def sign_command(player, sign_state)
+    command = sign_state.get_line 0
+    args = 1.upto(3).map {|n| sign_state.get_line n }
+    player.send_message "l1: #{ command }"
+    player.send_message "l2: #{ args[0] }"
+    player.send_message "l3: #{ args[0] }"
+    player.send_message "l4: #{ args[0] }"
+  end
 
-    case evt.block.type
+  def on_block_damage(evt)
+    player = evt.player
+    damaged_block = evt.block
+
+    player.damage 1 if player.item_in_hand.type == Material::AIR
+
+
+
+    case damaged_block.type
+    when Material::SIGN
+      sign_command(player, damaged_block.state)
     when Material::SAND
-      the_block = evt.block
       unless loc_above(the_block.location).block.liquid?
         break_naturally_by_dpickaxe(the_block)
         # TODO use something like location_around
