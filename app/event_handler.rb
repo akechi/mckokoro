@@ -1016,7 +1016,7 @@ module EventHandler
           loc = @sign_location_list[name]
           safety_loc = location_around_flat(loc, 2).first
           if safety_loc
-            player.teleport loc
+            player.teleport safety_loc
             player.send_message "Teleport to #{ name }"
           else
             player.send_message "No such location or there aren't safety place around the sign."
