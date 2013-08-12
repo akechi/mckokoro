@@ -215,8 +215,8 @@ module EventHandler
     @plugin = plugin
     Bukkit.scheduler.schedule_sync_repeating_task(
       @plugin, -> { self.periodically_sec }, 0, sec(1))
-    Bukkit.scheduler.schedule_sync_repeating_task(
-      @plugin, -> { self.periodically_tick }, 0, 1)
+    # Bukkit.scheduler.schedule_sync_repeating_task(
+    #   @plugin, -> { self.periodically_tick }, 0, 1)
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
