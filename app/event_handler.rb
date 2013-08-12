@@ -855,7 +855,7 @@ module EventHandler
     visual_orb_amount = 12
     distance = 3
 
-    rotation_amount_by_tick = 5
+    rotation_amount_by_tick = 3
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
 
     phi_pitch = phi_pitch(base_loc)
