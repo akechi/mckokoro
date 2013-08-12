@@ -852,18 +852,19 @@ module EventHandler
     @barrage_visual_orbs[player.name] ||= []
     v_orbs = @barrage_visual_orbs[player.name]
     base_loc = player.location.clone.add(0, 1, 0)
-    visual_orb_amount = 36
-    distance = 4
+    @visual_orb_amount = 36
+    distance = 5
 
     rotation_amount_by_tick = 1
     rotation_phi = @barrage_visual_tick.tap{ @barrage_visual_tick += rotation_amount_by_tick } % 360.0
+    rotation_phi = 0
 
-    phi_pitch = phi_pitch(base_loc)
+    # phi_pitch = phi_pitch(base_loc)
     # player.send_message "pitch:#{ base_loc.pitch } phi:#{ phi_pitch }"
 
 
-    visual_orb_amount.times.each do |n|
-      phi_add = 360.0 / visual_orb_amount * n
+    @visual_orb_amount.times.each do |n|
+      phi_add = ( 360.0 / @visual_orb_amount ) * n
       phi_yaw = phi_yaw(base_loc) + phi_add + rotation_phi
       rad = phi_yaw / 180.0 * Math::PI
       x, z =
