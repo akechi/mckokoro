@@ -878,10 +878,11 @@ module EventHandler
         orb.teleport orb_loc
         orb.velocity = orb.velocity.set_y jfloat(0.0)
       else
-        orb = spawn(orb_loc, EntityType::SNOWBALL)
-        v_orbs[n] = orb
+        # orb = spawn(orb_loc, EntityType::SNOWBALL)
         # TODO
-        # orb.experience = 0
+        orb = spawn(orb_loc, EntityType::EXPERIENCE_ORB)
+        orb.experience = 0
+        v_orbs[n] = orb
       end
     end
   end
