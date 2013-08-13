@@ -216,7 +216,7 @@ module EventHandler
     Bukkit.scheduler.schedule_sync_repeating_task(
       @plugin, -> { self.periodically_sec }, 0, sec(1))
     Bukkit.scheduler.schedule_sync_repeating_task(
-      @plugin, -> { self.periodically_tick }, 0, 1)
+      @plugin, -> { self.periodically_tick }, 0, 2)
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
     update_recipes
@@ -855,7 +855,7 @@ module EventHandler
     v_orbs = @barrage_visual_orbs[name][player.name]
     base_loc = player.location.clone.add(0, 1, 0)
 
-    rotation_phi = @barrage_visual_tick[name].tap{ @barrage_visual_tick[name] += rotation_amount_by_tick } % 360.0
+    rotation_phi = @barrage_visual_tick[name].tap { @barrage_visual_tick[name] += rotation_amount_by_tick } % 360.0
     # rotation_phi = 0
 
     # phi_pitch = phi_pitch(base_loc)
