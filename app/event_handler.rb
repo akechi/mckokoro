@@ -1630,7 +1630,7 @@ module EventHandler
     mimicer = @mimic_player[player]
     if mimicer
       mimic_loc = add_loc(evt.to, rand - 0.5, 0.0, rand - 0.5)
-      unless mimic_loc.block.solid?
+      unless mimic_loc.block.type.solid?
         mimicer.teleport(mimic_loc)
       end
     end
