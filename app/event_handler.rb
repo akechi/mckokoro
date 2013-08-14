@@ -569,6 +569,8 @@ module EventHandler
 
   @mimic_player ||= {}
   def on_player_interact_entity(evt)
+    return # [debug]
+
     player = evt.player
     case evt.right_clicked
     when Player
