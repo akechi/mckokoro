@@ -1621,6 +1621,9 @@ module EventHandler
   end
 
   def on_player_move(evt)
+    return # [debug] just for now
+
+
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
@@ -1768,7 +1771,7 @@ module EventHandler
 
 
   def periodically_tick
-    return # just for now
+    return # [debug] just for now
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
