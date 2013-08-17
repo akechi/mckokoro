@@ -569,7 +569,6 @@ module EventHandler
 
   @mimic_player ||= {}
   def on_player_interact_entity(evt)
-    return # [debug]
 
     player = evt.player
     case evt.right_clicked
@@ -1623,7 +1622,6 @@ module EventHandler
   end
 
   def on_player_move(evt)
-    return # [debug] just for now
 
 
     player = evt.player
@@ -1773,7 +1771,6 @@ module EventHandler
 
 
   def periodically_tick
-    return # [debug] just for now
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
@@ -1792,6 +1789,7 @@ module EventHandler
   end
 
   def periodically_sec
+
     online_players = Bukkit.online_players
     nearby_creatures = online_players.map {|p|
       p.get_nearby_entities(2, 2, 2).
