@@ -951,7 +951,8 @@ module EventHandler
         if rand(5) == 0
           if rand(30) == 0
             evt.clicked_block.type = Material::WOOD
-            evt.clicked_block.data = nil
+            evt.clicked_block.data =
+              MaterialData.new(Material::WOOD, evt.clicked_block.species.data)
           end
           loc = add_loc(
             evt.clicked_block.location,
