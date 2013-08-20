@@ -1349,6 +1349,13 @@ module EventHandler
     end
   end
 
+  def on_entity_damage_by_block(evt)
+    broadcast 'test'
+  # when Material::LEAVES
+  #   evt.cancelled = true
+  #   block_below.type = Material::AIR
+  #   entity.send_message "class:#{evt.class}" if Player === entity
+  end
 
   def on_entity_damage(evt)
     if Player === evt.entity && Job.of(evt.entity) == :muteki
@@ -1368,10 +1375,6 @@ module EventHandler
           evt.cancelled = true
           block_below.type = Material::DIRT
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
-        when Material::LEAVES
-          evt.cancelled = true
-          block_below.type = Material::AIR
-          entity.send_message "class:#{evt.class}" if Player === entity
         end
       end
 
