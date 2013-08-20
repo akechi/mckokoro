@@ -1767,6 +1767,7 @@ module EventHandler
         loc = loc_above(loc)
         if [Material::LAVA, Material::STATIONARY_LAVA].include?(loc.block.type)
           loc.block.type = Material::GLASS
+          loc.block.data = 0
         end
       end
     end
