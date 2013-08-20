@@ -1004,16 +1004,11 @@ module EventHandler
 
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
-    
-    # location_name = ->(lines){ lines.map(&:downcase).join("_").gsub(/[^a-zA-Z_]/, '').sub(/(_{2,})/, '_').sub(/_$/, '') }
+
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
 
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
-    # player.send_message "l1: #{ raw_command }"
-    # player.send_message "l2: #{ args[0] }"
-    # player.send_message "l3: #{ args[1] }"
-    # player.send_message "l4: #{ args[2] }"
 
     if raw_command =~ /<(.+)>/
       command = $1.to_sym
@@ -1034,7 +1029,7 @@ module EventHandler
         name = location_name.call args
         loc = sign_state.location.clone
         @sign_location_list[name] = loc
-        player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
+        broadcast "#{ player.name } added : [#{ name }] loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
       when :locationlist
         @sign_location_list.each do |name, loc|
           player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
