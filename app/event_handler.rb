@@ -1364,12 +1364,14 @@ module EventHandler
       # on grass, zenzen itakunai.
       evt.tap do |evt|
         block_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}.block
-        if block_below.type == Material::GRASS
+        case block_below.type
+        when Material::GRASS
           evt.cancelled = true
-          # grass will be spread
           block_below.type = Material::DIRT
-          # bound
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+        when Material::LEAVES
+          evt.cancelled = true
+          block_below.type = Material::AIR
         end
       end
 
