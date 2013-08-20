@@ -1022,7 +1022,7 @@ module EventHandler
           safety_loc = add_loc(loc, face.mod_x, face.mod_y, face.mod_z)
           if safety_loc
             player.teleport safety_loc
-            player.send_message "Teleport to #{ name }"
+            broadcast "#{ player.name } teleported to #{ name }"
           else
             player.send_message "No such location or there aren't safety place around the sign."
           end
