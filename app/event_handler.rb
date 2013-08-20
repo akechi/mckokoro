@@ -1373,9 +1373,9 @@ module EventHandler
           evt.cancelled = true
           block_below.type = Material::DIRT
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
-        when Material::LEAVES
-          evt.cancelled = true
-          block_below.type = Material::AIR
+        # when Material::LEAVES
+        #   evt.cancelled = true
+        #   block_below.type = Material::AIR
         end
       end
 
