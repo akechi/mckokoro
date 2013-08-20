@@ -1349,6 +1349,13 @@ module EventHandler
     end
   end
 
+  def on_entity_damage_by_block(evt)
+    if Player === evt.entity
+      player = evt.entity
+      player.send_message 'hi'
+    end
+  end
+
   def on_entity_damage(evt)
     if Player === evt.entity && Job.of(evt.entity) == :muteki
       evt.entity.send_message 'You are muteki'
