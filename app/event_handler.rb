@@ -1024,6 +1024,8 @@ module EventHandler
           else
             player.send_message "No such location or there aren't safety place around the sign."
           end
+        else
+          player.send_message "Not found the location named '#{ name }'"
         end
       when :location
         name = location_name.call args
