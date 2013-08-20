@@ -1350,11 +1350,7 @@ module EventHandler
   end
 
   def on_entity_damage_by_block(evt)
-    broadcast "test: #{ evt.damager.type }"
-  # when Material::LEAVES
-  #   evt.cancelled = true
-  #   block_below.type = Material::AIR
-  #   entity.send_message "class:#{evt.class}" if Player === entity
+    broadcast "[test] on entity damage by block : #{ evt.damager.type }"
   end
 
   def on_entity_damage(evt)
@@ -1375,6 +1371,9 @@ module EventHandler
           evt.cancelled = true
           block_below.type = Material::DIRT
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+        when Material::LEAVES
+          evt.cancelled = true
+          block_below.type = Material::AIR
         end
       end
 
