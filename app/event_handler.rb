@@ -1349,12 +1349,6 @@ module EventHandler
     end
   end
 
-  def on_entity_damage_by_block(evt)
-    if Player === evt.entity
-      player = evt.entity
-      player.send_message 'hi'
-    end
-  end
 
   def on_entity_damage(evt)
     if Player === evt.entity && Job.of(evt.entity) == :muteki
@@ -1363,6 +1357,7 @@ module EventHandler
       return
     end
 
+    entity = evt.entity
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
       # on grass, zenzen itakunai.
@@ -1373,9 +1368,10 @@ module EventHandler
           evt.cancelled = true
           block_below.type = Material::DIRT
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
-        # when Material::LEAVES
-        #   evt.cancelled = true
-        #   block_below.type = Material::AIR
+        when Material::LEAVES
+          evt.cancelled = true
+          block_below.type = Material::AIR
+          entity.send_message "class:#{evt.class}" if Player === entity
         end
       end
 
