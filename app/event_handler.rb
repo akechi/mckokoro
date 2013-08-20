@@ -1350,7 +1350,7 @@ module EventHandler
   end
 
   def on_entity_damage_by_block(evt)
-    broadcast 'test'
+    broadcast "test: #{ evt.damager.type }"
   # when Material::LEAVES
   #   evt.cancelled = true
   #   block_below.type = Material::AIR
