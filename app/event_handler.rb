@@ -1360,7 +1360,7 @@ module EventHandler
   end
 
   def on_entity_damage_by_block(evt)
-    broadcast "[test] on entity damage by block : #{ evt.damager.type }"
+    #broadcast "[test] on entity damage by block : #{ evt.damager.type }"
   end
 
   def on_entity_damage(evt)
