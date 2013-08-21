@@ -126,6 +126,12 @@ module Util
     }
   end
 
+  def location_distance_xy(loc1, loc2)
+    loc1 = loc1.tap {|l| l.set_y 0.0 }
+    loc2 = loc2.tap {|l| l.set_y 0.0 }
+    loc1.distance(loc2)
+  end
+
   def break_naturally_by_dpickaxe(block)
     block.break_naturally(ItemStack.new(Material::DIAMOND_PICKAXE))
   end
@@ -692,7 +698,7 @@ module EventHandler
       if loc && shooter
         strike_lightning(loc)
         if Player === shooter
-          distance = shooter.location.distance(loc).to_i
+          distance = location_distance_xy(shooter.location, loc).to_i
           bonus = (distance ** 3) / 300
           shooter.send_message "distance: #{distance}, bonus: #{bonus}"
           bonus.times do
@@ -703,7 +709,9 @@ module EventHandler
               drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
             when 6...18
               drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
-            when 18...80
+            when 18...23
+              drop_item(loc, ItemStack.new(Material::COAL, 1))
+            when 23...80
               drop_item(loc, ItemStack.new(Material::DIRT, 1))
             when 80...160
               drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
