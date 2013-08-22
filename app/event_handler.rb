@@ -1388,7 +1388,7 @@ module EventHandler
           if Player === evt.entity
             falld = evt.entity.fall_distance
             evt.entity.send_message "fall distance: #{falld.to_i}"
-            if falld > 20
+            if falld >= 18
               surround = location_around_flat(loc_below, 1) - [loc_below]
               num_lava = surround.map(&:block).count {|b|
                 [Material::LAVA, Material::STATIONARY_LAVA].include? b.type
