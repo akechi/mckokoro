@@ -1387,12 +1387,12 @@ module EventHandler
         when Material::COAL_BLOCK
           if Player === evt.entity
             surround = location_around_flat(loc_below, 1) - [loc_below]
-            cond = surround.map(&:block).all? {|b|
+            num_lava = surround.map(&:block).count {|b|
               [Material::LAVA, Material::STATIONARY_LAVA].include? b.type
             }
-            if cond
+            if num_lava > 5
               block_below.type = Material::AIR
-              drop_item(loc_below, ItemStack.new(Material::DIAMOND, rand(3) + 1))
+              drop_item(loc_below, ItemStack.new(Material::DIAMOND, [*2..5].sample))
             end
           end
         end
