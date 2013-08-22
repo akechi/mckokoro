@@ -957,7 +957,7 @@ module EventHandler
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
         if rand(5) == 0
-          if rand(2) == 0 # 1/(5*2) possibility
+          if rand(10) == 0 # 1/(5*10) possibility
             evt.clicked_block.type = Material::WOOD
             evt.clicked_block.data = evt.clicked_block.state.data.species.data
           end
