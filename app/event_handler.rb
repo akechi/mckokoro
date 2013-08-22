@@ -1387,7 +1387,13 @@ module EventHandler
         when Material::COAL_BLOCK
           if Player === evt.entity
             surround = location_around_flat(loc_below, 1) - [loc_below]
-            evt.entity.send_message surround.map(&:block).map(&:to_s).to_s
+            cond = surround.map(&:block).all? {|b|
+              [Material::LAVA, Material::STATIONARY_LAVA].include? b.type
+            }
+            if cond
+              block_below.type = Material::AIR
+              drop_item(loc_below, ItemStack.new(Material::DIAMOND, rand(3) + 1))
+            end
           end
         end
       end
