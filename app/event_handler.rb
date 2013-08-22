@@ -1608,10 +1608,10 @@ module EventHandler
       egg.set_ingredient(jchar('b'), Material::EGG)
       Bukkit.add_recipe egg
     end
-    # torch to coal+stick
-    torch_coalstick = ShapelessRecipe.new(ItemStack.new(Material::COAL, 1))
-    torch_coalstick.add_ingredient(1, Material::TORCH)
-    Bukkit.add_recipe torch_coalstick
+    # torch to coal
+    torch_coal = ShapelessRecipe.new(ItemStack.new(Material::COAL, 1))
+    torch_coal.add_ingredient(1, Material::TORCH)
+    Bukkit.add_recipe torch_coal
   end
 
   def on_command(sender, cmd, label, args)
