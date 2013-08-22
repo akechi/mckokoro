@@ -1373,7 +1373,6 @@ module EventHandler
     entity = evt.entity
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
-      # on grass, zenzen itakunai.
       evt.tap do |evt|
         block_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}.block
         case block_below.type
