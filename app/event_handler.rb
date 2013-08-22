@@ -1387,7 +1387,7 @@ module EventHandler
         when Material::COAL_BLOCK
           if Player === evt.entity
             surround = location_around_flat(loc_below, 1) - [loc_below]
-            evt.entity.send_message surround.map(&:type).to_s
+            evt.entity.send_message surround.map(&:block).map(&:type).to_s
           end
         end
       end
