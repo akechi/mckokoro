@@ -1374,7 +1374,8 @@ module EventHandler
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
       evt.tap do |evt|
-        block_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}.block
+        loc_below = evt.entity.location.dup.tap {|l| l.add(0, -1, 0)}
+        block_below = loc_below.block
         case block_below.type
         when Material::GRASS
           evt.cancelled = true
