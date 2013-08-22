@@ -1610,7 +1610,7 @@ module EventHandler
     end
     # torch to coal
     torch_coal = ShapelessRecipe.new(ItemStack.new(Material::COAL, 1))
-    torch_coal.add_ingredient(1, Material::TORCH)
+    torch_coal.add_ingredient(2, Material::TORCH)
     Bukkit.add_recipe torch_coal
   end
 
