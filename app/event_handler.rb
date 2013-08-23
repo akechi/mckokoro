@@ -1833,7 +1833,7 @@ module EventHandler
         add_loc(p.location, x, 0, z).chunk
       }
     }.flatten(1).uniq.map {|c|
-      c.entities.select {|e| Creature === e }
+      c.entities.select {|e| Creature === e || Slime === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
 
