@@ -1829,8 +1829,10 @@ module EventHandler
     #     select {|e| Creature === e }
     # }.flatten(1).to_set
     nearby_creatures = online_players.map {|p|
-      p.location.chunk
-    }.uniq.map {|c|
+      [[0, 0], [0, -16], [0, 16], [-16, 0], [16, 0]].map {|x, z|
+        add_loc(p.location, x, 0, z).chunk
+      }
+    }.flatten(1).uniq.map {|c|
       c.entities.select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
