@@ -1824,9 +1824,14 @@ module EventHandler
   def periodically_sec
 
     online_players = Bukkit.online_players
+    # nearby_creatures = online_players.map {|p|
+    #   p.get_nearby_entities(2, 2, 2).
+    #     select {|e| Creature === e }
+    # }.flatten(1).to_set
     nearby_creatures = online_players.map {|p|
-      p.get_nearby_entities(2, 2, 2).
-        select {|e| Creature === e }
+      p.location.chunk
+    }.uniq.map {|c|
+      c.entities.select {|e| Creature === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
 
