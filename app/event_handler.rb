@@ -1809,10 +1809,6 @@ module EventHandler
 
   def periodically_tick
     online_players = Bukkit.online_players
-    nearby_creatures = online_players.map {|p|
-      p.get_nearby_entities(2, 2, 2).
-        select {|e| Creature === e }
-    }.flatten(1).to_set
 
     online_players.each do |player|
       # barrage_visual_orb(player, :inside, 2, 5, 1)
