@@ -1401,8 +1401,8 @@ module EventHandler
         when Material::LEAVES
           #evt.cancelled = true
           #block_below.type = Material::AIR
-          evt.damage = 1
-          entity.teleport(add_loc(entity.location, 0, -1, 0))
+          loc_below = add_loc(entity.location, 0, -0.1, 0)
+          entity.teleport(loc_below)
         when Material::COAL_BLOCK
           if Player === evt.entity
             falld = evt.entity.fall_distance
