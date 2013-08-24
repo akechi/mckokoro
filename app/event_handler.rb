@@ -991,8 +991,11 @@ module EventHandler
         evt.player.send_message "lalala..."
         # TODO: play that melody and give player a horse
       when [Material::PAPER, Action::LEFT_CLICK_BLOCK]
-        evt.cancelled = true
-        evt.player.send_message 'debug'
+        vehicle = evt.player.vehicle
+        if vehicle && Minecart === vehicle
+          evt.cancelled = true
+          evt.player.send_message vehicle.location.block.state.data.to_s
+        end
       end
     else
       #if evt.player.sprinting?
