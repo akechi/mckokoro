@@ -1390,6 +1390,7 @@ module EventHandler
     entity = evt.entity
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
+      falld = evt.entity.fall_distance
       evt.tap do |evt|
         loc_below = add_loc(entity.location, 0, -1, 0)
         block_below = loc_below.block
@@ -1405,12 +1406,11 @@ module EventHandler
           entity.teleport(add_loc(entity.location, 0, -0.1, 0))
           if add_loc(entity.location, 0, -2, 0).block.type == Material::LEAVES
             later 0 do
-              entity.fall_distance = 3
+              entity.fall_distance = falld
             end
           end
         when Material::COAL_BLOCK
           if Player === evt.entity
-            falld = evt.entity.fall_distance
             evt.entity.send_message "fall distance: #{falld.to_i}"
             if falld >= 18 && rand(5) > 1
               surround = location_around_flat(loc_below, 1) - [loc_below]
