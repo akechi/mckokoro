@@ -990,7 +990,7 @@ module EventHandler
       when [ Material::SPECKLED_MELON, Action::LEFT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::LEFT_CLICK_AIR ]
         evt.player.send_message "lalala..."
         # TODO: play that melody and give player a horse
-      when [Material::PAPER, Action::LEFT_CLICK_BLOCK], [Material::PAPER, Action::LEFT_CLICK_BLOCK]
+      when [Material::PAPER, Action::LEFT_CLICK_BLOCK], [Material::PAPER, Action::LEFT_CLICK_AIR]
         evt.cancelled = true
         player.send_message 'debug'
       end
