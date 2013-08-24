@@ -1412,7 +1412,8 @@ module EventHandler
               }
               if num_lava > 5
                 block_below.type = Material::AIR
-                drop_item(loc_below, ItemStack.new(Material::DIAMOND, [*2..5].sample))
+                drop_item(
+                  evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..5].sample))
               end
             end
           end
