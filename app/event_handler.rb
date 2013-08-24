@@ -1404,7 +1404,9 @@ module EventHandler
           evt.damage = 1
           entity.teleport(add_loc(entity.location, 0, -0.1, 0))
           if add_loc(entity.location, 0, -2, 0).block.type == Material::LEAVES
-            entity.fall_distance = 3
+            later 0 do
+              entity.fall_distance = 3
+            end
           end
         when Material::COAL_BLOCK
           if Player === evt.entity
