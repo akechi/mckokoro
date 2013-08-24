@@ -994,7 +994,11 @@ module EventHandler
         vehicle = evt.player.vehicle
         if vehicle && Minecart === vehicle
           evt.cancelled = true
-          evt.player.send_message vehicle.location.block.state.data.to_s
+          loc_rails = evt.player.send_message vehicle.location
+          facing = loc_rails.block.state.data.facing
+          next_loc = add_loc(loc_rails, facing.mod_x, facing.mod_y, facing.mod_z)
+          evt.player.send_message next_loc.to_s
+          evt.player.send_message next_loc.block.type
         end
       end
     else
