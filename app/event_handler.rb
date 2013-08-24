@@ -998,7 +998,7 @@ module EventHandler
           facing = loc_rails.block.state.data.facing
           next_loc = add_loc(loc_rails, facing.mod_x, facing.mod_y, facing.mod_z)
           evt.player.send_message next_loc.to_s
-          evt.player.send_message next_loc.block.type
+          evt.player.send_message next_loc.block.type.to_s
         end
       end
     else
