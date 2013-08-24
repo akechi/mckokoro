@@ -575,7 +575,6 @@ module EventHandler
 
   @mimic_player ||= {}
   def on_player_interact_entity(evt)
-
     player = evt.player
     case evt.right_clicked
     when Player
@@ -598,6 +597,8 @@ module EventHandler
             target.velocity.set_z jfloat(0.0)
           end
         end
+      elsif player.item_in_hand.type == Material::PAPER && Minecart === player.vehicle
+        player.send_message 'debug'
       end
     when Squid
       squid = evt.right_clicked
