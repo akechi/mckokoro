@@ -1391,20 +1391,19 @@ module EventHandler
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
       evt.tap do |evt|
-        loc_below = add_loc(evt.entity.location, 0, -1, 0)
+        loc_below = add_loc(entity.location, 0, -1, 0)
         block_below = loc_below.block
         case block_below.type
         when Material::GRASS
           evt.cancelled = true
           block_below.type = Material::DIRT
-          evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+          entity.velocity = entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
         when Material::LEAVES
           #evt.cancelled = true
           #block_below.type = Material::AIR
-          loc_below = add_loc(entity.location, 0, -0.1, 0)
           evt.damage = 1
-          entity.teleport(loc_below)
-          if loc_below.block.type == Material::LEAVES
+          entity.teleport(add_loc(entity.location, 0, -0.1, 0))
+          if add_loc(entity.location, 0, -2, 0).block.type == Material::LEAVES
             entity.fall_distance = 3
           end
         when Material::COAL_BLOCK
