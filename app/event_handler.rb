@@ -1405,8 +1405,10 @@ module EventHandler
           evt.damage = 1
           entity.teleport(add_loc(entity.location, 0, -0.1, 0))
           if add_loc(entity.location, 0, -2, 0).block.type == Material::LEAVES
+            vec_y = entity.velocity.y
             later 0 do
               entity.fall_distance = falld
+              entity.velocity.set_y vec_y
             end
           end
         when Material::COAL_BLOCK
