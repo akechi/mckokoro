@@ -1403,6 +1403,7 @@ module EventHandler
           #evt.cancelled = true
           #block_below.type = Material::AIR
           evt.damage = 1
+          entity.teleport(add_loc(entity.location, 0, -0.1, 0))
           if add_loc(entity.location, 0, -1.9, 0).block.type == Material::LEAVES
             later 0 do
               entity.fall_distance = falld
