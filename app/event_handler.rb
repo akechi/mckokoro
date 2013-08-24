@@ -597,8 +597,6 @@ module EventHandler
             target.velocity.set_z jfloat(0.0)
           end
         end
-      elsif player.item_in_hand.type == Material::PAPER && Minecart === player.vehicle
-        player.send_message 'debug'
       end
     when Squid
       squid = evt.right_clicked
@@ -987,14 +985,15 @@ module EventHandler
         end
       end
 
-
       case [ evt.player.item_in_hand.type, evt.action ]
       # when [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::RIGHT_CLICK_AIR ]
       when [ Material::SPECKLED_MELON, Action::LEFT_CLICK_BLOCK ], [ Material::SPECKLED_MELON, Action::LEFT_CLICK_AIR ]
         evt.player.send_message "lalala..."
         # TODO: play that melody and give player a horse
+      when [Material::PAPER, Action::LEFT_CLICK_BLOCK], [Material::PAPER, Action::LEFT_CLICK_BLOCK]
+        evt.cancelled = true
+        player.send_message 'debug'
       end
-
     else
       #if evt.player.sprinting?
       #  loc = evt.player.location
