@@ -1399,8 +1399,10 @@ module EventHandler
           block_below.type = Material::DIRT
           evt.entity.velocity = evt.entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
         when Material::LEAVES
-          evt.cancelled = true
-          block_below.type = Material::AIR
+          #evt.cancelled = true
+          #block_below.type = Material::AIR
+          evt.damage = 1
+          entity.teleport(add_loc(entity.location, 0, -1, 0))
         when Material::COAL_BLOCK
           if Player === evt.entity
             falld = evt.entity.fall_distance
