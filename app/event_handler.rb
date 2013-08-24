@@ -1007,7 +1007,7 @@ module EventHandler
             next_loc_vehicle = add_loc(
               vehicle.location, -facing.mod_x, -facing.mod_y, -facing.mod_z)
             vehicle.teleport(next_loc_vehicle)
-            player.teleport(next_loc_vehicle)
+            evt.player.teleport(next_loc_vehicle)
           end
         end
       end
