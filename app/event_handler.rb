@@ -996,7 +996,10 @@ module EventHandler
           evt.cancelled = true
           loc_rails = vehicle.location
           facing = loc_rails.block.state.data.direction
-          next_loc = add_loc(loc_rails, facing.mod_x, facing.mod_y, facing.mod_z)
+          next_locs = [
+            add_loc(loc_rails, facing.mod_x, facing.mod_y, facing.mod_z),
+            add_loc(loc_rails, -facing.mod_x, -facing.mod_y, -facing.mod_z)]
+          next_loc = next_locs.find {|l| l.block.type == Material::RAILS }
           evt.player.send_message next_loc.to_s
           evt.player.send_message next_loc.block.type.to_s
         end
