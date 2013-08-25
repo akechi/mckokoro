@@ -1298,9 +1298,11 @@ module EventHandler
           # zombie pigman guards all arrows
           if PigZombie === defender
             evt.cancelled = true
-            defender.damage(1, player)
+            defender.damage(0, player)
             vel = arrow.velocity.multiply(jfloat(-1.0))
-            arrow.velocity = vel
+            later 0 do
+              arrow.velocity = vel
+            end
           end
         when Skeleton
           evt.damage *= 2.0
