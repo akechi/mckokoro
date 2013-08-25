@@ -358,6 +358,17 @@ module EventHandler
     end
   end
 
+  def on_entity_portal_enter(evt)
+    name =
+      case evt.entity
+      when Player
+        evt.entity.name
+      else
+        evt.entity.type.downcase.to_s
+      end
+    post_lingr("#{name} is using a portal at (#{evt.entity.location}).")
+  end
+
   def on_entity_death(evt)
     drop_replace = ->(remove_types, new_istacks) {
       drops = evt.drops.to_a
