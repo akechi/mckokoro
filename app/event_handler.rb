@@ -410,9 +410,11 @@ module EventHandler
       killed_at = Time.now
       last_killed = @player_last_killed_mob[player.name]
 
-      if last_killed.nil? ||
+      cond =
+        last_killed.nil? ||
         last_killed[:mob] != entity.type ||
         ( killed_at - last_killed[:time] ) > 10
+      if cond
         post_lingr "#{player.name} killed a #{entity.type.name.downcase}"
       end
 
