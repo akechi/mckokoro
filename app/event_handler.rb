@@ -16,7 +16,7 @@ import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
 import 'org.bukkit.event.block.Action'
-import 'org.bukkit.enchantment.Enchantment'
+import 'org.bukkit.enchantments.Enchantment'
 import 'com.github.ujihisa.Mckokoro.JavaWrapper'
 
 require 'set'
