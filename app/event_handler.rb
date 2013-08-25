@@ -367,6 +367,7 @@ module EventHandler
         evt.entity.type.downcase.to_s
       end
     post_lingr("#{name} is using a portal at (#{evt.entity.location}).")
+    broadcast("#{name} is using a portal at (#{evt.entity.location}).")
   end
 
   def on_entity_death(evt)
