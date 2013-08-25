@@ -1343,8 +1343,12 @@ module EventHandler
       case defender
       when Player
         if defender.blocking?
-          evt.damager.damage(evt.damage, defender)
-          evt.cancelled = true
+          if PigZombie === defender
+            evt.cancelled = true
+          else
+            evt.damager.damage(evt.damage, defender)
+            evt.cancelled = true
+          end
         end
       end
     end
