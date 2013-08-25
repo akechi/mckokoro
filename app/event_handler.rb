@@ -16,6 +16,7 @@ import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
 import 'org.bukkit.event.block.Action'
+import 'org.bukkit.enchantment.Enchantment'
 import 'com.github.ujihisa.Mckokoro.JavaWrapper'
 
 require 'set'
@@ -1578,7 +1579,7 @@ module EventHandler
       case projectile
       when Arrow
         # bumeran
-        if shooter.sneaking?
+        if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
           later sec(0.7) do
             if projectile.valid?
               #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
