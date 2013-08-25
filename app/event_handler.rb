@@ -360,14 +360,14 @@ module EventHandler
 
   def on_player_portal(evt)
     name = evt.player.name
-    post_lingr("#{name} is using a portal at (#{evt.player.location}).")
-    broadcast("#{name} is using a portal at (#{evt.player.location}).")
+    post_lingr("#{name} is using a portal at #{evt.player.location}.")
+    broadcast("#{name} is using a portal at #{evt.player.location}.")
   end
 
   def on_entity_portal_enter(evt)
     name = evt.entity.type.downcase.to_s
-    post_lingr("#{name} is using a portal at (#{evt.entity.location}).")
-    broadcast("#{name} is using a portal at (#{evt.entity.location}).")
+    post_lingr("#{name} is using a portal at #{evt.entity.location}.")
+    broadcast("#{name} is using a portal at #{evt.entity.location}.")
   end
 
   def on_entity_death(evt)
