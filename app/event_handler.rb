@@ -371,7 +371,11 @@ module EventHandler
       head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
       drop_replace.([], rand(10) == 0 ? [head] : [])
     when PigZombie
-      # nop
+      opt_golden_apple =
+        (rand(10) == 0 ? [ItemStack.new(Material::GOLDEN_APPLE, 1)] : [])
+      drop_replace.(
+        [Material::ROTTEN_FLESH],
+        [ItemStack.new(Material::GLOWSTONE_DUST , 1)] + opt_golden_apple)
     when Zombie
       if evt.entity.baby?
         drop_replace.(
