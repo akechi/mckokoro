@@ -1578,6 +1578,12 @@ module EventHandler
     when Player
       case projectile
       when Arrow
+        # enchant book infinite
+        item0 = shooter.inventory.get_item(0)
+        if item0 && item0.type == Material::ENCHANTED_BOOK && item0.item_meta.stored_enchants[Enchantment::ARROW_INFINITE]
+          drop_item(shooter.location, ItemStack.new(Material::ARROW, 1))
+        end
+
         # bumeran
         if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
           later sec(0.7) do
