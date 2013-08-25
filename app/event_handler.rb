@@ -1281,17 +1281,26 @@ module EventHandler
     defender = evt.entity
     case evt.damager
     when Arrow
+      arrow = evt.damager
       if Player === defender && defender.blocking?
         evt.damage = 0
       else
-        case evt.damager.shooter
+        case arrow.shooter
         when Player
-          player = evt.damager.shooter
+          player = arrow.shooter
           if Job.of(player) == :archer
             # because it's fast
             evt.damage *= 0.85
           else
             evt.damage *= 2.0
+          end
+
+          # zombie pigman guards all arrows
+          if PigZombie === defender
+            evt.cancelled = true
+            defender.damage(1, player)
+            vel = arrow.velocity.multiply(jfloat(-1.0))
+            arrow.velocity = vel
           end
         when Skeleton
           evt.damage *= 2.0
