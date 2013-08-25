@@ -1237,6 +1237,13 @@ module EventHandler
     # when CreatureSpawnEvent::SpawnReason::SPAWNER_EGG
     when CreatureSpawnEvent::SpawnReason::EGG
       evt.cancelled = true
+    when CreatureSpawnEvent::SpawnReason::NATURAL
+      if evt.location.block.light_level >= 8
+        case evt.entity
+        when Ghast, MagmaCube, PigZombie
+          evt.cancelled = true
+        end
+      end
     end
   end
 
