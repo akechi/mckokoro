@@ -415,7 +415,7 @@ module EventHandler
         post_lingr "#{plaer.name} killed a #{entity.type.name.downcase}"
       end
 
-      @player_last_killed_mob[player.name] ||= {
+      @player_last_killed_mob[player.name] = {
         mob: entity.type,
         time: killed_at
       }
