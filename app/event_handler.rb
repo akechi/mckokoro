@@ -404,7 +404,21 @@ module EventHandler
     end
     entity = evt.entity
     if entity.killer && Player === entity.killer
-      post_lingr "#{entity.killer.name} killed a #{entity.type.name.downcase}"
+      @player_last_killed_mob ||= {}
+
+      player = entity.killer
+      killed_at = Time.now
+      last_killed = @player_last_killed_mob[player.name]
+
+      if last_killed && last_killed[:mob] != entity.type &&
+        ( killed_at - last_killed[:time] ) < 10
+        post_lingr "#{plaer.name} killed a #{entity.type.name.downcase}"
+      end
+
+      @player_last_killed_mob[player.name] ||= {
+        mob: entity.type,
+        time: killed_at
+      }
     end
   end
 
