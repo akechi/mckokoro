@@ -17,6 +17,7 @@ import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
 import 'org.bukkit.event.block.Action'
 import 'org.bukkit.enchantments.Enchantment'
+import 'org.bukkit.potion.PotionEffectType'
 import 'com.github.ujihisa.Mckokoro.JavaWrapper'
 
 require 'set'
