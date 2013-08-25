@@ -389,6 +389,10 @@ module EventHandler
         [SpawnEgg.new(EntityType::HORSE).toItemStack(1)])
     when Sheep
       drop_replace.([Material::WOOL], [ItemStack.new(Material::STRING)])
+    when MagmaCube
+      # nop to avoid Slime's
+    when Slime
+      Bukkit.get_player("ujm").send_message "#{evt.entity}: #{evt.entity.last_damage_cause.cause}"
     end
     entity = evt.entity
     if entity.killer && Player === entity.killer
