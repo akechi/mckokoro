@@ -392,7 +392,14 @@ module EventHandler
     when MagmaCube
       # nop to avoid Slime's
     when Slime
-      Bukkit.get_player("ujm").send_message "#{evt.entity}: #{evt.entity.last_damage_cause.cause}"
+      case evt.entity.last_damage_cause.cause
+      when EntityDamageEvent::DamageCause::FIRE
+        block = evt.entity.location.block
+        unless block.type.solid?
+          block.type = Material::WATER
+          evt.clicked_block.data = 0
+        end
+      end
     end
     entity = evt.entity
     if entity.killer && Player === entity.killer
