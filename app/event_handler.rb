@@ -1401,6 +1401,7 @@ module EventHandler
           entity.fall_distance = falld
         end
       end
+    end
   end
 
   def generate_item_from_falling(evt)
