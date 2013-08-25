@@ -19,6 +19,7 @@ import 'org.bukkit.event.block.Action'
 import 'org.bukkit.enchantments.Enchantment'
 import 'org.bukkit.potion.PotionEffectType'
 import 'org.bukkit.potion.Potion'
+import 'org.bukkit.potion.PotionType'
 import 'com.github.ujihisa.Mckokoro.JavaWrapper'
 
 require 'set'
