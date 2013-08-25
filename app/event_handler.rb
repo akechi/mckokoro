@@ -1708,7 +1708,7 @@ module EventHandler
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
       below = loc_below(player.location)
       if below.block.type == Material::SMOOTH_BRICK
-        [[1, 0], [0, 1]].each do |x, z|
+        [[1, 0], [0, 1], [1, 1]].each do |x, z|
           loc = add_loc(below, x, 0, z)
           if loc.block.type == Material::AIR
             loc.block.type = Material::SMOOTH_BRICK
