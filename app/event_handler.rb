@@ -358,6 +358,10 @@ module EventHandler
     end
   end
 
+  def on_player_portal(evt)
+    on_entity_portal_enter(evt) # TODO
+  end
+
   def on_entity_portal_enter(evt)
     name =
       case evt.entity
