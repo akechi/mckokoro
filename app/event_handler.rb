@@ -1383,6 +1383,48 @@ module EventHandler
     #broadcast "[test] on entity damage by block : #{ evt.damager.type }"
   end
 
+  def damage_by_falling(evt)
+    falld = evt.entity.fall_distance
+    loc_below = add_loc(entity.location, 0, -1, 0)
+    block_below = loc_below.block
+    case block_below.type
+    when Material::GRASS
+      evt.cancelled = true
+      block_below.type = Material::DIRT
+      entity.velocity = entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+    when Material::LEAVES
+      evt.damage = 1
+      entity.teleport(add_loc(entity.location, 0, -0.1, 0))
+      if add_loc(entity.location, 0, -1.9, 0).block.type == Material::LEAVES
+        later 0 do
+          entity.fall_distance = falld
+        end
+      end
+  end
+
+  def generate_item_from_falling(evt)
+    falld = evt.entity.fall_distance
+    loc_below = add_loc(entity.location, 0, -1, 0)
+    block_below = loc_below.block
+    case block_below.type
+    when Material::COAL_BLOCK
+      if Player === evt.entity
+        evt.entity.send_message "fall distance: #{falld.to_i}"
+        if falld >= 18 && rand(5) > 1
+          surround = location_around_flat(loc_below, 1) - [loc_below]
+          num_lava = surround.map(&:block).count {|b|
+            [Material::LAVA, Material::STATIONARY_LAVA].include? b.type
+          }
+          if num_lava > 5
+            block_below.type = Material::AIR
+            drop_item(
+              evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..5].sample))
+          end
+        end
+      end
+    end
+  end
+
   def on_entity_damage(evt)
     if Player === evt.entity && Job.of(evt.entity) == :muteki
       evt.entity.send_message 'You are muteki'
@@ -1393,57 +1435,10 @@ module EventHandler
     entity = evt.entity
     case evt.getCause
     when EntityDamageEvent::DamageCause::FALL
-      falld = evt.entity.fall_distance
-      evt.tap do |evt|
-        loc_below = add_loc(entity.location, 0, -1, 0)
-        block_below = loc_below.block
-        case block_below.type
-        when Material::GRASS
-          evt.cancelled = true
-          block_below.type = Material::DIRT
-          entity.velocity = entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
-        when Material::LEAVES
-          #evt.cancelled = true
-          #block_below.type = Material::AIR
-          evt.damage = 1
-          entity.teleport(add_loc(entity.location, 0, -0.1, 0))
-          if add_loc(entity.location, 0, -1.9, 0).block.type == Material::LEAVES
-            later 0 do
-              entity.fall_distance = falld
-            end
-          end
-        when Material::COAL_BLOCK
-          if Player === evt.entity
-            evt.entity.send_message "fall distance: #{falld.to_i}"
-            if falld >= 18 && rand(5) > 1
-              surround = location_around_flat(loc_below, 1) - [loc_below]
-              num_lava = surround.map(&:block).count {|b|
-                [Material::LAVA, Material::STATIONARY_LAVA].include? b.type
-              }
-              if num_lava > 5
-                block_below.type = Material::AIR
-                drop_item(
-                  evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..5].sample))
-              end
-            end
-          end
-        end
-      end
-
+      damage_by_falling evt
+      generate_item_from_falling evt
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
-    when EntityDamageEvent::DamageCause::BLOCK_EXPLOSION
-      # killerqueen
-      # case evt.entity
-      # when Player
-      #   player = evt.entity
-      #   if @explode_toleranted_players[player.name]
-      #     evt.cancelled = true
-      #   end
-      # end
-    # when EntityDamageEvent::DamageCause::LAVA
-    #   evt.cancelled = true
-    #   evt.entity.food_level -= 1 rescue nil
     end
   end
 
