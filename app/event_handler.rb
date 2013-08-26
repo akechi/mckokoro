@@ -1011,6 +1011,7 @@ module EventHandler
               PotionEffectType::SLOW_DIGGING.create_effect(sec(10)*2, 3), true)
           })
           evt.player.item_in_hand = new_p
+          evt.player.send_message "Rum! #{new_p}"
         end
       # tree -> paper
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
