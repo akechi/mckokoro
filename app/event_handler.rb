@@ -999,6 +999,18 @@ module EventHandler
       when [Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS]
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
+      # rum
+      when [Material::SUGAR_CANE_BLOCK, Action::RIGHT_CLICK_BLOCK, Material::POTION]
+        potion = evt.play_sound.item_in_hand
+        if potion.item_meta.custom_effects.empty?
+          break_naturally_by_daxe(evt.clicked_block)
+          new_p = Potion.new(48).to_item_stack(1)
+          new_p.set_item_meta(new_p.item_meta.tap {|m|
+            # 10sec
+            m.add_custom_effect(
+              PotionEffectType::SLOW_DIGGING.create_effect(sec(10)*2, 3), true)
+          })
+        end
       # tree -> paper
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
