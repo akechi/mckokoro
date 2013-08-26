@@ -1001,7 +1001,7 @@ module EventHandler
         evt.clicked_block.type = Material::GRASS
       # rum
       when [Material::SUGAR_CANE_BLOCK, Action::RIGHT_CLICK_BLOCK, Material::POTION]
-        potion = evt.play_sound.item_in_hand
+        potion = evt.player.item_in_hand
         if potion.item_meta.custom_effects.empty?
           break_naturally_by_daxe(evt.clicked_block)
           new_p = Potion.new(48).to_item_stack(1)
@@ -1010,6 +1010,7 @@ module EventHandler
             m.add_custom_effect(
               PotionEffectType::SLOW_DIGGING.create_effect(sec(10)*2, 3), true)
           })
+          evt.player.item_in_hand = new_p
         end
       # tree -> paper
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
