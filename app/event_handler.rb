@@ -957,9 +957,6 @@ module EventHandler
   end
 
   def on_player_interact(evt)
-
-
-
     feather_freedom_move(evt.player, evt.action)
 
     # seeded_p = bulldozer_hoe(evt.player, evt.action)
@@ -972,7 +969,6 @@ module EventHandler
 
     killerqueen_explode(evt)
     clock_timechange(evt.player)
-
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
