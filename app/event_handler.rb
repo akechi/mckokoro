@@ -999,7 +999,7 @@ module EventHandler
       when [Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS]
         consume_item(evt.player)
         evt.clicked_block.type = Material::GRASS
-      # rum
+      # rum (not working...?) TODO
       when [Material::SUGAR_CANE_BLOCK, Action::RIGHT_CLICK_BLOCK, Material::POTION]
         potion = evt.player.item_in_hand
         if potion.item_meta.custom_effects.empty?
