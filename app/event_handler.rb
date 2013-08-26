@@ -983,12 +983,12 @@ module EventHandler
             ItemStack.new(Material::SUGAR, 1),
             ItemStack.new(Material::STONE_HOE, 1)]})
 
-      # SPADE can remove grass from dirt
       case [evt.clicked_block.type, evt.action]
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
-        if SPADES.include? evt.player.item_in_hand.type
+        # SPADE can remove grass from dirt
+        if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
           evt.clicked_block.type = Material::DIRT
           drop_item(evt.clicked_block.location, ItemStack.new(Material::SEEDS)) if rand(3) == 0
         end
@@ -1231,8 +1231,10 @@ module EventHandler
         drop_item(evt.block.location, ItemStack.new(Material::STICK, 1))
       end
     when Material::GRASS
-      evt.cancelled = true
-      evt.block.type = Material::DIRT
+      unless evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
+        evt.cancelled = true
+        evt.block.type = Material::DIRT
+      end
     when Material::LONG_GRASS
       drop_item(evt.block.location, ItemStack.new(Material::SEEDS, 1))
     when Material::STONE
