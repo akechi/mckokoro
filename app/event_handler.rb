@@ -1315,12 +1315,14 @@ module EventHandler
     end
   end
 
+  def on_block_piston_retract(evt)
+    Bukkit.get_player('ujm').send_message evt.block.location.to_s
+  end
+
   def on_block_physics(evt)
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
-    when Material::DIRT
-      Bukkit.get_player('ujm').send_message evt.block.location.to_s
     end
   end
 
