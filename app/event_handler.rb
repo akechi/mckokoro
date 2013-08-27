@@ -1328,7 +1328,7 @@ module EventHandler
 
       location_cursor = evt.retract_location
 
-      tuples = cloop(5, []) do |recur, num, acc|
+      tuples = cloop(5, []) {|recur, num, acc|
         if num == 0
           acc
         else
