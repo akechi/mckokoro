@@ -1318,7 +1318,8 @@ module EventHandler
   def on_block_piston_retract(evt)
     piston_base = evt.block
     face = evt.direction
-    block_move = add_loc(piston_base.location, face.mod_x, face.mod_y, face.mod_z).block
+    block_move = add_loc(
+      piston_base.location, face.mod_x * 2, face.mod_y * 2, face.mod_z * 2).block
     Bukkit.get_player('ujm').send_message block_move.type.to_s
   end
 
