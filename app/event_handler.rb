@@ -1322,7 +1322,7 @@ module EventHandler
 
       location_cursor = evt.retract_location
 
-      tuples = 1.times.map {
+      tuples = 2.times.map {
         prevb = location_cursor.block
         location_cursor = add_loc(
           location_cursor, face.mod_x, face.mod_y, face.mod_z)
