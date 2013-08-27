@@ -1323,17 +1323,18 @@ module EventHandler
       block_next = add_loc(
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = 1.times.map {
-        [block_next.type, block_next.data]
+        [ex_piston_ext, block_next.type, block_next.data]
       }
       later 0 do
-        if ex_piston_ext.type == Material::AIR
-          btype, bdata = tuples[0]
-          ex_piston_ext.type = btype
-          ex_piston_ext.data = bdata
-
-          block_next.type = Material::AIR
-          block_next.data = 0
+        tuples.each do |goes_to, btype, bdata|
+          if goes_to.type == Material::AIR
+            goes_to.type = btype
+            goes_to.data = bdata
+          end
         end
+
+        block_next.type = Material::AIR
+        block_next.data = 0
       end
     end
   end
