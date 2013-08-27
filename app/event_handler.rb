@@ -1319,11 +1319,18 @@ module EventHandler
     if evt.retract_location.block.type == Material::FENCE
       face = evt.direction
       ex_piston_ext = evt.retract_location.block
-      block_next = add_loc(
-        evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
+
+      location_cursor = ext.retract_location
+
+      location_cursor = add_loc(
+        location_cursor, face.mod_x, face.mod_y, face.mod_z)
+
       tuples = 1.times.map {
-        [ex_piston_ext, block_next.type, block_next.data]
-      } + [[block_next, Material::AIR, 0]]
+        prev = location_cursor
+        location_cursor = add_loc(
+          location_cursor, face.mod_x, face.mod_y, face.mod_z)
+        [prev, location_cursor.type, location_cursor.data]
+      } + [[location_cursor, Material::AIR, 0]]
       later 0 do
         tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
