@@ -1326,19 +1326,17 @@ module EventHandler
       face = evt.direction
       ex_piston_ext = evt.retract_location.block
 
-      location_cursor = evt.retract_location
-
-      tuples = cloop(5, []) {|recur, num, acc|
+      tuples = cloop(5, evt.retract_location, []) {|recur, num, location_cursor, acc|
         if num == 0
-          acc
+          acc + [[location_cursor.block, Material::AIR, 0]]
         else
           prevb = location_cursor.block
           location_cursor = add_loc(
             location_cursor, face.mod_x, face.mod_y, face.mod_z)
           b = location_cursor.block
-          recur.(num - 1, acc + [[prevb, b.type, b.data]])
+          recur.(num - 1, location_cursor, acc + [[prevb, b.type, b.data]])
         end
-      } + [[location_cursor.block, Material::AIR, 0]]
+      }
       later 0 do
         tuples.reverse.each do |goes_to, btype, bdata|
           goes_to.type = btype
