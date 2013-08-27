@@ -200,6 +200,14 @@ module Util
     end
   end
 
+  # clojure's loop/recur
+  def cloop(*params, &block)
+    r = -> (*xs){
+      block.(r, *xs)
+    }
+    r.(*params)
+  end
+
 
   def silence_warnings
     old_verbose, $VERBOSE = $VERBOSE, nil
@@ -1322,12 +1330,16 @@ module EventHandler
 
       location_cursor = evt.retract_location
 
-      tuples = 2.times.map {
-        prevb = location_cursor.block
-        location_cursor = add_loc(
-          location_cursor, face.mod_x, face.mod_y, face.mod_z)
-        b = location_cursor.block
-        [prevb, b.type, b.data]
+      tuples = cloop(5, []) do |recur, num, acc|
+        if num == 0
+          acc
+        else
+          prevb = location_cursor.block
+          location_cursor = add_loc(
+            location_cursor, face.mod_x, face.mod_y, face.mod_z)
+          b = location_cursor.block
+          recur.(num - 1, acc + [[prevb, b.type, b.data]])
+        end
       } + [[location_cursor.block, Material::AIR, 0]]
       later 0 do
         tuples.reverse.each do |goes_to, btype, bdata|
