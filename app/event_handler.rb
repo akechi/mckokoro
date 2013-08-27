@@ -1193,9 +1193,9 @@ module EventHandler
       [SPADES, [Material::DIRT, Material::GRASS]],
       [SPADES, [Material::SAND]],
       [SPADES, [Material::GRAVEL]],
+      [PICKAXES, [Material::NETHERRACK]],
       [PICKAXES, [Material::STONE, Material::COAL_ORE]],
-      [PICKAXES, [Material::COBBLESTONE]],
-      [PICKAXES, [Material::NETHERRACK]]]
+      [PICKAXES, [Material::COBBLESTONE]]]
     _, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
