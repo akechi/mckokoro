@@ -1322,7 +1322,7 @@ module EventHandler
     if evt.retract_location.block.type == Material::FENCE
       block_next = add_loc(
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
-      tuples = [block_next.type, block_next.data]
+      tuples = [[block_next.type, block_next.data]]
       later 0 do
         if ex_piston_ext.type == Material::AIR
           btype, bdata = tuples[0]
