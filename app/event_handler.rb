@@ -1320,18 +1320,19 @@ module EventHandler
     ex_piston_ext = add_loc(
       evt.block.location, face.mod_x * 2, face.mod_y * 2, face.mod_z * 2).block
     if evt.retract_location.block.type == Material::FENCE
+      block_next = add_loc(
+        evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = 1.times.map {
-        block_next = add_loc(
-          evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
         [block_next.type, block_next.data]
       }
       later 0 do
         if ex_piston_ext.type == Material::AIR
-          block_next.type = Material::AIR
-          block_next.data = 0
           btype, bdata = tuples[0]
           ex_piston_ext.type = btype
           ex_piston_ext.data = bdata
+
+          block_next.type = Material::AIR
+          block_next.data = 0
         end
       end
     end
