@@ -202,9 +202,7 @@ module Util
 
   # clojure's loop/recur
   def cloop(*params, &block)
-    r = -> (*xs){
-      block.(r, *xs)
-    }
+    r = ->(*xs){ block.(r, *xs) }
     r.(*params)
   end
 
