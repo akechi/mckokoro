@@ -1320,7 +1320,7 @@ module EventHandler
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
     when Material::DIRT
-      Bukkit.get_player('ujm').send_message evt.block.location
+      Bukkit.get_player('ujm').send_message evt.block.location.to_s
     end
   end
 
