@@ -1326,16 +1326,16 @@ module EventHandler
       face = evt.direction
       tuples = cloop(20, evt.retract_location.block, []) {|recur, num, cur_block, acc|
         if num == 0 || cur_block.type == Material::AIR
-          acc + [[cur_block, Material::AIR, 0]]
+          [[cur_block, Material::AIR, 0]] + acc
         else
           prevb = cur_block
           b = add_loc(
             cur_block.location, face.mod_x, face.mod_y, face.mod_z).block
-          recur.(num - 1, b, acc + [[prevb, b.type, b.data]])
+          recur.(num - 1, b, [[prevb, b.type, b.data]] + acc)
         end
       }
       later 0 do
-        tuples.reverse.each do |goes_to, btype, bdata|
+        tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
           goes_to.data = bdata
         end
