@@ -1320,7 +1320,7 @@ module EventHandler
       face = evt.direction
       ex_piston_ext = evt.retract_location.block
 
-      location_cursor = ext.retract_location
+      location_cursor = evt.retract_location
 
       location_cursor = add_loc(
         location_cursor, face.mod_x, face.mod_y, face.mod_z)
