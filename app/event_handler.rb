@@ -1316,7 +1316,7 @@ module EventHandler
   end
 
   def on_block_piston_retract(evt)
-    Bukkit.get_player('ujm').send_message evt.block.location.to_s
+    Bukkit.get_player('ujm').send_message evt.block.type.to_s
   end
 
   def on_block_physics(evt)
