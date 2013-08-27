@@ -1317,9 +1317,11 @@ module EventHandler
 
   def on_block_piston_retract(evt)
     face = evt.direction
-    block_move = add_loc(
-      evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
-    Bukkit.get_player('ujm').send_message block_move.type.to_s
+    if evt.retract_location.block.type == Material::FENCE
+      block_next = add_loc(
+        evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
+      break_naturally_by_dpickaxe(block_next) # just for now
+    end
   end
 
   def on_block_physics(evt)
