@@ -1318,24 +1318,17 @@ module EventHandler
   def on_block_piston_retract(evt)
     if evt.retract_location.block.type == Material::FENCE
       face = evt.direction
-      #ex_piston_ext = add_loc(
-      #  evt.block.location, face.mod_x * 2, face.mod_y * 2, face.mod_z * 2).block
       ex_piston_ext = evt.retract_location.block
       block_next = add_loc(
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = 1.times.map {
         [ex_piston_ext, block_next.type, block_next.data]
-      }
+      } + [block_next, Material::AIR, 0]
       later 0 do
         tuples.each do |goes_to, btype, bdata|
-          if goes_to.type == Material::AIR
-            goes_to.type = btype
-            goes_to.data = bdata
-          end
+          goes_to.type = btype
+          goes_to.data = bdata
         end
-
-        block_next.type = Material::AIR
-        block_next.data = 0
       end
     end
   end
