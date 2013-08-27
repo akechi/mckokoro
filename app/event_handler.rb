@@ -1317,10 +1317,15 @@ module EventHandler
 
   def on_block_piston_retract(evt)
     face = evt.direction
+    piston_ext = add_loc(
+      evt.block.location, face.mod_x, face.mod_y, face.mod_z).block
     if evt.retract_location.block.type == Material::FENCE
       block_next = add_loc(
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
-      break_naturally_by_dpickaxe(block_next) # just for now
+      btype, bdata = [block_next.type, block_next.data]
+      later 0 do
+        break_naturally_by_dpickaxe(piston_ext) # todo
+      end
     end
   end
 
