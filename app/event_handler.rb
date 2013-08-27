@@ -1327,6 +1327,8 @@ module EventHandler
         if ex_piston_ext.type == Material::AIR
           ex_piston_ext.type = btype
           ex_piston_ext.data = bdata
+          block_next.type = Material::AIR
+          block_next.data = 0
         end
       end
     end
