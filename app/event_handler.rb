@@ -1323,7 +1323,7 @@ module EventHandler
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = 1.times.map {
         [ex_piston_ext, block_next.type, block_next.data]
-      } + [block_next, Material::AIR, 0]
+      } + [[block_next, Material::AIR, 0]]
       later 0 do
         tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
