@@ -1320,7 +1320,7 @@ module EventHandler
       face = evt.direction
       #ex_piston_ext = add_loc(
       #  evt.block.location, face.mod_x * 2, face.mod_y * 2, face.mod_z * 2).block
-      ex_piston_ext = evt.retract_location
+      ex_piston_ext = evt.retract_location.block
       block_next = add_loc(
         evt.retract_location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = 1.times.map {
