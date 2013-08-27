@@ -1324,8 +1324,8 @@ module EventHandler
   def on_block_piston_retract(evt)
     if evt.retract_location.block.type == Material::FENCE
       face = evt.direction
-      tuples = cloop(5, evt.retract_location.block, []) {|recur, num, cur_block, acc|
-        if num == 0
+      tuples = cloop(20, evt.retract_location.block, []) {|recur, num, cur_block, acc|
+        if num == 0 || cur_block.type == Material::AIR
           acc + [[cur_block, Material::AIR, 0]]
         else
           prevb = cur_block
