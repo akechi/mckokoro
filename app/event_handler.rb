@@ -984,6 +984,11 @@ module EventHandler
             ItemStack.new(Material::STONE_HOE, 1)]})
 
       case [evt.clicked_block.type, evt.action]
+      #when [Material::STONE_PLATE, Action::PHYSICAL]
+      #  plate = evt.clicked_block
+      #  below = loc_below(plate.location)
+      #  cond =
+      #    below.block.type == Material::SMOOTH_BRICK &&
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
@@ -1314,6 +1319,8 @@ module EventHandler
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
+    when Material::DIRT
+      Bukkit.get_player('ujm').send_message evt.block.location
     end
   end
 
