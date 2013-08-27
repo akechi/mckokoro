@@ -1189,13 +1189,9 @@ module EventHandler
   def bulldozer_break(broken_block, player)
     return unless Job.of(player) == :bulldozer
     return if player.sneaking?
-    tool_block_type_table = [
-      [SPADES, [Material::DIRT, Material::GRASS]],
-      [SPADES, [Material::SAND]],
-      [SPADES, [Material::GRAVEL]],
-      [PICKAXES, [Material::NETHERRACK]],
-      [PICKAXES, [Material::STONE, Material::COAL_ORE]],
-      [PICKAXES, [Material::COBBLESTONE]]]
+    tool_block_type_table = {
+      SPADES => [Material::DIRT, Material::GRASS, Material::SAND, Material::GRAVEL,
+      PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE]}
     _, block_group = tool_block_type_table.find {|tools, _|
       tools.include? player.item_in_hand.type
     }
