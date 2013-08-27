@@ -1333,7 +1333,7 @@ module EventHandler
         [prevb, b.type, b.data]
       } + [[location_cursor.block, Material::AIR, 0]]
       later 0 do
-        tuples.each do |goes_to, btype, bdata|
+        tuples.reverse.each do |goes_to, btype, bdata|
           goes_to.type = btype
           goes_to.data = bdata
         end
