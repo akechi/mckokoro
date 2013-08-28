@@ -1405,13 +1405,19 @@ module EventHandler
         evt.cancelled = true
       end
     when Egg
-      if Villager === defender && Player === evt.damager.shooter
-        villager = defender
-        player = evt.damager.shooter
+      case defender
+      when Player
+        defender.food_level = [defender.food_level + 2, 20].min
+        defender.exhaustion = jfloat(0)
+      when Villager
+        if Player === evt.damager.shooter
+          villager = defender
+          player = evt.damager.shooter
 
-        evt.cancelled = true
-        evt.damager.remove
-        villager.set_leash_holder player
+          evt.cancelled = true
+          evt.damager.remove
+          villager.set_leash_holder player
+        end
       end
     when Player
       player = evt.damager
