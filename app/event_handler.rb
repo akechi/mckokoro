@@ -965,6 +965,8 @@ module EventHandler
   @horse_sword_swing_flag ||= {}
   def horse_sword_swing(action, player)
     return if @horse_sword_swing_flag[player.name]
+    return unless player.item_in_hand
+    return unless SWORDS.include?(player.item_in_hand.type)
     vehicle = player.vehicle
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     return unless vehicle
