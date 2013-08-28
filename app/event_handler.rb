@@ -970,9 +970,9 @@ module EventHandler
     return unless vehicle
     return unless Horse === vehicle
     vehicle.velocity = vehicle.velocity.tap {|v|
-      y = v.get_y
-      v.multiply(jfloat(3.0))
-      v.set_y(jfloat(y + 0.4))
+      v.set_x(v.get_x * 2.0)
+      v.set_y(v.get_y + 0.2)
+      v.set_z(v.get_z * 2.0)
     }
     @horse_sword_swing_flag[player.name] = true
     later sec(1) do
