@@ -754,7 +754,7 @@ module EventHandler
         strike_lightning(loc)
         if Player === shooter
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 300
+          bonus = (distance ** 3) / 350
           shooter.send_message "distance: #{distance}, bonus: #{bonus}"
           bonus.times do
             case rand(200)
@@ -1564,7 +1564,7 @@ module EventHandler
           if num_lava > 5
             block_below.type = Material::AIR
             drop_item(
-              evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..5].sample))
+              evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..4].sample))
           end
         end
       end
