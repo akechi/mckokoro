@@ -1193,7 +1193,7 @@ module EventHandler
       SPADES => [Material::DIRT, Material::GRASS, Material::SAND, Material::GRAVEL],
       PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE]}
     _, block_group = tool_block_type_table.find {|tools, _|
-      block_group.include? broken_block.type && tools.include? player.item_in_hand.type
+      block_group.include?(broken_block.type) && tools.include?(player.item_in_hand.type)
     }
     return unless block_group
     blocks = location_around(broken_block.location, 1).
