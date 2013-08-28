@@ -969,8 +969,8 @@ module EventHandler
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     vehicle.velocity = vehicle.velocity.tap {|v|
       y = v.get_y
-      v.multiply(2.0)
-      v.set_y y
+      v.multiply(jfloat(2.0))
+      v.set_y(jfloat(y + 0.1))
     }
   end
   private :horse_sword_swing
