@@ -967,7 +967,11 @@ module EventHandler
     return unless vehicle
     return unless Horse === vehicle
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
-    player.send_message 'ok'
+    vehicle.velocity = vehicle.velocity.tap {|v|
+      y = v.get_y
+      v.multiply(2.0)
+      v.set_y y
+    }
   end
   private :horse_sword_swing
 
