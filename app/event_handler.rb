@@ -969,11 +969,13 @@ module EventHandler
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     return unless vehicle
     return unless Horse === vehicle
-    vehicle.velocity = vehicle.velocity.tap {|v|
-      v.set_x(jfloat(v.get_x * 2.0))
-      v.set_y(jfloat(v.get_y + 0.2))
-      v.set_z(jfloat(v.get_z * 2.0))
-    }
+    later 0 do
+      vehicle.velocity = vehicle.velocity.tap {|v|
+        v.set_x(jfloat(v.get_x * 2.0))
+        v.set_y(jfloat(v.get_y + 0.2))
+        v.set_z(jfloat(v.get_z * 2.0))
+      }
+    end
     @horse_sword_swing_flag[player.name] = true
     later sec(0.5) do
       @horse_sword_swing_flag[player.name] = false
