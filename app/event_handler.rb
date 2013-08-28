@@ -962,16 +962,22 @@ module EventHandler
     end
   end
 
+  @horse_sword_swing_flag ||= {}
   def horse_sword_swing(action, player)
+    return if @horse_sword_swing[player.name]
     vehicle = player.vehicle
+    return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     return unless vehicle
     return unless Horse === vehicle
-    return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     vehicle.velocity = vehicle.velocity.tap {|v|
       y = v.get_y
       v.multiply(jfloat(1.5))
       v.set_y(jfloat(y + 0.3))
     }
+    @horse_sword_swing_flag[player.name] = true
+    later sec(1) do
+      @horse_sword_swing_flag[player.name] = false
+    end
   end
   private :horse_sword_swing
 
