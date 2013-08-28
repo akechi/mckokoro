@@ -962,6 +962,15 @@ module EventHandler
     end
   end
 
+  def horse_sword_swing(action, player)
+    vehicle = player.vehicle
+    return unless vehicle
+    return unless Horse === vehicle
+    return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
+    player.send_message 'ok'
+  end
+  private :horse_sword_swing
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
@@ -975,6 +984,7 @@ module EventHandler
 
     killerqueen_explode(evt)
     clock_timechange(evt.player)
+    horse_sword_swing(evt.action, evt.player)
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
