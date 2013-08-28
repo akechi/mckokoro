@@ -971,7 +971,7 @@ module EventHandler
     vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
-    consume_item_durability(evt.player, 1)
+    consume_item_durability(player, 1)
     vehicle.velocity = vehicle.velocity.tap {|v|
       v.set_x(jfloat(v.get_x * 10.0))
       v.set_y(jfloat(v.get_y + 0.2))
