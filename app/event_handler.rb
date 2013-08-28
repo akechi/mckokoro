@@ -967,10 +967,11 @@ module EventHandler
     return if @horse_sword_swing_flag[player.name]
     return unless player.item_in_hand
     return unless SWORDS.include?(player.item_in_hand.type)
-    vehicle = player.vehicle
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
+    vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
+    consume_item_durability(evt.player, 1)
     vehicle.velocity = vehicle.velocity.tap {|v|
       v.set_x(jfloat(v.get_x * 10.0))
       v.set_y(jfloat(v.get_y + 0.2))
