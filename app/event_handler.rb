@@ -985,6 +985,7 @@ module EventHandler
     vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
+    return unless vehicle.velocity.get_x == 0.0 && vehicle.velocity.get_z == 0.0
     stochastically(70) do
       consume_item_durability(player, 1)
     end
@@ -997,7 +998,6 @@ module EventHandler
 
       vehicle.velocity = vehicle.velocity.tap {|v|
         v.set_x(jfloat(v.get_x * 10.0))
-        v.set_y(jfloat(v.get_y + 0.2))
         v.set_z(jfloat(v.get_z * 10.0))
       }
     end
