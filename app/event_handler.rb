@@ -988,7 +988,7 @@ module EventHandler
     return unless Horse === vehicle
     return if vehicle.velocity.get_x == 0.0 && vehicle.velocity.get_z == 0.0
     return unless vehicle.on_ground?
-    play_sound(vehicle.location, Sound::WITHER_HURT, 0.8, 1.5)
+    play_sound(vehicle.location, Sound::FALL_BIG, 0.8, 1.5)
     stochastically(70) do
       consume_item_durability(player, 1)
     end
