@@ -376,6 +376,13 @@ module EventHandler
           player.send_message 'You may want to check browser map as well.'
           player.send_message 'http://mck.supermomonga.com'
         end
+      else
+        player.send_message 'There will be a CTF this weekend!'
+        player.send_message '  (今週末にCTFやりたいなあ)'
+        player.send_message 'It will be at 8pm PDT on the Saturday.'
+        player.send_message '  (日本時間でいうと日曜の正午(12pm)とかどうかな?)'
+        player.send_message 'By the way there will be a downtown during 12am~4am on Friday'
+        player.send_message '  (ちなみに計画停電のため日本時間の金曜の4pm~8pmの間,鯖とまるかも)'
       end
     end
   end
