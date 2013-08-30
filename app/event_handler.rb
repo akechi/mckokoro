@@ -2190,6 +2190,20 @@ module EventHandler
             names.each_slice(3) do |names2|
               sender.send_message names2.join ', '
             end
+          when "another-world"
+            current_world = sender.world.name
+            next_world = {
+              "world" => "mc68",
+              "mc68" => "world",
+            }[current_world]
+            if next_world
+              sender.send_message "[debug] #{current_world} -> #{next_world}"
+              serialized_inv = sender.inventory.to_a.map {|is|
+                is && is.serialize
+              }
+              p serialized_inv
+              puts '--------'
+            end
           end
         end
         true
