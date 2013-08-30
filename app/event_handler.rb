@@ -1,3 +1,4 @@
+# coding: utf-8
 import 'java.util.HashSet'
 import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
@@ -378,11 +379,11 @@ module EventHandler
         end
       else
         player.send_message 'There will be a CTF this weekend!'
-        player.send_message '  (º£½µËö¤ËCTF¤ä¤ê¤¿¤¤¤Ê¤¢)'
+        player.send_message '  (ä»Šé€±æœ«ã«CTFã‚„ã‚ŠãŸã„ãªã‚)'
         player.send_message 'It will be at 8pm PDT on the Saturday.'
-        player.send_message '  (ÆüËÜ»ş´Ö¤Ç¤¤¤¦¤ÈÆüÍË¤ÎÀµ¸á(12pm)¤È¤«¤É¤¦¤«¤Ê?)'
+        player.send_message '  (æ—¥æœ¬æ™‚é–“ã§ã„ã†ã¨æ—¥æ›œã®æ­£åˆ(12pm)ã¨ã‹ã©ã†ã‹ãª?)'
         player.send_message 'By the way there will be a downtown during 12am~4am on Friday'
-        player.send_message '  (¤Á¤Ê¤ß¤Ë·×²èÄäÅÅ¤Î¤¿¤áÆüËÜ»ş´Ö¤Î¶âÍË¤Î4pm~8pm¤Î´Ö,»ª¤È¤Ş¤ë¤«¤â)'
+        player.send_message '  (ã¡ãªã¿ã«è¨ˆç”»åœé›»ã®ãŸã‚æ—¥æœ¬æ™‚é–“ã®é‡‘æ›œã®4pm~8pmã®é–“,é¯–ã¨ã¾ã‚‹ã‹ã‚‚)'
       end
     end
   end
