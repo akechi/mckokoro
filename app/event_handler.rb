@@ -649,6 +649,18 @@ module EventHandler
           fall_block(b)
         end
       end
+    when Material::PUMPKIN, Material::JACK_O_LANTERN
+      base_loc = evt.block_placed.location
+      mod_x, mod_z =
+        let(evt.block_placed.state.date.facing) {|f| [f.mod_x, f.mod_z] }
+      cond =
+        add_loc(base_loc, 0, -1, 0).block.type == Material::DIAMOND_BLOCK &&
+        add_loc(base_loc, mod_x, -1, mod_z).block.type == Material::DIAMOND_BLOCK &&
+        add_loc(base_loc, -mod_x, -1, -mod_z).block.type == Material::DIAMOND_BLOCK &&
+        add_loc(base_loc, 0, -2, 0).block.type == Material::DIAMOND_BLOCK
+      if cond
+        player.send_message "Success!"
+      end
     end
   end
 
