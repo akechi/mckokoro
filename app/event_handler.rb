@@ -985,7 +985,6 @@ module EventHandler
     vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
-    evt.cancelled = true
     stochastically(70) do
       consume_item_durability(player, 1)
     end
