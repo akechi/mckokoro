@@ -728,7 +728,6 @@ module EventHandler
     amounts.all? {|k, v| v == 0 }
   end
 
-  @mimic_player ||= {}
   def on_player_interact_entity(evt)
     player = evt.player
     case evt.right_clicked
@@ -753,22 +752,14 @@ module EventHandler
         #if @ctf_players.member?(player) && @ctf_players.member?(target) && !target.vehicle
         #  play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
         #  player.set_passenger target
-        if Job.of(player) == :mimic
-          @mimic_player[target] = player
-          later sec(20) do
-            @mimic_player[target] = nil if @mimic_player[target] == player
-            player.send_message "finished mimicing #{target.name}'s behaviour"
-          end
-        else
-          vec = target.location.clone.subtract(player.location).to_vector
-          vec.set_y jfloat(0.0)
-          vec = vec.normalize.multiply(jfloat(0.5))
-          vec.set_y jfloat(0.1)
-          target.velocity = vec
-          later sec(0.1) do
-            target.velocity.set_x jfloat(0.0)
-            target.velocity.set_z jfloat(0.0)
-          end
+        vec = target.location.clone.subtract(player.location).to_vector
+        vec.set_y jfloat(0.0)
+        vec = vec.normalize.multiply(jfloat(0.5))
+        vec.set_y jfloat(0.1)
+        target.velocity = vec
+        later sec(0.1) do
+          target.velocity.set_x jfloat(0.0)
+          target.velocity.set_z jfloat(0.0)
         end
       end
     when Chicken
@@ -2354,15 +2345,6 @@ module EventHandler
     end
 
     # barrage_visual_orb(player)
-
-    # mimic
-    mimicer = @mimic_player[player]
-    if mimicer
-      mimic_loc = add_loc(evt.to, 2.0, 0.0, 0.0)
-      unless mimic_loc.block.type.solid?
-        mimicer.teleport(mimic_loc)
-      end
-    end
 
     # fall damage cancel with sword blocking
     if diff_y < 0 && player.blocking? && player.fall_distance >= 4.0
