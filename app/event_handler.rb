@@ -985,7 +985,7 @@ module EventHandler
     vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
-    return unless vehicle.velocity.get_x == 0.0 && vehicle.velocity.get_z == 0.0
+    return if vehicle.velocity.get_x == 0.0 && vehicle.velocity.get_z == 0.0
     stochastically(70) do
       consume_item_durability(player, 1)
     end
