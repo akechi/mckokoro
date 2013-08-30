@@ -990,8 +990,10 @@ module EventHandler
     end
 
     vehicle.eject
-    vehicle.teleport(add_loc(vehicle.location, 0, 1, 0))
-    vehicle.set_passenger player
+    later 0 do
+      vehicle.teleport(add_loc(vehicle.location, 0, 1, 0))
+      vehicle.set_passenger player
+    end
 
     #vehicle.velocity = vehicle.velocity.tap {|v|
     #  v.set_x(jfloat(v.get_x * 10.0))
