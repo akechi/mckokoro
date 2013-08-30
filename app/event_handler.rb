@@ -992,9 +992,10 @@ module EventHandler
     end
 
     vehicle.eject
-    player.teleport(add_loc(player.location, 0, 0.8, 0))
+    player_loc = player.location
     later 0 do
       vehicle.teleport(add_loc(vehicle.location, 0, 0.8, 0))
+      player.teleport(player_loc)
       vehicle.set_passenger player
 
       vehicle.velocity = vehicle.velocity.tap {|v|
@@ -1004,7 +1005,7 @@ module EventHandler
     end
 
     @horse_sword_swing_flag[player.name] = true
-    later sec(0.5) do
+    later sec(1) do
       @horse_sword_swing_flag[player.name] = false
     end
   end
