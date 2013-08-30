@@ -698,7 +698,9 @@ module EventHandler
       case action
       when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
         player.velocity = player.velocity.tap{|v| v.setY jfloat(1.4) }
-        consume_item(player) if rand(2) == 0
+        stochastically(50) do
+          consume_item(player)
+        end
         player.fall_distance = 0.0
       end
     else
@@ -709,7 +711,9 @@ module EventHandler
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
         player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
-        consume_item(player) if rand(2) == 0
+        stochastically(50) do
+          consume_item(player)
+        end
         player.fall_distance = 0.0
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
@@ -717,7 +721,9 @@ module EventHandler
           v.setY jfloat(0)
           v.setZ jfloat(0)
         end
-        consume_item(player) if rand(2) == 0
+        stochastically(50) do
+          consume_item(player)
+        end
         player.fall_distance = 0.0
       end
     end
@@ -779,7 +785,7 @@ module EventHandler
             end
           end
         end
-        if rand(50) == 0
+        stochastically(2) do
           loc.block.type = Material::AIR
         end
       end
@@ -867,13 +873,17 @@ module EventHandler
         when *killerqueen_explodable_blocks
           if target_distance <= explodable_distance
             target.type = Material::AIR
-            consume_item(player) if rand(3) == 0
+            stochastically(33) do
+              consume_item(player)
+            end
           end
         when Material::TNT
           # explode TNT (can be long distance)
           target.type = Material::AIR
           explode(target.location, 3, false)
-          consume_item(player) if rand(3) == 0
+          stochastically(33) do
+            consume_item(player)
+          end
         end
       end
     end
@@ -1031,7 +1041,9 @@ module EventHandler
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
           evt.clicked_block.type = Material::DIRT
-          drop_item(evt.clicked_block.location, ItemStack.new(Material::SEEDS)) if rand(3) == 0
+          stochastically(33) do
+            drop_item(evt.clicked_block.location, ItemStack.new(Material::SEEDS))
+          end
         end
       end
 
@@ -1058,7 +1070,7 @@ module EventHandler
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
         if rand(5) == 0
-          if rand(10) == 0 # 1/(5*10) possibility
+          stochastically(10) do # 1/(5*10) possibility
             evt.clicked_block.type = Material::WOOD
             evt.clicked_block.data = evt.clicked_block.state.data.species.data
           end
