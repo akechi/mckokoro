@@ -109,6 +109,10 @@ module Util
     add_loc(block.location, 0.5, 0.0, 0.5)
   end
 
+  def stochastically(percentage)
+    yield if rand(100) < percentage
+  end
+
   # dummy
   def sleep(*x)
     warn "Don't use it"
@@ -971,7 +975,10 @@ module EventHandler
     vehicle = player.vehicle
     return unless vehicle
     return unless Horse === vehicle
-    consume_item_durability(player, 1)
+    evt.cancelled = true
+    stochastically(70) do
+      consume_item_durability(player, 1)
+    end
     vehicle.velocity = vehicle.velocity.tap {|v|
       v.set_x(jfloat(v.get_x * 10.0))
       v.set_y(jfloat(v.get_y + 0.2))
