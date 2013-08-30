@@ -2163,20 +2163,20 @@ module EventHandler
   end
 
   def on_command(sender, cmd, label, args)
+    args = args.to_a
     case label
     when 'lingr'
       case sender
       when Player
         false
       else
-        post_lingr args.to_a.join ' '
+        post_lingr args.join ' '
         true
       end
     when "mck"
       # temporary
       case sender
       when Player
-        args = args.to_a
         mck_cmd = args[0]
         if mck_cmd
           case mck_cmd.to_sym
@@ -2200,9 +2200,8 @@ module EventHandler
     when "inv"
       case sender
       when Player
-        #p [:cmd, sender, cmd, label, args.to_a]
         sender.open_workbench sender.location, true
-        play_sound(sender.location, Sound::EXPLODE, 1.0, 1.0)
+        play_sound(sender.location, Sound::ANVIL_LAND, 1.0, 1.0)
         true
       else
         false
