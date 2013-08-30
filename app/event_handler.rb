@@ -3,6 +3,7 @@ import 'org.bukkit.Bukkit'
 import 'org.bukkit.Material'
 import 'org.bukkit.Effect'
 import 'org.bukkit.Sound'
+import 'org.bukkit.Location'
 import 'org.bukkit.SkullType'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
@@ -28,6 +29,9 @@ require 'digest/sha1'
 require 'erb'
 require 'open-uri'
 require 'json'
+
+# MEMO
+# {"meiraka house"=>["world", -781.0, 69.0, -272.0, 0.0, 0.0], "mozukusoba house"=>["world", -464.0, 64.0, 144.0, 0.0, 0.0], "supermomonga house"=>["world", -383.0, 65.0, 486.0, 0.0, 0.0], "thinca house"=>["world", -686.0, 140.0, 44.0, 0.0, 0.0], "zombie spawner"=>["world", -418.0, 18.0, 153.0, 0.0, 0.0], "westin hotel"=>["world", -732.0, 84.0, 507.0, 0.0, 0.0], "skeleton spawner"=>["world", -381.0, 10.0, 17.0, 0.0, 0.0], "tnt cannon"=>["world", -547.0, 64.0, 859.0, 0.0, 0.0], "karigurasi no raa0121's house"=>["world", -461.0, 73.0, 138.0, 0.0, 0.0], "meiraka station"=>["world", -854.0, 77.0, -305.0, 0.0, 0.0], "fane"=>["world", -536.0, 129.0, -159.0, 0.0, 0.0], "tukushigamo house"=>["world", -441.0, 35.0, 123.0, 0.0, 0.0], "meieki"=>["world", -845.0, 72.0, -304.0, 0.0, 0.0], "tukushi tijou"=>["world", -444.0, 63.0, 118.0, 0.0, 0.0], "tenkuu tt"=>["world", -449.0, 192.0, 109.0, 0.0, 0.0]}
 
 module Util
   extend self
@@ -225,6 +229,14 @@ module Util
     world_name, loc_x, loc_y, loc_z, loc_yaw, loc_pitch = sloc
     Location.new(
       Bukkit.get_world(world_name), loc_x, loc_y, loc_z, jfloat(loc_yaw), jfloat(loc_pitch))
+  end
+
+  def serialize_sign_location_list(sign_location_list)
+    Hash[sign_location_list.map {|k, v| [k, serialize_location(v)] }]
+  end
+
+  def deserialize_sign_location_list(s_sign_location_list)
+    Hash[s_sign_location_list.map {|k, v| [k, deserialize_location(v)] }]
   end
 
   def facing_next(facing)
