@@ -431,15 +431,13 @@ module EventHandler
   def on_player_portal(evt)
     name = evt.player.name
     loc = evt.player.location.block.location # to align
-    post_lingr("#{name} is using a portal at #{loc}.")
-    broadcast("#{name} is using a portal at #{loc}.")
+    broadlingr("#{name} is using a portal at #{loc}.")
   end
 
   def on_entity_portal_enter(evt)
     name = evt.entity.type.downcase.to_s
     loc = evt.player.location.block.location # to align
-    post_lingr("#{name} is using a portal at #{loc}.")
-    broadcast("#{name} is using a portal at #{loc}.")
+    broadlingr("#{name} is using a portal at #{loc}.")
   end
 
   def on_entity_death(evt)
@@ -1349,7 +1347,7 @@ module EventHandler
             pitch, yaw = face2pitchyaw(face)
             safety_loc.set_yaw(yaw + 180)
             player.teleport safety_loc
-            broadcast "#{ player.name } teleported to #{ name }"
+            broadlingr "#{player.name} teleported to #{name}"
           else
             player.send_message "No such location or there aren't safety place around the sign."
           end
@@ -1362,7 +1360,7 @@ module EventHandler
 
         @db['sign_location_list'][name] = serialize_location loc
         db_save
-        broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
+        broadlingr "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       #when :direction
       #  player.teleport(player.location.tap {|l|
       #    pitch, yaw = face2pitchyaw(sign_state.data.facing)
@@ -1952,8 +1950,7 @@ module EventHandler
     passenger = player.passenger
     if passenger && Squid === passenger
       msg = "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
-      broadcast msg
-      post_lingr msg
+      broadlingr msg
       player.eject
       later 0 do
         vel = player.velocity
