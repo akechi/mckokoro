@@ -14,6 +14,7 @@ module Job
       archtect: 'Good at building. You can fill an area with using tripwires!',
       grimreaper: '(supermomonga will write here)',
       barrage: '(supermomonga will write here)',
+      enderman: 'teleport to somebody secretly',
     }
   end
 
@@ -22,6 +23,12 @@ module Job
   @job_player ||= {}
   @job_exp ||= {}
   @job_recipes ||= {}
+  set_recipe(
+    :enderman,
+    {
+      masteries: {novice: 0},
+      votive: [ItemStack.new(Material::ENDER_PEARL, 1)]
+    })
 
   def reload
     EventHandler.later 0 do

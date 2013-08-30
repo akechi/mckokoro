@@ -1175,6 +1175,31 @@ module EventHandler
   end
   private :horse_sword_swing
 
+  def use_enderpearl(action, player)
+    return unless action == Action::RIGHT_CLICK_AIR || action == Action::LEFT_CLICK_BLOCK
+    return unless player.item_in_hand.type == Material::ENDER_PEARL
+    friends = Bukkit.online_players.to_a - [player]
+    friend = friends.sample
+    return unless friend
+
+    friend_loc = friend.location
+    locs_nearby = location_around_flat(friend_loc) - [friend_loc]
+    available_locs = locs_nearby.select {|l|
+      l.block.type == Material::AIR &&
+        loc_above(l).block.type == Material::AIR &&
+        loc_below(l).block.type.solid?
+    }
+    loc_to = available_locs.max_by {|l| l.distance(friend_loc) }
+    return unless loc_to
+    player.teleport(player.location.tap {|l|
+      l.set_x loc_to.get_x
+      l.set_y loc_to.get_y
+      l.set_z loc_to.get_z
+    })
+    # consume_item(player)
+  end
+  private :use_enderpearl
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
@@ -1187,6 +1212,7 @@ module EventHandler
     killerqueen_explode(evt)
     clock_timechange(evt.player)
     horse_sword_swing(evt.action, evt.player)
+    use_enderpearl(evt.action, evt.player)
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
