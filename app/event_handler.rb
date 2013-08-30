@@ -992,6 +992,7 @@ module EventHandler
     vehicle.eject
     later 0 do
       vehicle.teleport(add_loc(vehicle.location, 0, 1, 0))
+      player.teleport(add_loc(player.location, 0, 1, 0))
       vehicle.set_passenger player
 
       vehicle.velocity = vehicle.velocity.tap {|v|
