@@ -658,6 +658,18 @@ module EventHandler
           end
         end
       end
+    when Chicken
+      if player.item_in_hand.type == Material::SHEARS
+        stochastically(50) do
+          target = evt.right_clicked
+          loc = target.location
+          play_sound(loc, Sound::SHEEP_SHEAR, 0.8, 1.5)
+          drop_item(loc, ItemStack.new(Material::FEATHER, 1))
+          stochastically(80) do
+            consume_item_durability(player, 1)
+          end
+        end
+      end
     when Squid
       squid = evt.right_clicked
       if @earthwork_squids[squid]
