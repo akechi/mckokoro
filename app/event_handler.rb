@@ -749,14 +749,14 @@ module EventHandler
     when Player
       if player.item_in_hand.type == Material::AIR
         target = evt.right_clicked
-        #if @ctf_players.member?(player) && @ctf_players.member?(target) && !target.vehicle
-        #  play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
-        #  player.set_passenger target
+
         vec = target.location.clone.subtract(player.location).to_vector
-        vec.set_y jfloat(0.0)
-        vec = vec.normalize.multiply(jfloat(0.5))
-        vec.set_y jfloat(0.1)
-        target.velocity = vec
+        x, y, z = [
+          (vec.get_x * 0.5) / (vec.get_x + vec.get_z),
+          0.0,
+          (vec.get_z * 0.5) / (vec.get_x + vec.get_z)]
+        target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
+        target.teleport(add_loc(target.location, 0.0, 0.1, 0.0))
         later sec(0.1) do
           target.velocity.set_x jfloat(0.0)
           target.velocity.set_z jfloat(0.0)
