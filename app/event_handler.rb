@@ -1492,13 +1492,13 @@ module EventHandler
       if !player.sneaking? && !loc_above(damaged_block.location).block.liquid?
         break_naturally_by_dpickaxe(damaged_block)
         # TODO use something like location_around
-        diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
-        diffs.each do |x, y, z|
-          block = damaged_block.location.clone.add(x, y, z).block
-          if block.type == Material::SAND
-            break_naturally_by_dpickaxe(block)
-          end
-        end
+        # diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
+        # diffs.each do |x, y, z|
+        #   block = damaged_block.location.clone.add(x, y, z).block
+        #   if block.type == Material::SAND
+        #     break_naturally_by_dpickaxe(block)
+        #   end
+        # end
       end
     end
   end
