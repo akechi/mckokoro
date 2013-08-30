@@ -794,24 +794,6 @@ module EventHandler
         earthwork_squids_work(squid)
       end
     when Villager
-      # job change
-      # job recipes
-      # TODO: move to each Job class
-      Job.set_recipe(:novice, {
-        masteries: {novice: 0},
-        votive: [
-          ItemStack.new(Material::SUGAR, 1),
-          ItemStack.new(Material::COBBLESTONE, 1)
-        ]
-      })
-      Job.set_recipe(:killerqueen, {
-        masteries: {novice: 0},
-        votive: [
-          ItemStack.new(Material::SULPHUR, 64),
-          ItemStack.new(Material::SUGAR, 64),
-          ItemStack.new(Material::DIAMOND, 32)
-        ]
-      })
       # job change by villager
       location = evt.right_clicked.location
       Job.change_event(
@@ -1193,14 +1175,6 @@ module EventHandler
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
         sign_command(evt.player, evt.clicked_block.state, evt)
       end
-      # Grim Reaper
-      Job.set_recipe(
-        :grimreaper,
-        {
-          masteries: {novice: 0},
-          votive: [
-            ItemStack.new(Material::SUGAR, 1),
-            ItemStack.new(Material::STONE_HOE, 1)]})
 
       case [evt.clicked_block.type, evt.action]
       #when [Material::STONE_PLATE, Action::PHYSICAL]
@@ -2193,6 +2167,24 @@ module EventHandler
     torch_coal = ShapelessRecipe.new(ItemStack.new(Material::COAL, 1))
     torch_coal.add_ingredient(2, Material::TORCH)
     Bukkit.add_recipe torch_coal
+
+    # job recipes
+    # TODO: move to each Job class
+    Job.set_recipe(:novice, {
+      masteries: {novice: 0},
+      votive: [
+        ItemStack.new(Material::SUGAR, 1),
+        ItemStack.new(Material::COBBLESTONE, 1)
+      ]
+    })
+    Job.set_recipe(:killerqueen, {
+      masteries: {novice: 0},
+      votive: [
+        ItemStack.new(Material::SULPHUR, 64),
+        ItemStack.new(Material::SUGAR, 64),
+        ItemStack.new(Material::DIAMOND, 32)
+      ]
+    })
   end
 
   def on_command(sender, cmd, label, args)
