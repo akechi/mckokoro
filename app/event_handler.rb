@@ -351,19 +351,20 @@ module EventHandler
     #   update_hide_player(player, evt.player)
     # end
 
+    player = evt.player
     later 0 do
-      player = evt.player
       player_first_time_p =
         player.inventory.contents.to_a.compact.empty? &&
         player.health == player.max_health
       if player_first_time_p
         player.send_message 'You are first time to visit here right?'
         player.send_message 'Check your inventory. You already have good stuff.'
-        [ItemStack.new(Material::COBBLESTONE, 64),
-         ItemStack.new(Material::MUSHROOM_SOUP),
-         ItemStack.new(Material::WHEAT, 32),
+        [ItemStack.new(Material::COBBLESTONE, rand(64) + 1),
+         ItemStack.new(Material::MUSHROOM_SOUP, 2),
+         ItemStack.new(Material::WHEAT, rand(64) + 1),
          ItemStack.new(Material::WOOD, 10),
-         ItemStack.new(Material::LEATHER_CHESTPLATE)].each do |istack|
+         ItemStack.new(Material::LEATHER_HELMET, 1),
+         ItemStack.new(Material::PUMPKIN_PIE, 1)].each do |istack|
           player.inventory.add_item istack
          end
         later sec(20) do
