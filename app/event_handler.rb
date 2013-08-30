@@ -2174,18 +2174,20 @@ module EventHandler
         true
       end
     when "mck"
-      # temporary
       case sender
       when Player
         mck_cmd = args[0]
         if mck_cmd
-          case mck_cmd.to_sym
-          when :job
+          case mck_cmd
+          when "job"
+            sender.send_message "This feature will not be available soon."
             Job.become(sender, args[1].to_sym) if args[1]
-          when :update_recipe
+          when "update-recipe"
             update_recipes
             broadcast "Recipe updated!"
-          when :list_enchant
+          when "what-time"
+            broadcase Time.now.to_s
+          when "list-enchant"
             names = Enchantment.values.to_a.
               map(&:name).map(&:downcase)
             names.each_slice(3) do |names2|
