@@ -1005,7 +1005,7 @@ module EventHandler
     end
 
     @horse_sword_swing_flag[player.name] = true
-    later sec(1) do
+    later sec(0.8) do
       @horse_sword_swing_flag[player.name] = false
     end
   end
