@@ -660,14 +660,28 @@ module EventHandler
       end
     when Chicken
       if player.item_in_hand.type == Material::SHEARS
-        stochastically(50) do
+        stochastically(40) do
           target = evt.right_clicked
           loc = target.location
+
+          @chicken_feather_durability ||= {}
+          @chicken_feather_durability[target] ||= 0
+          @chicken_feather_durability[target] += 1
+          if @chicken_feather_durability[target] > 5
+            target.damage(target.max_health, player)
+          end
+          later sec(30) do
+            if target.valid?
+              smoke_effect(loc)
+              @chicken_feather_durability[target] -= 1
+            else
+              @chicken_feather_durability.delete(target)
+            end
+          end
+
           play_sound(loc, Sound::SHEEP_SHEAR, 0.8, 1.5)
           drop_item(loc, ItemStack.new(Material::FEATHER, 1))
-          stochastically(80) do
-            consume_item_durability(player, 1)
-          end
+          consume_item_durability(player, 1)
         end
       end
     when Squid
@@ -1607,7 +1621,7 @@ module EventHandler
           if num_lava > 5
             block_below.type = Material::AIR
             drop_item(
-              evt.entity.location, ItemStack.new(Material::DIAMOND, [*2..4].sample))
+              evt.entity.location, ItemStack.new(Material::DIAMOND, [*1..4].sample))
           end
         end
       end
