@@ -210,6 +210,15 @@ module Util
     r.(*params)
   end
 
+  def serialize_location(loc)
+    [loc.world.name, loc.x, loc.y, loc.z, loc.yaw, loc.pitch]
+  end
+
+  def deserialize_location(sloc)
+    world_name, loc_x, loc_y, loc_z, loc_yaw, loc_pitch = sloc
+    Location.new(
+      Bukkit.get_world(world_name), loc_x, loc_y, loc_z, jfloat(loc_yaw), jfloat(loc_pitch))
+  end
 
   def silence_warnings
     old_verbose, $VERBOSE = $VERBOSE, nil
