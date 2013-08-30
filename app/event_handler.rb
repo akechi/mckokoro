@@ -988,7 +988,11 @@ module EventHandler
     stochastically(70) do
       consume_item_durability(player, 1)
     end
+
+    vehicle.eject
     vehicle.teleport(add_loc(vehicle.location, 0, 1, 0))
+    vehicle.set_passenger player
+
     #vehicle.velocity = vehicle.velocity.tap {|v|
     #  v.set_x(jfloat(v.get_x * 10.0))
     #  v.set_y(jfloat(v.get_y + 0.2))
