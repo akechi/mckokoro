@@ -359,7 +359,11 @@ module EventHandler
       '%s.vim',
       '<%s> イカカワイイデス',
     ].sample % name
-    post_lingr "#{name} logged in."
+    if name == 'ujm' # TODO temp
+      evt.join_message = ''
+    else
+      post_lingr "#{name} logged in."
+    end
 
     # Bukkit.online_players.each do |player|
     #   update_hide_player(player, evt.player)
@@ -2205,7 +2209,7 @@ module EventHandler
         if mck_cmd
           case mck_cmd
           when "job"
-            sender.send_message "This feature will not be available soon."
+            sender.send_message "This feature will not be available tomorrow."
             Job.become(sender, args[1].to_sym) if args[1]
           when "update-recipe"
             update_recipes
@@ -2221,7 +2225,7 @@ module EventHandler
           when "countdown"
             5.times do |i|
               later sec(i) do
-                broadcast "[COUNTDOWN] #{4 - i}"
+                broadcast "[COUNTDOWN] <#{sender.name}> #{4 - i}"
               end
             end
           when "another-world"
