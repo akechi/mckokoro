@@ -984,6 +984,7 @@ module EventHandler
     return unless [Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR].include?(action)
     vehicle = player.vehicle
     return unless vehicle
+    return if add_loc(vehicle.location, 0, 1, 0).block.type.solid?
     return unless Horse === vehicle
     return if vehicle.velocity.get_x == 0.0 && vehicle.velocity.get_z == 0.0
     return unless vehicle.on_ground?
