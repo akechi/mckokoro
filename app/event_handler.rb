@@ -2186,7 +2186,7 @@ module EventHandler
             update_recipes
             broadcast "Recipe updated!"
           when "what-time"
-            broadcase Time.now.to_s
+            broadcast Time.now.to_s
           when "list-enchant"
             names = Enchantment.values.to_a.
               map(&:name).map(&:downcase)
