@@ -637,6 +637,21 @@ module EventHandler
   def on_player_interact_entity(evt)
     player = evt.player
     case evt.right_clicked
+    when PigZombie
+    when Zombie
+      # TODO this is dead-copy from Player clause
+      if player.item_in_hand.type == Material::AIR
+        target = evt.right_clicked
+        vec = target.location.clone.subtract(player.location).to_vector
+          vec.set_y jfloat(0.0)
+        vec = vec.normalize.multiply(jfloat(0.5))
+        vec.set_y jfloat(0.1)
+        target.velocity = vec
+        later sec(0.1) do
+          target.velocity.set_x jfloat(0.0)
+          target.velocity.set_z jfloat(0.0)
+        end
+      end
     when Player
       if player.item_in_hand.type == Material::AIR
         target = evt.right_clicked
