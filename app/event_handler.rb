@@ -1903,10 +1903,27 @@ module EventHandler
     end
   end
 
+  def pvp_in_area?(loc)
+    -609 <= loc.x && loc.x <= -532 &&
+      79 <= loc.z && loc.z <= 156
+  end
+
+  def pvp_centre_xyz
+    [-571, 65.5, 118]
+  end
+
+  @pvp_players ||= Set.new
   def on_player_move(evt)
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
+    if !@pvp_players[player] && pvp_in_area?(evt.to)
+      @pvp_players << player
+      broadcast "#{player.name} joined PVP!"
+    elsif @pvp_players[player] && !pvp_in_area?(evt.to)
+      @pvp_players.delete(player)
+      broadcast "#{player.name} left PVP..."
+    end
     # barrage_visual_orb(player)
 
     # mimic
