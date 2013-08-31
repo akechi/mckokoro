@@ -1403,6 +1403,7 @@ module EventHandler
   end
 
   def on_block_piston_retract(evt)
+    return
     retract_block = evt.retract_location.block
     if evt.sticky? && retract_block.type == Material::FENCE
       face = evt.direction
