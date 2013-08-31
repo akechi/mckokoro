@@ -1002,6 +1002,11 @@ module EventHandler
     end
   end
 
+  #def on_vehicle_exit(evt)
+  #  vehicle = evt.vehicle
+  #  case vehicle
+  #end
+
   @horse_sword_swing_flag ||= {}
   def horse_sword_swing(action, player)
     return if @horse_sword_swing_flag[player.name]
@@ -1398,7 +1403,7 @@ module EventHandler
   end
 
   def on_block_piston_retract(evt)
-    if evt.block.type == Material::PISTON_STICKY_BASE && evt.retract_location.block.type == Material::FENCE
+    if evt.sticky? && evt.retract_location.block.type == Material::FENCE
       face = evt.direction
       tuples = cloop(20, evt.retract_location.block, []) {|recur, num, cur_block, acc|
         if num == 0 || !cur_block.type.solid?
