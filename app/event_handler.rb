@@ -1917,10 +1917,10 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    if !@pvp_players[player] && pvp_in_area?(evt.to)
+    if !@pvp_players.member?(player) && pvp_in_area?(evt.to)
       @pvp_players << player
       broadcast "#{player.name} joined PVP!"
-    elsif @pvp_players[player] && !pvp_in_area?(evt.to)
+    elsif @pvp_players.member?(player) && !pvp_in_area?(evt.to)
       @pvp_players.delete(player)
       broadcast "#{player.name} left PVP..."
     end
