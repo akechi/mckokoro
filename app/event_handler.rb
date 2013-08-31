@@ -1002,10 +1002,20 @@ module EventHandler
     end
   end
 
-  #def on_vehicle_exit(evt)
-  #  vehicle = evt.vehicle
-  #  case vehicle
-  #end
+  def on_vehicle_exit(evt)
+    vehicle = evt.vehicle
+    if Player === evt.exited
+      player = evt.exited
+      case vehicle
+      when Horse
+        unless vehicle.on_ground?
+          player.velocity = player.velocity.tap {|v|
+            v.set_y(v.get_y + 3.0)
+          }
+        end
+      end
+    end
+  end
 
   @horse_sword_swing_flag ||= {}
   def horse_sword_swing(action, player)
