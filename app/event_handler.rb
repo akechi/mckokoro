@@ -1545,7 +1545,7 @@ module EventHandler
             consume_item(player)
           end
         when Squid
-          play_sound(defender.location, Sound::CAT_MEW , 0.8, 1.0)
+          play_sound(defender.location, Sound::CAT_MEOW , 0.8, 1.0)
         end
       end
     when LivingEntity
