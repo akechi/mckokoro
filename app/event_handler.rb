@@ -1407,6 +1407,7 @@ module EventHandler
     if evt.sticky? && retract_block.type == Material::FENCE
       face = evt.direction
       #Bukkit.get_player('ujm').send_message evt.asynchronous?.to_s
+      later 0 do
       tuples = cloop(20, retract_block, []) {|recur, num, cur_block, acc|
         if num == 0 || !cur_block.type.solid?
           [[cur_block, Material::AIR, 0]] + acc
@@ -1416,7 +1417,6 @@ module EventHandler
           recur.(num - 1, b, [[cur_block, b.type, b.data]] + acc)
         end
       }
-      later 0 do
         tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
           goes_to.data = bdata
