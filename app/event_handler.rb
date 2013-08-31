@@ -1935,23 +1935,23 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    if !@pvp_players.member?(player) && pvp_in_area?(evt.to)
-      @pvp_players << player
-      broadcast "#{player.name} joined PVP!"
-    elsif @pvp_players.member?(player) && !pvp_in_area?(evt.to)
-      later 0 do
-        new_loc = player.location.tap {|l|
-          x, y, z = pvp_centre_xyz
-          l.set_x x
-          l.set_y y
-          l.set_z z
-        }
-        player.teleport(new_loc)
-        play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
-      end
-      #@pvp_players.delete(player)
-      #broadcast "#{player.name} left PVP..."
-    end
+    #if !@pvp_players.member?(player) && pvp_in_area?(evt.to)
+    #  @pvp_players << player
+    #  broadcast "#{player.name} joined PVP!"
+    #elsif @pvp_players.member?(player) && !pvp_in_area?(evt.to)
+    #  later 0 do
+    #    new_loc = player.location.tap {|l|
+    #      x, y, z = pvp_centre_xyz
+    #      l.set_x x
+    #      l.set_y y
+    #      l.set_z z
+    #    }
+    #    player.teleport(new_loc)
+    #    play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
+    #  end
+    #  #@pvp_players.delete(player)
+    #  #broadcast "#{player.name} left PVP..."
+    #end
 
     # barrage_visual_orb(player)
 
