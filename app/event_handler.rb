@@ -2092,6 +2092,7 @@ module EventHandler
 
 
   def periodically_tick
+    return # just for now
     online_players = Bukkit.online_players
 
     online_players.each do |player|
@@ -2102,11 +2103,9 @@ module EventHandler
       # barrage_visual_orb(player, :exp3, 5, 24,  3)
       # barrage_visual_orb(player, :exp4, 6, 36, -4)
     end
-
   end
 
   def periodically_sec
-
     online_players = Bukkit.online_players
     # nearby_creatures = online_players.map {|p|
     #   p.get_nearby_entities(2, 2, 2).
@@ -2120,8 +2119,6 @@ module EventHandler
       c.entities.select {|e| Creature === e || Slime === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
-
-
 
     online_players.each do |player|
       # Superjump counter counting down
