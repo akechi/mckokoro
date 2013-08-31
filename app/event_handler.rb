@@ -1926,8 +1926,8 @@ module EventHandler
   end
 
   def pvp_in_area?(loc)
-    -609 <= loc.x && loc.x <= -532 &&
-      79 <= loc.z && loc.z <= 156
+    -610 <= loc.x && loc.x <= -532 &&
+      79 <= loc.z && loc.z <= 157
   end
 
   def pvp_centre_xyz
