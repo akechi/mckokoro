@@ -1758,6 +1758,7 @@ module EventHandler
     when Player
       case projectile
       when Arrow
+        play_sound(shooter, Sound::CAT_MEW, 1.0, 1.0)
         # enchant book infinite
         item0 = shooter.inventory.get_item(0)
         if item0 && item0.type == Material::ENCHANTED_BOOK && item0.item_meta.stored_enchants[Enchantment::ARROW_INFINITE]
