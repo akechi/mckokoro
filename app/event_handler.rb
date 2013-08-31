@@ -1758,7 +1758,6 @@ module EventHandler
     when Player
       case projectile
       when Arrow
-        play_sound(shooter.location, Sound::FUSE, 1.0, 1.0)
         # enchant book infinite
         item0 = shooter.inventory.get_item(0)
         if item0 && item0.type == Material::ENCHANTED_BOOK && item0.item_meta.stored_enchants[Enchantment::ARROW_INFINITE]
@@ -1781,7 +1780,7 @@ module EventHandler
         end
 
         if Job.of(shooter) == :archer
-          projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
+          projectile.velocity = projectile.velocity.multiply(jfloat(1.9))
         else
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
