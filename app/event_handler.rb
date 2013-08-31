@@ -1624,6 +1624,10 @@ module EventHandler
   def damage_by_falling(evt)
     falld = evt.entity.fall_distance
     entity = evt.entity
+    if entity.vehicle
+      evt.cancelled = true
+      return
+    end
     loc_below = add_loc(entity.location, 0, -1, 0)
     block_below = loc_below.block
     case block_below.type
