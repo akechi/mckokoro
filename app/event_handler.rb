@@ -1405,7 +1405,7 @@ module EventHandler
   def on_block_piston_retract(evt)
     if evt.sticky? && evt.retract_location.block.type == Material::FENCE
       face = evt.direction
-      Bukkit.get_player('ujm').send_message evt.asyncronous?.to_s
+      Bukkit.get_player('ujm').send_message evt.asynchronous?.to_s
       tuples = cloop(20, evt.retract_location.block, []) {|recur, num, cur_block, acc|
         if num == 0 || !cur_block.type.solid?
           [[cur_block, Material::AIR, 0]] + acc
