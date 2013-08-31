@@ -1010,6 +1010,7 @@ module EventHandler
       when Horse
         unless vehicle.on_ground?
           play_sound(player.location, Sound::PIG_IDLE, 0.8, 0.0)
+          play_sound(player.location, Sound::PIG_IDLE, 0.8, 2.0)
           player.velocity = player.velocity.tap {|v|
             v.multiply(3.0)
             v.set_y(v.get_y + 1.5)
