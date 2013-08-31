@@ -672,7 +672,7 @@ module EventHandler
           end
           later sec(30) do
             if target.valid?
-              smoke_effect(loc)
+              smoke_effect(target.location)
               @chicken_feather_durability[target] -= 1
             else
               @chicken_feather_durability.delete(target)
