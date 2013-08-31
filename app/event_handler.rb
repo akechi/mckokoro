@@ -1929,7 +1929,7 @@ module EventHandler
           l.set_z z
         }
         player.teleport(new_loc)
-        play_effect(upper.location, Effect::ENDER_SIGNAL, nil)
+        play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
       end
       #@pvp_players.delete(player)
       #broadcast "#{player.name} left PVP..."
