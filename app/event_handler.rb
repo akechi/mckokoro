@@ -1105,7 +1105,7 @@ module EventHandler
           evt.player.send_message "Rum! #{new_p}"
         end
       when [Material::COBBLESTONE, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
-        drop_item(loc, ItemStack.new(Material::ROTTEN_FLESH, 1))
+        drop_item(evt.clicked_block.location, ItemStack.new(Material::ROTTEN_FLESH, 1))
       # tree -> paper
       when [Material::LOG, Action::RIGHT_CLICK_BLOCK, Material::SHEARS]
         consume_item_durability(evt.player, 1)
