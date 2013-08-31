@@ -1409,7 +1409,7 @@ module EventHandler
       #Bukkit.get_player('ujm').send_message evt.asynchronous?.to_s
       later 0 do
         retract_block = add_loc(
-          retract_block.location, -face.mod_x, -face.mod_y, -face.mod_z).block
+          retract_block.location, face.mod_x, face.mod_y, face.mod_z).block
       tuples = cloop(20, retract_block, []) {|recur, num, cur_block, acc|
         if num == 0 || !cur_block.type.solid?
           [[cur_block, Material::AIR, 0]] + acc
