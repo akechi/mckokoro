@@ -1398,16 +1398,15 @@ module EventHandler
   end
 
   def on_block_piston_retract(evt)
-    if evt.retract_location.block.type == Material::FENCE
+    if evt.block.type == Material::PISTON_STICKY_BASE && evt.retract_location.block.type == Material::FENCE
       face = evt.direction
       tuples = cloop(20, evt.retract_location.block, []) {|recur, num, cur_block, acc|
-        if num == 0 || cur_block.type == Material::AIR
+        if num == 0 || !cur_block.type.solid?
           [[cur_block, Material::AIR, 0]] + acc
         else
-          prevb = cur_block
           b = add_loc(
             cur_block.location, face.mod_x, face.mod_y, face.mod_z).block
-          recur.(num - 1, b, [[prevb, b.type, b.data]] + acc)
+          recur.(num - 1, b, [[cur_block, b.type, b.data]] + acc)
         end
       }
       later 0 do
