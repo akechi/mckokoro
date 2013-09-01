@@ -1712,9 +1712,9 @@ module EventHandler
       vel = player.velocity
       later 0 do
         passenger.velocity = vel.tap {|v|
-          v.set_x(v.get_x * 2.0)
-          v.set_y(v.get_y + 0.5)
-          v.set_z(v.get_z * 2.0)
+          v.set_x(v.get_x * 12.0)
+          v.set_y(v.get_y + 0.8)
+          v.set_z(v.get_z * 12.0)
         }
       end
     else
