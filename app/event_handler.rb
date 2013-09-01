@@ -1694,6 +1694,24 @@ module EventHandler
     end
   end
 
+  def pvp_sneaking(player)
+    passenger = player.passenger
+    if passenger && Squid === passenger
+      post_lingr "#{player.name} put a flag on #{loc_below(player.location).block.type.to_s.downcase}."
+      player.eject
+    else
+      squid = player.get_nearby_entities(1, 1, 1).find {|e|
+        Squid === e
+      }
+      if squid
+        play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
+        play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
+        player.set_passenger squid
+      end
+    end
+  end
+  private :pvp_sneaking
+
   #HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
   #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
@@ -1735,6 +1753,8 @@ module EventHandler
           end
         end
       end
+
+      pvp_sneaking(player) if @pvp_players.member?(player)
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
