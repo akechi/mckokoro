@@ -1704,8 +1704,9 @@ module EventHandler
         Squid === e
       }
       if squid
-        play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
-        play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
+        play_sound(player.location, Sound::ENDERMAN_TELEPORT, 1.0, 2.0)
+        play_sound(player.location, Sound::DIG_SAND, 1.0, 0.5)
+        play_sound(player.location, Sound::DIG_WOOD, 1.0, 0.5)
         player.set_passenger squid
       end
     end
