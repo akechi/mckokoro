@@ -655,7 +655,7 @@ module EventHandler
     when Player
       if player.item_in_hand.type == Material::AIR
         target = evt.right_clicked
-        #if @pvp_players.member?(player) && @pvp_players.member?(target) && !target.vehicle
+        #if @ctf_players.member?(player) && @ctf_players.member?(target) && !target.vehicle
         #  play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
         #  player.set_passenger target
         if Job.of(player) == :mimic
@@ -1681,7 +1681,7 @@ module EventHandler
     when EntityDamageEvent::DamageCause::DROWNING
       case entity
       when Squid
-        if pvp_in_area?(entity.location)
+        if ctf_in_area?(entity.location)
           evt.cancelled = true
         end
       end
@@ -1702,7 +1702,7 @@ module EventHandler
     end
   end
 
-  def pvp_sneaking(player)
+  def ctf_sneaking(player)
     passenger = player.passenger
     if passenger && Squid === passenger
       msg = "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
@@ -1729,7 +1729,7 @@ module EventHandler
       end
     end
   end
-  private :pvp_sneaking
+  private :ctf_sneaking
 
   #HARD_BOOTS = [Material::CHAINMAIL_BOOTS, Material::IRON_BOOTS,
   #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
@@ -1773,7 +1773,7 @@ module EventHandler
         end
       end
 
-      pvp_sneaking(player) if @pvp_players.member?(player)
+      ctf_sneaking(player) if @ctf_players.member?(player)
     end
 
     #player_update_speed(evt.player, snp: evt.sneaking?)
@@ -1953,27 +1953,27 @@ module EventHandler
     end
   end
 
-  def pvp_in_area?(loc)
+  def ctf_in_area?(loc)
     -610 <= loc.x && loc.x <= -532 &&
       79 <= loc.z && loc.z <= 157
   end
 
-  def pvp_centre_xyz
+  def ctf_centre_xyz
     [-571, 65.5, 118]
   end
 
-  @pvp_players ||= Set.new
+  @ctf_players ||= Set.new
   def on_player_move(evt)
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    if !@pvp_players.member?(player) && pvp_in_area?(evt.to)
-      @pvp_players << player
+    if !@ctf_players.member?(player) && ctf_in_area?(evt.to)
+      @ctf_players << player
       broadcast "#{player.name} joined PVP!"
-    elsif @pvp_players.member?(player) && !pvp_in_area?(evt.to)
+    elsif @ctf_players.member?(player) && !ctf_in_area?(evt.to)
       #later 0 do
       #  new_loc = player.location.tap {|l|
-      #    x, y, z = pvp_centre_xyz
+      #    x, y, z = ctf_centre_xyz
       #    l.set_x x
       #    l.set_y y
       #    l.set_z z
@@ -1981,7 +1981,7 @@ module EventHandler
       #  player.teleport(new_loc)
       #  play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
       #end
-      @pvp_players.delete(player)
+      @ctf_players.delete(player)
       broadcast "#{player.name} left PVP..."
     end
 
