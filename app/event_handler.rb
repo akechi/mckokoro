@@ -1678,16 +1678,15 @@ module EventHandler
       generate_item_from_falling evt
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
-    #when EntityDamageEvent::DamageCause::SUFFOCATION
+    when EntityDamageEvent::DamageCause::DROWNING
+      case entity
+      when Squid
+        if pvp_in_area?(entity.location)
+          evt.cancelled = true
+        end
+      end
     end
 
-    case entity
-    when Squid
-      Bukkit.get_player('ujm').send_message evt.get_cause.to_s
-      #if pvp_in_area?(entity.location)
-      #evt.cancelled = true
-      #end
-    end
   end
 
   def on_player_toggle_sprint(evt)
