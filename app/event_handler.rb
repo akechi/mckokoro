@@ -658,7 +658,7 @@ module EventHandler
         #if @pvp_players.member?(player) && @pvp_players.member?(target) && !target.vehicle
         #  play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
         #  player.set_passenger target
-        Job.of(player) == :mimic
+        if Job.of(player) == :mimic
           @mimic_player[target] = player
           later sec(20) do
             @mimic_player[target] = nil if @mimic_player[target] == player
