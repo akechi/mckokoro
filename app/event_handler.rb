@@ -1710,9 +1710,9 @@ module EventHandler
       post_lingr msg
       player.eject
       vel = player.velocity
+      Bukkit.get_player('ujm').send_message vel.to_s
       later 0 do
         passenger.velocity = vel.tap {|v|
-          Bukkit.get_player('ujm').send_message v.get_x.to_s
           v.set_x(v.get_x * 12.0)
           v.set_y(v.get_y + 0.8)
           v.set_z(v.get_z * 12.0)
