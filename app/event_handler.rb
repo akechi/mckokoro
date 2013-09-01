@@ -655,10 +655,10 @@ module EventHandler
     when Player
       if player.item_in_hand.type == Material::AIR
         target = evt.right_clicked
-        if @pvp_players.member?(player) && @pvp_players.member?(target) && !target.vehicle
-          play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
-          player.set_passenger target
-        elsif Job.of(player) == :mimic
+        #if @pvp_players.member?(player) && @pvp_players.member?(target) && !target.vehicle
+        #  play_sound(player.location, Sound::SHEEP_SHEAR, 0.8, 1.5)
+        #  player.set_passenger target
+        Job.of(player) == :mimic
           @mimic_player[target] = player
           later sec(20) do
             @mimic_player[target] = nil if @mimic_player[target] == player
