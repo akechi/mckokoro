@@ -1691,7 +1691,7 @@ module EventHandler
 
   def on_player_toggle_sprint(evt)
     #player_update_speed(evt.player, spp: evt.sprinting?)
-    if evt.sprinting?
+    if evt.sprinting? && !evt.player.passenger
       if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
         evt.cancelled = true
       else
@@ -1716,6 +1716,7 @@ module EventHandler
         play_sound(player.location, Sound::EAT, 1.0, 2.0)
         play_sound(player.location, Sound::EAT, 1.0, 0.0)
         player.set_passenger squid
+        player.walk_speed = 0.2
       end
     end
   end
