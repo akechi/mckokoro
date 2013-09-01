@@ -1714,8 +1714,8 @@ module EventHandler
         passenger.teleport(player.location)
         passenger.velocity = vel.tap {|v|
           y = v.get_y
-          v.multiply(1.5)
-          v.set_y(y + 1.0)
+          v.multiply(15)
+          v.set_y(y + 0.5)
         }
       end
     else
