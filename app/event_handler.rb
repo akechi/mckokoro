@@ -1700,13 +1700,13 @@ module EventHandler
       post_lingr "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
       player.eject
     else
-      squid = player.get_nearby_entities(1, 1, 1).find {|e|
-        Squid === e
-      }
+      squid = player.get_nearby_entities(0.8, 0.8, 0.8).find {|e| Squid === e }
       if squid
         play_sound(player.location, Sound::ENDERMAN_TELEPORT, 1.0, 2.0)
-        play_sound(player.location, Sound::DIG_SAND, 1.0, 0.5)
-        play_sound(player.location, Sound::DIG_WOOD, 1.0, 0.5)
+        later 0 do
+          play_sound(player.location, Sound::DIG_SAND, 1.0, 0.5)
+          play_sound(player.location, Sound::DIG_WOOD, 1.0, 0.5)
+        end
         player.set_passenger squid
       end
     end
