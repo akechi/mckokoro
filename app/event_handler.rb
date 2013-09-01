@@ -1681,9 +1681,9 @@ module EventHandler
     when EntityDamageEvent::DamageCause::SUFFOCATION
       case entity
       when Squid
-        if pvp_in_area?(entity.location)
+        #if pvp_in_area?(entity.location)
           evt.cancelled = true
-        end
+        #end
       end
     end
   end
