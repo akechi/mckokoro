@@ -1711,7 +1711,7 @@ module EventHandler
       player.eject
       later 0 do
         vel = player.velocity
-        Bukkit.get_player('ujm').send_message vel.to_s
+        player.send_message [vel.get_x, vel.get_z].map(&:to_s).to_s
         passenger.velocity = vel.tap {|v|
           v.set_x(v.get_x * 1.5)
           v.set_y(v.get_y + 0.8)
