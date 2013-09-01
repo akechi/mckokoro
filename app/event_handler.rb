@@ -1698,18 +1698,8 @@ module EventHandler
   #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
     player = evt.player
-    # Lingr
-    if evt.sneaking?
-      # post_lingr "#{evt.player.name} sneaking..."
-    else
-      # post_lingr "#{evt.player.name} stood up."
-    end
 
     # Superjump
-    jump_counter_notify = ->(player) {
-      # Disable instead of delete for debuging
-      # player.send_message "jump power : #{ @crouching_counter[player.name] }"
-    }
     name = player.name
     @crouching_counter ||= {}
     @crouching_counter[name] ||= 0
@@ -1717,7 +1707,6 @@ module EventHandler
     if evt.sneaking?
       # counting up
       @crouching_counter[name] += 1
-      jump_counter_notify.call(player)
       if @crouching_counter[name] == 5
         # evt.player.send_message "superjump!"
         player.fall_distance = 0.0
