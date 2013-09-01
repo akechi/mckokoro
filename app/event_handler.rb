@@ -1711,10 +1711,11 @@ module EventHandler
       player.eject
       vel = player.velocity
       later 0 do
+        passenger.teleport(player.location)
         passenger.velocity = vel.tap {|v|
           y = v.get_y
-          v.multiply(5.0)
-          v.set_y y
+          v.multiply(1.5)
+          v.set_y(y + 1.0)
         }
       end
     else
