@@ -1713,7 +1713,7 @@ module EventHandler
       later 0 do
         passenger.velocity = vel.tap {|v|
           y = v.get_y
-          v.multiply(1.5)
+          v.multiply(5.0)
           v.set_y y
         }
       end
