@@ -1710,11 +1710,11 @@ module EventHandler
       post_lingr msg
       player.eject
       vel = player.velocity
-      later 0 do
+      later 1 do
         passenger.teleport(player.location)
         passenger.velocity = vel.tap {|v|
           y = v.get_y
-          v.multiply(15)
+          v.multiply(2.0)
           v.set_y(y + 0.5)
         }
       end
