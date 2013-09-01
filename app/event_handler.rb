@@ -1697,7 +1697,7 @@ module EventHandler
   def pvp_sneaking(player)
     passenger = player.passenger
     if passenger && Squid === passenger
-      post_lingr "#{player.name} put a flag on #{loc_below(player.location).block.type.to_s.downcase}."
+      post_lingr "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
       player.eject
     else
       squid = player.get_nearby_entities(1, 1, 1).find {|e|
