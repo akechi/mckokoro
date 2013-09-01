@@ -1678,6 +1678,13 @@ module EventHandler
       generate_item_from_falling evt
       #evt.cancelled = true
       #explode(evt.getEntity.getLocation, 1, false)
+    when EntityDamageEvent::DamageCause::SUFFOCATION
+      case entity
+      when Squid
+        if pvp_in_area?(entity.location)
+          evt.cancelled = true
+        end
+      end
     end
   end
 
@@ -1697,16 +1704,16 @@ module EventHandler
   def pvp_sneaking(player)
     passenger = player.passenger
     if passenger && Squid === passenger
-      post_lingr "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
+      msg = "#{player.name} put a flag on #{player.location.block.type.to_s.downcase}."
+      broadcast msg
+      post_lingr msg
       player.eject
     else
       squid = player.get_nearby_entities(0.8, 0.8, 0.8).find {|e| Squid === e }
       if squid
-        play_sound(player.location, Sound::ENDERMAN_TELEPORT, 1.0, 2.0)
-        later 0 do
-          play_sound(player.location, Sound::DIG_SAND, 1.0, 0.5)
-          play_sound(player.location, Sound::DIG_WOOD, 1.0, 0.5)
-        end
+        smoke_effect(squid.location)
+        play_sound(player.location, Sound::EAT, 1.0, 2.0)
+        play_sound(player.location, Sound::EAT, 1.0, 0.0)
         player.set_passenger squid
       end
     end
