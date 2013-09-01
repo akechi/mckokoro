@@ -1711,7 +1711,11 @@ module EventHandler
       player.eject
       vel = player.velocity
       later 0 do
-        passenger.velocity = vel.multiply(1.5)
+        passenger.velocity = vel.tap {|v|
+          y = v.get_y
+          v.multiply(1.5)
+          v.set_y y
+        }
       end
     else
       squid = player.get_nearby_entities(0.8, 0.8, 0.8).find {|e| Squid === e }
