@@ -1466,10 +1466,12 @@ module EventHandler
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
     when Material::STONE_BUTTON
-      u = Bukkit.get_player('ujm')
       button = evt.block
-      face = button.state.data.attached_face
-      u.send_message add_loc(button.location, face.mod_x, face.mod_y, face.mod_z).block.to_s
+      if button.powered?
+        face = button.state.data.attached_face
+        attached = add_loc(button.location, face.mod_x, face.mod_y, face.mod_z).block
+        play_effect(loc_above(attached).location, Effect::ENDER_SIGNAL, nil)
+      end
     end
   end
 
