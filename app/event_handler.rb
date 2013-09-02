@@ -1021,14 +1021,14 @@ module EventHandler
   end
 
   def on_vehicle_exit(evt)
+          evt.cancelled = true
+          return
     vehicle = evt.vehicle
     if Player === evt.exited
       player = evt.exited
       case vehicle
       when Horse
         unless vehicle.on_ground?
-          evt.cancelled = true
-          return
           play_sound(player.location, Sound::PIG_IDLE, 0.8, 0.0)
           play_sound(player.location, Sound::PIG_IDLE, 0.8, 2.0)
           later 0 do
