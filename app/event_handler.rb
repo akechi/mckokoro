@@ -1483,7 +1483,6 @@ module EventHandler
           play_sound(on_juke, Sound::PIG_IDLE, 1.0, 0.0)
           papers.each do |paper|
             map = paper.world.drop_item(paper.location, ItemStack.new(Material::MAP, paper.item_stack.amount))
-            map.data = 0
             paper.remove
           end
         end
