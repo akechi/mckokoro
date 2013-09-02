@@ -1468,7 +1468,7 @@ module EventHandler
     when Material::STONE_BUTTON
       u = Bukkit.get_player('ujm')
       button = evt.block
-      u.send_message button.block_face.to_s
+      u.send_message button.state.block_face.to_s
     end
   end
 
