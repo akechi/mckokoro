@@ -1472,8 +1472,8 @@ module EventHandler
         attached = add_loc(button.location, face.mod_x, face.mod_y, face.mod_z)
         if attached.block.type == Material::JUKEBOX
           on_juke = loc_above(attached)
-          items = on_juke.chunk.entities.select {|e| Item === e }
-          Bukkit.get_player('ujm').send_message items.map(&:type).join
+          items = on_juke.chunk.entities.select {|e| Item === e && e.location.block.location == on_juke }
+          Bukkit.get_player('ujm').send_message items.map(&:item_stack).join
           play_effect(on_juke, Effect::ENDER_SIGNAL, nil)
         end
       end
