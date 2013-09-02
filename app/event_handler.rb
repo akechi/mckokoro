@@ -1465,6 +1465,10 @@ module EventHandler
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
+    when Material::STONE_BUTTON
+      u = Bukkit.get_player('ujm')
+      button = evt.block
+      u.send_message button.block_face.to_s
     end
   end
 
