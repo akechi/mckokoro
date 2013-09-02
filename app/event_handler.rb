@@ -1470,7 +1470,7 @@ module EventHandler
       if button.state.data.powered?
         face = button.state.data.attached_face
         attached = add_loc(button.location, face.mod_x, face.mod_y, face.mod_z).block
-        play_effect(loc_above(attached.location).location, Effect::ENDER_SIGNAL, nil)
+        play_effect(loc_above(attached.location), Effect::ENDER_SIGNAL, nil)
       end
     end
   end
