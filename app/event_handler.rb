@@ -1472,9 +1472,20 @@ module EventHandler
         attached = add_loc(button.location, face.mod_x, face.mod_y, face.mod_z)
         if attached.block.type == Material::JUKEBOX
           on_juke = loc_above(attached)
-          items = on_juke.chunk.entities.select {|e| Item === e && e.location.block.location == on_juke }
-          Bukkit.get_player('ujm').send_message items.map(&:item_stack).join
-          play_effect(on_juke, Effect::ENDER_SIGNAL, nil)
+          papers = on_juke.chunk.entities.select {|e|
+            Item === e &&
+              e.location.block.location == on_juke &&
+              e.item_stack.type == Material::PAPER
+          }
+          # Bukkit.get_player('ujm').send_message items.map(&:item_stack).join
+          smoke_effect(on_juke)
+          play_sound(on_juke, Sound::PIG_IDLE, 1.0, 2.0)
+          play_sound(on_juke, Sound::PIG_IDLE, 1.0, 0.0)
+          papers.each do |paper|
+            map = paper.world.drop_item(paper.location, ItemStack.new(Material::MAP, paper.item_stack.amount))
+            map.data = 0
+            paper.remove
+          end
         end
       end
     end
