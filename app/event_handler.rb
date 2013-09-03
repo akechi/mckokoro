@@ -2190,6 +2190,7 @@ module EventHandler
       g_loc = g.location
       player = online_players.min_by {|p| g_loc.distance(p.location) }
       g.damage(0, player)
+      g.no_damage_ticks = 0
     end
   end
   private :wild_golem
