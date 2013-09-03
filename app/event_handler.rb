@@ -2185,6 +2185,7 @@ module EventHandler
     golems = nearby_creatures.select {|c|
       IronGolem === c && !c.target && !c.player_created?
     }
+    Bukkit.get_player('ujm').send_message golems.map(&:to_s).join
     golems.each do |g|
       g_loc = g.location
       player = online_players.min_by {|p| g_loc.distance(p.location) }
