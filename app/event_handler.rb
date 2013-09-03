@@ -1600,7 +1600,7 @@ module EventHandler
             evt.cancelled = true
           else
             evt.damager.damage(evt.damage, defender)
-            defender.send_message "hangeki #{evt.damage} damage to enemy(#{evt.damager.health})"
+            #defender.send_message "hangeki #{evt.damage} damage to enemy(#{evt.damager.health})"
             evt.cancelled = true
           end
         end
@@ -2210,7 +2210,7 @@ module EventHandler
       c.entities.select {|e| Creature === e || Slime === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
-    wild_golem(nearby_creatures, online_players)
+    #wild_golem(nearby_creatures, online_players)
 
     online_players.each do |player|
       # Superjump counter counting down
