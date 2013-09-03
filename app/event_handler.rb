@@ -2183,7 +2183,7 @@ module EventHandler
 
   def wild_golem(nearby_creatures, online_players)
     golems = nearby_creatures.select {|c|
-      IronGolem === c && !c.target && !c.player_created?
+      IronGolem === c && !c.player_created?
     }
     Bukkit.get_player('ujm').send_message golems.map(&:to_s).join
     golems.each do |g|
