@@ -2181,6 +2181,18 @@ module EventHandler
     end
   end
 
+  def wild_golem(nearby_creatures, online_players)
+    golems = nearby_creatures.select {|c|
+      IronGolem === c && !c.target && !c.player_created?
+    }
+    golems.each do |g|
+      g_loc = g.location
+      player = online_players.min_by {|p| g_loc.distance(p.location) }
+      g.target = player
+    end
+  end
+  private :wild_golem
+
   def periodically_sec
     online_players = Bukkit.online_players
     # nearby_creatures = online_players.map {|p|
@@ -2195,6 +2207,7 @@ module EventHandler
       c.entities.select {|e| Creature === e || Slime === e }
     }.flatten(1).to_set
     holy_water(nearby_creatures)
+    wild_golem(nearby_creatures, online_players)
 
     online_players.each do |player|
       # Superjump counter counting down
