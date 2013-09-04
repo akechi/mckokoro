@@ -1234,7 +1234,18 @@ module EventHandler
       command = $1.to_sym
       case command
       when :logout
-        player.kick_player(args.join ' ')
+        cloop(5) do |recur, n|
+          later sec(1) do
+            break unless Bukkit.get_player(player.name)
+            if n > 0
+              smoke_effect(player.location)
+              play_sound(on_juke, Sound::EAT, 1.0, 2.0)
+              recur.(n - 1)
+            else
+              player.kick_player(args.join ' ')
+            end
+          end
+        end
       when :warp
         name = location_name.call args
         if @sign_location_list[name]
