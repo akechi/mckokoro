@@ -1259,7 +1259,7 @@ module EventHandler
       command = $1.to_sym
       case command
       when :logout
-        logout_countdown(player, args.join ' ')
+        logout_countdown(player, args.join(' '))
       when :warp
         name = location_name.call args
         if @sign_location_list[name]
