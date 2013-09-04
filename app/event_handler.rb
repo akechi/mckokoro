@@ -418,7 +418,7 @@ module EventHandler
       end
     when Horse
       opt_beef = 
-        (rand(2) == 0 ? [ItemStack.new(Material::RAW_BEEF, rand(3) + 1)] : [])
+        (rand(5) == 0 ? [ItemStack.new(Material::RAW_BEEF, rand(3) + 1)] : [])
       drop_replace.(
         [],
         [SpawnEgg.new(EntityType::HORSE).toItemStack(1)] + opt_beef)
