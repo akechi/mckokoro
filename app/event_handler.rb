@@ -1238,18 +1238,18 @@ module EventHandler
       when :logout
         if (@logout_countdown_table[player] || 0) == 0
           cloop(20) do |recur, n|
-            later sec(1) do
-              if n > 0 && Bukkit.get_player(player.name)
-                @logout_countdown_table[player] ||= 0
-                @logout_countdown_table[player] += 1
-                if @logout_countdown_table[player] >= 8
-                  player.kick_player(args.join ' ')
-                else
-                  @logout_countdown_table[player].times do
-                    smoke_effect(
-                      add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
-                  end
-                  play_sound(player.location, Sound::EAT, 1.0, 2.0)
+            if n > 0 && Bukkit.get_player(player.name)
+              @logout_countdown_table[player] ||= 0
+              @logout_countdown_table[player] += 1
+              if @logout_countdown_table[player] > 8
+                player.kick_player(args.join ' ')
+              else
+                @logout_countdown_table[player].times do
+                  smoke_effect(
+                    add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
+                end
+                play_sound(player.location, Sound::EAT, 1.0, 2.0)
+                later sec(1) do
                   recur.(n - 1)
                 end
               end
