@@ -1230,7 +1230,7 @@ module EventHandler
     raw_command = sign_state.get_line(0).downcase
     args = 1.upto(3).map {|n| sign_state.get_line n }
 
-    if raw_command =~ /<(.+)>/
+    if /<(.+)>/ =~ raw_command
       command = $1.to_sym
       case command
       when :warp
@@ -1260,7 +1260,6 @@ module EventHandler
         end
       end
     end
-
   end
 
   def on_block_damage(evt)
