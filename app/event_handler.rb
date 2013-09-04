@@ -1247,7 +1247,7 @@ module EventHandler
                 else
                   @logout_countdown_table[player].times do
                     smoke_effect(
-                      add_loc(player.location, rand - 0.5, rand - 0.5, rand - 0.5))
+                      add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
                   end
                   play_sound(player.location, Sound::EAT, 1.0, 2.0)
                   recur.(n - 1)
