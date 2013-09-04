@@ -1239,7 +1239,7 @@ module EventHandler
             break unless Bukkit.get_player(player.name)
             if n > 0
               smoke_effect(player.location)
-              play_sound(on_juke, Sound::EAT, 1.0, 2.0)
+              play_sound(player.location, Sound::EAT, 1.0, 2.0)
               recur.(n - 1)
             else
               player.kick_player(args.join ' ')
