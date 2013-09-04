@@ -1599,6 +1599,7 @@ module EventHandler
         cond =
           (@logout_countdown_table[defender] || 0) < (@logout_countdown_table[player] || 0)
         logout_countdown(defender, "affected from #{player.name}")
+        @logout_countdown_table[player] = 0
       end
 
       if Job.of(player) == :archer && evt.damage > 0.0
