@@ -1224,7 +1224,6 @@ module EventHandler
   end
 
   def logout_countdown(player, msg)
-    if (@logout_countdown_table[player] || 0) == 0
       cloop(20) do |recur, n|
         if n > 0 && Bukkit.get_player(player.name)
           @logout_countdown_table[player] ||= 0
@@ -1243,7 +1242,6 @@ module EventHandler
           end
         end
       end
-    end
   end
 
   @logout_countdown_table ||= {}
@@ -1259,7 +1257,9 @@ module EventHandler
       command = $1.to_sym
       case command
       when :logout
-        logout_countdown(player, args.join(' '))
+        if (@logout_countdown_table[player] || 0) == 0
+          logout_countdown(player, args.join(' '))
+        end
       when :warp
         name = location_name.call args
         if @sign_location_list[name]
@@ -1598,6 +1598,7 @@ module EventHandler
       if Player === defender
         cond =
           (@logout_countdown_table[defender] || 0) < (@logout_countdown_table[player] || 0)
+        @logout_countdown_table[defender] = @logout_countdown_table[player]
         logout_countdown(defender, "affected from #{player.name}")
         @logout_countdown_table[player] = 0
       end
