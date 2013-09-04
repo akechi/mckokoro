@@ -1223,7 +1223,7 @@ module EventHandler
     end
   end
 
-
+  @logout_countdown_table ||= {}
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
 
@@ -1236,14 +1236,22 @@ module EventHandler
       command = $1.to_sym
       case command
       when :logout
-        cloop(5) do |recur, n|
-          later sec(1) do
-            if n > 0 && Bukkit.get_player(player.name)
-              smoke_effect(player.location)
-              play_sound(player.location, Sound::EAT, 1.0, 2.0)
-              recur.(n - 1)
-            else
-              player.kick_player(args.join ' ')
+        if (@logout_countdown_table[player] || 0) == 0
+          cloop(20) do |recur, n|
+            later sec(1) do
+              if n > 0 && Bukkit.get_player(player.name)
+                @logout_countdown_table[player] ||= 0
+                @logout_countdown_table[player] += 1
+                if @logout_countdown_table[player] >= 8
+                  player.kick_player(args.join ' ')
+                else
+                  @logout_countdown_table[player].times do
+                    smoke_effect(player.location)
+                  end
+                  play_sound(player.location, Sound::EAT, 1.0, 2.0)
+                  recur.(n - 1)
+                end
+              end
             end
           end
         end
@@ -1420,6 +1428,8 @@ module EventHandler
     player = evt.entity
     eating_p = player.food_level < evt.food_level
     if eating_p
+      @logout_countdown_table[player] = 0
+
       case player.item_in_hand.type
       when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
         player.send_message "(food poisoning!)"
