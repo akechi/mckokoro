@@ -1236,8 +1236,7 @@ module EventHandler
       when :logout
         cloop(5) do |recur, n|
           later sec(1) do
-            break unless Bukkit.get_player(player.name)
-            if n > 0
+            if n > 0 && Bukkit.get_player(player.name)
               smoke_effect(player.location)
               play_sound(player.location, Sound::EAT, 1.0, 2.0)
               recur.(n - 1)
