@@ -337,7 +337,7 @@ module EventHandler
 
   def on_player_quit(evt)
     strike_lightning(evt.player.location)
-    post_lingr "#{evt.player.name}: #{evt.quit_message.sub(/^#{evt.player.name}/, '')}"
+    post_lingr "#{evt.player.name}: #{evt.quit_message.sub(/^.*?#{evt.player.name}\s*/, '')}"
   end
 
   def on_entity_explode(evt)
