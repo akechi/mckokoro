@@ -1223,27 +1223,6 @@ module EventHandler
     end
   end
 
-  def logout_countdown(player, msg)
-    cloop(20) do |recur, n|
-      if n > 0 && Bukkit.get_player(player.name)
-        @logout_countdown_table[player] ||= 0
-        @logout_countdown_table[player] += 1
-        if @logout_countdown_table[player] > 10
-          player.kick_player(msg)
-        else
-          @logout_countdown_table[player].times do
-            smoke_effect(
-              add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
-          end
-          play_sound(player.location, Sound::EAT, 1.0, 2.0)
-          later sec(1) do
-            recur.(n - 1)
-          end
-        end
-      end
-    end
-  end
-
   @logout_countdown_table ||= {}
   def sign_command(player, sign_state)
     @sign_location_list ||= {}
@@ -1257,8 +1236,9 @@ module EventHandler
       command = $1.to_sym
       case command
       when :logout
-        if (@logout_countdown_table[player] || 0) == 0
-          logout_countdown(player, args.join(' '))
+        unless @logout_countdown_table[player]
+          @logout_countdown_table[player] = 10
+          player.send_message "Logout countdown started!"
         end
       when :warp
         name = location_name.call args
@@ -1433,7 +1413,10 @@ module EventHandler
     player = evt.entity
     eating_p = player.food_level < evt.food_level
     if eating_p
-      @logout_countdown_table[player] = 0
+      if @logout_countdown_table[player]
+        @logout_countdown_table[player] += 5
+        player.send_message "You got 5 more second until logout! (#{@logout_countdown_table[player]})"
+      end
 
       case player.item_in_hand.type
       when Material::RAW_BEEF, Material::RAW_CHICKEN, Material::PORK
@@ -1595,12 +1578,10 @@ module EventHandler
     when Player
       player = evt.damager
 
-      if Player === defender
-        cond =
-          (@logout_countdown_table[defender] || 0) < (@logout_countdown_table[player] || 0)
+      if Player === defender && @logout_countdown_table[player]
         @logout_countdown_table[defender] = @logout_countdown_table[player]
-        logout_countdown(defender, "affected from #{player.name}")
-        @logout_countdown_table[player] = 0
+        @logout_countdown_table.delete(player)
+        broadcast "#{player.name}'s logout countdown went to #{defender.name}! (#{@logout_countdown_table[defender]})"
       end
 
       if Job.of(player) == :archer && evt.damage > 0.0
@@ -2233,6 +2214,24 @@ module EventHandler
   end
   private :wild_golem
 
+  def logout_countdown_update()
+    @logout_countdown_table.each do |player, n|
+      next unless Bukkit.get_player(player.name)
+      @logout_countdown_table[player] = n - 1
+      if n == 0
+        @logout_countdown_table.delete(player)
+        player.kick_player(msg)
+      else
+        [(10 - n), 0].max.times do
+          smoke_effect(
+            add_loc(player.eye_location, rand - 0.5, rand, rand - 0.5))
+        end
+        play_sound(player.location, Sound::EAT, 1.0, 2.0)
+      end
+    end
+  end
+  private :logout_countdown_update
+
   def periodically_sec
     online_players = Bukkit.online_players
     # nearby_creatures = online_players.map {|p|
@@ -2248,6 +2247,7 @@ module EventHandler
     }.flatten(1).to_set
     holy_water(nearby_creatures)
     #wild_golem(nearby_creatures, online_players)
+    logout_countdown_update()
 
     online_players.each do |player|
       # Superjump counter counting down
