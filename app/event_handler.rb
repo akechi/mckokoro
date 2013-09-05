@@ -1224,24 +1224,24 @@ module EventHandler
   end
 
   def logout_countdown(player, msg)
-      cloop(20) do |recur, n|
-        if n > 0 && Bukkit.get_player(player.name)
-          @logout_countdown_table[player] ||= 0
-          @logout_countdown_table[player] += 1
-          if @logout_countdown_table[player] > 10
-            player.kick_player(msg)
-          else
-            @logout_countdown_table[player].times do
-              smoke_effect(
-                add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
-            end
-            play_sound(player.location, Sound::EAT, 1.0, 2.0)
-            later sec(1) do
-              recur.(n - 1)
-            end
+    cloop(20) do |recur, n|
+      if n > 0 && Bukkit.get_player(player.name)
+        @logout_countdown_table[player] ||= 0
+        @logout_countdown_table[player] += 1
+        if @logout_countdown_table[player] > 10
+          player.kick_player(msg)
+        else
+          @logout_countdown_table[player].times do
+            smoke_effect(
+              add_loc(player.eye_location, rand - 0.5, rand - 0.5, rand - 0.5))
+          end
+          play_sound(player.location, Sound::EAT, 1.0, 2.0)
+          later sec(1) do
+            recur.(n - 1)
           end
         end
       end
+    end
   end
 
   @logout_countdown_table ||= {}
