@@ -2220,7 +2220,7 @@ module EventHandler
       @logout_countdown_table[player] = n - 1
       if n == 0
         @logout_countdown_table.delete(player)
-        player.kick_player(msg)
+        player.kick_player('logout count is zero!')
       else
         [(10 - n), 0].max.times do
           smoke_effect(
