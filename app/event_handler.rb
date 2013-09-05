@@ -461,6 +461,7 @@ module EventHandler
 
   def on_player_death(evt)
     player = evt.entity
+    @logout_countdown_table.delete(player)
     @food_poisoning_player.delete player
     post_lingr "#{player.name} died: #{evt.death_message.sub(/^#{player.name}/, '')} at (#{player.location.x.to_i}, #{player.location.z.to_i}) in #{player.location.world.name}."
   end
