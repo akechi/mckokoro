@@ -1415,8 +1415,8 @@ module EventHandler
     eating_p = player.food_level < evt.food_level
     if eating_p
       if @logout_countdown_table[player]
-        @logout_countdown_table[player] += 5
-        player.send_message "You got 5 more second until logout! (#{@logout_countdown_table[player]})"
+        @logout_countdown_table[player] += 10
+        player.send_message "You got 10 more second until logout! (#{@logout_countdown_table[player]})"
       end
 
       case player.item_in_hand.type
