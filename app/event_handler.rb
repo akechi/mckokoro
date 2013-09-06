@@ -1532,6 +1532,7 @@ module EventHandler
     when Arrow
       arrow = evt.damager
       if Player === defender && defender.blocking?
+        play_sound(defender.location, Sound::ANVIL_LAND, 1.0, rand * 2)
         evt.damage = 0
       else
         case arrow.shooter
@@ -1615,6 +1616,7 @@ module EventHandler
       case defender
       when Player
         if defender.blocking?
+          play_sound(defender.location, Sound::ANVIL_LAND, 1.0, rand * 2)
           if PigZombie === evt.damager
             evt.cancelled = true
           else
@@ -1794,7 +1796,7 @@ module EventHandler
         @crouching_counter[name] -= 1
       end
       if @crouching_counter[name] == 5
-        play_sound(add_loc(player.location, 0, 5, 0), Sound::SHOOT_ARROW, 1.0, 0.0)
+        play_sound(add_loc(player.location, 0, 5, 0), Sound::SHOOT_ARROW, 1.0, 0.5)
         # evt.player.send_message "superjump!"
         player.fall_distance = 0.0
         player.velocity = player.velocity.tap {|v| v.set_y jfloat(1.4) }
