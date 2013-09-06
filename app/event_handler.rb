@@ -1790,6 +1790,9 @@ module EventHandler
     if evt.sneaking?
       # counting up
       @crouching_counter[name] += 1
+      later sec(1) do
+        @crouching_counter[name] -= 1
+      end
       if @crouching_counter[name] == 5
         # evt.player.send_message "superjump!"
         player.fall_distance = 0.0
@@ -2251,18 +2254,6 @@ module EventHandler
     logout_countdown_update()
 
     online_players.each do |player|
-      # Superjump counter counting down
-      crouching_countdown = -> do
-        if @crouching_counter && @crouching_counter[player.name] && @crouching_counter[player.name] > 0
-          @crouching_counter[player.name] -= 1
-        end
-      end
-      # count down every sec
-      crouching_countdown.call
-      later sec(1) do
-        crouching_countdown.call
-      end
-
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
       # loc = xzs.
       #   map {|x, z| player.location.clone.add(x, 0, z) }.
