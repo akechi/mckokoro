@@ -1790,7 +1790,7 @@ module EventHandler
     if evt.sneaking?
       # counting up
       @crouching_counter[name] += 1
-      later sec(1) do
+      later sec(2.5) do
         @crouching_counter[name] -= 1
       end
       if @crouching_counter[name] == 5
