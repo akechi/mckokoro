@@ -1616,6 +1616,7 @@ module EventHandler
       case defender
       when Player
         if defender.blocking?
+          play_sound(defender.location, Sound::ANVIL_LAND, 0.5, rand * 2)
           if PigZombie === evt.damager
             evt.cancelled = true
           else
