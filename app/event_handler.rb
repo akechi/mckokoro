@@ -1532,7 +1532,7 @@ module EventHandler
     when Arrow
       arrow = evt.damager
       if Player === defender && defender.blocking?
-        play_sound(defender.location, Sound::ANVIL_LAND, 1.0, rand * 2)
+        play_sound(defender.location, Sound::ANVIL_LAND, 0.5, rand * 2)
         evt.damage = 0
       else
         case arrow.shooter
@@ -1616,9 +1616,6 @@ module EventHandler
       case defender
       when Player
         if defender.blocking?
-          later 0 do
-            play_sound(defender.location, Sound::ANVIL_LAND, 1.0, rand * 2)
-          end
           if PigZombie === evt.damager
             evt.cancelled = true
           else
