@@ -750,6 +750,7 @@ module EventHandler
           consume_item(player)
         end
         player.fall_distance = 0.0
+        play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
       end
     else
       case action
@@ -763,6 +764,7 @@ module EventHandler
           consume_item(player)
         end
         player.fall_distance = 0.0
+        play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(0)
@@ -773,6 +775,7 @@ module EventHandler
           consume_item(player)
         end
         player.fall_distance = 0.0
+        play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
       end
     end
   end
