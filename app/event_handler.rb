@@ -1794,6 +1794,7 @@ module EventHandler
         @crouching_counter[name] -= 1
       end
       if @crouching_counter[name] == 5
+        play_sound(player.location, Sound::EXPLODE, 1.0, 1.5)
         # evt.player.send_message "superjump!"
         player.fall_distance = 0.0
         player.velocity = player.velocity.tap {|v| v.set_y jfloat(1.4) }
