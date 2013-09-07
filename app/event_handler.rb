@@ -2054,7 +2054,7 @@ module EventHandler
     # experimental
     if diff_y < 0 && player.blocking? #SWORDS.include?(player.item_in_hand.type)
       player.fall_distance = 3.0
-      player.velocity = player.velocity.set_y jfloat([0.0, player.velocity.get_y / 2.0].min)
+      player.velocity = player.velocity.set_y jfloat(player.velocity.get_y / 2.0)
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
