@@ -297,7 +297,9 @@ module EventHandler
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
     else
       post_lingr("#{evt.player.name}: #{evt.message}")
-      evt.player.world.weather_duration = 0 if /optifine/ =~ evt.message
+      if /optifine/ =~ evt.message
+        Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
+      end
     end
   end
 
