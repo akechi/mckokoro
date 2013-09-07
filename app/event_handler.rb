@@ -1701,7 +1701,7 @@ module EventHandler
       evt.cancelled = true
       later 0 do
         entity.velocity = entity.velocity.tap {|v|
-          v.set_y(falld * 0.8)
+          v.set_y(falld * 0.1)
         }
       end
     end
