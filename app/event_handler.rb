@@ -1699,9 +1699,11 @@ module EventHandler
       end
     when Material::WOOL
       evt.cancelled = true
-      entity.velocity = entity.velocity.tap {|v|
-        v.set_y(v.get_y * -0.8)
-      }
+      later 0 do
+        entity.velocity = entity.velocity.tap {|v|
+          v.set_y(v.get_y * -0.8)
+        }
+      end
     end
   end
 
