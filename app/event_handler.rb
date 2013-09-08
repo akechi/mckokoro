@@ -1507,7 +1507,7 @@ module EventHandler
         entities.each do |e|
           e.teleport(add_loc(e.location, 0, 1, 0))
           e.velocity = e.velocity.tap {|v|
-            v.set_y 0.7
+            v.set_y 0.5
           }
         end
       end
