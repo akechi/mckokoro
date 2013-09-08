@@ -1496,10 +1496,12 @@ module EventHandler
         entities = final_block_loc.chunk.entities.select {|e|
           add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
         }
-        entities.each do |e|
-          e.velocity = e.velocity.tap {|v|
-            v.set_y = 1.2
-          }
+        later 0 do
+          entities.each do |e|
+            e.velocity = e.velocity.tap {|v|
+              v.set_y 1.2
+            }
+          end
         end
       end
     end
