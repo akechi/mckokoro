@@ -1455,6 +1455,11 @@ module EventHandler
           evt.cancelled = true
         end
       end
+      case evt.entity
+      when CaveSpider
+      when Spider
+        evt.cancelled = true
+      end
     end
   end
 
