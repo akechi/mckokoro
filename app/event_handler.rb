@@ -1682,7 +1682,7 @@ module EventHandler
     when LivingEntity
       case defender
       when Player
-        sword_blocking_counter_attack(evt, player, evt.damager)
+        sword_blocking_counter_attack(evt, defender, evt.damager)
       end
     end
   end
