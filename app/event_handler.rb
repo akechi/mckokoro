@@ -1642,6 +1642,11 @@ module EventHandler
     when Player
       player = evt.damager
 
+      case defender
+      when Player
+        sword_blocking_counter_attack(evt, defender, player)
+      end
+
       if Player === defender && @logout_countdown_table[player]
         @logout_countdown_table[defender] = @logout_countdown_table[player]
         @logout_countdown_table.delete(player)
@@ -1677,18 +1682,23 @@ module EventHandler
     when LivingEntity
       case defender
       when Player
-        if defender.blocking?
-          play_sound(defender.location, Sound::ANVIL_LAND, 0.3, rand * 2)
-          if PigZombie === evt.damager
-            evt.cancelled = true
-          else
-            evt.damager.damage(evt.damage, defender)
-            evt.cancelled = true
-          end
-        end
+        sword_blocking_counter_attack(evt, player, evt.damager)
       end
     end
   end
+
+  def sword_blocking_counter_attack(evt, player, damager)
+    if player.blocking?
+      play_sound(player.location, Sound::ANVIL_LAND, 0.3, rand * 2)
+      if PigZombie === damager
+        evt.cancelled = true
+      else
+        damager.damage(evt.damage, player)
+        evt.cancelled = true
+      end
+    end
+  end
+  private :sword_blocking_counter_attack
 
   def on_player_drop_item(evt)
     item_suplied_turn = {
