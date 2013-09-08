@@ -1490,7 +1490,7 @@ module EventHandler
 
   def on_block_piston_extend(evt)
     blocks = evt.blocks
-    Bukkit.get_player('ujm').send_message blocks.map(&:type).to_s
+    Bukkit.get_player('ujm').send_message blocks.map(&:type).map(&:to_s).join
   end
 
   def on_block_piston_retract(evt)
