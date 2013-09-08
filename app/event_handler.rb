@@ -762,9 +762,19 @@ module EventHandler
         x, z =
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
-        player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
-        stochastically(50) do
-          consume_item(player)
+        vehicle = player.vehicle
+        if vehicle && Pig === vehicle
+          vehicle.eject
+          later 0 do
+            vehicle.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
+            player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
+            vehicle.set_passenger player
+          end
+        else
+          player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
+          stochastically(50) do
+            consume_item(player)
+          end
         end
         player.fall_distance = 0.0
         play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
