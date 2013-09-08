@@ -1490,8 +1490,7 @@ module EventHandler
 
   def on_block_piston_extend(evt)
     if evt.direction.mod_y == 1
-      blocks = evt.blocks
-      final_block_loc = blocks.last.location
+      final_block_loc = evt.blocks.to_a.last.location
       entities = final_block_loc.chunk.entities.select {|e|
         add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
       }
