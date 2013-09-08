@@ -1493,13 +1493,12 @@ module EventHandler
       final_block_loc =
         if evt.blocks.to_a.empty?
           evt.block.location
-          #add_loc(evt.block.location, 0, 1, 0)
         else
           evt.blocks.to_a.last.location
         end
-      Bukkit.get_player('ujm').send_message final_block_loc.block.type.to_s
       entities = final_block_loc.chunk.entities.select {|e|
-        add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
+        final_block_loc == add_loc(e.location.block.location, 0, -1, 0) ||
+          final_block_loc == add_loc(e.location.block.location, 0, -2, 0)
       }
       later 0 do
         entities.each do |e|
