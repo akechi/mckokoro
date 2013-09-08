@@ -768,8 +768,8 @@ module EventHandler
           vehicle.fall_distance = 0.0
           later 0 do
             vehicle.teleport(player.location)
-            vehicle.velocity = Vector.new(1.4 * x, 0.45, 1.4 * z)
-            player.velocity = Vector.new(1.4 * x, 0.45, 1.4 * z)
+            vehicle.velocity = Vector.new(1.2 * x, 0.40, 1.2 * z)
+            player.velocity = Vector.new(1.2 * x, 0.40, 1.2 * z)
             vehicle.set_passenger player
           end
         else
