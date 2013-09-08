@@ -1492,7 +1492,7 @@ module EventHandler
     if evt.direction.mod_y == 1 && 
       final_block_loc =
         if evt.blocks.to_a.empty?
-          add_loc(evt.block.location, 0, 1, 0)
+          add_loc(evt.block.location, 0, 2, 0)
         else
           evt.blocks.to_a.last.location
         end
