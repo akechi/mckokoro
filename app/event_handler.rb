@@ -1497,8 +1497,11 @@ module EventHandler
           evt.blocks.to_a.last.location
         end
       entities = final_block_loc.chunk.entities.select {|e|
-        final_block_loc == add_loc(e.location.block.location, 0, -1, 0) ||
-          final_block_loc == add_loc(e.location.block.location, 0, -2, 0)
+        loc = e.location.block.location
+        final_block_loc == add_loc(loc, 0, 0, 0) ||
+        final_block_loc == add_loc(loc, 0, -1, 0) ||
+          final_block_loc == add_loc(loc, 0, -2, 0) ||
+          final_block_loc == add_loc(loc, 0, -3, 0) ||
       }
       later 0 do
         entities.each do |e|
