@@ -1489,11 +1489,14 @@ module EventHandler
   end
 
   def on_block_piston_extend(evt)
-    if evt.direction.mod_y == 1
-      final_block_loc = evt.blocks.to_a.last.location
-      entities = final_block_loc.chunk.entities.select {|e|
-        add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
-      }
+    if evt.direction.mod_y == 1 && 
+      final_block = evt.blocks.to_a.last
+      if final_block
+        final_block_loc = final_block.location
+        entities = final_block_loc.chunk.entities.select {|e|
+          add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
+        }
+      end
       Bukkit.get_player('ujm').send entities.map(&:to_s).to_s
     end
   end
