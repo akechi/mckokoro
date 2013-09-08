@@ -1683,7 +1683,6 @@ module EventHandler
             evt.cancelled = true
           else
             evt.damager.damage(evt.damage, defender)
-            defender.send_message "counter attack! #{evt.damage} damage to enemy(#{evt.damager.health})"
             evt.cancelled = true
           end
         end
