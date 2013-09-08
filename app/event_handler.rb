@@ -773,6 +773,7 @@ module EventHandler
             vehicle.set_passenger player
           end
           play_sound(player.location, Sound::BAT_LOOP, 0.8, 1.0)
+          play_sound(player.location, Sound::PIG_IDLE, 1.0, 1.0)
         else
           player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
           stochastically(50) do
