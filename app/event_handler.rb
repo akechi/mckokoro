@@ -1456,6 +1456,9 @@ module EventHandler
         end
       end
       case evt.entity
+      when Zombie
+        spawn(evt.location, EntityType::SPIDER)
+        evt.cancelled = true
       when CaveSpider
       when Spider
         2.times do
