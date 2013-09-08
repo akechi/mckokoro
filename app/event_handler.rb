@@ -772,14 +772,15 @@ module EventHandler
             player.velocity = Vector.new(1.2 * x, 0.40, 1.2 * z)
             vehicle.set_passenger player
           end
+          play_sound(player.location, Sound::BAT_LOOP, 0.8, 1.0)
         else
           player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
           stochastically(50) do
             consume_item(player)
           end
+          play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
         end
         player.fall_distance = 0.0
-        play_sound(player.location, Sound::BAT_LOOP, 1.0, 2.0)
       when Action::LEFT_CLICK_BLOCK, Action::LEFT_CLICK_AIR
         player.velocity = player.velocity.tap do |v|
           v.setX jfloat(0)
