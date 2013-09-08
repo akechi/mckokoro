@@ -1488,6 +1488,11 @@ module EventHandler
     end
   end
 
+  def on_block_piston_extend(evt)
+    blocks = evt.blocks
+    Bukkit.get_player('ujm').send_message blocks.map(&:type).to_s
+  end
+
   def on_block_piston_retract(evt)
     retract_block = evt.retract_location.block
     if evt.sticky? && retract_block.type == Material::FENCE
