@@ -1461,12 +1461,14 @@ module EventHandler
         evt.cancelled = true
       when CaveSpider
       when Spider
-        2.times do
-          s = spawn(evt.location, EntityType::SPIDER)
-          s.velocity = s.velocity.tap {|v|
-            v.set_x 2.0
-            v.set_y 2.0
-          }
+        stochastically(80) do
+          2.times do
+            s = spawn(evt.location, EntityType::SPIDER)
+            s.velocity = s.velocity.tap {|v|
+              v.set_x 2.0
+              v.set_y 2.0
+            }
+          end
         end
       end
     end
