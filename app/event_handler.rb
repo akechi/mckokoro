@@ -1503,7 +1503,7 @@ module EventHandler
       later 0 do
         entities.each do |e|
           e.velocity = e.velocity.tap {|v|
-            v.set_y 1.1
+            v.set_y 1.0
           }
         end
       end
