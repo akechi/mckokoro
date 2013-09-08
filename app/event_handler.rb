@@ -765,7 +765,9 @@ module EventHandler
         vehicle = player.vehicle
         if vehicle && Pig === vehicle
           vehicle.eject
+          vehicle.fall_distance = 0.0
           later 0 do
+            vehicle.teleport(player.location)
             vehicle.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
             player.velocity = Vector.new(1.5 * x, 0.5, 1.5 * z)
             vehicle.set_passenger player
