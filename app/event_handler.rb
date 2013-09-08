@@ -1489,8 +1489,14 @@ module EventHandler
   end
 
   def on_block_piston_extend(evt)
-    blocks = evt.blocks
-    Bukkit.get_player('ujm').send_message blocks.map(&:type).map(&:to_s).join
+    if evt.direction.mod_y == 1
+      blocks = evt.blocks
+      final_block_loc = blocks.last.location
+      entities = final_block_loc.chunk.entities.select {|e|
+        add_loc(e.location.block.location, 0, -1, 0) == final_block_loc
+      }
+      Bukkit.get_player('ujm').send entities.map(&:to_s).to_s
+    end
   end
 
   def on_block_piston_retract(evt)
