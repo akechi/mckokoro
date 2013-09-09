@@ -1470,9 +1470,9 @@ module EventHandler
         end
       end
       case evt.entity
-      when Zombie
-        spawn(evt.location, EntityType::SPIDER)
-        evt.cancelled = true
+      #when Zombie
+      #  spawn(evt.location, EntityType::SPIDER)
+      #  evt.cancelled = true
       when CaveSpider
       when Spider
         stochastically(80) do
