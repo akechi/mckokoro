@@ -1476,12 +1476,11 @@ module EventHandler
       when CaveSpider
       when Spider
         stochastically(80) do
-          2.times do
-            s = spawn(evt.location, EntityType::SPIDER)
-            s.velocity = s.velocity.tap {|v|
-              v.set_x 2.0
-              v.set_y 2.0
-            }
+          later sec(5) do
+            spawn(evt.location, EntityType::SPIDER)
+          end
+          later sec(10) do
+            spawn(evt.location, EntityType::SPIDER)
           end
         end
       end
