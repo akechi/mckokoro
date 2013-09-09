@@ -1498,17 +1498,16 @@ module EventHandler
         end
       entities = final_block_loc.chunk.entities.select {|e|
         loc = e.location.block.location
-        final_block_loc == add_loc(loc, 0, 0, 0) ||
-          final_block_loc == add_loc(loc, 0, -1, 0) ||
-          final_block_loc == add_loc(loc, 0, -2, 0) ||
-          final_block_loc == add_loc(loc, 0, -3, 0)
+        final_block_loc == add_loc(loc, 0, -1, 0) ||
+          final_block_loc == add_loc(loc, 0, 0, 0) ||
+          final_block_loc == add_loc(loc, 0, -1, 0)
       }
       later 0 do
         entities.each do |e|
           e.teleport(add_loc(e.location, 0, 1, 0))
-          e.velocity = e.velocity.tap {|v|
-            v.set_y 0.1
-          }
+          #e.velocity = e.velocity.tap {|v|
+          #  v.set_y 0.1
+          #}
         end
       end
     end
