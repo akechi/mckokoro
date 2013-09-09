@@ -1475,12 +1475,13 @@ module EventHandler
       #  evt.cancelled = true
       when CaveSpider
       when Spider
+        loc = evt.location
         stochastically(80) do
           later sec(5) do
-            spawn(evt.location, EntityType::SPIDER)
+            spawn(loc, EntityType::SPIDER)
           end
           later sec(10) do
-            spawn(evt.location, EntityType::SPIDER)
+            spawn(loc, EntityType::SPIDER)
           end
         end
       end
