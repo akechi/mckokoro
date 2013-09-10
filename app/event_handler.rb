@@ -228,8 +228,8 @@ module Util
     all_facings = [
       BlockFace::EAST_SOUTH_EAST,
       BlockFace::EAST,
-      BlockFace::EAST_NORTH_EAST,
       BlockFace::NORTH_NORTH_EAST,
+      BlockFace::EAST_NORTH_EAST,
       BlockFace::NORTH_EAST,
       BlockFace::NORTH,
       BlockFace::NORTH_NORTH_WEST,
