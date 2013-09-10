@@ -1552,9 +1552,11 @@ module EventHandler
       later 0 do
         tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
-          let(goes_to.state) do |state|
-            state.data = bdata
-            state.update()
+          if bdata
+            let(goes_to.state) do |state|
+              state.data = bdata
+              state.update()
+            end
           end
         end
       end
