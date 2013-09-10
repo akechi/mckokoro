@@ -1555,7 +1555,7 @@ module EventHandler
           if bdata
             let(goes_to.state) do |state|
               state.data = bdata
-              state.update()
+              state.update(true)
             end
           end
         end
