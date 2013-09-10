@@ -1154,13 +1154,9 @@ module EventHandler
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::WALL_SIGN, Action::RIGHT_CLICK_BLOCK]
-        if evt.player.item_in_hand.type == Material::STONE_BUTTON
-          evt.player.send_message "#{evt.clicked_block.state.data.facing}"
-        end
+        evt.player.send_message "#{evt.clicked_block.state.data.facing}"
       when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
-        if evt.player.item_in_hand.type == Material::STONE_BUTTON
-          evt.player.send_message "#{evt.clicked_block.state.data.facing}"
-        end
+        evt.player.send_message "#{evt.clicked_block.state.data.facing}"
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
