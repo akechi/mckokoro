@@ -2296,11 +2296,11 @@ module EventHandler
 
 
   def periodically_tick
+    online_players = Bukkit.online_players
     online_players.map {|p| p.location.block }.uniq.each {|b|
       rotate_sign(b)
     }
     return # just for now
-    online_players = Bukkit.online_players
 
     online_players.each do |player|
       # barrage_visual_orb(player, :inside, 2, 5, 1)
