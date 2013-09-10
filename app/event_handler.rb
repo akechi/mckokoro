@@ -1157,6 +1157,9 @@ module EventHandler
         evt.player.send_message "#{evt.clicked_block.state.data.facing}"
       when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
         evt.player.send_message "#{evt.clicked_block.state.data.facing}"
+        face = evt.clicked_block.state.data.facing
+        evt.player.send_message "#{face.mod_x} #{face.mod_y} #{face.mod_z}"
+        evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
