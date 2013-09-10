@@ -236,7 +236,7 @@ module Util
       BlockFace::NORTH_WEST,
       BlockFace::WEST_NORTH_WEST,
       BlockFace::WEST,
-      BlockFace::WEST_SOUTH_WEST
+      BlockFace::WEST_SOUTH_WEST,
       BlockFace::SOUTH,
       BlockFace::SOUTH_SOUTH_EAST,
       BlockFace::SOUTH_EAST,
