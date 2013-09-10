@@ -1165,18 +1165,6 @@ module EventHandler
       #    below.block.type == Material::SMOOTH_BRICK &&
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
-      when [Material::WALL_SIGN, Action::RIGHT_CLICK_BLOCK]
-        evt.player.send_message "#{evt.clicked_block.state.data.facing}"
-      when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
-        face = evt.clicked_block.state.data.facing
-        let(evt.clicked_block.state) do |state|
-          state.data = state.data.tap {|d|
-            new_facing = facing_next(d.facing)
-            evt.player.send_message "#{d.facing} -> #{new_facing}"
-            d.facing_direction = new_facing
-          }
-          state.update()
-        end
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
@@ -2353,6 +2341,17 @@ module EventHandler
   end
   private :logout_countdown_update
 
+  def rotate_sign(block)
+    return unless block.type == Material::SIGN_POST
+    state = block.state
+    state.data = state.data.tap {|d|
+      new_facing = facing_next(d.facing)
+      d.facing_direction = new_facing
+    }
+    state.update()
+  end
+  private :rotate_sign
+
   def periodically_sec
     online_players = Bukkit.online_players
     # nearby_creatures = online_players.map {|p|
@@ -2369,6 +2368,9 @@ module EventHandler
     holy_water(nearby_creatures)
     #wild_golem(nearby_creatures, online_players)
     logout_countdown_update()
+    online_players.map {|p| p.location.block }.uniq.each {|b|
+      rotate_sign(b)
+    }
 
     online_players.each do |player|
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
