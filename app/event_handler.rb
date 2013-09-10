@@ -1542,11 +1542,11 @@ module EventHandler
       face = evt.direction
       tuples = cloop(20, retract_block, []) {|recur, num, cur_block, acc|
         if num == 0 || !cur_block.type.solid?
-          [[cur_block, Material::AIR, 0]] + acc
+          [[cur_block, Material::AIR, nil]] + acc
         else
           b = add_loc(
             cur_block.location, face.mod_x, face.mod_y, face.mod_z).block
-          recur.(num - 1, b, [[cur_block, b.type, b.data]] + acc)
+          recur.(num - 1, b, [[cur_block, b.type, b.state.data]] + acc)
         end
       }
       later 0 do
