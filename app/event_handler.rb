@@ -20,6 +20,7 @@ import 'org.bukkit.enchantments.Enchantment'
 import 'org.bukkit.potion.PotionEffectType'
 import 'org.bukkit.potion.Potion'
 import 'org.bukkit.potion.PotionType'
+import 'org.bukkit.block.BlockFace'
 import 'com.github.ujihisa.Mckokoro.JavaWrapper'
 
 require 'set'
@@ -1160,10 +1161,8 @@ module EventHandler
         face = evt.clicked_block.state.data.facing
         evt.player.send_message "#{face.mod_x} #{face.mod_y} #{face.mod_z}"
         evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
-        evt.clicked_block.state = evt.clicked_block.state.tap {|state|
-          state.data = state.data.tap {|d|
-            d.facing_direction = face.opposite_face
-          }
+        evt.clicked_block.state.data = evt.clicked_block.state.data.tap {|d|
+          d.facing_direction = BlockFace::WEST
         }
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
