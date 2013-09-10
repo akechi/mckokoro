@@ -1171,10 +1171,11 @@ module EventHandler
         evt.player.send_message "#{evt.clicked_block.state.data.facing}"
         face = evt.clicked_block.state.data.facing
         evt.player.send_message "#{face.mod_x} #{face.mod_y} #{face.mod_z}"
-        evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
         let(evt.clicked_block.state) do |state|
           d = state.data
-          d.facing_direction = facing_next(d.facing)
+          new_facing = facing_next(d.facing)
+          evt.player.send_message "#{new_facing}"
+          d.facing_direction = new_facing
           state.data = d
           state.update()
         end
