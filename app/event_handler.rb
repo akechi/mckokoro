@@ -1290,7 +1290,7 @@ module EventHandler
         name = location_name.call args
         loc = sign_state.location.clone
         @sign_location_list[name] = loc
-        broadcast "#{ player.name } added : [#{ name }] loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
+        broadcast "#{ player.name } added: [#{ name }] loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
       when :locationlist
         @sign_location_list.each do |name, loc|
           player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
@@ -1743,7 +1743,7 @@ module EventHandler
   end
 
   def on_entity_damage_by_block(evt)
-    #broadcast "[test] on entity damage by block : #{ evt.damager.type }"
+    #broadcast "[test] on entity damage by block: #{ evt.damager.type }"
   end
 
   def damage_by_falling(evt)
