@@ -112,8 +112,8 @@ module Util
 
   def face2pitchyaw(face)
     x, z = face.mod_x, face.mod_z
-    phi = Math.atan2(x, z) * 180 / Math::PI
-    [0.0, phi + 90]
+    phi = Math.atan2(-x, z) * 180 / Math::PI
+    [0.0, phi]
   end
 
   def stochastically(percentage)
