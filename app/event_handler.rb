@@ -2296,6 +2296,9 @@ module EventHandler
 
 
   def periodically_tick
+    online_players.map {|p| p.location.block }.uniq.each {|b|
+      rotate_sign(b)
+    }
     return # just for now
     online_players = Bukkit.online_players
 
@@ -2368,9 +2371,6 @@ module EventHandler
     holy_water(nearby_creatures)
     #wild_golem(nearby_creatures, online_players)
     logout_countdown_update()
-    online_players.map {|p| p.location.block }.uniq.each {|b|
-      rotate_sign(b)
-    }
 
     online_players.each do |player|
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
