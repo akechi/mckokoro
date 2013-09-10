@@ -111,12 +111,9 @@ module Util
   end
 
   def face2pitchyaw(face)
-    #x, z = face.mod_x, face.mod_z
-    #phi = Math.
-    #    x, z =
-    #      Math.cos(phi / 180.0 * Math::PI),
-    #      Math.sin(phi / 180.0 * Math::PI)
-    #    vehicle = player.vehicle
+    x, z = face.mod_x, face.mod_z
+    phi = Math.atan2(x, z) * 180 / Math::PI
+    [0.0, phi]
   end
 
   def stochastically(percentage)
@@ -1313,6 +1310,12 @@ module EventHandler
 
         @sign_location_list[name] = loc
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
+      when :direction
+        player.teleport(player.location.tap {|l|
+          pitch, yaw = face2pitchyaw(sigh_state.data.facing)
+          l.set_pitch(pitch)
+          l.set_yaw(yaw)
+        })
       when :locationlist
         @sign_location_list.each do |name, loc|
           player.send_message "#{name}: loc(#{[loc.x, loc.y, loc.z].join ","})"
