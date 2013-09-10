@@ -1549,7 +1549,7 @@ module EventHandler
           recur.(num - 1, b, [[cur_block, b.type, b.state.data]] + acc)
         end
       }
-      later 5 do
+      later 6 do
         tuples.each do |goes_to, btype, bdata|
           goes_to.type = btype
           if bdata
