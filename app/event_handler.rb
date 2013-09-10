@@ -1163,7 +1163,7 @@ module EventHandler
         evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
         let(evt.clicked_block.state) do |state|
           d = state.data
-          d.facing_direction = BlockFace::WEST
+          d.facing_direction = d.facing_direction.opposite_face
           state.data = d
           state.update()
         end
