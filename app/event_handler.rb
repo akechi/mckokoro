@@ -1310,12 +1310,12 @@ module EventHandler
 
         @sign_location_list[name] = loc
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
-      when :direction
-        player.teleport(player.location.tap {|l|
-          pitch, yaw = face2pitchyaw(sign_state.data.facing)
-          #l.set_pitch(pitch)
-          l.set_yaw(yaw)
-        })
+      #when :direction
+      #  player.teleport(player.location.tap {|l|
+      #    pitch, yaw = face2pitchyaw(sign_state.data.facing)
+      #    #l.set_pitch(pitch)
+      #    l.set_yaw(yaw)
+      #  })
       when :locationlist
         @sign_location_list.each do |name, loc|
           player.send_message "#{name}: loc(#{[loc.x, loc.y, loc.z].join ","})"
@@ -2310,11 +2310,11 @@ module EventHandler
 
 
   def periodically_tick
+    return # just for now
     online_players = Bukkit.online_players
     online_players.map {|p| p.location.block }.uniq.each {|b|
       rotate_sign(b)
     }
-    return # just for now
 
     online_players.each do |player|
       # barrage_visual_orb(player, :inside, 2, 5, 1)
