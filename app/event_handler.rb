@@ -232,9 +232,9 @@ module Util
       BlockFace::SOUTH_EAST, BlockFace::SOUTH_SOUTH_EAST,
       BlockFace::SOUTH_SOUTH_WEST, BlockFace::SOUTH_WEST, BlockFace::WEST,
       BlockFace::WEST_NORTH_WEST, BlockFace::WEST_SOUTH_WEST]
-    idx = all_facings.find_index(facing)
+    idx = all_facings.find_index(facing) + 1 % all_facings.size
     p idx
-    all_facings[idx + 1 % all_facings.size]
+    p all_facings[idx]
   end
 
   def silence_warnings
