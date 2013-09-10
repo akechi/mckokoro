@@ -1179,9 +1179,7 @@ module EventHandler
       when [Material::WALL_SIGN, Action::RIGHT_CLICK_BLOCK]
         evt.player.send_message "#{evt.clicked_block.state.data.facing}"
       when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
-        evt.player.send_message "#{evt.clicked_block.state.data.facing}"
         face = evt.clicked_block.state.data.facing
-        evt.player.send_message "#{face.mod_x} #{face.mod_y} #{face.mod_z}"
         let(evt.clicked_block.state) do |state|
           d = state.data
           new_facing = facing_next(d.facing)
