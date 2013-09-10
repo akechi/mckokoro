@@ -1170,11 +1170,11 @@ module EventHandler
       when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
         face = evt.clicked_block.state.data.facing
         let(evt.clicked_block.state) do |state|
-          d = state.data
-          new_facing = facing_next(d.facing)
-          evt.player.send_message "#{d.facing} -> #{new_facing}"
-          d.facing_direction = new_facing
-          state.data = d
+          state.data = state.data.tap {|d|
+            new_facing = facing_next(d.facing)
+            evt.player.send_message "#{d.facing} -> #{new_facing}"
+            d.facing_direction = new_facing
+          }
           state.update()
         end
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
