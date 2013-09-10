@@ -1312,7 +1312,7 @@ module EventHandler
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       when :direction
         player.teleport(player.location.tap {|l|
-          pitch, yaw = face2pitchyaw(sigh_state.data.facing)
+          pitch, yaw = face2pitchyaw(sign_state.data.facing)
           l.set_pitch(pitch)
           l.set_yaw(yaw)
         })
