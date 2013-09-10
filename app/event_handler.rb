@@ -1161,9 +1161,12 @@ module EventHandler
         face = evt.clicked_block.state.data.facing
         evt.player.send_message "#{face.mod_x} #{face.mod_y} #{face.mod_z}"
         evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
-        evt.clicked_block.state.data = evt.clicked_block.state.data.tap {|d|
+        let(evt.clicked_block.state) do |state|
+          d = state.data
           d.facing_direction = BlockFace::WEST
-        }
+          state.data = d
+          state.update()
+        end
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
