@@ -1290,10 +1290,10 @@ module EventHandler
         name = location_name.call args
         loc = sign_state.location.clone
         @sign_location_list[name] = loc
-        broadcast "#{ player.name } added: [#{ name }] loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
+        broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       when :locationlist
         @sign_location_list.each do |name, loc|
-          player.send_message "#{ name }: loc(#{ [ loc.x, loc.y, loc.z ].join "," })"
+          player.send_message "#{name}: loc(#{[loc.x, loc.y, loc.z].join ","})"
         end
       end
     end
