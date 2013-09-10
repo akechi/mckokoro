@@ -238,10 +238,10 @@ module Util
       BlockFace::WEST,
       BlockFace::WEST_SOUTH_WEST,
       BlockFace::SOUTH,
-      BlockFace::SOUTH_SOUTH_EAST,
-      BlockFace::SOUTH_EAST,
       BlockFace::SOUTH_SOUTH_WEST,
       BlockFace::SOUTH_WEST,
+      BlockFace::SOUTH_SOUTH_EAST,
+      BlockFace::SOUTH_EAST,
     ]
     all_facings[(all_facings.find_index(facing) + 1) % all_facings.size]
   end
