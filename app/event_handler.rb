@@ -1153,7 +1153,11 @@ module EventHandler
       #    below.block.type == Material::SMOOTH_BRICK &&
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
-      when [Material::SIGN, Action::RIGHT_CLICK_BLOCK]
+      when [Material::WALL_SIGN, Action::RIGHT_CLICK_BLOCK]
+        if evt.player.item_in_hand.type == Material::STONE_BUTTON
+          evt.player.send_message "#{evt.clicked_block.state.data.facing}"
+        end
+      when [Material::SIGN_POST, Action::RIGHT_CLICK_BLOCK]
         if evt.player.item_in_hand.type == Material::STONE_BUTTON
           evt.player.send_message "#{evt.clicked_block.state.data.facing}"
         end
