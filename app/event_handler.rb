@@ -224,6 +224,17 @@ module Util
       Bukkit.get_world(world_name), loc_x, loc_y, loc_z, jfloat(loc_yaw), jfloat(loc_pitch))
   end
 
+  def facing_next(facing)
+    all_facings = [
+      BlockFace::EAST, BlockFace::EAST_NORTH_EAST, BlockFace::EAST_SOUTH_EAST,
+      BlockFace::NORTH, BlockFace::NORTH_EAST, BlockFace::NORTH_NORTH_EAST,
+      BlockFace::NORTH_NORTH_WEST, BlockFace::NORTH_WEST, BlockFace::SOUTH,
+      BlockFace::SOUTH_EAST, BlockFace::SOUTH_SOUTH_EAST,
+      BlockFace::SOUTH_SOUTH_WEST, BlockFace::SOUTH_WEST, BlockFace::WEST,
+      BlockFace::WEST_NORTH_WEST, BlockFace::WEST_SOUTH_WEST]
+    all_facings[all_facings.find_index(facing) + 1 % all_facings.size]
+  end
+
   def silence_warnings
     old_verbose, $VERBOSE = $VERBOSE, nil
     yield
@@ -1163,7 +1174,7 @@ module EventHandler
         evt.player.send_message "#{evt.clicked_block.state.data.attached_face}"
         let(evt.clicked_block.state) do |state|
           d = state.data
-          d.facing_direction = d.facing.opposite_face
+          d.facing_direction = facing_next(d.facing)
           state.data = d
           state.update()
         end
