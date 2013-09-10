@@ -1297,7 +1297,7 @@ module EventHandler
           safety_loc = add_loc(loc, face.mod_x, face.mod_y, face.mod_z)
           if safety_loc
             pitch, yaw = face2pitchyaw(face)
-            safety_loc.set_yaw yaw
+            safety_loc.set_yaw(yaw + 180)
             player.teleport safety_loc
             broadcast "#{ player.name } teleported to #{ name }"
           else
