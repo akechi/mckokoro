@@ -1183,7 +1183,7 @@ module EventHandler
         let(evt.clicked_block.state) do |state|
           d = state.data
           new_facing = facing_next(d.facing)
-          evt.player.send_message "new #{new_facing}"
+          evt.player.send_message "#{d.facing} -> #{new_facing}"
           d.facing_direction = new_facing
           state.data = d
           state.update()
