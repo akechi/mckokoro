@@ -1313,7 +1313,7 @@ module EventHandler
       when :direction
         player.teleport(player.location.tap {|l|
           pitch, yaw = face2pitchyaw(sign_state.data.facing)
-          l.set_pitch(pitch)
+          #l.set_pitch(pitch)
           l.set_yaw(yaw)
         })
       when :locationlist
