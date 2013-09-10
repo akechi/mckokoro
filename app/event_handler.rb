@@ -109,6 +109,9 @@ module Util
     add_loc(block.location, 0.5, 0.0, 0.5)
   end
 
+  def face2pitchyaw(face)
+  end
+
   def stochastically(percentage)
     yield if rand(100) < percentage
   end
@@ -1150,6 +1153,10 @@ module EventHandler
       #    below.block.type == Material::SMOOTH_BRICK &&
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
+      when [Material::SIGN, Action::RIGHT_CLICK_BLOCK]
+        if evt.player.item_in_hand.type == Material::STONE_BUTTON
+          evt.player.send_message "#{evt.clicked_block.state.data.facing}"
+        end
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
@@ -1289,6 +1296,7 @@ module EventHandler
       when :location
         name = location_name.call args
         loc = sign_state.location.clone
+
         @sign_location_list[name] = loc
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       when :locationlist
