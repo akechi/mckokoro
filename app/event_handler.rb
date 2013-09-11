@@ -231,10 +231,12 @@ module Util
       Bukkit.get_world(world_name), loc_x, loc_y, loc_z, jfloat(loc_yaw), jfloat(loc_pitch))
   end
 
+  # not used now
   def serialize_sign_location_list(sign_location_list)
     Hash[sign_location_list.map {|k, v| [k, serialize_location(v)] }]
   end
 
+  # not used now
   def deserialize_sign_location_list(s_sign_location_list)
     Hash[s_sign_location_list.map {|k, v| [k, deserialize_location(v)] }]
   end
