@@ -1178,7 +1178,7 @@ module EventHandler
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
-        sign_command(evt.player, evt.clicked_block.state)
+        sign_command(evt.player, evt.clicked_block.state, evt)
       end
       # Grim Reaper
       Job.set_recipe(
@@ -1301,7 +1301,7 @@ module EventHandler
   end
 
   @logout_countdown_table ||= {}
-  def sign_command(player, sign_state)
+  def sign_command(player, sign_state, ev, evt)
     @sign_location_list ||= {}
 
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
@@ -1311,6 +1311,7 @@ module EventHandler
 
     if /<(.+)>/ =~ raw_command
       command = $1.to_sym
+      evt.cancelled = true
       case command
       when :logout
         unless @logout_countdown_table[player]
