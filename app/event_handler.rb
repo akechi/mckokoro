@@ -1305,7 +1305,7 @@ module EventHandler
   end
 
   @logout_countdown_table ||= {}
-  def sign_command(player, sign_state, ev, evt)
+  def sign_command(player, sign_state, evt)
     @sign_location_list ||= {}
 
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
