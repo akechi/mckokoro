@@ -1347,6 +1347,7 @@ module EventHandler
         loc = sign_state.location.clone
 
         @db['sign_location_list'][name] = serialize_location loc
+        db_save
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       #when :direction
       #  player.teleport(player.location.tap {|l|
