@@ -1306,7 +1306,7 @@ module EventHandler
 
   @logout_countdown_table ||= {}
   def sign_command(player, sign_state, evt)
-    @sign_location_list ||= {}
+    @db['sign_location_list'] ||= {}
 
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
 
@@ -1326,8 +1326,8 @@ module EventHandler
         end
       when :warp
         name = location_name.call args
-        if @sign_location_list[name]
-          loc = @sign_location_list[name]
+        if @db['sign_location_list'][name]
+          loc = deserialize_location @db['sign_location_list'][name]
           # safety_loc = location_around_flat(loc, 2).find{ |loc| loc.block.type == Material::AIR }
           face = loc.block.state.data.facing
           safety_loc = add_loc(loc, face.mod_x, face.mod_y, face.mod_z)
@@ -1346,7 +1346,7 @@ module EventHandler
         name = location_name.call args
         loc = sign_state.location.clone
 
-        @sign_location_list[name] = loc
+        @db['sign_location_list'][name] = serialize_location loc
         broadcast "#{player.name} added: [#{name}] loc(#{[loc.x, loc.y, loc.z].join ","})"
       #when :direction
       #  player.teleport(player.location.tap {|l|
@@ -1355,7 +1355,8 @@ module EventHandler
       #    l.set_yaw(yaw)
       #  })
       when :locationlist
-        @sign_location_list.each do |name, loc|
+        @db['sign_location_list'].each do |name, sloc|
+          loc = deserialize_location sloc
           player.send_message "#{name}: loc(#{[loc.x, loc.y, loc.z].join ","})"
         end
       end
