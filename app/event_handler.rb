@@ -671,7 +671,8 @@ module EventHandler
         add_loc(base_loc, -mod_x, -1, -mod_z).block.type == Material::DIAMOND_BLOCK &&
         add_loc(base_loc, 0, -2, 0).block.type == Material::DIAMOND_BLOCK
       if cond
-        player.send_message "Success!"
+        evt.cancelled = true
+        player.send_message "Success! Diamond golem!"
       end
     end
   end
