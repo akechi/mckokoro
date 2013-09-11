@@ -1317,6 +1317,8 @@ module EventHandler
       command = $1.to_sym
       evt.cancelled = true
       case command
+      when :login
+        player.send_message "You already logged in (already)"
       when :logout
         unless @logout_countdown_table[player]
           @logout_countdown_table[player] = 10
