@@ -665,11 +665,11 @@ module EventHandler
       base_loc = evt.block_placed.location
       later 0 do
         mod_x, mod_z =
-          let(evt.block_placed.state.data.facing) {|f| [f.mod_x, f.mod_z] }
+          let(evt.block_placed.state.data.facing) {|f| [f.mod_z, -f.mod_x] }
         cond =
           add_loc(base_loc, 0, -1, 0).block.type == Material::DIAMOND_BLOCK &&
-          add_loc(base_loc, mod_x, -1, -mod_z).block.type == Material::DIAMOND_BLOCK &&
-          add_loc(base_loc, -mod_x, -1, mod_z).block.type == Material::DIAMOND_BLOCK &&
+          add_loc(base_loc, mod_x, -1, mod_z).block.type == Material::DIAMOND_BLOCK &&
+          add_loc(base_loc, -mod_x, -1, -mod_z).block.type == Material::DIAMOND_BLOCK &&
           add_loc(base_loc, 0, -2, 0).block.type == Material::DIAMOND_BLOCK
         if cond
           #evt.cancelled = true
