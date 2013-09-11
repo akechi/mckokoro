@@ -666,14 +666,16 @@ module EventHandler
       later 0 do
         mod_x, mod_z =
           let(evt.block_placed.state.data.facing) {|f| [f.mod_z, -f.mod_x] }
-        cond =
-          add_loc(base_loc, 0, -1, 0).block.type == Material::DIAMOND_BLOCK &&
-          add_loc(base_loc, mod_x, -1, mod_z).block.type == Material::DIAMOND_BLOCK &&
-          add_loc(base_loc, -mod_x, -1, -mod_z).block.type == Material::DIAMOND_BLOCK &&
-          add_loc(base_loc, 0, -2, 0).block.type == Material::DIAMOND_BLOCK
-        if cond
-          #evt.cancelled = true
+        diamond_blocks = [
+          add_loc(base_loc, 0, -1, 0).block,
+          add_loc(base_loc, mod_x, -1, mod_z).block,
+          add_loc(base_loc, -mod_x, -1, -mod_z).block,
+          add_loc(base_loc, 0, -2, 0).block]
+        if diamond_blocks.map(&:type).all? {|t| t == Material::DIAMOND_BLOCK }
           player.send_message "Success! Diamond golem! #{mod_x} #{mod_z}"
+          (diamond_blocks + [base_loc.block]).each do |b|
+            b.type = Material::AIR
+          end
         end
       end
     end
