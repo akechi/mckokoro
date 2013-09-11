@@ -676,6 +676,10 @@ module EventHandler
           (diamond_blocks + [base_loc.block]).each do |b|
             b.type = Material::AIR
           end
+          golem = spawn(base_loc, EntityType::IRON_GOLEM)
+          golem.player_created = true
+          golem.max_health = 500
+          golem.health = golem.max_health
         end
       end
     end
