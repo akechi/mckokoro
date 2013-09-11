@@ -2154,8 +2154,9 @@ module EventHandler
     when "inv"
       case sender
       when Player
-        p [:cmd, sender, cmd, label, args.to_a]
+        #p [:cmd, sender, cmd, label, args.to_a]
         sender.open_workbench sender.location, true
+        play_sound(sender.location, Sound::EXPLODE, 1.0, 1.0)
         true
       else
         false
