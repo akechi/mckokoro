@@ -337,6 +337,9 @@ module EventHandler
       post_lingr("#{evt.player.name}: #{message}")
       post_lingr_to('computer_science', "#{last_pname}: #{last_message}")
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
+    elsif evt.message == 'benri'
+      post_lingr("#{evt.player.name}: 便利")
+      evt.message = '便利'
     else
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
