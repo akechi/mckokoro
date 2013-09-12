@@ -1842,7 +1842,9 @@ module EventHandler
     when Material::GRASS
       evt.cancelled = true
       block_below.type = Material::DIRT
-      entity.velocity = entity.velocity.tap{|v| v.add Vector.new(0.0, 0.4, 0.0) }
+      entity.velocity = entity.velocity.tap{|v|
+        v.add Vector.new(jfloat(0.0), jfloat(0.4), jfloat(0.0))
+      }
     when Material::LEAVES
       evt.damage = 1
       entity.teleport(add_loc(entity.location, 0, -0.1, 0))
