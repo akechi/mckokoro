@@ -1655,9 +1655,15 @@ module EventHandler
         end
       end
     when Material::JACK_O_LANTERN
-      strike_lightning(evt.block.location)
+      lantern_piston(evt.block)
     end
   end
+
+  def lantern_piston(block)
+    facing = block.state.data.facing
+    strike_lightning(add_loc(block.location, facing.mod_x, facing.mod_y, facing.mod_z))
+  end
+  private :lantern_piston
 
   @earthwork_squids ||= {}
   def on_block_dispense(evt)
