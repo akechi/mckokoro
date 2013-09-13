@@ -2229,23 +2229,23 @@ module EventHandler
       end
     end
 
-    # experimental
-    if diff_y < 0 && player.blocking? #SWORDS.include?(player.item_in_hand.type)
-      player.fall_distance = 4.0 if player.fall_distance >= 4.0
+    # fall damage cancel with sword blocking
+    if diff_y < 0 && player.blocking? && player.fall_distance >= 4.0
+      player.fall_distance = 4.0
       player.velocity = player.velocity.set_y jfloat(player.velocity.get_y * 0.75)
     end
     # experimental
-    if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      below = loc_below(player.location)
-      if below.block.type == Material::SMOOTH_BRICK
-        [[1, 0], [0, 1], [1, 1]].each do |x, z|
-          loc = add_loc(below, x, 0, z)
-          if loc.block.type == Material::AIR
-            loc.block.type = Material::SMOOTH_BRICK
-          end
-        end
-      end
-    end
+    #if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
+    #  below = loc_below(player.location)
+    #  if below.block.type == Material::SMOOTH_BRICK
+    #    [[1, 0], [0, 1], [1, 1]].each do |x, z|
+    #      loc = add_loc(below, x, 0, z)
+    #      if loc.block.type == Material::AIR
+    #        loc.block.type = Material::SMOOTH_BRICK
+    #      end
+    #    end
+    #  end
+    #end
 
     # fastwater
     cond =
