@@ -2284,25 +2284,29 @@ module EventHandler
       case player.location.pitch
       when -90.0 # up
         if diff_y > 0
+          to = evt.to
           (1..7).each do |i|
             newloc = add_loc(evt.to, 0, i, 0)
             if newloc.block.type == Material::LADDER
-              evt.to = newloc
+              to = newloc
             else
               break
             end
           end
+          evt.to = to
         end
       when 90.0 #down
         if diff_y < 0
+          to = evt.to
           (1..7).each do |i|
             newloc = add_loc(evt.to, 0, -i, 0)
             if newloc.block.type == Material::LADDER
-              evt.to = newloc
+              to = newloc
             else
               break
             end
           end
+          evt.to = to
         end
       end
     end
