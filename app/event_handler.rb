@@ -2196,7 +2196,7 @@ module EventHandler
 
     if !@ctf_players.member?(player) && ctf_in_area?(evt.to)
       @ctf_players << player
-      broadcast "#{player.name} joined PVP!"
+      broadcast "#{player.name} joined CTF!"
     elsif @ctf_players.member?(player) && !ctf_in_area?(evt.to)
       #later 0 do
       #  new_loc = player.location.tap {|l|
@@ -2209,7 +2209,7 @@ module EventHandler
       #  play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
       #end
       @ctf_players.delete(player)
-      broadcast "#{player.name} left PVP..."
+      broadcast "#{player.name} left CTF..."
     end
 
     # barrage_visual_orb(player)
