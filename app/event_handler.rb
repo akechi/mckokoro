@@ -1649,7 +1649,7 @@ module EventHandler
           map_idx = items.find {|e|
             e.item_stack.type == Material::MAP
           }
-          map_idx = map_idx.item_stack.data.data if map_idx
+          map_idx = map_idx.item_stack.data if map_idx
           Bukkit.get_player('ujm').send_message map_idx.to_s
           smoke_effect(on_juke)
           play_sound(on_juke, Sound::PIG_IDLE, 1.0, 2.0)
