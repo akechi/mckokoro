@@ -2159,6 +2159,12 @@ module EventHandler
           when :update_recipe
             update_recipes
             broadcast "Recipe updated!"
+          when :list_enchant
+            names = Enchantment.values.to_a.
+              map(&:name).map(&:downcase)
+            names_formatted.each_slice(3) do |names|
+              sender.send_message name_formatted.map {|n| n.join ', ' }
+            end
           end
         end
         true
