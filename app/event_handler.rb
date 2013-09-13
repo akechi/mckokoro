@@ -1654,8 +1654,8 @@ module EventHandler
           end
         end
       end
-    when Material::PUMPKIN
-      lantern_piston(evt.block)
+    when Material::JACK_O_LANTERN
+      #lantern_piston(evt.block)
     end
   end
 
