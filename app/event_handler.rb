@@ -1660,6 +1660,7 @@ module EventHandler
   end
 
   def lantern_piston(block)
+    Bukkit.get_player('ujm').send_message block.location.to_s
     facing = block.state.data.facing
     strike_lightning(add_loc(block.location, facing.mod_x, facing.mod_y, facing.mod_z))
   end
