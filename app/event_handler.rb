@@ -2162,8 +2162,8 @@ module EventHandler
           when :list_enchant
             names = Enchantment.values.to_a.
               map(&:name).map(&:downcase)
-            names_formatted.each_slice(3) do |names|
-              sender.send_message name_formatted.map {|n| n.join ', ' }
+            names.each_slice(3) do |names2|
+              sender.send_message names2.map {|n| n.join ', ' }
             end
           end
         end
