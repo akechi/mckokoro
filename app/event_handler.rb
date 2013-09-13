@@ -1660,9 +1660,17 @@ module EventHandler
   end
 
   def lantern_piston(block)
+    @last_lantern_piston ||= {}
+    loc = block.location
+    return if @last_lantern_piston[loc]
+
     Bukkit.get_player('ujm').send_message block.location.to_s
     facing = block.state.data.facing
     strike_lightning(add_loc(block.location, facing.mod_x, facing.mod_y, facing.mod_z))
+    @last_lantern_piston[loc] = true
+    later sec(1) do
+      @last_lantern_piston[loc] = false
+    end
   end
   private :lantern_piston
 
