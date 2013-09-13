@@ -1666,7 +1666,8 @@ module EventHandler
 
     Bukkit.get_player('ujm').send_message block.location.to_s
     facing = block.state.data.facing
-    strike_lightning(add_loc(block.location, facing.mod_x, facing.mod_y, facing.mod_z))
+    loc_next = add_loc(block.location, facing.mod_x, facing.mod_y, facing.mod_z))
+    strike_lightning(loc_next)
     @last_lantern_piston[loc] = true
     later sec(1) do
       @last_lantern_piston[loc] = false
