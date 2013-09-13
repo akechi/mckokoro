@@ -1654,6 +1654,8 @@ module EventHandler
           end
         end
       end
+    when Material::JACK_O_LANTERN
+      strike_lightning(evt.block.location)
     end
   end
 
