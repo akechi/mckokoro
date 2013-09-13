@@ -2163,7 +2163,7 @@ module EventHandler
             names = Enchantment.values.to_a.
               map(&:name).map(&:downcase)
             names.each_slice(3) do |names2|
-              sender.send_message names2.map {|n| n.join ', ' }
+              sender.send_message names2.join ', '
             end
           end
         end
