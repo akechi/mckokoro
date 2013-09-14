@@ -8,6 +8,8 @@ import 'org.bukkit.Bukkit'
 MY_IP = '10.0.2.2' # TODO
 
 class LingrBot < Sinatra::Base
+  set :public_folder, '/home/tukushi/public_html'
+
   get '/' do
     halt 403 if request.ip != MY_IP
     {RUBY_DESCRIPTION: RUBY_DESCRIPTION, bukkit_version: Bukkit.getBukkitVersion}.inspect
