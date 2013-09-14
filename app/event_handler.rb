@@ -2219,10 +2219,10 @@ module EventHandler
                   is = ItemStack.deserialize(is_str)
                   sender.inventory.set_item(idx, is)
                 end
-                sender.inventory.set_boots boots
-                sender.inventory.set_leggings leggings
-                sender.inventory.set_chestplate chestplate
-                sender.inventory.set_helmet helmet
+                sender.inventory.set_boots ItemStack.deserialize(boots)
+                sender.inventory.set_leggings ItemStack.deserialize(leggings)
+                sender.inventory.set_chestplate ItemStack.deserialize(chestplate)
+                sender.inventory.set_helmet ItemStack.deserialize(helmet)
               else
                 @db['item_backup'][sender.name][next_world] = nil
                 sender.inventory.clear()
