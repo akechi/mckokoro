@@ -1416,6 +1416,7 @@ module EventHandler
   end
 
   def on_inventory_open(evt)
+    p evt.inventory
   end
 
   def on_player_chat_tab_complete(evt)
