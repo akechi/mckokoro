@@ -661,7 +661,6 @@ module EventHandler
         player.send_message "Congrats! Now you can place any blocks."
         post_lingr "#{player.name} unlocked block-place."
         @db['achievement']['block-place'][player.name] = true
-        db_save
       else
         player.send_message "You didn't unlock block-place."
         evt.cancelled = true
