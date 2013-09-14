@@ -1214,7 +1214,7 @@ module EventHandler
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::ENDER_CHEST, Action::RIGHT_CLICK_BLOCK]
-        evt.cancelled = true
+        evt.cancelled = true if evt.player.world.name == 'mc68'
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
