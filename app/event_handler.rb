@@ -2223,8 +2223,8 @@ module EventHandler
                 sender.inventory.set_leggings ItemStack.deserialize(leggings)
                 sender.inventory.set_chestplate ItemStack.deserialize(chestplate)
                 sender.inventory.set_helmet ItemStack.deserialize(helmet)
-              else
                 @db['item_backup'][sender.name][next_world] = nil
+              else
                 sender.inventory.clear()
                 sender.inventory.armor_contents = nil
               end
