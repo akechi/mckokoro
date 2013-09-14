@@ -661,6 +661,7 @@ module EventHandler
         player.send_message "Congrats! Now you can place any blocks."
         post_lingr "#{player.name} unlocked block-place."
         @db['achievement']['block-place'][player.name] = true
+        db_save
       else
         player.send_message "You didn't unlock block-place."
         evt.cancelled = true
@@ -2208,7 +2209,7 @@ module EventHandler
               combined_contents =
                 [sender.inventory.contents.to_a, sender.inventory.armor_contents.to_a]
               serialized_inv = combined_contents.map {|contents|
-                contents.map {|is| is && is.serialize.to_hash }
+                contents.map {|is| is && is.serialize }
               }
               @db['item_backup'] ||= {}
               @db['item_backup'][sender.name] ||= {}
