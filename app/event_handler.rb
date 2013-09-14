@@ -1320,6 +1320,7 @@ module EventHandler
 
   @logout_countdown_table ||= {}
   def sign_command(player, sign_state, evt)
+    return if player.world.name == 'mc68'
     @db['sign_location_list'] ||= {}
 
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
