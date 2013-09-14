@@ -431,7 +431,7 @@ module EventHandler
   def on_player_portal(evt)
     name = evt.player.name
     loc = evt.player.location.block.location # to align
-    broadlingr("#{name} is using a portal at #{loc}.")
+    broadlingr("#{name} is using a portal at #{loc}!")
   end
 
   def on_entity_portal_enter(evt)
@@ -2002,7 +2002,7 @@ module EventHandler
       end
 
       # map teleport
-      if player.location.pitch == 90.0
+      if player.location.pitch == 90.0 && player.world.name != 'mc68'
         item = player.item_in_hand
         if item && item.type == Material::MAP
           map = Bukkit.get_map(item.data.data)
