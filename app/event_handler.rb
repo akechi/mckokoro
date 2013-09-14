@@ -2230,7 +2230,7 @@ module EventHandler
                 sender.inventory.armor_contents = nil
               end
               strike_lightning(sender.location)
-              loc_to = Bukkit.get_world(next_world).spawn_location)
+              loc_to = Bukkit.get_world(next_world).spawn_location
               sender.teleport(loc_to)
               strike_lightning(loc_to)
             end
