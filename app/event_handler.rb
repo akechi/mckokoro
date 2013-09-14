@@ -1213,6 +1213,8 @@ module EventHandler
       #    below.block.type == Material::SMOOTH_BRICK &&
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
+      when [Material::ENDER_CHEST, Action::RIGHT_CLICK_BLOCK]
+        evt.cancelled = true
       when [Material::GRASS, Action::LEFT_CLICK_BLOCK]
         # SPADE can remove grass from dirt
         if SPADES.include? evt.player.item_in_hand.type && !evt.player.item_in_hand.enchantments[Enchantment::SILK_TOUCH]
@@ -1416,7 +1418,7 @@ module EventHandler
   end
 
   def on_inventory_open(evt)
-    p evt.inventory.holder.block
+    #p evt.inventory.holder
   end
 
   def on_player_chat_tab_complete(evt)
