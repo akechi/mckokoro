@@ -2203,8 +2203,9 @@ module EventHandler
               serialized_inv = combined_contents.map {|contents|
                 contents.map {|is| is && is.serialize }
               }
-              p serialized_inv
-              puts '--------'
+              @db['item_backup'] ||= {}
+              @db['item_backup'][sender.name] ||= {}
+              @db['item_backup'][sender.name][current_world] = serialized_inv
             end
           end
         end
