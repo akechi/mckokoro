@@ -2199,9 +2199,9 @@ module EventHandler
             if next_world
               sender.send_message "[debug] #{current_world} -> #{next_world}"
               combined_contents =
-                sender.inventory.contents.to_a + sender.inventory.armor_contents.to_a
-              serialized_inv = combined_contents.map {|is|
-                is && is.serialize
+                [sender.inventory.contents.to_a, sender.inventory.armor_contents.to_a]
+              serialized_inv = combined_contents.map {|contents|
+                contents.map {|is| is && is.serialize }
               }
               p serialized_inv
               puts '--------'
