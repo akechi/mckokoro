@@ -2202,7 +2202,6 @@ module EventHandler
             }[current_world]
             if next_world
               sender.send_message "[debug] #{current_world} -> #{next_world}"
-              sender.teleport(Bukkit.get_world(next_world).spawn_location)
               combined_contents =
                 [sender.inventory.contents.to_a, sender.inventory.armor_contents.to_a]
               serialized_inv = combined_contents.map {|contents|
@@ -2215,19 +2214,22 @@ module EventHandler
                 contents, (boots, leggings, chestplate, helmet) =
                   @db['item_backup'][sender.name][next_world]
                 contents.each_with_index do |is_str, idx|
-                  next unless is_str
-                  is = ItemStack.deserialize(is_str)
-                  sender.inventory.set_item(idx, is)
+                  if is_str
+                    is = ItemStack.deserialize(is_str)
+                    sender.inventory.set_item(idx, is)
+                  else
+                    sender.inventory.set_item(idx, nil)
+                  end
                 end
                 sender.inventory.set_boots ItemStack.deserialize(boots)
                 sender.inventory.set_leggings ItemStack.deserialize(leggings)
                 sender.inventory.set_chestplate ItemStack.deserialize(chestplate)
                 sender.inventory.set_helmet ItemStack.deserialize(helmet)
-                @db['item_backup'][sender.name][next_world] = nil
               else
                 sender.inventory.clear()
                 sender.inventory.armor_contents = nil
               end
+              sender.teleport(Bukkit.get_world(next_world).spawn_location)
             end
           end
         end
