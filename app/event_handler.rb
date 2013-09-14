@@ -430,8 +430,9 @@ module EventHandler
 
   def on_player_portal(evt)
     name = evt.player.name
-    if name == 'ujm'
+    if evt.player.world.name == 'mc68'
       evt.cancelled = true
+      return
     end
     loc = evt.player.location.block.location # to align
     broadlingr("#{name} is using a portal at #{loc}!")
