@@ -364,7 +364,7 @@ module EventHandler
         player.send_message 'You are first time to visit here right?'
         player.send_message 'Check your inventory. You already have good stuff.'
         [ItemStack.new(Material::COBBLESTONE, rand(64) + 1),
-         ItemStack.new(Material::MUSHROOM_SOUP, 2),
+         ItemStack.new(Material::MUSHROOM_SOUP, 1),
          ItemStack.new(Material::WHEAT, rand(64) + 1),
          ItemStack.new(Material::WOOD, 10),
          ItemStack.new(Material::LEATHER_HELMET, 1),
