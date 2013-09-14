@@ -2210,6 +2210,23 @@ module EventHandler
               @db['item_backup'] ||= {}
               @db['item_backup'][sender.name] ||= {}
               @db['item_backup'][sender.name][current_world] = serialized_inv
+              if @db['item_backup'][sender.name][next_world]
+                contents, (boots, leggings, chestplate, helmet) =
+                  @db['item_backup'][sender.name][next_world]
+                contents.each_with_index do |is_str, idx|
+                  next unless is_str
+                  is = ItemStack.deserialize(is_str)
+                  u.inventory.set_item(idx, is)
+                end
+                sender.inventory.set_boots boots
+                sender.inventory.set_leggings leggings
+                sender.inventory.set_chestplate chestplate
+                sender.inventory.set_helmet helmet
+              else
+                @db['item_backup'][sender.name][next_world] = nil
+                sender.inventory.clear()
+                sender.inventory.armor_contents = nil
+              end
             end
           end
         end
