@@ -2204,7 +2204,7 @@ module EventHandler
               "world" => "mc68",
               "mc68" => "world",
             }[current_world]
-            if next_world
+            if next_world && Bukkit.get_world(next_world)
               sender.fall_distance = 0.0
               broadlingr "#{sender.name} goes to another world! #{current_world} -> #{next_world}"
               combined_contents =
