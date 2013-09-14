@@ -430,14 +430,17 @@ module EventHandler
 
   def on_player_portal(evt)
     name = evt.player.name
+    if name == 'ujm'
+      evt.cancelled = true
+    end
     loc = evt.player.location.block.location # to align
     broadlingr("#{name} is using a portal at #{loc}!")
   end
 
   def on_entity_portal_enter(evt)
-    name = evt.entity.type.downcase.to_s
-    loc = evt.player.location.block.location # to align
-    broadlingr("#{name} is using a portal at #{loc}.")
+    #name = evt.entity.type.downcase.to_s
+    #loc = evt.player.location.block.location # to align
+    #broadlingr("#{name} is using a portal at #{loc}.")
   end
 
   def on_entity_death(evt)
