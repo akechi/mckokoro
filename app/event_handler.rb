@@ -2209,7 +2209,7 @@ module EventHandler
               combined_contents =
                 [sender.inventory.contents.to_a, sender.inventory.armor_contents.to_a]
               serialized_inv = combined_contents.map {|contents|
-                contents.map {|is| is && is.serialize }
+                contents.map {|is| is && is.serialize.to_hash }
               }
               @db['item_backup'] ||= {}
               @db['item_backup'][sender.name] ||= {}
