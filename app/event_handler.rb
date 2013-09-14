@@ -2217,7 +2217,7 @@ module EventHandler
                 contents.each_with_index do |is_str, idx|
                   next unless is_str
                   is = ItemStack.deserialize(is_str)
-                  u.inventory.set_item(idx, is)
+                  sender.inventory.set_item(idx, is)
                 end
                 sender.inventory.set_boots boots
                 sender.inventory.set_leggings leggings
