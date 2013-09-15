@@ -1779,7 +1779,7 @@ module EventHandler
               defender.inventory.helmet.type == Material::SKULL_ITEM ?
                 l.set_z(81) : l.set_z(153)
               defender.inventory.helmet.type == Material::SKULL_ITEM ?
-                l.set_x(-606) : l.set_x(-535)
+                 l.set_x(-535) : l.set_x(-606)
             })
           end
           return
