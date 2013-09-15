@@ -2562,9 +2562,9 @@ module EventHandler
         prev_holder, counter = @ctf_holder_time
         if holder == prev_holder
           @ctf_holder_time = [holder, counter + 1]
-          if counter == 10
+          if counter == 15
             broadcast "#{holder.name} won!"
-          elsif counter > 10
+          elsif counter > 15
             # nop
           else
             broadcast "#{holder.name} holds flag for #{counter}sec"
