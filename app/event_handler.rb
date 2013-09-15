@@ -1356,7 +1356,7 @@ module EventHandler
           if safety_loc
             pitch, yaw = face2pitchyaw(face)
             safety_loc.set_yaw(yaw + 180)
-            play_effect(safety_loc, Effect::ENDER_SIGNAL)
+            play_effect(safety_loc, Effect::ENDER_SIGNAL, nil)
             player.teleport safety_loc
             broadlingr "#{player.name} teleported to #{name}"
           else
