@@ -913,19 +913,21 @@ module EventHandler
           loc.chunk.load()
           later 0 do
             bonus.times do
-              case rand(200)
+              case rand(500)
               when 0...1
                 drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
               when 1...6
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
               when 6...18
                 drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
-              when 18...23
+              when 18...50
                 drop_item(loc, ItemStack.new(Material::GRAVEL, 1))
-              when 23...80
+              when 50...100
                 drop_item(loc, ItemStack.new(Material::DIRT, 1))
-              when 80...160
+              when 100...200
                 drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
+              when 200...300
+                drop_item(loc, ItemStack.new(Material::STONE, 1))
               else
                 drop_item(loc, ItemStack.new(Material::STICK, 1))
               end
