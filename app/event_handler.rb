@@ -1776,8 +1776,10 @@ module EventHandler
             evt.damage = 0
             strike_lightning(defender.location)
             defender.teleport(defender.location.tap {|l|
-              defender.inventory.helmet.type == Material::SKULL_ITEM ? l.set_z(81) : l.set_x(-606)
-              defender.inventory.helmet.type == Material::SKULL_ITEM ? l.set_z(153) : l.set_x(-535)
+              defender.inventory.helmet.type == Material::SKULL_ITEM ?
+                l.set_z(81) : l.set_z(153)
+              defender.inventory.helmet.type == Material::SKULL_ITEM ?
+                l.set_x(-606) : l.set_x(-535)
             })
           end
           return
