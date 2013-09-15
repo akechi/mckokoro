@@ -907,9 +907,7 @@ module EventHandler
       if loc && shooter
         strike_lightning(loc)
         if Player === shooter
-          shooter.send_message "  loc #{loc}"
           distance = location_distance_xy(shooter.location, loc).to_i
-          shooter.send_message "  loc #{loc}"
           bonus = (distance ** 3) / 350
           shooter.send_message "distance: #{distance}, bonus: #{bonus}"
           loc.chunk.load()
