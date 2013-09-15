@@ -936,8 +936,8 @@ module EventHandler
             end
           end
         end
-        stochastically(2) do
-          loc.block.type = Material::AIR
+        stochastically(50) do
+          break_naturally_by_dpickaxe(loc.block)
         end
       end
     end
