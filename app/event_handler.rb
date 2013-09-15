@@ -914,7 +914,7 @@ module EventHandler
           later 0 do
             bonus.times do
               case rand(200)
-              when 0...1
+              when 0...20
                 drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
               when 1...6
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
