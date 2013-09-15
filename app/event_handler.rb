@@ -2548,6 +2548,27 @@ module EventHandler
     #wild_golem(nearby_creatures, online_players)
     logout_countdown_update()
 
+    holder = @ctf_players.find {|p|
+      p.passenger && Squid === p.passenger
+    }
+    if holder
+      if @ctf_holder_time
+        prev_holder, counter = @ctf_holder_time
+        if holder == prev_holder
+          @ctf_holder_time = [holder, counter + 1]
+          if counter >= 10
+            broadcast "#{holder.name} won!"
+          else
+            broadcast "#{holder.name} holds flag for #{counter}sec"
+          end
+        else
+          @ctf_holder_time = [holder, 0]
+        end
+      else
+        @ctf_holder_time = [holder, 0]
+      end
+    end
+
     online_players.each do |player|
       # xzs = (-5..4).map {|x| [x, 5 - x.abs] } + (-4..5).map {|x| [x, x.abs - 5] }
       # loc = xzs.
