@@ -909,7 +909,7 @@ module EventHandler
         if Player === shooter
           distance = location_distance_xy(shooter.location, loc).to_i
           bonus = (distance ** 3) / 350
-          shooter.send_message "distance: #{distance}, bonus: #{bonus}"
+          shooter.send_message "distance: #{distance}, bonus: #{bonus}, loc #{loc}"
           loc.chunk.load()
           later 0 do
             bonus.times do
