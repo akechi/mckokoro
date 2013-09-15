@@ -1955,6 +1955,7 @@ module EventHandler
 
   def on_player_toggle_sprint(evt)
     #player_update_speed(evt.player, spp: evt.sprinting?)
+    return if evt.player.passenger && Squid === evt.player.passenger
     if evt.sprinting? && !evt.player.passenger
       if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
         evt.cancelled = true
