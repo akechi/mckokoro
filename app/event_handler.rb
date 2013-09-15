@@ -1964,7 +1964,7 @@ module EventHandler
         evt.cancelled = true
       else
         if @ctf_players.member?(evt.player)
-          evt.player.walk_speed = 0.8
+          evt.player.walk_speed = 0.5
         else
           evt.player.walk_speed = 0.4
         end
