@@ -1778,8 +1778,8 @@ module EventHandler
             later sec(1.0) do
               strike_lightning(defender.location)
               defender.teleport(defender.location.tap {|l|
-                l.set_x(-535)
-                l.set_z(153)
+                rand(2) == 0 ? l.set_x(-535) : l.set_x(-606)
+                rand(2) == 0 ? l.set_z(153) : l.set_z(81)
               })
             end
           end
