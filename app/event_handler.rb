@@ -147,8 +147,8 @@ module Util
   end
 
   def location_distance_xy(loc1, loc2)
-    loc1 = loc1.dup.tap {|l| l.set_y 0.0 }
-    loc2 = loc2.dup.tap {|l| l.set_y 0.0 }
+    loc1 = loc1.clone.tap {|l| l.set_y 0.0 }
+    loc2 = loc2.clone.tap {|l| l.set_y 0.0 }
     loc1.distance(loc2)
   end
 
