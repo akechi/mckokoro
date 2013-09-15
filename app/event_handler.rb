@@ -1785,6 +1785,8 @@ module EventHandler
           end
           return
         end
+      when Squid
+        evt.cancelled = true
       end
 
       if Player === defender && @logout_countdown_table[player]
