@@ -1774,8 +1774,9 @@ module EventHandler
             squid = defender.passenger
             later 0 do
               squid.teleport(squid.location.tap {|l|
-                l.set_z(81 + 153 / 2)
-                l.set_x(-535 + -606 / 2)
+                l.set_x((-535 + -606) / 2)
+                l.set_y 65
+                l.set_z((81 + 153) / 2)
               })
             end
             defender.eject
