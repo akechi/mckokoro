@@ -1772,23 +1772,22 @@ module EventHandler
         if @ctf_players.member?(player) && @ctf_players.member?(defender)
           if defender.passenger && Squid === defender.passenger
             squid = defender.passenger
+            defender.eject
             later 0 do
               squid.teleport(squid.location.tap {|l|
                 l.set_x((-535 + -606) / 2)
-                l.set_y 65
+                l.set_y(65)
                 l.set_z((81 + 153) / 2)
               })
             end
-            defender.eject
           else
             evt.damage = 0
             strike_lightning(defender.location)
             helmet = defender.inventory.helmet
             defender.teleport(defender.location.tap {|l|
-              (helmet && helmet.type == Material::SKULL_ITEM) ?
-                l.set_z(81) : l.set_z(153)
-              (helmet && helmet.type == Material::SKULL_ITEM) ?
-                 l.set_x(-535) : l.set_x(-606)
+              cond = helmet && helmet.type == Material::SKULL_ITEM
+              cond ? l.set_z(81) : l.set_z(153)
+              cond ? l.set_x(-535) : l.set_x(-606)
             })
           end
           return
