@@ -1769,6 +1769,15 @@ module EventHandler
       case defender
       when Player
         sword_blocking_counter_attack(evt, defender, player)
+        if @ctf_players.member?(player) && @ctf_players.member?(defender)
+          strike_lightning(defender.location)
+          defender.teleport(defender.location.tap {|l|
+            l.set_x(-535)
+            l.set_z(153)
+          })
+          evt.cancelled = true
+          return
+        end
       end
 
       if Player === defender && @logout_countdown_table[player]
