@@ -1771,6 +1771,13 @@ module EventHandler
         sword_blocking_counter_attack(evt, defender, player)
         if @ctf_players.member?(player) && @ctf_players.member?(defender)
           if defender.passenger && Squid === defender.passenger
+            squid = defender.passenger
+            later 0 do
+              squid.teleport(squid.location.tap {|l|
+                l.set_z(81 + 153 / 2)
+                l.set_x(-535 + -606 / 2)
+              })
+            end
             defender.eject
           else
             evt.damage = 0
