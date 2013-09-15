@@ -1988,7 +1988,7 @@ module EventHandler
         play_sound(player.location, Sound::EAT, 1.0, 2.0)
         play_sound(player.location, Sound::EAT, 1.0, 0.0)
         player.set_passenger squid
-        player.walk_speed = 0.2
+        player.walk_speed = 0.1
       end
     end
   end
