@@ -2217,6 +2217,12 @@ module EventHandler
             names.each_slice(3) do |names2|
               sender.send_message names2.join ', '
             end
+          when "countdown"
+            5.times do |i|
+              later sec(i) do
+                broadcast "[COUNTDOWN] #{4 - i}"
+              end
+            end
           when "another-world"
             current_world = sender.world.name
             next_world = {
