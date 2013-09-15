@@ -1773,15 +1773,12 @@ module EventHandler
           if defender.passenger && Squid === defender.passenger
             defender.eject
           else
-            smoke_effect(defender.location)
             evt.damage = 0
-            later sec(1.0) do
-              strike_lightning(defender.location)
-              defender.teleport(defender.location.tap {|l|
-                rand(2) == 0 ? l.set_x(-535) : l.set_x(-606)
-                rand(2) == 0 ? l.set_z(153) : l.set_z(81)
-              })
-            end
+            strike_lightning(defender.location)
+            defender.teleport(defender.location.tap {|l|
+              rand(2) == 0 ? l.set_x(-535) : l.set_x(-606)
+              rand(2) == 0 ? l.set_z(153) : l.set_z(81)
+            })
           end
           return
         end
@@ -1966,7 +1963,11 @@ module EventHandler
       if evt.player.location.clone.add(0, -1, 0).block.type == Material::SAND
         evt.cancelled = true
       else
-        evt.player.walk_speed = 0.4
+        if @ctf_players.member?(evt.player)
+          evt.player.walk_speed = 0.8
+        else
+          evt.player.walk_speed = 0.4
+        end
       end
     else
       evt.player.walk_speed = 0.2
