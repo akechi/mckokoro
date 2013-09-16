@@ -2110,6 +2110,10 @@ module EventHandler
           drop_item(shooter.location, ItemStack.new(Material::ARROW, 1))
         end
 
+        if !shooter.on_ground? && shooter.velocity.get_y < 0
+          shooter.send_message '[debug] critical flag'
+          strike_lightning(shooter.location)
+        end
         # bumeran
         if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
           later sec(0.7) do
