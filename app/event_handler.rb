@@ -1402,7 +1402,7 @@ module EventHandler
 
     case damaged_block.type
     when Material::SAND
-      unless loc_above(damaged_block.location).block.liquid?
+      if !player.sneaking? && !loc_above(damaged_block.location).block.liquid?
         break_naturally_by_dpickaxe(damaged_block)
         # TODO use something like location_around
         diffs = [[-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0], [0, 0, -1], [0, 0, 1]]
