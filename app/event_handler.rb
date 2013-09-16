@@ -2112,6 +2112,7 @@ module EventHandler
 
         if !shooter.on_ground? && shooter.fall_distance > 0
           projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
+          strike_lightning(shooter.ocation)
           play_sound(shooter.location, Sound::SHOOT_ARROW, 1.0, 0.5)
         end
         # bumeran
