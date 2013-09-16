@@ -2111,8 +2111,8 @@ module EventHandler
         end
 
         if !shooter.on_ground? && shooter.fall_distance > 0
-          projectile.velocity = projectile.velocity.multiply(jfloat(1.5))
-          play_sound(sender.location, Sound::ANVIL_LAND, 1.0, 0.5)
+          projectile.velocity = projectile.velocity.multiply(jfloat(1.3))
+          play_sound(shooter.location, Sound::ANVIL_LAND, 1.0, 0.5)
         end
         # bumeran
         if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
