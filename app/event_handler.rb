@@ -2111,7 +2111,7 @@ module EventHandler
         end
 
         if !shooter.on_ground? && shooter.fall_distance > 0
-          projectile.velocity = projectile.velocity.multiply(jfloat(1.4))
+          projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
           play_sound(shooter.location, Sound::SHOOT_ARROW, 1.0, 0.0)
         end
         # bumeran
