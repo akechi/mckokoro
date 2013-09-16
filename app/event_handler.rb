@@ -2110,7 +2110,7 @@ module EventHandler
           drop_item(shooter.location, ItemStack.new(Material::ARROW, 1))
         end
 
-        if !shooter.on_ground? && shooter.velocity.get_y < 0
+        if !shooter.on_ground? && shooter.fall_distance > 0
           shooter.send_message '[debug] critical flag'
           strike_lightning(shooter.location)
         end
