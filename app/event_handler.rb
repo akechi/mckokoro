@@ -391,6 +391,11 @@ module EventHandler
     end
   end
 
+  def on_player_join(evt)
+    player = evt.player
+    evt.join_message = nil if player.name == 'ujm' # for testing
+  end
+
   def on_player_quit(evt)
     strike_lightning(evt.player.location)
     # e.g. "ujm left the game."
