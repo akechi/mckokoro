@@ -48,7 +48,6 @@ class LingrBot < Sinatra::Base
   end
 
   post '/deploy' do
-    EventHandler.post_lingr 'deploying...'
     Bukkit.broadcast_message 'deploying...'
     # for some reason system() blocks.
     IO.popen 'cd ~/git/mckokoro; git pull --rebase', 'r' do |io|
@@ -57,8 +56,7 @@ class LingrBot < Sinatra::Base
     p :pulled
     EventHandler.reload
     Job.reload
-    EventHandler.post_lingr '...deployed!'
-    Bukkit.broadcast_message '...deployed!'
+    EventHandler.broadlingr '...deployed!'
     'ok, deployed.'
   end
 end
