@@ -951,8 +951,9 @@ module EventHandler
       3.times do
         loc = player.location
         loc_above = add_loc(loc, 0, 1, 0)
-        snowball = spawn(loc_above, EntityType:: SNOWBALL)
-        snowball.shooter = player
+        snowball = loc.world.spawn_falling_block(loc, Material::TNT, 0)
+        #snowball = spawn(loc_above, EntityType:: SNOWBALL)
+        #snowball.shooter = player
 
         phi = (player.location.yaw + 90 + 360) % 360
         x, z =
@@ -1192,11 +1193,11 @@ module EventHandler
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
-    # seeded_p = bulldozer_hoe(evt.player, evt.action)
-    # if seeded_p
-    #   evt.cancelled = true
-    #   return
-    # end
+    seeded_p = bulldozer_hoe(evt.player, evt.action)
+    if seeded_p
+      evt.cancelled = true
+      return
+    end
 
     #chicken_arrow(evt.player, evt.action)
 
