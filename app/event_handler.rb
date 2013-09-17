@@ -400,6 +400,9 @@ module EventHandler
     #end
   end
 
+  def on_player_login(evt)
+  end
+
   def on_player_quit(evt)
     strike_lightning(evt.player.location)
     # e.g. "ujm left the game."
