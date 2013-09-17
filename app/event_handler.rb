@@ -348,15 +348,24 @@ module EventHandler
     end
   end
 
-  def on_player_login(evt)
-    post_lingr "#{evt.player.name} logged in."
+  def on_player_join(evt)
+    player = evt.player
+    name = player.name
+
+    evt.join_message = [
+      '%sさんが温野菜食べ放題です。',
+      'ujmさんではなく%sさんがログインしました',
+      '<%s> おはようございます',
+      '%s.vim',
+      '<%s> イカカワイイデス',
+    ].sample % name
+    post_lingr "#{name} logged in."
 
     # Bukkit.online_players.each do |player|
     #   update_hide_player(player, evt.player)
     # end
 
-    player = evt.player
-    later 0 do
+    #later 0 do
       player_first_time_p =
         player.inventory.contents.to_a.compact.empty? &&
         player.health == player.max_health
@@ -388,18 +397,7 @@ module EventHandler
         #player.send_message 'By the way there will be a downtown during 12am~4am on Friday'
         #player.send_message '  (ちなみに計画停電のため日本時間の金曜の4pm~8pmの間,鯖とまるかも)'
       end
-    end
-  end
-
-  def on_player_join(evt)
-    player = evt.player
-    name = player.name
-    evt.join_message = [
-      '%sさんが温野菜食べ放題です。',
-      'ujmさんではなく%sさんがログインしました',
-      '<%s> おはようございます',
-      '%s.vim',
-    ].sample % name
+    #end
   end
 
   def on_player_quit(evt)
