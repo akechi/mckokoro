@@ -393,7 +393,13 @@ module EventHandler
 
   def on_player_join(evt)
     player = evt.player
-    evt.join_message = '' if player.name == 'ujm' # for testing
+    name = player.name
+    evt.join_message = [
+      '%sさんが温野菜食べ放題です。',
+      'ujmさんではなく%sさんがログインしました',
+      '<%s> おはようございます',
+      '%s.vim',
+    ].sample % name
   end
 
   def on_player_quit(evt)
