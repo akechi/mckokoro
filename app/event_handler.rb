@@ -951,7 +951,7 @@ module EventHandler
       3.times do
         loc = player.location
         loc_above = add_loc(loc, 0, 1, 0)
-        snowball = loc.world.spawn_falling_block(loc, Material::TNT, 0)
+        snowball = loc.world.spawn_falling_block(loc, Material::LEAVES, 0)
         #snowball = spawn(loc_above, EntityType:: SNOWBALL)
         #snowball.shooter = player
 
