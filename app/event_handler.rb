@@ -348,6 +348,7 @@ module EventHandler
     ].sample % name
     if name == 'ujm' # TODO temp
       #evt.join_message = ''
+      post_lingr "#{name} logged in."
       another_player = (Bukkit.online_players.to_a - [player]).sample
       player.teleport(another_player.location) if another_player
     else
