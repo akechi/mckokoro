@@ -1205,9 +1205,11 @@ module EventHandler
 
       case [evt.action, evt.player.item_in_hand.type]
       when [Action::RIGHT_CLICK_BLOCK, Material::AIR]
-        evt.player.velocity = evt.player.velocity.tap {|v|
-          v.set_y 0.4
-        }
+        if evt.block_face == BlockFace::NORTH
+          evt.player.velocity = evt.player.velocity.tap {|v|
+            v.set_y 0.4
+          }
+        end
       end
 
       # seeding
