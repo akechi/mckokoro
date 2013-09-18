@@ -774,7 +774,8 @@ module EventHandler
         broadcast("<#{target.name}> %s♡" % [
           'ムフフ',
           'うふふ',
-          'いやーん'
+          'いやーん',
+          'Gentooインストールしたい',
         ].sample)
       end
     when Chicken
