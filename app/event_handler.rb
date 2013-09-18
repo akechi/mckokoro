@@ -760,9 +760,9 @@ module EventHandler
 
         vec = target.location.clone.subtract(player.location).to_vector
         x, y, z = [
-          (vec.get_x * 0.5) / Math.sqrt(vec.get_x ** 2 + vec.get_z ** 2),
-          0.5,
-          (vec.get_z * 0.5) / Math.sqrt(vec.get_x ** 2 + vec.get_z ** 2)]
+          (vec.get_x * 0.3) / Math.sqrt(vec.get_x ** 2 + vec.get_z ** 2),
+          0.2,
+          (vec.get_z * 0.3) / Math.sqrt(vec.get_x ** 2 + vec.get_z ** 2)]
         target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
         #later sec(0.1) do
         #  target.velocity.set_x jfloat(0.0)
