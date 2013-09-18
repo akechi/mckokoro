@@ -776,6 +776,7 @@ module EventHandler
           'うふふ',
           'いやーん',
           'Gentooインストールしたい',
+          "#{player.name}様",
         ].sample)
       end
     when Chicken
