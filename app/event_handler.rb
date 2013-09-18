@@ -418,8 +418,11 @@ module EventHandler
       [evt.entity, evt.block_list, evt.yield]
     case entity
     when TNTPrimed
-      Bukkit.get_player('ujm').send_message "TNTPrimed explosion #{block_list.size}"
       evt.yield = 1.0
+      evt.cancelled = true
+      later sec(1) do
+        spawn(base_loc, EntityType::EXPERIENCE_ORB)
+      end
       #memo: spawn() doesn't work on jruby...
       #power = 4
       #(power ** 2).to_i.times do
