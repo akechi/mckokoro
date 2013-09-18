@@ -763,8 +763,10 @@ module EventHandler
           (vec.get_x * 0.5) / (vec.get_x + vec.get_z),
           0.0,
           (vec.get_z * 0.5) / (vec.get_x + vec.get_z)]
-        target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
         target.teleport(add_loc(target.location, 0.0, 0.1, 0.0))
+        later 0 do
+          target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
+        end
         later sec(0.1) do
           target.velocity.set_x jfloat(0.0)
           target.velocity.set_z jfloat(0.0)
