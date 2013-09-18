@@ -761,16 +761,13 @@ module EventHandler
         vec = target.location.clone.subtract(player.location).to_vector
         x, y, z = [
           (vec.get_x * 0.5) / (vec.get_x + vec.get_z),
-          0.0,
+          0.5,
           (vec.get_z * 0.5) / (vec.get_x + vec.get_z)]
-        target.teleport(add_loc(target.location, 0.0, 0.1, 0.0))
-        later 0 do
-          target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
-        end
-        later sec(0.1) do
-          target.velocity.set_x jfloat(0.0)
-          target.velocity.set_z jfloat(0.0)
-        end
+        target.velocity = Vector.new(jfloat(x), jfloat(y), jfloat(z))
+        #later sec(0.1) do
+        #  target.velocity.set_x jfloat(0.0)
+        #  target.velocity.set_z jfloat(0.0)
+        #end
       end
     when Chicken
       if player.item_in_hand.type == Material::SHEARS
