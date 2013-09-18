@@ -347,8 +347,8 @@ module EventHandler
       '<%s> イカカワイイデス',
     ].sample % name
     if name == 'ujm' # TODO temp
-      evt.join_message = ''
-      another_player = Bukkit.online_players.to_a.clone.delete(player).sample
+      #evt.join_message = ''
+      another_player = (Bukkit.online_players.to_a - [player]).sample
       player.teleport(another_player.location) if another_player
     else
       post_lingr "#{name} logged in."
@@ -472,8 +472,6 @@ module EventHandler
       evt.drops.add_all drops
     }
     case evt.entity
-    when FallingBlock
-      p evt.entity
     when Creeper
       head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
       drop_replace.([], rand(10) == 0 ? [head] : [])
