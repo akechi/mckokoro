@@ -1410,6 +1410,13 @@ module EventHandler
     player, message = [evt.player, evt.message]
 
     Bukkit.get_player('ujm').send_message "[DEBUG] #{player.name} #{message}"
+    case message
+    when 'gamemode 1'
+      strike_lightning(player.location)
+      play_sound(player.location, Sound::EXPLODE, 1.0, 0.0)
+    when 'gamemode 0'
+      play_sound(player.location, Sound::EAT, 1.0, 1.0)
+    end
   end
 
   def bulldozer_break(broken_block, player)
