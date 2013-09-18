@@ -420,8 +420,9 @@ module EventHandler
     when TNTPrimed
       evt.yield = 1.0
       evt.cancelled = true
+      loc = entity.location
       later sec(1) do
-        spawn(base_loc, EntityType::EXPERIENCE_ORB)
+        spawn(loc, EntityType::EXPERIENCE_ORB)
       end
       #memo: spawn() doesn't work on jruby...
       #power = 4
