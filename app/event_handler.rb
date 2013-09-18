@@ -1290,18 +1290,6 @@ module EventHandler
           end
         end
       end
-    else
-      #if evt.player.sprinting?
-      #  loc = evt.player.location
-      #  horse = loc.world.spawn_entity(loc, EntityType::HORSE)
-      #  horse.domestication = horse.max_domestication
-      #  #later 0 do
-      #  #  evt.player.vehicle = horse
-      #  #end
-      #  later sec(60) do
-      #    horse.damage(horse.max_health)
-      #  end
-      #end
     end
   end
 
@@ -1412,6 +1400,16 @@ module EventHandler
 
   def on_player_chat_tab_complete(evt)
     #p evt.chat_message
+    player = evt.player
+    loc = player.location
+
+    play_sound(loc, Sound::SWIM, 0.8, 1.0)
+  end
+
+  def on_player_command_preprocess(evt)
+    player, message = [evt.player, evt.message]
+
+    Bukkit.get_player('ujm').send_message "[DEBUG] #{player.name} #{message}"
   end
 
   def bulldozer_break(broken_block, player)
