@@ -2300,12 +2300,6 @@ module EventHandler
     player = evt.player
     diff_y = evt.to.y - evt.from.y
 
-    if player.name == 'ujm'
-      block = loc_below(player.location).block
-      if block.type == Material::AIR
-        block.type = Material::TNT
-      end
-    end
     if !@ctf_players.member?(player) && ctf_in_area?(evt.to)
       @ctf_players << player
       broadcast "#{player.name} joined CTF!"
