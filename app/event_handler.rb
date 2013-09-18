@@ -1203,6 +1203,12 @@ module EventHandler
         end
       end
 
+      case [evt.action, evt.player.item_in_hand.type]
+      when [Action::RIGHT_CLICK_BLOCK, Material::AIR]
+        evt.player.velocity.set_y(0.5)
+      end
+
+
       # seeding
       case [evt.clicked_block.type, evt.action, evt.player.item_in_hand.type]
       when [Material::DIRT, Action::RIGHT_CLICK_BLOCK, Material::SEEDS]
