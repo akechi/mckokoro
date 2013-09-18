@@ -422,7 +422,10 @@ module EventHandler
       evt.cancelled = true
       loc = entity.location
       later sec(1) do
-        spawn(loc, EntityType::EXPERIENCE_ORB)
+        block_list.size.times do
+          orb = spawn(loc, EntityType::EXPERIENCE_ORB)
+          orb.experience = 1
+        end
       end
       #memo: spawn() doesn't work on jruby...
       #power = 4
