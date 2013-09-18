@@ -430,9 +430,9 @@ module EventHandler
         later 0 do
           orbs.each do |o|
             o.velocity = Vector.new(
-              (rand - 0.5) / 10.0,
-              rand / 10.0,
-              (rand - 0.5) / 10.0)
+              (rand - 0.5) / 3.0,
+              rand,
+              (rand - 0.5) / 3.0)
           end
         end
       end
