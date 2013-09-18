@@ -472,6 +472,8 @@ module EventHandler
       evt.drops.add_all drops
     }
     case evt.entity
+    when FallingBlock
+      p evt.entity
     when Creeper
       head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
       drop_replace.([], rand(10) == 0 ? [head] : [])
