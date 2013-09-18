@@ -437,7 +437,7 @@ module EventHandler
         end
         later sec(1) do
           orbs.select(&:valid?).each do |o|
-            play_effect(player.location, Effect::MOBSPAWNER_FLAMES , nil)
+            play_effect(o.location, Effect::MOBSPAWNER_FLAMES , nil)
             o.remove
           end
         end
