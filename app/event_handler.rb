@@ -2314,6 +2314,12 @@ module EventHandler
   @ctf_players ||= Set.new
   def on_player_move(evt)
     player = evt.player
+    if player.name == 'ujm'
+      blocks = location_around_flat(loc_below(player.location), 3).map(&:block)
+      blocks.
+        select {|b| b.type == Material::WOOL }.
+        each {|b| b.data = 1 }
+    end
     diff_y = evt.to.y - evt.from.y
 
     if !@ctf_players.member?(player) && ctf_in_area?(evt.to)
