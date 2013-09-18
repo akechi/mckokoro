@@ -435,6 +435,12 @@ module EventHandler
               (rand - 0.5) / 3.0)
           end
         end
+        later sec(1) do
+          orbs.select(&:valid?).each do |o|
+            play_effect(player.location, Effect::MOBSPAWNER_FLAMES , nil)
+            o.remove
+          end
+        end
       end
       #memo: spawn() doesn't work on jruby...
       #power = 4
