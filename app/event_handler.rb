@@ -391,7 +391,15 @@ module EventHandler
   end
 
   def on_player_quit(evt)
-    strike_lightning(evt.player.location)
+    player = evt.player
+    loc = player.location
+    strike_lightning(loc)
+    later sec(1) do
+      strike_lightning(loc)
+    end
+    later sec(2) do
+      strike_lightning(loc)
+    end
     # e.g. "ujm left the game."
     post_lingr "#{evt.player.name} #{evt.quit_message.sub(/^.*?#{evt.player.name}\s*/, '')}"
   end
@@ -484,7 +492,7 @@ module EventHandler
           [ItemStack.new(Material::TORCH, rand(9) + 1)] + (rand(20) == 0 ? [head] : []))
       end
     when Horse
-      opt_beef = 
+      opt_beef =
         (rand(5) == 0 ? [ItemStack.new(Material::RAW_BEEF, rand(3) + 1)] : [])
       drop_replace.(
         [],
