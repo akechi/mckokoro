@@ -419,14 +419,18 @@ module EventHandler
     case entity
     when TNTPrimed
       evt.yield = 1.0
-      evt.cancelled = true
       Bukkit.get_player('ujm').send_message "tnt explosion: #{entity.source}"
-      Bukkit.get_player('ujm').send_message "#{block_list.size} #{block_list.select {|b| b.type == Material::AIR }.size}"
       loc = entity.location
-      later sec(1) do
-        (block_list.size / 10).times do
-          orb = spawn(loc, EntityType::EXPERIENCE_ORB)
-          orb.experience = 1
+      later sec(0.5) do
+        orbs = (block_list.size / 10).times.map {
+          spawn(loc, EntityType::EXPERIENCE_ORB).tap {|orb|
+            orb.experience = 1
+          }
+        }
+        later 0 do
+          orbs.each do |o|
+            o.velocity = Vector.new(rand - 0.5, rand, rand - 0.5)
+          end
         end
       end
       #memo: spawn() doesn't work on jruby...
