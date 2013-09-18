@@ -755,9 +755,10 @@ module EventHandler
         end
       end
     when Player
-      if player.item_in_hand.type == Material::AIR
-        target = evt.right_clicked
+      target = evt.right_clicked
 
+      case player.item_in_hand.type
+      when Material::AIR
         vec = target.location.clone.subtract(player.location).to_vector
         x, y, z = [
           (vec.get_x * 0.3) / Math.sqrt(vec.get_x ** 2 + vec.get_z ** 2),
@@ -768,6 +769,13 @@ module EventHandler
         #  target.velocity.set_x jfloat(0.0)
         #  target.velocity.set_z jfloat(0.0)
         #end
+      when Material::WHEAT
+        consume_item(player)
+        broadcast("<#{target.name}> %s♡" % [
+          'ムフフ',
+          'うふふ',
+          'いやーん'
+        ].sample)
       end
     when Chicken
       if player.item_in_hand.type == Material::SHEARS
