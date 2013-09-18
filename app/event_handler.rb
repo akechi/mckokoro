@@ -31,9 +31,6 @@ require 'erb'
 require 'open-uri'
 require 'json'
 
-# MEMO
-# {"meiraka house"=>["world", -781.0, 69.0, -272.0, 0.0, 0.0], "mozukusoba house"=>["world", -464.0, 64.0, 144.0, 0.0, 0.0], "supermomonga house"=>["world", -383.0, 65.0, 486.0, 0.0, 0.0], "thinca house"=>["world", -686.0, 140.0, 44.0, 0.0, 0.0], "zombie spawner"=>["world", -418.0, 18.0, 153.0, 0.0, 0.0], "westin hotel"=>["world", -732.0, 84.0, 507.0, 0.0, 0.0], "skeleton spawner"=>["world", -381.0, 10.0, 17.0, 0.0, 0.0], "tnt cannon"=>["world", -547.0, 64.0, 859.0, 0.0, 0.0], "karigurasi no raa0121's house"=>["world", -461.0, 73.0, 138.0, 0.0, 0.0], "meiraka station"=>["world", -854.0, 77.0, -305.0, 0.0, 0.0], "fane"=>["world", -536.0, 129.0, -159.0, 0.0, 0.0], "tukushigamo house"=>["world", -441.0, 35.0, 123.0, 0.0, 0.0], "meieki"=>["world", -845.0, 72.0, -304.0, 0.0, 0.0], "tukushi tijou"=>["world", -444.0, 63.0, 118.0, 0.0, 0.0], "tenkuu tt"=>["world", -449.0, 192.0, 109.0, 0.0, 0.0]}
-
 module Util
   extend self
 
@@ -232,16 +229,6 @@ module Util
       Bukkit.get_world(world_name), loc_x, loc_y, loc_z, jfloat(loc_yaw), jfloat(loc_pitch))
   end
 
-  # not used now
-  def serialize_sign_location_list(sign_location_list)
-    Hash[sign_location_list.map {|k, v| [k, serialize_location(v)] }]
-  end
-
-  # not used now
-  def deserialize_sign_location_list(s_sign_location_list)
-    Hash[s_sign_location_list.map {|k, v| [k, deserialize_location(v)] }]
-  end
-
   def facing_next(facing)
     all_facings = [
       BlockFace::EAST_SOUTH_EAST, BlockFace::EAST, BlockFace::EAST_NORTH_EAST,
@@ -281,7 +268,7 @@ module EventHandler
       @plugin, -> { self.periodically_tick }, 0, 2)
     p :on_load, plugin
     p "#{APP_DIR_PATH}/event_handler.rb"
-    update_recipes
+    update_recipes()
     @food_poisoning_player = Set.new
 
     @db_path = "#{@plugin.data_folder.absolute_path}/db.json"
@@ -365,10 +352,6 @@ module EventHandler
       post_lingr "#{name} logged in."
     end
 
-    # Bukkit.online_players.each do |player|
-    #   update_hide_player(player, evt.player)
-    # end
-
     #later 0 do
       player_first_time_p =
         player.inventory.contents.to_a.compact.empty? &&
@@ -442,12 +425,6 @@ module EventHandler
           end
         end
       end
-      #memo: spawn() doesn't work on jruby...
-      #power = 4
-      #(power ** 2).to_i.times do
-      #  orb = spawn(evt.location, ExperienceOrb)
-      #  org.experience = 1
-      #end
     end
   end
 
@@ -2149,11 +2126,6 @@ module EventHandler
         kickory(loc.block, player) if loc.block.type == Material::LOG
       end
     end
-  end
-
-  def update_hide_player(p1, p2)
-    p1.hide_player(p2) if p2.op? && !p1.op?
-    p2.hide_player(p1) if p1.op? && !p2.op?
   end
 
   def update_recipes
