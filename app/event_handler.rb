@@ -1186,7 +1186,7 @@ module EventHandler
     return unless friend
 
     friend_loc = friend.location
-    locs_nearby = location_around_flat(friend_loc) - [friend_loc]
+    locs_nearby = location_around_flat(friend_loc, 3) - [friend_loc]
     available_locs = locs_nearby.select {|l|
       l.block.type == Material::AIR &&
         loc_above(l).block.type == Material::AIR &&
