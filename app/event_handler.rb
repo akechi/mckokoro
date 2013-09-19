@@ -1176,7 +1176,9 @@ module EventHandler
   private :horse_sword_swing
 
   def use_enderpearl(action, player)
-    return unless action == Action::RIGHT_CLICK_AIR || action == Action::LEFT_CLICK_BLOCK
+    return unless Job.of(player) == :enderman
+    #return unless action == Action::RIGHT_CLICK_AIR || action == Action::LEFT_CLICK_BLOCK
+    return unless action == Action::LEFT_CLICK_AIR || action == Action::LEFT_CLICK_BLOCK
     return unless player.item_in_hand.type == Material::ENDER_PEARL
     friends = Bukkit.online_players.to_a - [player]
     friends = friends.select {|p| p.world == player.world }
