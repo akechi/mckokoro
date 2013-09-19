@@ -1179,6 +1179,7 @@ module EventHandler
     return unless action == Action::RIGHT_CLICK_AIR || action == Action::LEFT_CLICK_BLOCK
     return unless player.item_in_hand.type == Material::ENDER_PEARL
     friends = Bukkit.online_players.to_a - [player]
+    friends = friends.select {|p| p.world == player.world }
     friend = friends.sample
     return unless friend
 
@@ -1191,11 +1192,18 @@ module EventHandler
     }
     loc_to = available_locs.max_by {|l| l.distance(friend_loc) }
     return unless loc_to
-    player.teleport(player.location.tap {|l|
+
+    play_effect(player.location, Effect::ENDER_SIGNAL, nil)
+    play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
+
+    new_loc = (player.location.tap {|l|
       l.set_x loc_to.get_x
       l.set_y loc_to.get_y
       l.set_z loc_to.get_z
     })
+    player.teleport(new_loc)
+    play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
+    play_sound(new_loc, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
     # consume_item(player)
   end
   private :use_enderpearl
