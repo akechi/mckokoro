@@ -1206,7 +1206,9 @@ module EventHandler
     player.teleport(new_loc)
     play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
     play_sound(new_loc, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
-    # consume_item(player)
+    stochastically(10) do
+      consume_item(player)
+    end
   end
   private :use_enderpearl
 
