@@ -4,7 +4,7 @@ module Job
   Util.silence_warnings do
     JOBS = [
       :novice, :killerqueen, :archer, :bulldozer, :archtect,
-      :grimreaper, :barrage]
+      :grimreaper, :barrage, :enderman]
 
     JOB_DESCRIPTIONS = {
       novice: 'Default; no pros/cons',
