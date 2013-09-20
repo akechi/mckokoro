@@ -17,7 +17,7 @@ import 'org.bukkit.inventory.ShapedRecipe'
 import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
-import 'org.bukkit.entity.Skeleton.SkeletonType
+import 'org.bukkit.entity.Skeleton.SkeletonType'
 import 'org.bukkit.event.block.Action'
 import 'org.bukkit.enchantments.Enchantment'
 import 'org.bukkit.potion.PotionEffectType'
