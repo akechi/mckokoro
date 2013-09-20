@@ -876,12 +876,11 @@ module EventHandler
   end
   private :feather_freedom_move
 
-  # returns boolean
   def projectile_on_hopper(projectile)
     loc = projectile.location
     block = loc_below(loc).block
     #Bukkit.get_player('ujm').send_message "hit #{block.type}"
-    return false unless block.type == Material::HOPPER
+    return unless block.type == Material::HOPPER
     hopper = block.state
     hopper.inventory.add_item(ItemStack.new(Material::PUMPKIN_PIE, 1))
     table = {
@@ -898,16 +897,11 @@ module EventHandler
       WitherSkull => Material::PUMPKIN_PIE, # hehehe
     }
     projectile.remove
-    true
   end
   private :projectile_on_hopper
 
   def on_projectile_hit(evt)
-    result = projectile_on_hopper(evt.entity)
-    if result
-      evt.cancelled = true
-      return
-    end
+    projectile_on_hopper(evt.entity)
 
     case evt.entity
     when Snowball
