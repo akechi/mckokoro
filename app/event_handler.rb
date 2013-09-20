@@ -876,7 +876,16 @@ module EventHandler
   end
   private :feather_freedom_move
 
+  def projectile_on_hopper(projectile)
+    loc = projectile.location
+    block = loc.block
+    Bukkit.get_player('ujm').send_message "hit #{block.type}"
+  end
+  private :projectile_on_hopper
+
   def on_projectile_hit(evt)
+    projectile_on_hopper(evt.entity)
+
     case evt.entity
     when Snowball
       # this is for Job bulldozer vvvvv
