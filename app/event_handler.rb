@@ -730,10 +730,9 @@ module EventHandler
             30.times do
               s = spawn(base_loc, EntityType::SKELETON)
               s.skeleton_type = Skeleton::SkeletonType::WITHER
-              sword = SWORDS.sample
               skull = MaterialData.new(Material::SKULL_ITEM, 2).to_item_stack(1)
-              s.equipment.set_helmet(ItemStack.new(skull, 1))
-              s.equipment.set_item_in_hand(ItemStack.new(sword, 1))
+              s.equipment.set_helmet(skull)
+              s.equipment.set_item_in_hand(ItemStack.new(SWORDS.sample, 1))
             end
           end
         end
