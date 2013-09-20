@@ -900,6 +900,7 @@ module EventHandler
       EntityType::SPLASH_POTION => projectile.item,
       EntityType::WITHER_SKULL => ItemStack.new(Material::PUMPKIN_PIE, 1), # hehehe
     }
+
     hopper = block.state
     hopper.inventory.add_item(ItemStack.new(table[projectile.type], 1))
     projectile.remove
