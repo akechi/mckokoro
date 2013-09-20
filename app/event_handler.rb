@@ -876,18 +876,38 @@ module EventHandler
   end
   private :feather_freedom_move
 
+  # returns boolean
   def projectile_on_hopper(projectile)
     loc = projectile.location
     block = loc_below(loc).block
     #Bukkit.get_player('ujm').send_message "hit #{block.type}"
-    return unless block.type == Material::HOPPER
+    return false unless block.type == Material::HOPPER
     hopper = block.state
     hopper.inventory.add_item(ItemStack.new(Material::PUMPKIN_PIE, 1))
+    table = {
+      Arrow => Material::ARROW,
+      Egg => Material::EGG,
+      EnderPearl => Material::ENDER_PEARL,
+      Fireball => Material::FIREBALL,
+      Fish => Material::RAW_FISH, # I know it's different
+      LargeFireball => Material::FIREBALL,
+      SmallFireball => Material::FIREBALL,
+      Snowball => Material::SNOW_BALL,
+      ThrownExpBottle => Material::EXP_BOTTLE,
+      ThrownPotion => Material::GLASS_BOTTLE,
+      WitherSkull => Material::PUMPKIN_PIE, # hehehe
+    }
+    projectile.remove
+    true
   end
   private :projectile_on_hopper
 
   def on_projectile_hit(evt)
-    projectile_on_hopper(evt.entity)
+    result = projectile_on_hopper(evt.entity)
+    if result
+      evt.cancelled = true
+      return
+    end
 
     case evt.entity
     when Snowball
