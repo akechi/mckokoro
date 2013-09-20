@@ -886,7 +886,7 @@ module EventHandler
       EntityType::EGG => Material::EGG,
       EntityType::ENDER_PEARL => Material::ENDER_PEARL,
       EntityType::FIREBALL => Material::FIREBALL,
-      EntityType::FISH => Material::RAW_FISH, # I know it's different
+      EntityType::FISHING_HOOK => Material::RAW_FISH, # I know it's different
       EntityType::LARGE_FIREBALL => Material::FIREBALL,
       EntityType::SMALL_FIREBALL => Material::FIREBALL,
       EntityType::SNOWBALL => Material::SNOW_BALL,
