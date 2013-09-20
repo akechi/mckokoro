@@ -895,7 +895,7 @@ module EventHandler
       EntityType::WITHER_SKULL => Material::PUMPKIN_PIE, # hehehe
     }
     hopper = block.state
-    hopper.inventory.add_item(ItemStack.new(table[projectile.type, 1))
+    hopper.inventory.add_item(ItemStack.new(table[projectile.type], 1))
     projectile.remove
   end
   private :projectile_on_hopper
