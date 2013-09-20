@@ -1188,9 +1188,9 @@ module EventHandler
     friend_loc = friend.location
     locs_nearby = location_around_flat(friend_loc, 3) - [friend_loc]
     available_locs = locs_nearby.select {|l|
-      l.block.type == Material::AIR &&
-        loc_above(l).block.type == Material::AIR &&
-        loc_below(l).block.type.solid?
+      loc_above(l).block.type == Material::AIR &&
+        (l.block.type == Material::AIR && loc_below(l).block.type.solid?) ||
+        (add_loc(l, 0, 2, 0).block.type == Material::AIR && l.block.type.solid?)
     }
     loc_to = available_locs.max_by {|l| l.distance(friend_loc) }
     return unless loc_to
