@@ -888,17 +888,17 @@ module EventHandler
     Bukkit.get_player('ujm').send_message "projectile_on_hopper #{projectile.type} #{block.type}"
     return false unless block.type == Material::HOPPER
     table = {
-      EntityType::ARROW => ItemStack.new(Material::ARROW, 1)),
-      EntityType::EGG => ItemStack.new(Material::EGG, 1)),
-      EntityType::ENDER_PEARL => ItemStack.new(Material::ENDER_PEARL, 1)),
-      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
-      EntityType::FISHING_HOOK => ItemStack.new(Material::RAW_FISH, 1)), # I know it's different
-      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
-      EntityType::SMALL_FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
-      EntityType::SNOWBALL => ItemStack.new(Material::SNOW_BALL, 1)),
-      EntityType::THROWN_EXP_BOTTLE => ItemStack.new(Material::EXP_BOTTLE, 1)),
+      EntityType::ARROW => ItemStack.new(Material::ARROW, 1),
+      EntityType::EGG => ItemStack.new(Material::EGG, 1),
+      EntityType::ENDER_PEARL => ItemStack.new(Material::ENDER_PEARL, 1),
+      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1),
+      EntityType::FISHING_HOOK => ItemStack.new(Material::RAW_FISH, 1), # I know it's different
+      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1),
+      EntityType::SMALL_FIREBALL => ItemStack.new(Material::FIREBALL, 1),
+      EntityType::SNOWBALL => ItemStack.new(Material::SNOW_BALL, 1),
+      EntityType::THROWN_EXP_BOTTLE => ItemStack.new(Material::EXP_BOTTLE, 1),
       EntityType::SPLASH_POTION => projectile.item,
-      EntityType::WITHER_SKULL => ItemStack.new(Material::PUMPKIN_PIE, 1)), # hehehe
+      EntityType::WITHER_SKULL => ItemStack.new(Material::PUMPKIN_PIE, 1), # hehehe
     }
     hopper = block.state
     hopper.inventory.add_item(ItemStack.new(table[projectile.type], 1))
