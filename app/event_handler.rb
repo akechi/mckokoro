@@ -891,7 +891,7 @@ module EventHandler
       EntityType::SMALL_FIREBALL => Material::FIREBALL,
       EntityType::SNOWBALL => Material::SNOW_BALL,
       EntityType::THROWN_EXP_BOTTLE => Material::EXP_BOTTLE,
-      EntityType::THROWN_POTION => Material::GLASS_BOTTLE,
+      EntityType::SPLASH_POTION => Material::GLASS_BOTTLE,
       EntityType::WITHER_SKULL => Material::PUMPKIN_PIE, # hehehe
     }
     hopper = block.state
