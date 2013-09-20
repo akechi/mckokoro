@@ -896,7 +896,7 @@ module EventHandler
       when EntityType::SMALL_FIREBALL; ItemStack.new(Material::FIREBALL, 1)
       when EntityType::SNOWBALL; ItemStack.new(Material::SNOW_BALL, 1)
       when EntityType::THROWN_EXP_BOTTLE; ItemStack.new(Material::EXP_BOTTLE, 1)
-      when EntityType::SPLASH_POTION; projectile.item.clone
+      when EntityType::SPLASH_POTION; Potion.from_item_stack(projectile.item).to_item_stack(1)
       when EntityType::WITHER_SKULL; ItemStack.new(Material::PUMPKIN_PIE, 1) # hehehe
       else
         p "must not happen at projectile_on_hopper #{projectile} (#{projectile.type})"
