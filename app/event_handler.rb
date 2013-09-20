@@ -410,6 +410,10 @@ module EventHandler
   def on_entity_explode(evt)
     entity, block_list, yieldf =
       [evt.entity, evt.block_list, evt.yield]
+
+    # to see if projectile_on_hopper() is earlier or not
+    Bukkit.get_player('ujm').send_message "on_entity_explode #{entity.type} #{loc_below(entity.location).block.type}"
+
     case entity
     when TNTPrimed
       evt.yield = 1.0
@@ -879,7 +883,7 @@ module EventHandler
   def projectile_on_hopper(projectile)
     loc = projectile.location
     block = loc_below(loc).block
-    #Bukkit.get_player('ujm').send_message "hit #{block.type}"
+    Bukkit.get_player('ujm').send_message "projectile_on_hopper #{projectile.type} #{block.type}"
     return unless block.type == Material::HOPPER
     table = {
       EntityType::ARROW => Material::ARROW,
