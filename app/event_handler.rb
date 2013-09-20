@@ -17,7 +17,7 @@ import 'org.bukkit.inventory.ShapedRecipe'
 import 'org.bukkit.material.MaterialData'
 import 'org.bukkit.material.SpawnEgg'
 import 'org.bukkit.entity.EntityType'
-import 'org.bukkit.entity.Skeleton.SkeletonType'
+import 'org.bukkit.entity.Skeleton'
 import 'org.bukkit.event.block.Action'
 import 'org.bukkit.enchantments.Enchantment'
 import 'org.bukkit.potion.PotionEffectType'
@@ -729,7 +729,7 @@ module EventHandler
           later sec(4) do
             30.times do
               s = spawn(base_loc, EntityType::SKELETON)
-              s.skeleton_type = SkeletonType::WITHER
+              s.skeleton_type = Skeleton::SkeletonType::WITHER
               sword = SWORDS.sample
               skull = MaterialData.new(Material::SKULL_ITEM, 2).to_item_stack(1)
               s.equipment.set_helmet(ItemStack.new(skull, 1))
@@ -1933,7 +1933,7 @@ module EventHandler
       play_sound(player.location, Sound::ANVIL_LAND, 0.3, rand * 2)
       if PigZombie === damager
         evt.cancelled = true
-      elsif Skeleton === damager && damager.skeleton_type == SkeletonType::WITHER
+      elsif Skeleton === damager && damager.skeleton_type == Skeleton::SkeletonType::WITHER
         evt.damage = 0
       else
         damager.damage(evt.damage, player)
