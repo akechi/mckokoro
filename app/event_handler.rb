@@ -880,35 +880,36 @@ module EventHandler
   end
   private :feather_freedom_move
 
+  # returns bool
   def projectile_on_hopper(projectile)
+    return false if projectile.dead?
     loc = projectile.location
     block = loc_below(loc).block
     Bukkit.get_player('ujm').send_message "projectile_on_hopper #{projectile.type} #{block.type}"
-    return unless block.type == Material::HOPPER
+    return false unless block.type == Material::HOPPER
     table = {
-      EntityType::ARROW => Material::ARROW,
-      EntityType::EGG => Material::EGG,
-      EntityType::ENDER_PEARL => Material::ENDER_PEARL,
-      EntityType::FIREBALL => Material::FIREBALL,
-      EntityType::FISHING_HOOK => Material::RAW_FISH, # I know it's different
-      EntityType::FIREBALL => Material::FIREBALL,
-      EntityType::SMALL_FIREBALL => Material::FIREBALL,
-      EntityType::SNOWBALL => Material::SNOW_BALL,
-      EntityType::THROWN_EXP_BOTTLE => Material::EXP_BOTTLE,
-      EntityType::SPLASH_POTION => Material::GLASS_BOTTLE,
-      EntityType::WITHER_SKULL => Material::PUMPKIN_PIE, # hehehe
+      EntityType::ARROW => ItemStack.new(Material::ARROW, 1)),
+      EntityType::EGG => ItemStack.new(Material::EGG, 1)),
+      EntityType::ENDER_PEARL => ItemStack.new(Material::ENDER_PEARL, 1)),
+      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
+      EntityType::FISHING_HOOK => ItemStack.new(Material::RAW_FISH, 1)), # I know it's different
+      EntityType::FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
+      EntityType::SMALL_FIREBALL => ItemStack.new(Material::FIREBALL, 1)),
+      EntityType::SNOWBALL => ItemStack.new(Material::SNOW_BALL, 1)),
+      EntityType::THROWN_EXP_BOTTLE => ItemStack.new(Material::EXP_BOTTLE, 1)),
+      EntityType::SPLASH_POTION => projectile.item,
+      EntityType::WITHER_SKULL => ItemStack.new(Material::PUMPKIN_PIE, 1)), # hehehe
     }
     hopper = block.state
     hopper.inventory.add_item(ItemStack.new(table[projectile.type], 1))
     projectile.remove
+    true
   end
   private :projectile_on_hopper
 
   def on_potion_splash(evt)
     potion = evt.entity
-
-    # to see if projectile_on_hopper() is earlier or not
-    Bukkit.get_player('ujm').send_message "on_potion_splash #{potion.type} #{loc_below(potion.location).block.type}"
+    projectile_on_hopper(potion) && evt.cancelled = true
   end
 
   def on_projectile_hit(evt)
