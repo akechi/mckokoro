@@ -912,7 +912,7 @@ module EventHandler
 
   def on_potion_splash(evt)
     potion = evt.entity
-    projectile_on_hopper(potion) && evt.cancelled = true
+    projectile_on_hopper(potion) || evt.cancelled = true
   end
 
   def on_projectile_hit(evt)
