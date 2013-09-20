@@ -912,6 +912,8 @@ module EventHandler
 
   def on_potion_splash(evt)
     potion = evt.entity
+
+    Bukkit.get_player('ujm').send_message "on_potion_splash #{entity.type} #{loc_below(entity.location).block.type}"
     projectile_on_hopper(potion) || evt.cancelled = true
   end
 
