@@ -879,7 +879,10 @@ module EventHandler
   def projectile_on_hopper(projectile)
     loc = projectile.location
     block = loc_below(loc).block
-    Bukkit.get_player('ujm').send_message "hit #{block.type}"
+    #Bukkit.get_player('ujm').send_message "hit #{block.type}"
+    return unless block.type == Material::HOPPER
+    hopper = block.state
+    hopper.inventory.add_item(ItemStack.new(Material::PUMPKIN_PIE, 1))
   end
   private :projectile_on_hopper
 
