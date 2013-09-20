@@ -23,17 +23,17 @@ module Job
   @job_player ||= {}
   @job_exp ||= {}
   @job_recipes ||= {}
-  set_recipe(
-    :enderman,
-    {
-      masteries: {novice: 0},
-      votive: [ItemStack.new(Material::ENDER_PEARL, 1)]
-    })
 
   def reload
     EventHandler.later 0 do
       load "#{APP_DIR_PATH}/job.rb" # TODO
     end
+    set_recipe(
+      :enderman,
+      {
+        masteries: {novice: 0},
+        votive: [ItemStack.new(Material::ENDER_PEARL, 1)]
+      })
   end
 
   def set_recipe(job, recipe)
