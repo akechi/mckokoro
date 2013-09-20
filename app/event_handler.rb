@@ -905,6 +905,8 @@ module EventHandler
   private :projectile_on_hopper
 
   def on_potion_event(evt)
+  end
+  def on_potion_splash(evt)
     potion = evt.entity
 
     # to see if projectile_on_hopper() is earlier or not
