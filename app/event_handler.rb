@@ -904,6 +904,13 @@ module EventHandler
   end
   private :projectile_on_hopper
 
+  def on_potion_event(evt)
+    potion = evt.entity
+
+    # to see if projectile_on_hopper() is earlier or not
+    Bukkit.get_player('ujm').send_message "projectile_on_hopper #{potion.type} #{loc_below(potion.location).block.type}"
+  end
+
   def on_projectile_hit(evt)
     projectile_on_hopper(evt.entity)
 
