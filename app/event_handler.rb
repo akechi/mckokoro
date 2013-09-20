@@ -411,9 +411,6 @@ module EventHandler
     entity, block_list, yieldf =
       [evt.entity, evt.block_list, evt.yield]
 
-    # to see if projectile_on_hopper() is earlier or not
-    Bukkit.get_player('ujm').send_message "on_entity_explode #{entity.type} #{loc_below(entity.location).block.type}"
-
     case entity
     when TNTPrimed
       evt.yield = 1.0
@@ -910,8 +907,6 @@ module EventHandler
 
   def on_potion_splash(evt)
     potion = evt.entity
-
-    Bukkit.get_player('ujm').send_message "on_potion_splash #{potion.type} #{loc_below(potion.location).block.type}"
     projectile_on_hopper(potion) and evt.cancelled = true
   end
 
