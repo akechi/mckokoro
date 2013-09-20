@@ -881,21 +881,21 @@ module EventHandler
     block = loc_below(loc).block
     #Bukkit.get_player('ujm').send_message "hit #{block.type}"
     return unless block.type == Material::HOPPER
-    hopper = block.state
-    hopper.inventory.add_item(ItemStack.new(Material::PUMPKIN_PIE, 1))
     table = {
-      Arrow => Material::ARROW,
-      Egg => Material::EGG,
-      EnderPearl => Material::ENDER_PEARL,
-      Fireball => Material::FIREBALL,
-      Fish => Material::RAW_FISH, # I know it's different
-      LargeFireball => Material::FIREBALL,
-      SmallFireball => Material::FIREBALL,
-      Snowball => Material::SNOW_BALL,
-      ThrownExpBottle => Material::EXP_BOTTLE,
-      ThrownPotion => Material::GLASS_BOTTLE,
-      WitherSkull => Material::PUMPKIN_PIE, # hehehe
+      EntityType::ARROW => Material::ARROW,
+      EntityType::EGG => Material::EGG,
+      EntityType::ENDER_PEARL => Material::ENDER_PEARL,
+      EntityType::FIREBALL => Material::FIREBALL,
+      EntityType::FISH => Material::RAW_FISH, # I know it's different
+      EntityType::LARGE_FIREBALL => Material::FIREBALL,
+      EntityType::SMALL_FIREBALL => Material::FIREBALL,
+      EntityType::SNOWBALL => Material::SNOW_BALL,
+      EntityType::THROWN_EXP_BOTTLE => Material::EXP_BOTTLE,
+      EntityType::THROWN_POTION => Material::GLASS_BOTTLE,
+      EntityType::WITHER_SKULL => Material::PUMPKIN_PIE, # hehehe
     }
+    hopper = block.state
+    hopper.inventory.add_item(ItemStack.new(table[projectile.type, 1))
     projectile.remove
   end
   private :projectile_on_hopper
