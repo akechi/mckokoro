@@ -878,7 +878,7 @@ module EventHandler
 
   def projectile_on_hopper(projectile)
     loc = projectile.location
-    block = loc.block
+    block = loc_below(loc).block
     Bukkit.get_player('ujm').send_message "hit #{block.type}"
   end
   private :projectile_on_hopper
