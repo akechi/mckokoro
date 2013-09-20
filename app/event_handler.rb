@@ -893,15 +893,15 @@ module EventHandler
       when EntityType::EGG; ItemStack.new(Material::EGG, 1)
       when EntityType::ENDER_PEARL; ItemStack.new(Material::ENDER_PEARL, 1)
       when EntityType::FIREBALL; ItemStack.new(Material::FIREBALL, 1)
-      when EntityType::FISHING_HOOK; ItemStack.new(Material::RAW_FISH, 1), # I know it's different
+      when EntityType::FISHING_HOOK; ItemStack.new(Material::RAW_FISH, 1) # I know it's different
       when EntityType::FIREBALL; ItemStack.new(Material::FIREBALL, 1)
       when EntityType::SMALL_FIREBALL; ItemStack.new(Material::FIREBALL, 1)
       when EntityType::SNOWBALL; ItemStack.new(Material::SNOW_BALL, 1)
       when EntityType::THROWN_EXP_BOTTLE; ItemStack.new(Material::EXP_BOTTLE, 1)
       when EntityType::SPLASH_POTION; projectile.item
-      when EntityType::WITHER_SKULL; ItemStack.new(Material::PUMPKIN_PIE, 1), # hehehe
+      when EntityType::WITHER_SKULL; ItemStack.new(Material::PUMPKIN_PIE, 1) # hehehe
       else
-        p 'must not happen at projectile_on_hopper'
+        p "must not happen at projectile_on_hopper #{projectile} (#{projectile.type})"
       end
     hopper = block.state
     hopper.inventory.add_item(itemstack)
