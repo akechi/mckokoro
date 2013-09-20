@@ -1923,6 +1923,8 @@ module EventHandler
       play_sound(player.location, Sound::ANVIL_LAND, 0.3, rand * 2)
       if PigZombie === damager
         evt.cancelled = true
+      elsif Skeleton === damager && damager.skeleton_type == org.bukkit.entity.Skeleton::SkeletonType::WITHER
+        evt.damage = 0
       else
         damager.damage(evt.damage, player)
         evt.cancelled = true
