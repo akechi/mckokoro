@@ -717,6 +717,15 @@ module EventHandler
           golem.player_created = true
           golem.max_health = 500
           golem.health = golem.max_health
+        elsif diamond_blocks.map(&:type).all? {|t| t == Material::COAL_BLOCK }
+          (diamond_blocks + [base_loc.block]).each do |b|
+            b.type = Material::AIR
+          end
+          5.times do
+            s = spawn(base_loc, EntityType::SKELETON)
+            s.skeleton_type = org.bukkit.entity.Skeleton::SkeletonType::WITHER
+            s.equipment.set_item_in_hand(ItemStack.new(Material::IRON_SWORD, 1))
+          end
         end
       end
     end
