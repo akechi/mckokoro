@@ -721,10 +721,13 @@ module EventHandler
           (diamond_blocks + [base_loc.block]).each do |b|
             b.type = Material::AIR
           end
-          5.times do
-            s = spawn(base_loc, EntityType::SKELETON)
-            s.skeleton_type = org.bukkit.entity.Skeleton::SkeletonType::WITHER
-            s.equipment.set_item_in_hand(ItemStack.new(Material::IRON_SWORD, 1))
+          strike_lightning(base_loc)
+          later sec(2) do
+            15.times do
+              s = spawn(base_loc, EntityType::SKELETON)
+              s.skeleton_type = org.bukkit.entity.Skeleton::SkeletonType::WITHER
+              s.equipment.set_item_in_hand(ItemStack.new(Material::IRON_SWORD, 1))
+            end
           end
         end
       end
