@@ -882,7 +882,6 @@ module EventHandler
 
   # returns bool
   def projectile_on_hopper(projectile)
-    return false if projectile.dead?
     loc = projectile.location
     block = loc_below(loc).block
     Bukkit.get_player('ujm').send_message "projectile_on_hopper #{projectile.type} #{block.type}"
@@ -914,8 +913,7 @@ module EventHandler
     potion = evt.entity
 
     Bukkit.get_player('ujm').send_message "on_potion_splash #{potion.type} #{loc_below(potion.location).block.type}"
-    evt.cancelled = true
-    #projectile_on_hopper(potion) || evt.cancelled = true
+    projectile_on_hopper(potion) || evt.cancelled = true
   end
 
   def on_projectile_hit(evt)
