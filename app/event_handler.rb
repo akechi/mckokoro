@@ -901,6 +901,7 @@ module EventHandler
       else
         p "must not happen at projectile_on_hopper #{projectile} (#{projectile.type})"
       end
+    p itemstack
     hopper = block.state
     hopper.inventory.add_item(itemstack)
     projectile.remove
