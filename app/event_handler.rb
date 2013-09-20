@@ -884,7 +884,6 @@ module EventHandler
   def projectile_on_hopper(projectile)
     loc = projectile.location
     block = loc_below(loc).block
-    Bukkit.get_player('ujm').send_message "projectile_on_hopper #{projectile.type} #{block.type}"
     return false unless block.type == Material::HOPPER
     itemstack =
       case projectile.type
