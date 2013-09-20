@@ -730,7 +730,7 @@ module EventHandler
             30.times do
               s = spawn(base_loc, EntityType::SKELETON)
               s.skeleton_type = Skeleton::SkeletonType::WITHER
-              skull = MaterialData.new(Material::SKULL_ITEM, rand(5).to_item_stack(1)
+              skull = MaterialData.new(Material::SKULL_ITEM, rand(5)).to_item_stack(1)
               s.equipment.set_helmet(skull)
               s.equipment.set_item_in_hand(ItemStack.new(SWORDS.sample, 1))
             end
