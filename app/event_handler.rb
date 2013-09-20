@@ -723,7 +723,10 @@ module EventHandler
           end
           strike_lightning(base_loc)
           later sec(2) do
-            15.times do
+            strike_lightning(base_loc)
+          end
+          later sec(4) do
+            30.times do
               s = spawn(base_loc, EntityType::SKELETON)
               s.skeleton_type = org.bukkit.entity.Skeleton::SkeletonType::WITHER
               s.equipment.set_item_in_hand(ItemStack.new(Material::IRON_SWORD, 1))
