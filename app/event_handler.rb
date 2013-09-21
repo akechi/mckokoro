@@ -1803,6 +1803,10 @@ module EventHandler
     end
   end
 
+  def player_damages_zombie(player, zombie, evt)
+    p [:player_damages_zombie, player, zombie, evt.damage]
+  end
+
   def on_entity_damage_by_entity(evt)
     defender = evt.entity
     case evt.damager
@@ -1858,6 +1862,10 @@ module EventHandler
       player = evt.damager
 
       case defender
+      when PigZombie
+        # to tell difference between zombie
+      when Zombie
+        player_damages_zombie(player, defender, evt)
       when Player
         sword_blocking_counter_attack(evt, defender, player)
         if @ctf_players.member?(player) && @ctf_players.member?(defender)
