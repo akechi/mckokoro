@@ -1804,7 +1804,10 @@ module EventHandler
   end
 
   def player_damages_zombie(player, zombie, evt)
-    p [:player_damages_zombie, player, zombie, evt.damage]
+    cur_health = zombie.health
+    later 0 do
+      p [:player_damages_zombie, player.name, cur_health, zombie.health, jfloat(evt.damage)]
+    end
   end
 
   def on_entity_damage_by_entity(evt)
