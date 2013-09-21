@@ -1806,7 +1806,7 @@ module EventHandler
   def player_damages_zombie(player, zombie, evt)
     # To avoid minecraft and bukkit's suspicious bug.
     return if evt.damage >= 1.2 || 0.7 >= evt.damage
-    return if zombie.health > 3.0
+    return if zombie.health > 1.0
     if @player_damages_zombie_flag
       @player_damages_zombie_flag = false
       return
