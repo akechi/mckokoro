@@ -1806,10 +1806,15 @@ module EventHandler
   def player_damages_zombie(player, zombie, evt)
     # To avoid minecraft and bukkit's suspicious bug.
     return if evt.damage >= 1.2 || 0.7 >= evt.damage
+    if @player_damages_zombie_flag
+      @player_damages_zombie_flag = false
+      return
+    end
+    @player_damages_zombie_flag = true
     evt.cancelled = true
     cur_health = zombie.health
     later 0 do
-      zombie.damage(1)
+      zombie.damage(1, player)
       later 0 do
         p [:player_damages_zombie, player.name, zombie.entity_id, cur_health, zombie.health]
       end
