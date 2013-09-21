@@ -1814,7 +1814,7 @@ module EventHandler
     evt.cancelled = true
     cur_health = zombie.health
     later 0 do
-      zombie.damage(1.01, player)
+      zombie.damage(5, player)
       later 0 do
         p [:player_damages_zombie, player.name, zombie.entity_id, cur_health, zombie.health]
       end
