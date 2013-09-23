@@ -1127,7 +1127,7 @@ module EventHandler
         end
         later sec(0.4) do
           p.velocity = within_limit p.velocity.tap {|v|
-            v.add Vector.new(0.0, 0.1, 0.0
+            v.add Vector.new(0.0, 0.1, 0.0)
           }
         end
       end
