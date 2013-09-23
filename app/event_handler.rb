@@ -2263,7 +2263,7 @@ module EventHandler
           vel = projectile.velocity
           p vel.to_s
           vel.add Vector.new(0.0, vel.get_y + 0.1, 0.0)
-          [0.2, 0.4, 0.6].each do |d|
+          [0.1, 0.2, 0.4, 0.6].each do |d|
             later sec(d) do
               projectile.velocity = vel if projectile.valid?
             end
