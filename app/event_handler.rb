@@ -2261,7 +2261,8 @@ module EventHandler
         # bumeran 2
         if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
           vel = projectile.velocity
-          later sec(0.7) do
+          vel.add Vector.new(0.0, 0.5, 0.0)
+          later sec(0.2) do
             if projectile.valid?
               #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
               #vel = projectile.velocity.multiply(jfloat(-0.9))
