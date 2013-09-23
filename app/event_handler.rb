@@ -2262,7 +2262,7 @@ module EventHandler
           if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
             vel = projectile.velocity
             p vel.to_s
-            vel.add Vector.new(0.0, vel.get_y + 0.1, 0.0)
+            vel.add Vector.new(0.0, [vel.get_y, 0].max + 0.1, 0.0)
             [0.1, 0.2, 0.4, 0.6].each do |d|
               later sec(d) do
                 projectile.velocity = vel if projectile.valid?
