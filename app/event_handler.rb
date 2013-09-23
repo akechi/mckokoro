@@ -328,6 +328,9 @@ module EventHandler
     elsif evt.message == 'benri'
       post_lingr("#{evt.player.name}: 便利")
       evt.message = '便利'
+    elsif evt.message == 'fuben'
+      post_lingr("#{evt.player.name}: 不便")
+      evt.message = '不便'
     else
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
