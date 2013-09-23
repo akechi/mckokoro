@@ -1118,11 +1118,11 @@ module EventHandler
     later 0 do
       entities_on_the_door.each do |p|
         p.velocity = within_limit p.velocity.tap {|v|
-          v.add Vector.new(facing.mod_x * 3.0, 0.8, facing.mod_z * 3.0)
+          v.add Vector.new(facing.mod_x * 2.0, 0.5, facing.mod_z * 2.0)
         }
         later sec(0.5) do
           p.velocity = within_limit p.velocity.tap {|v|
-            v.add Vector.new(facing.mod_x * 2.0, 0.8, facing.mod_z * 2.0)
+            v.add Vector.new(facing.mod_x * 1.5, 0.5, facing.mod_z * 1.5)
           }
         end
       end
