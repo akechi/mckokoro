@@ -341,20 +341,20 @@ module EventHandler
     name = player.name
 
     evt.join_message = [
-      '%sさんが温野菜食べ放題です。',
-      'ujmさんではなく%sさんがログインしました',
-      '<%s> おはようございます',
-      '%s.vim',
-      '<%s> イカカワイイデス',
+      '[login] %sさんが温野菜食べ放題です。',
+      '[login] ujmさんではなく%sさんがログインしました',
+      '[login] <%s> おはようございます',
+      '[login] %s.vim',
+      '[login] <%s> イカカワイイデス',
     ].sample % name
-    if name == 'ujm' # TODO temp
-      #evt.join_message = ''
+    #if name == 'ujm' # TODO temp
+    #  #evt.join_message = ''
+    #  post_lingr "#{name} logged in."
+    #  another_player = (Bukkit.online_players.to_a - [player]).sample
+    #  player.teleport(another_player.location) if another_player
+    #else
       post_lingr "#{name} logged in."
-      another_player = (Bukkit.online_players.to_a - [player]).sample
-      player.teleport(another_player.location) if another_player
-    else
-      post_lingr "#{name} logged in."
-    end
+    #end
 
     #later 0 do
       player_first_time_p =
@@ -1428,12 +1428,12 @@ module EventHandler
             safety_loc.set_yaw(yaw + 180)
             play_effect(safety_loc, Effect::ENDER_SIGNAL, nil)
             player.teleport safety_loc
-            broadlingr "#{player.name} teleported to #{name}"
+            broadlingr "(teleport :#{player.name} \"#{name}\")"
           else
             player.send_message "No such location or there aren't safety place around the sign."
           end
         else
-          player.send_message "Not found the location named '#{ name }'"
+          player.send_message "Not found the location named '#{name}'"
         end
       when :location
         name = location_name.call args
