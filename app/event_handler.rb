@@ -241,8 +241,11 @@ module Util
     all_facings[(all_facings.find_index(facing) - 1) % all_facings.size]
   end
 
-  def within_limit(d)
-    [8.0, [d, -8.0].max].min
+  def within_limit(v)
+    x, y, z = [v.get_x, v.get_y, v.get_z].map {|d|
+      [8.0, [d, -8.0].max].min
+    }
+    Vector.new(x, y, z)
   end
 
   def silence_warnings
@@ -1114,12 +1117,12 @@ module EventHandler
 
     later 0 do
       entities_on_the_door.each do |p|
-        p.velocity = p.velocity.tap {|v|
-          v.add Vector.new(within_limit(facing.mod_x * 3.0), 0.8, within_limit(facing.mod_z * 3.0))
+        p.velocity = within_limit p.velocity.tap {|v|
+          v.add Vector.new(facing.mod_x * 3.0, 0.8, facing.mod_z * 3.0)
         }
         later sec(0.5) do
-          p.velocity = p.velocity.tap {|v|
-            v.add Vector.new(within_limit(facing.mod_x * 2.0), 0.8, within_limit(facing.mod_z * 2.0))
+          p.velocity = within_limit p.velocity.tap {|v|
+            v.add Vector.new(facing.mod_x * 2.0, 0.8, facing.mod_z * 2.0)
           }
         end
       end
