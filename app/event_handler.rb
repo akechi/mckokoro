@@ -2242,30 +2242,31 @@ module EventHandler
         if !shooter.on_ground? && shooter.fall_distance > 0
           projectile.velocity = projectile.velocity.multiply(jfloat(2.0))
           play_sound(shooter.location, Sound::SILVERFISH_HIT, 1.0, 0.5)
-        end
-        # bumeran
-        #if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
-        #  later sec(0.7) do
-        #    if projectile.valid?
-        #      #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
-        #      vel = projectile.velocity.multiply(jfloat(-0.9))
-        #      projectile.remove
-        #      item = drop_item(projectile.location, ItemStack.new(Material::ARROW, 1))
-        #      later 0 do
-        #        item.velocity = vel
-        #      end
-        #    end
-        #  end
-        #end
-        #
-        # bumeran 2
-        if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
-          vel = projectile.velocity
-          p vel.to_s
-          vel.add Vector.new(0.0, vel.get_y + 0.1, 0.0)
-          [0.1, 0.2, 0.4, 0.6].each do |d|
-            later sec(d) do
-              projectile.velocity = vel if projectile.valid?
+        else
+          # bumeran
+          #if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
+          #  later sec(0.7) do
+          #    if projectile.valid?
+          #      #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
+          #      vel = projectile.velocity.multiply(jfloat(-0.9))
+          #      projectile.remove
+          #      item = drop_item(projectile.location, ItemStack.new(Material::ARROW, 1))
+          #      later 0 do
+          #        item.velocity = vel
+          #      end
+          #    end
+          #  end
+          #end
+          #
+          # bumeran 2
+          if shooter.sneaking? && !shooter.item_in_hand.enchantments[Enchantment::ARROW_INFINITE]
+            vel = projectile.velocity
+            p vel.to_s
+            vel.add Vector.new(0.0, vel.get_y + 0.1, 0.0)
+            [0.1, 0.2, 0.4, 0.6].each do |d|
+              later sec(d) do
+                projectile.velocity = vel if projectile.valid?
+              end
             end
           end
         end
