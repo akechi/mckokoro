@@ -2265,7 +2265,7 @@ module EventHandler
             if projectile.valid?
               #projectile.velocity = projectile.velocity.multiply(jfloat(-1.1))
               #vel = projectile.velocity.multiply(jfloat(-0.9))
-              projection.velocity = vel
+              projectile.velocity = vel
             end
           end
         end
