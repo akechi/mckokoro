@@ -1303,13 +1303,15 @@ module EventHandler
     #smoke_effect(iron_block_loc)
     play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     iron_block.type = Material::AIR
-    p :ready
-    (1..5).lazy.map {|n|
-      add_loc(iron_block_loc, x * n, 0, z * n).block
-    }.take_while {|b|
-      p b.type.to_s
-      b.type.solid? && b.type != Material::CHEST
-    }.to_a.each do |b|
+    blocks_move = cloop(1, [iron_block]) {|recur, n, acc|
+      b = add_loc(iron_block_loc, x * n, 0, z * n).block
+      if b.type.solid? && b.type != Material::CHEST
+        recur.(n + 1, acc + [b])
+      else
+        acc
+      end
+    }
+    blocks_move.each do |b|
       b.type = Material::IRON_BLOCK
       b.data = 0
     end
