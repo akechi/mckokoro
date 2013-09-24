@@ -1292,12 +1292,12 @@ module EventHandler
   def iron_piston(iron_block)
     wool_below = loc_below(iron_block.location).block
     return if wool_below.type =! Material::WOOL
-    wool_side, *remains = [[-1, 0], [1, 0], [0, -1], [0, 1]].map {|x, z|
-      add_loc(wool_below.location, x, y, z).block
-    }.select {|b|
+    (x, z, wool_side), *remains = [[-1, 0], [1, 0], [0, -1], [0, 1]].map {|x, z|
+      [x, z, add_loc(wool_below.location, x, y, z).block]
+    }.select {|(x, z, b)|
       b.type == Material::WOOL
     }
-    return if !wool_side
+    return unless wool_side
     return if remainds.empty?
     strike_lightning(iron_block.location)
   end
