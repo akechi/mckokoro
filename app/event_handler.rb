@@ -1289,6 +1289,13 @@ module EventHandler
   end
   private :use_enderpearl
 
+  def iron_piston(iron_block)
+    blocks_below = location_around_flat(loc_below(iron_block.location), 1).map(&:block)
+    Bukkit.get_player('ujm').send_message blocks_below.map(&:type).map(&:to_s).to_s
+  end
+  private :iron_piston
+
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
@@ -1314,6 +1321,8 @@ module EventHandler
       #  below = loc_below(plate.location)
       #  cond =
       #    below.block.type == Material::SMOOTH_BRICK &&
+      when [Material::IRON_BLOCK, Action::RIGHT_CLICK_BLOCK]
+        iron_piston(evt.clicked_block)
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::ENDER_CHEST, Action::RIGHT_CLICK_BLOCK]
