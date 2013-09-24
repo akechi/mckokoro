@@ -1299,7 +1299,9 @@ module EventHandler
     }
     return unless wool_side
     return unless remains.empty?
-    strike_lightning(iron_block.location)
+    smoke_effect(iron_block.location)
+    play_sound(iron_block.location, Sound::SHEEP_SHEAR, 1.0, 1.0)
+    iron_block.type = Material::AIR
   end
   private :iron_piston
 
