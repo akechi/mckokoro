@@ -1297,11 +1297,8 @@ module EventHandler
     }.select {|(x, z, b)|
       b.type == Material::WOOL
     }
-    p :step2
     return unless wool_side
-    p :step3
-    return if remains.empty?
-    p :step4
+    return unless remains.empty?
     strike_lightning(iron_block.location)
   end
   private :iron_piston
