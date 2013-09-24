@@ -1306,6 +1306,7 @@ module EventHandler
     (0..5).lazy.map {|n|
       add_loc(iron_block_loc, x * n, 0, z * n).block
     }.take_while {|b|
+      p b.type.to_s
       b.type.solid? && b.type != Material::CHEST
     }.to_a.each do |b|
       b.type = Material::IRON_BLOCK
