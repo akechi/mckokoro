@@ -1330,7 +1330,9 @@ module EventHandler
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
       }
-      entity.teleport(add_loc(entity.location, x, 0, z))
+      entities.each do |entity|
+        entity.teleport(add_loc(entity.location, x, 0, z))
+      end
     end
     iron_block.type = Material::AIR
     iron_block.data = 0
