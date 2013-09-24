@@ -1298,7 +1298,7 @@ module EventHandler
       b.type == Material::WOOL
     }
     return unless wool_side
-    return if remainds.empty?
+    return if remains.empty?
     strike_lightning(iron_block.location)
   end
   private :iron_piston
