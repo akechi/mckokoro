@@ -1315,11 +1315,25 @@ module EventHandler
       end
     }
     return if blocks_move.empty?
-    ([iron_block] + blocks_move).reverse.each do |block|
+    blocks_move.reverse.each do |block|
       b = add_loc(block.location, x, 0, z).block
       b.type = block.type
       b.data = block.data
     end
+    chunks = ([iron_block] + blocks_move).map(&:chunk).uniq
+    p [:size, chunks.size]
+    chunks.each do |c|
+      entities = c.entities.select {|e|
+        eloc = e.location.block.location
+        blocks = ([iron_block] + blocks_move)
+        eloc.y - 1 == iron_block_loc.y &&
+          blocks.map(&:x).include?(eloc.x) &&
+          blocks.map(&:z).include?(eloc.z)
+      }
+      entity.teleport(add_loc(entity.location, x, 0, z))
+    end
+    iron_block.type = Material::AIR
+    iron_block.data = 0
     wool_below.type = Material::AIR
     wool_below.data = 0
   end
