@@ -1322,6 +1322,8 @@ module EventHandler
     end
     iron_block.type = Material::AIR
     iron_block.data = 0
+    wool_below.type = Material::AIR
+    wool_below.data = 0
   end
   private :iron_piston
 
