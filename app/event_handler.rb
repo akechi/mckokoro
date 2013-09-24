@@ -1304,12 +1304,14 @@ module EventHandler
     play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [iron_block]) {|recur, n, acc|
       b = add_loc(iron_block_loc, x * n, 0, z * n).block
-      if n > 5
+      if n > 10
         []
-      elsif b.type.solid? && b.type != Material::CHEST
+      elsif b.type == Material::CHEST
+        []
+      elsif b.type.solid?
         recur.(n + 1, acc + [b])
       else
-        acc
+        acc + []
       end
     }
     return if blocks_move.empty?
