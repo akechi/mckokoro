@@ -1290,8 +1290,16 @@ module EventHandler
   private :use_enderpearl
 
   def iron_piston(iron_block)
-    blocks_below = location_around_flat(loc_below(iron_block.location), 1).map(&:block)
-    Bukkit.get_player('ujm').send_message blocks_below.map(&:type).map(&:to_s).to_s
+    wool_below = loc_below(iron_block.location).block
+    return if wool_below.type =! Material::WOOL
+    wool_side, *remains = [[-1, 0], [1, 0], [0, -1], [0, 1]].map {|x, z|
+      add_loc(wool_below.location, x, y, z).block
+    }.select {|b|
+      b.type == Material::WOOL
+    }
+    return if !wool_side
+    return if remainds.empty?
+    strike_lightning(iron_block.location)
   end
   private :iron_piston
 
