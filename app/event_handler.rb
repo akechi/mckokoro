@@ -1315,13 +1315,11 @@ module EventHandler
       end
     }
     return if blocks_move.empty?
-    blocks_move.reverse.each do |block|
+    ([iron_block] + blocks_move).reverse.each do |block|
       b = add_loc(block.location, x, 0, z).block
       b.type = block.type
       b.data = block.data
     end
-    iron_block.type = Material::AIR
-    iron_block.data = 0
     wool_below.type = Material::AIR
     wool_below.data = 0
   end
