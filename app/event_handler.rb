@@ -1095,7 +1095,7 @@ module EventHandler
 
   @clock_timechange_counter ||= 0
   def clock_timechange(action, player)
-    return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::LEFT_CLICK_AIR
+    return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
     return unless player.item_in_hand.type == Material::WATCH
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
