@@ -1290,7 +1290,8 @@ module EventHandler
   private :use_enderpearl
 
   def iron_piston(iron_block)
-    wool_below = loc_below(iron_block.location).block
+    iron_block_loc = iron_block.location
+    wool_below = loc_below(iron_block_loc).block
     return if wool_below.type != Material::WOOL
     (x, z, wool_side), *remains = [[-1, 0], [1, 0], [0, -1], [0, 1]].map {|x, z|
       [x, z, add_loc(wool_below.location, x, 0, z).block]
@@ -1299,9 +1300,12 @@ module EventHandler
     }
     return unless wool_side
     return unless remains.empty?
-    smoke_effect(iron_block.location)
-    play_sound(iron_block.location, Sound::SHEEP_SHEAR, 1.0, 1.0)
+    smoke_effect(iron_block_loc)
+    play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     iron_block.type = Material::AIR
+    next_block = add_loc(iron_block_loc, x, 0, z).block
+    next_block.type = Material::IRON_BLOCK
+    next_block.state.data = 0
   end
   private :iron_piston
 
