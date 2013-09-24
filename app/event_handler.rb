@@ -332,13 +332,8 @@ module EventHandler
       post_lingr("#{evt.player.name}: #{message}")
       post_lingr_to('computer_science', "#{last_pname}: #{last_message}")
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
-    elsif evt.message == 'benri'
-      post_lingr("#{evt.player.name}: 便利")
-      evt.message = '便利'
-    elsif evt.message == 'fuben'
-      post_lingr("#{evt.player.name}: 不便")
-      evt.message = '不便'
     else
+      evt.message = evt.message.gsub(/benri/, '便利').gsub(/fuben/, '不便')
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
         Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
