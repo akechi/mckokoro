@@ -1326,7 +1326,7 @@ module EventHandler
       entities = c.entities.select {|e|
         eloc = e.location.block.location
         blocks = ([iron_block] + blocks_move)
-        eloc.y - 1 == iron_block_loc.y &&
+        (eloc.y == iron_block_loc.y || eloc.y - 1 == iron_block_loc.y) &&
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
       }
