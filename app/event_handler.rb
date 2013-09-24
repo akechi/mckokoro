@@ -1302,19 +1302,24 @@ module EventHandler
     return unless remains.empty?
     #smoke_effect(iron_block_loc)
     play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    iron_block.type = Material::AIR
     blocks_move = cloop(1, [iron_block]) {|recur, n, acc|
       b = add_loc(iron_block_loc, x * n, 0, z * n).block
-      if b.type.solid? && b.type != Material::CHEST
+      if n > 5
+        []
+      elsif b.type.solid? && b.type != Material::CHEST
         recur.(n + 1, acc + [b])
       else
         acc
       end
     }
-    blocks_move.each do |b|
-      b.type = Material::IRON_BLOCK
-      b.data = 0
+    return if blocks_move.empty?
+    blocks_move.reverse.each do |block|
+      b = add_loc(block.location, x, 0, z).block
+      b.type = block.type
+      b.data = block.data
     end
+    iron_block.type = Material::AIR
+    iron_block.data = 0
   end
   private :iron_piston
 
