@@ -1094,7 +1094,8 @@ module EventHandler
   end
 
   @clock_timechange_counter ||= 0
-  def clock_timechange(player)
+  def clock_timechange(action, player)
+    return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::LEFT_CLICK_AIR
     return unless player.item_in_hand.type == Material::WATCH
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
@@ -1298,7 +1299,7 @@ module EventHandler
     # end
 
     killerqueen_explode(evt)
-    clock_timechange(evt.player)
+    clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
 
@@ -1483,7 +1484,7 @@ module EventHandler
     player = evt.player
     damaged_block = evt.block
 
-    player.damage 1 if player.item_in_hand.type == Material::AIR
+    player.damage(1, player) if player.item_in_hand.type == Material::AIR
 
     # player.send_message "#{ damaged_block.type }"
 
