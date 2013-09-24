@@ -984,11 +984,11 @@ module EventHandler
               case rand(600)
               when 0...1
                 drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
-              when 1...3
+              when 1...6
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
-              when 3...18
+              when 6...28
                 drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
-              when 18...50
+              when 28...50
                 drop_item(loc, ItemStack.new(Material::PAPER, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
@@ -997,11 +997,11 @@ module EventHandler
               when 200...300
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
               when 300...400
-                drop_item(loc, ItemStack.new(Material::LEAVES, 1))
+                drop_item(loc, ItemStack.new(Material::CLAY_BALL, 1))
               when 400...500
-                drop_item(loc, ItemStack.new(Material::BONE, 1))
+                drop_item(loc, ItemStack.new(Material::WOOL, 1))
               else
-                drop_item(loc, ItemStack.new(Material::STICK, 1))
+                drop_item(loc, ItemStack.new(Material::APPLE, 1))
               end
             end
           end
