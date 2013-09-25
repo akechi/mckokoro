@@ -1340,7 +1340,7 @@ module EventHandler
         furnace_behind.type = furnace_block.type
         furnace_behind.data = furnace_block.data
         furnace_behind.state.tap {|s|
-          s.inventory = furnace_block.state.inventory
+          s.inventory.contents = furnace_block.state.inventory.contents
         }.update
         furnace_block.type = Material::AIR
         furnace_block.data = 0
