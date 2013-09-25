@@ -1291,12 +1291,22 @@ module EventHandler
   end
   private :use_enderpearl
 
+  def consume_fuel(furnace_inv)
+    p :consume_fuel
+    puts furnace_inv
+  end
+  private :consume_fuel
+
   def iron_piston(furnace_block)
     furnace_block_loc = furnace_block.location
     x, z = let(furnace_block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
     smelting = furnace_block.state.inventory.smelting
     return unless smelting
     return unless smelting.type == Material::IRON_BLOCK
+    fuel = furnace_block.state.inventory.fuel
+    return unless fuel
+    return unless fuel.type == Material::COAL
+    consume_fuel(furnace_block.state.inventory)
     furnace_behind = add_loc(furnace_block_loc, -x, 0, -z).block
     return if furnace_behind.type == Material::IRON_BLOCK
     #smoke_effect(furnace_block_loc)
