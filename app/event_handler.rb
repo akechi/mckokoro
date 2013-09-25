@@ -1292,6 +1292,7 @@ module EventHandler
   private :use_enderpearl
 
   def iron_piston(furnace_block)
+    p :iron_piston
     furnace_block_loc = furnace_block.location
     x, z = let(furnace_block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
     return if furnace_block.state.inventory.smelting.type == Material::IRON_BLOCK
