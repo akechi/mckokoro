@@ -1016,7 +1016,12 @@ module EventHandler
             end
           end
         end
-        break_naturally_by_dpickaxe(loc.block)
+        location_around(loc, 1).
+          map(&:block).
+          select {|b| b.type == Material::SKULL }.
+          each do |b|
+            break_naturally_by_dpickaxe(b)
+          end
       end
     end
   end
