@@ -468,7 +468,7 @@ module EventHandler
       return
     end
     loc = evt.player.location.block.location # to align
-    broadlingr("#{name} is using a portal at #{loc}!")
+    broadlingr("(portal-from :#{name} #{loc})")
   end
 
   def on_entity_portal_enter(evt)
@@ -1322,12 +1322,11 @@ module EventHandler
       b.data = block.data
     end
     chunks = ([iron_block] + blocks_move).map(&:chunk).uniq
-    p [:size, chunks.size]
     chunks.each do |c|
       entities = c.entities.select {|e|
         eloc = e.location.block.location
         blocks = ([iron_block] + blocks_move)
-        (eloc.y == iron_block_loc.y || eloc.y - 1 == iron_block_loc.y) &&
+        (iron_block_loc.y - 1 .. iron_block_loc.y + 1).include?(eloc.y) &&
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
       }
