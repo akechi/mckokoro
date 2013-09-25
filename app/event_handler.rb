@@ -1355,7 +1355,7 @@ module EventHandler
         play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         furnace_behind.type = furnace_block.type
         furnace_behind.data = furnace_block.data
-        evt.block.remove_metadata("unbreakable", @plugin)
+        furnace_behind.remove_metadata("unbreakable", @plugin)
         furnace_behind.state.tap {|s|
           s.inventory.contents = furnace_block.state.inventory.contents
         }.update
