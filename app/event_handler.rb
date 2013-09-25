@@ -1364,8 +1364,6 @@ module EventHandler
       #  below = loc_below(plate.location)
       #  cond =
       #    below.block.type == Material::SMOOTH_BRICK &&
-      when [Material::FURNACE, Action::RIGHT_CLICK_BLOCK]
-        iron_piston(evt.clicked_block)
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
       when [Material::ENDER_CHEST, Action::RIGHT_CLICK_BLOCK]
@@ -1554,6 +1552,8 @@ module EventHandler
         #   end
         # end
       end
+    when Material::FURNACE
+      iron_piston(evt.clicked_block)
     end
   end
 
