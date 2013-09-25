@@ -1292,14 +1292,13 @@ module EventHandler
   private :use_enderpearl
 
   def iron_piston(furnace_block)
-    p :iron_piston
     furnace_block_loc = furnace_block.location
     x, z = let(furnace_block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
-    return if furnace_block.state.inventory.smelting.type == Material::IRON_BLOCK
+    return unless furnace_block.state.inventory.smelting.type == Material::IRON_BLOCK
     p :ok
     return
     furnace_behind = add_loc(furnace_block_loc, -x, -z).block
-    return if furnace_below.type != Material::FURNACE
+    return unless furnace_below.type == Material::FURNACE
     #smoke_effect(furnace_block_loc)
     play_sound(furnace_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [furnace_block]) {|recur, n, acc|
