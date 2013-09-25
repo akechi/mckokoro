@@ -1335,12 +1335,13 @@ module EventHandler
     furnace_behind.type = Material::IRON_BLOCK
     furnace_behind.data = 0
     later sec(1) do
-      break if furnace_behind.type != Material::IRON_BLOCK
-      play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
-      furnace_behind.type = Material::AIR
-      furnace_behind.data = 0
-      #furnace_block.type = Material::AIR
-      #furnace_block.data = 0
+      if furnace_behind.type == Material::IRON_BLOCK
+        play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
+        furnace_behind.type = furnace_block.type
+        furnace_behind.data = furnace_block.data
+        furnace_block.type = Material::AIR
+        furnace_block.data = 0
+      end
     end
   end
   private :iron_piston
