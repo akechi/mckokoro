@@ -1338,6 +1338,8 @@ module EventHandler
     furnace_behind.data = 0
     later sec(1) do
       play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
+      furnace_behind.type = Material::AIR
+      furnace_behind.data = 0
     end
   end
   private :iron_piston
