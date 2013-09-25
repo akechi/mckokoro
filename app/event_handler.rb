@@ -1580,9 +1580,8 @@ module EventHandler
     furnace_inv = evt.inventory
     return unless furnace_inv.type == InventoryType::FURNACE
     furnace = furnace_inv.holder
-    p furnace.block
-    p furnace.block.state
-    p furnace.block.state.data
+    x, z = let(furnace.block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
+    strike_lightning(furnace.location, x, 0, z)
   end
 
   def on_player_chat_tab_complete(evt)
