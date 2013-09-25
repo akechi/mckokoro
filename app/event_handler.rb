@@ -978,6 +978,7 @@ module EventHandler
           distance = location_distance_xy(shooter.location, loc).to_i
           bonus = (distance ** 3) / 500
           bonus /= 10 if Job.of(shooter) == :archer
+          bonus = [9999, bonus].min
           broadlingr "#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
           loc.chunk.load()
           later 0 do
