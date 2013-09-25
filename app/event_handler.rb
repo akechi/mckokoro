@@ -1298,7 +1298,6 @@ module EventHandler
     return unless smelting
     return unless smelting.type == Material::IRON_BLOCK
     furnace_behind = add_loc(furnace_block_loc, -x, 0, -z).block
-    return unless furnace_behind.type == Material::FURNACE
     #smoke_effect(furnace_block_loc)
     play_sound(furnace_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [furnace_block]) {|recur, n, acc|
