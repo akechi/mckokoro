@@ -1292,8 +1292,13 @@ module EventHandler
   private :use_enderpearl
 
   def consume_fuel(furnace_inv)
-    p :consume_fuel
-    puts furnace_inv
+    fuel = furnace_inv.fuel
+    if fuel.amount == 1
+      furnace_inv.fuel = nil
+    else
+      fuel.amount = fuel.amount - 1
+      furnace_inv.fuel = fuel
+    end
   end
   private :consume_fuel
 
