@@ -9,6 +9,7 @@ import 'org.bukkit.SkullType'
 import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.event.entity.CreatureSpawnEvent'
+import 'org.bukkit.event.inventory.InventoryType'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
@@ -1576,7 +1577,10 @@ module EventHandler
   end
 
   def on_inventory_open(evt)
-    p evt.inventory.holder
+    furnace_inv = evt.inventory
+    return if furnace_inv.type == InventoryType::FURNACE
+    furnace = furnace_inv.holder
+    p furnace.block.data
   end
 
   def on_player_chat_tab_complete(evt)
