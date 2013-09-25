@@ -1343,6 +1343,7 @@ module EventHandler
           s.inventory.contents = furnace_block.state.inventory.contents
         }.update
         furnace_block.type = Material::AIR
+        furnace_block.state.inventory.clear()
         furnace_block.data = 0
       end
     end
