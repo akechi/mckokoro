@@ -1294,11 +1294,11 @@ module EventHandler
   def iron_piston(furnace_block)
     furnace_block_loc = furnace_block.location
     x, z = let(furnace_block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
-    return unless furnace_block.state.inventory.smelting.type == Material::IRON_BLOCK
-    p :ok
-    return
+    smelting = furnace_block.state.inventory.smelting
+    return unless smelting
+    return unless smelting.type == Material::IRON_BLOCK
     furnace_behind = add_loc(furnace_block_loc, -x, -z).block
-    return unless furnace_below.type == Material::FURNACE
+    return unless furnace_behind.type == Material::FURNACE
     #smoke_effect(furnace_block_loc)
     play_sound(furnace_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [furnace_block]) {|recur, n, acc|
@@ -1332,10 +1332,10 @@ module EventHandler
         entity.teleport(add_loc(entity.location, -x, 0, -z))
       end
     end
-    furnace_block.type = Material::AIR
-    furnace_block.data = 0
-    furnace_below.type = Material::AIR
-    furnace_below.data = 0
+    #furnace_block.type = Material::AIR
+    #furnace_block.data = 0
+    furnace_behind.type = Material::AIR
+    furnace_behind.data = 0
   end
   private :iron_piston
 
