@@ -1291,15 +1291,18 @@ module EventHandler
   end
   private :use_enderpearl
 
-  def iron_piston(iron_block)
-    iron_block_loc = iron_block.location
-    furnace_below = loc_below(iron_block_loc).block
+  def iron_piston(furnace_block)
+    furnace_block_loc = furnace_block.location
+    x, z = let(furnace_block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
+    return if furnace_block.state.inventory.smelting.type == Material::IRON_BLOCK
+    p :ok
+    return
+    furnace_behind = add_loc(furnace_block_loc, -x, -z).block
     return if furnace_below.type != Material::FURNACE
-    x, z = let(furnace_below.state.data.facing) {|f| [f.mod_x, f.mod_z] }
-    #smoke_effect(iron_block_loc)
-    play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    blocks_move = cloop(1, [iron_block]) {|recur, n, acc|
-      b = add_loc(iron_block_loc, -x * n, 0, -z * n).block
+    #smoke_effect(furnace_block_loc)
+    play_sound(furnace_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
+    blocks_move = cloop(1, [furnace_block]) {|recur, n, acc|
+      b = add_loc(furnace_block_loc, -x * n, 0, -z * n).block
       if n > 10
         []
       elsif b.type == Material::CHEST
@@ -1316,12 +1319,12 @@ module EventHandler
       b.type = block.type
       b.data = block.data
     end
-    chunks = ([iron_block] + blocks_move).map(&:chunk).uniq
+    chunks = ([furnace_block] + blocks_move).map(&:chunk).uniq
     chunks.each do |c|
       entities = c.entities.select {|e|
         eloc = e.location.block.location
-        blocks = ([iron_block] + blocks_move)
-        (iron_block_loc.y - 1 .. iron_block_loc.y + 1).include?(eloc.y) &&
+        blocks = ([furnace_block] + blocks_move)
+        (furnace_block_loc.y - 1 .. furnace_block_loc.y + 1).include?(eloc.y) &&
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
       }
@@ -1329,8 +1332,8 @@ module EventHandler
         entity.teleport(add_loc(entity.location, -x, 0, -z))
       end
     end
-    iron_block.type = Material::AIR
-    iron_block.data = 0
+    furnace_block.type = Material::AIR
+    furnace_block.data = 0
     furnace_below.type = Material::AIR
     furnace_below.data = 0
   end
@@ -1362,7 +1365,7 @@ module EventHandler
       #  below = loc_below(plate.location)
       #  cond =
       #    below.block.type == Material::SMOOTH_BRICK &&
-      when [Material::IRON_BLOCK, Action::RIGHT_CLICK_BLOCK]
+      when [Material::FURNACE, Action::RIGHT_CLICK_BLOCK]
         iron_piston(evt.clicked_block)
       when [Material::TRAP_DOOR, Action::RIGHT_CLICK_BLOCK]
         trapdoor_openclose(evt.clicked_block)
