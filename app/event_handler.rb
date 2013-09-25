@@ -1553,7 +1553,7 @@ module EventHandler
         # end
       end
     when Material::FURNACE
-      iron_piston(evt.clicked_block)
+      iron_piston(damaged_block)
     end
   end
 
