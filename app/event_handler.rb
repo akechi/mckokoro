@@ -1318,7 +1318,7 @@ module EventHandler
     play_sound(furnace_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [furnace_block]) {|recur, n, acc|
       b = add_loc(furnace_block_loc, -x * n, 0, -z * n).block
-      if n > 10
+      if n > 30
         []
       elsif b.type == Material::CHEST
         []
