@@ -1581,7 +1581,8 @@ module EventHandler
     return unless furnace_inv.type == InventoryType::FURNACE
     furnace = furnace_inv.holder
     p furnace.block
-    p furnace.block.data
+    p furnace.block.state
+    p furnace.block.state.data
   end
 
   def on_player_chat_tab_complete(evt)
