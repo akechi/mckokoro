@@ -1343,6 +1343,7 @@ module EventHandler
 
 
   def on_player_interact(evt)
+    player = evt.player
     feather_freedom_move(evt.player, evt.action)
 
     # seeded_p = bulldozer_hoe(evt.player, evt.action)
@@ -1355,6 +1356,10 @@ module EventHandler
     clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
+
+    if player == Bukkit.get_player("ujm") && evt.action == Action::LEFT_CLICK_AIR && player.item_in_hand.type == Material::WOOL
+      location_around(add_loc(player.location, 0, 4, 0), 4).map(&:block).each {|b| b.type = Material::AIR if b.type != Material::AIR }
+    end
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
