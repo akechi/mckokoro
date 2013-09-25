@@ -12,7 +12,7 @@ import 'org.bukkit.event.entity.CreatureSpawnEvent'
 import 'org.bukkit.event.inventory.InventoryType'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
-import 'org.bukkit.inventory.FurnaceRecipe'
+#import 'org.bukkit.inventory.FurnaceRecipe'
 import 'org.bukkit.inventory.ShapelessRecipe'
 import 'org.bukkit.inventory.ShapedRecipe'
 import 'org.bukkit.material.MaterialData'
@@ -1293,15 +1293,9 @@ module EventHandler
 
   def iron_piston(iron_block)
     iron_block_loc = iron_block.location
-    wool_below = loc_below(iron_block_loc).block
-    return if wool_below.type != Material::WOOL
-    (x, z, wool_side), *remains = [[-1, 0], [1, 0], [0, -1], [0, 1]].map {|x, z|
-      [x, z, add_loc(wool_below.location, x, 0, z).block]
-    }.select {|(x, z, b)|
-      b.type == Material::WOOL
-    }
-    return unless wool_side
-    return unless remains.empty?
+    furnace_below = loc_below(iron_block_loc).block
+    return if furnace_below.type != Material::FURNACE
+    x, z = let(furnace_below.state.data.facing) {|f| [f.mod_x, f.mod_z] }
     #smoke_effect(iron_block_loc)
     play_sound(iron_block_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [iron_block]) {|recur, n, acc|
@@ -1337,8 +1331,8 @@ module EventHandler
     end
     iron_block.type = Material::AIR
     iron_block.data = 0
-    wool_below.type = Material::AIR
-    wool_below.data = 0
+    furnace_below.type = Material::AIR
+    furnace_below.data = 0
   end
   private :iron_piston
 
@@ -1577,11 +1571,6 @@ module EventHandler
   end
 
   def on_inventory_open(evt)
-    furnace_inv = evt.inventory
-    return unless furnace_inv.type == InventoryType::FURNACE
-    furnace = furnace_inv.holder
-    x, z = let(furnace.block.state.data.facing) {|f| [f.mod_x, f.mod_z] }
-    strike_lightning(add_loc(furnace.location, x, 0, z))
   end
 
   def on_player_chat_tab_complete(evt)
