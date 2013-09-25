@@ -1016,9 +1016,7 @@ module EventHandler
             end
           end
         end
-        stochastically(50) do
-          break_naturally_by_dpickaxe(loc.block)
-        end
+        break_naturally_by_dpickaxe(loc.block)
       end
     end
   end
