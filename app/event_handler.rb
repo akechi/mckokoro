@@ -1578,7 +1578,7 @@ module EventHandler
 
   def on_inventory_open(evt)
     furnace_inv = evt.inventory
-    return if furnace_inv.type == InventoryType::FURNACE
+    return unless furnace_inv.type == InventoryType::FURNACE
     furnace = furnace_inv.holder
     p furnace.block.data
   end
