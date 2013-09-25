@@ -1349,11 +1349,13 @@ module EventHandler
     end
     furnace_behind.type = Material::IRON_BLOCK
     furnace_behind.data = 0
+    furnace_behind.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     later sec(0.5) do
       if furnace_behind.type == Material::IRON_BLOCK
         play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         furnace_behind.type = furnace_block.type
         furnace_behind.data = furnace_block.data
+        evt.block.remove_metadata("unbreakable", @plugin)
         furnace_behind.state.tap {|s|
           s.inventory.contents = furnace_block.state.inventory.contents
         }.update
@@ -1652,6 +1654,10 @@ module EventHandler
     broken_block = evt.block
     player = evt.player
 
+    if broken_block.hasMetadata("unbreakable")
+      evt.cancelled = true
+      return
+    end
     bulldozer_break(broken_block, player)
 
     case evt.block.type
