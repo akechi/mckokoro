@@ -1339,6 +1339,7 @@ module EventHandler
         play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         furnace_behind.type = furnace_block.type
         furnace_behind.data = furnace_block.data
+        furnace_behind.state = furnace_block.state
         furnace_block.type = Material::AIR
         furnace_block.data = 0
       end
