@@ -1349,7 +1349,7 @@ module EventHandler
     end
     furnace_behind.type = Material::IRON_BLOCK
     furnace_behind.data = 0
-    later sec(1) do
+    later sec(0.5) do
       if furnace_behind.type == Material::IRON_BLOCK
         play_sound(furnace_block_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         furnace_behind.type = furnace_block.type
