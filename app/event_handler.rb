@@ -1436,6 +1436,8 @@ module EventHandler
         #behind_block.remove_metadata("unbreakable", @plugin)
         piston_block.type = ptype
         piston_block.data = pdata
+        blocks_move[0].type = Material::IRON_BLOCK
+        blocks_move[0].data = 0
       end
     end
   end
