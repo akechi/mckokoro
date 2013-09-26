@@ -1849,8 +1849,10 @@ module EventHandler
   end
 
   def on_block_physics(evt)
-    p evt.block.type.to_s
     case evt.block.type
+    when Material::FURNACE
+      block = evt.block
+      Bukkit.get_player('ujm').send_message "#{evt.changed_type}"
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
     when Material::STONE_BUTTON
