@@ -1824,7 +1824,9 @@ module EventHandler
     end
 
     loc = block.location
-    behind_block = add_loc(loc, direction.mod_x, direction.mod_y, direction.mod_z).block
+    behind_block =
+      add_loc(loc, -direction.mod_x, -direction.mod_y, -direction.mod_z).block
+    return unless behind_block.type == Material::IRON_BLOCK
     Bukkit.get_player('ujm').send_message("#{behind_block.type}")
   end
 
