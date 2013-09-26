@@ -1423,22 +1423,18 @@ module EventHandler
         entity.teleport(add_loc(entity.location, x, 0, z))
       end
     end
-    piston_block.type = Material::IRON_BLOCK
-    piston_block.data = 0
     behind_block.type = Material::AIR
     behind_block.data = 0
+    piston_block.type = Material::IRON_BLOCK
+    piston_block.data = 0
     next_block = add_loc(piston_loc, x, 0, z).block
     next_block.type = Material::FENCE
     next_block.data = 0
-    #behind_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     later sec(1.0) do
       if piston_block.type == Material::IRON_BLOCK
         play_sound(piston_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         #behind_block.type = piston_block.type
         #behind_block.data = piston_block.data
-        #behind_block.remove_metadata("unbreakable", @plugin)
-        piston_block.type = Material::IRON_BLOCK
-        piston_block.data = 0
         if next_block.type == Material::FENCE
           next_block.type = ptype
           next_block.data = pdata
