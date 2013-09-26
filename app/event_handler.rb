@@ -1404,7 +1404,7 @@ module EventHandler
     return if blocks_move.empty?
     p blocks_move.map(&:type).map(&:to_s).to_s
     blocks_move.reverse.each do |block|
-      b = add_loc(piston_block.location, x, 0, z).block
+      b = add_loc(block.location, x, 0, z).block
       b.type = block.type
       b.data = block.data
     end
