@@ -1384,7 +1384,7 @@ module EventHandler
 
   def iron_piston2(piston_block, behind_block, direction)
     behind_loc = behind_block.location
-    x, y, z = [direction.x, direction.y, direction.z]
+    x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(behind_loc)
     play_sound(behind_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
