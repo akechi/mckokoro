@@ -1382,6 +1382,62 @@ module EventHandler
   end
   private :iron_piston
 
+  def iron_piston2(piston_block, behind_block, direction)
+    behind_loc = behind_block.location
+    x, y, z = [direction.x, direction.y, direction.z]
+    #smoke_effect(behind_loc)
+    play_sound(behind_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
+    blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
+      b = add_loc(behind_loc, -x * n, 0, -z * n).block
+      if n > 30
+        []
+      elsif b.type == Material::CHEST
+        []
+      elsif b.type.solid?
+        recur.(n + 1, acc + [b])
+      else
+        acc + []
+      end
+    }
+    return if blocks_move.empty?
+    blocks_move.reverse.each do |block|
+      b = add_loc(block.location, -x, 0, -z).block
+      b.type = block.type
+      b.data = block.data
+    end
+    chunks = ([behind_block] + blocks_move).map(&:chunk).uniq
+    chunks.each do |c|
+      entities = c.entities.select {|e|
+        eloc = e.location.block.location
+        blocks = ([behind_block] + blocks_move)
+        (behind_loc.y - 1 .. behind_loc.y + 1).include?(eloc.y) &&
+          blocks.map(&:x).include?(eloc.x) &&
+          blocks.map(&:z).include?(eloc.z)
+      }
+      entities.each do |entity|
+        entity.teleport(add_loc(entity.location, -x, 0, -z))
+      end
+    end
+    piston_block.type = Material::IRON_BLOCK
+    piston_block.data = 0
+    piston_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
+    later sec(0.5) do
+      if piston_block.type == Material::IRON_BLOCK
+        play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
+        piston_block.type = behind_block.type
+        piston_block.data = behind_block.data
+        piston_block.remove_metadata("unbreakable", @plugin)
+        piston_block.state.tap {|s|
+          s.inventory.contents = behind_block.state.inventory.contents
+        }.update
+        behind_block.state.inventory.clear()
+        behind_block.type = Material::AIR
+        behind_block.data = 0
+      end
+    end
+  end
+  private :iron_piston2
+
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
@@ -1828,6 +1884,7 @@ module EventHandler
       add_loc(loc, -direction.mod_x, -direction.mod_y, -direction.mod_z).block
     return unless behind_block.type == Material::IRON_BLOCK
     evt.cancelled = true
+    iron_piston2(block, behind_block, direction)
   end
 
   def on_block_piston_retract(evt)
