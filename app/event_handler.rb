@@ -1388,7 +1388,7 @@ module EventHandler
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(piston_loc)
     play_sound(piston_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
+    blocks_move = cloop(2, [behind_block]) {|recur, n, acc|
       b = add_loc(piston_loc, x * n, 0, z * n).block
       p [:oh, b.type.to_s]
       if n > 30
