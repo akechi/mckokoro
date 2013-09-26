@@ -1403,6 +1403,8 @@ module EventHandler
     }
     return if blocks_move.empty?
     p blocks_move.map(&:type).map(&:to_s).to_s
+    ptype = piston_block.type
+    pdata = piston_block.data
     blocks_move.reverse.each do |block|
       b = add_loc(block.location, x, 0, z).block
       b.type = block.type
@@ -1421,8 +1423,6 @@ module EventHandler
         entity.teleport(add_loc(entity.location, x, 0, z))
       end
     end
-    ptype = piston_block.type
-    pdata = piston_block.data
     piston_block.type = Material::IRON_BLOCK
     piston_block.data = 0
     behind_block.type = Material::AIR
