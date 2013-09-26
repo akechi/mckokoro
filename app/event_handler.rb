@@ -1421,6 +1421,8 @@ module EventHandler
         entity.teleport(add_loc(entity.location, x, 0, z))
       end
     end
+    ptype = piston_block.type
+    pdata = piston_block.data
     piston_block.type = Material::IRON_BLOCK
     piston_block.data = 0
     behind_block.type = Material::AIR
@@ -1432,8 +1434,8 @@ module EventHandler
         #behind_block.type = piston_block.type
         #behind_block.data = piston_block.data
         #behind_block.remove_metadata("unbreakable", @plugin)
-        piston_block.type = Material::PISTON_BASE
-        piston_block.data = 0
+        piston_block.type = ptype
+        piston_block.data = pdata
       end
     end
   end
