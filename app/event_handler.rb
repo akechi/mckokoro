@@ -1388,7 +1388,7 @@ module EventHandler
     #smoke_effect(piston_loc)
     play_sound(piston_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
-      b = add_loc(piston_loc, x * n, 0, z * n).block
+      b = add_loc(piston_loc, x * n, y * n, z * n).block
       p [:oh, b.type.to_s]
       if n > 30
         []
@@ -1405,7 +1405,7 @@ module EventHandler
     ptype = piston_block.type
     pdata = piston_block.data
     blocks_move.reverse.each do |block|
-      b = add_loc(block.location, x, 0, z).block
+      b = add_loc(block.location, x, y, z).block
       b.type = block.type
       b.data = block.data
     end
@@ -1419,7 +1419,7 @@ module EventHandler
           blocks.map(&:z).include?(eloc.z)
       }
       entities.each do |entity|
-        entity.teleport(add_loc(entity.location, x, 0, z))
+        entity.teleport(add_loc(entity.location, x, y, z))
       end
     end
     behind_block.type = Material::AIR
