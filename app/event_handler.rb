@@ -1427,6 +1427,9 @@ module EventHandler
     piston_block.data = 0
     behind_block.type = Material::AIR
     behind_block.data = 0
+    next_block = add_loc(piston_loc, x, 0, z).block
+    next_block.type = Material::FENCE
+    next_block.data = 0
     #behind_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     later sec(1.0) do
       if piston_block.type == Material::IRON_BLOCK
@@ -1436,8 +1439,7 @@ module EventHandler
         #behind_block.remove_metadata("unbreakable", @plugin)
         piston_block.type = Material::IRON_BLOCK
         piston_block.data = 0
-        next_block = add_loc(piston_loc, x, 0, z).block
-        if next_block.type.solid? && next_block.type != Material::CHEST
+        if next_block.type == Material::FENCE
           next_block.type = ptype
           next_block.data = pdata
         end
