@@ -1383,7 +1383,7 @@ module EventHandler
   private :iron_piston
 
   def iron_piston2(piston_block, behind_block, direction)
-    p :happening
+    return # disable for now
     piston_loc = piston_block.location
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(piston_loc)
@@ -1402,7 +1402,7 @@ module EventHandler
       end
     }
     return if blocks_move.empty?
-    p blocks_move.map(&:type).map(&:to_s).to_s
+    #p blocks_move.map(&:type).map(&:to_s).to_s
     ptype = piston_block.type
     pdata = piston_block.data
     blocks_move.reverse.each do |block|
