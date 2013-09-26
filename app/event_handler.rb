@@ -1423,6 +1423,7 @@ module EventHandler
     end
     behind_block.type = Material::IRON_BLOCK
     behind_block.data = 0
+    p :done
     #behind_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     #later sec(1.0) do
     #  if behind_block.type == Material::IRON_BLOCK
