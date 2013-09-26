@@ -1799,7 +1799,10 @@ module EventHandler
   end
 
   def on_block_piston_extend(evt)
-    if evt.direction.mod_y == 1
+    direction = evt.direction
+    block = evt.block
+
+    if direction.mod_y == 1
       final_block_loc =
         if evt.blocks.to_a.empty?
           evt.block.location
@@ -1819,6 +1822,10 @@ module EventHandler
         end
       end
     end
+
+    loc = block.location
+    behind_block = add_loc(loc, direction.mod_x, direction.mod_y, direction.mod_z).block
+    Bukkit.get_player('ujm').send_message("#{behind_block.type}")
   end
 
   def on_block_piston_retract(evt)
@@ -1850,9 +1857,6 @@ module EventHandler
 
   def on_block_physics(evt)
     case evt.block.type
-    when Material::FURNACE
-      block = evt.block
-      Bukkit.get_player('ujm').send_message "#{evt.changed_type}"
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
     when Material::STONE_BUTTON
