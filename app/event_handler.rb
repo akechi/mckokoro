@@ -1434,10 +1434,11 @@ module EventHandler
         #behind_block.type = piston_block.type
         #behind_block.data = piston_block.data
         #behind_block.remove_metadata("unbreakable", @plugin)
-        piston_block.type = ptype
-        piston_block.data = pdata
-        add_loc(piston_loc, x, 0, z).block.type = Material::IRON_BLOCK
-        add_loc(piston_loc, x, 0, z).block.data = 0
+        piston_block.type = Material::IRON_BLOCK
+        piston_block.data = 0
+        next_block = add_loc(piston_loc, x, 0, z).block
+        next_block.type = ptype
+        next_block.data = pdata
       end
     end
   end
