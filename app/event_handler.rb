@@ -1429,7 +1429,7 @@ module EventHandler
     next_block = add_loc(piston_loc, x, 0, z).block
     next_block.type = Material::FENCE
     next_block.data = 0
-    later sec(1.0) do
+    later sec(0.5) do
       if piston_block.type == Material::IRON_BLOCK
         play_sound(piston_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
         #behind_block.type = piston_block.type
