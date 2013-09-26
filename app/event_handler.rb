@@ -1388,7 +1388,7 @@ module EventHandler
     #smoke_effect(behind_loc)
     play_sound(behind_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
     blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
-      b = add_loc(behind_loc, -x * n, 0, -z * n).block
+      b = add_loc(behind_loc, x * n, 0, z * n).block
       if n > 30
         []
       elsif b.type == Material::CHEST
@@ -1401,7 +1401,7 @@ module EventHandler
     }
     return if blocks_move.empty?
     blocks_move.reverse.each do |block|
-      b = add_loc(block.location, -x, 0, -z).block
+      b = add_loc(block.location, x, 0, z).block
       b.type = block.type
       b.data = block.data
     end
@@ -1415,7 +1415,7 @@ module EventHandler
           blocks.map(&:z).include?(eloc.z)
       }
       entities.each do |entity|
-        entity.teleport(add_loc(entity.location, -x, 0, -z))
+        entity.teleport(add_loc(entity.location, x, 0, z))
       end
     end
     piston_block.type = Material::IRON_BLOCK
