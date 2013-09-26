@@ -1427,10 +1427,6 @@ module EventHandler
         piston_block.type = behind_block.type
         piston_block.data = behind_block.data
         piston_block.remove_metadata("unbreakable", @plugin)
-        piston_block.state.tap {|s|
-          s.inventory.contents = behind_block.state.inventory.contents
-        }.update
-        behind_block.state.inventory.clear()
         behind_block.type = Material::AIR
         behind_block.data = 0
       end
