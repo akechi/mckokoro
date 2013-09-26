@@ -1384,12 +1384,12 @@ module EventHandler
 
   def iron_piston2(piston_block, behind_block, direction)
     p :happening
-    behind_loc = piston_block.location
+    piston_loc = piston_block.location
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
-    #smoke_effect(behind_loc)
-    play_sound(behind_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    blocks_move = cloop(1, [piston_block]) {|recur, n, acc|
-      b = add_loc(behind_loc, x * n, 0, z * n).block
+    #smoke_effect(piston_loc)
+    play_sound(piston_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
+    blocks_move = cloop(2, [piston_block]) {|recur, n, acc|
+      b = add_loc(piston_loc, x * n, 0, z * n).block
       if n > 30
         []
       elsif b.type == Material::CHEST
@@ -1411,7 +1411,7 @@ module EventHandler
       entities = c.entities.select {|e|
         eloc = e.location.block.location
         blocks = ([piston_block] + blocks_move)
-        (behind_loc.y - 1 .. behind_loc.y + 1).include?(eloc.y) &&
+        (piston_loc.y - 1 .. piston_loc.y + 1).include?(eloc.y) &&
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
       }
@@ -1424,7 +1424,7 @@ module EventHandler
     #behind_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     #later sec(1.0) do
     #  if behind_block.type == Material::IRON_BLOCK
-    #    play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
+    #    play_sound(piston_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
     #    behind_block.type = piston_block.type
     #    behind_block.data = piston_block.data
     #    behind_block.remove_metadata("unbreakable", @plugin)
