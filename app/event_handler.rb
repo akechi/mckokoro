@@ -1437,8 +1437,10 @@ module EventHandler
         piston_block.type = Material::IRON_BLOCK
         piston_block.data = 0
         next_block = add_loc(piston_loc, x, 0, z).block
-        next_block.type = ptype
-        next_block.data = pdata
+        if next_block.solid? && next_block.type != Material::CHEST
+          next_block.type = ptype
+          next_block.data = pdata
+        end
       end
     end
   end
