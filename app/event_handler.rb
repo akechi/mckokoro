@@ -941,8 +941,6 @@ module EventHandler
   end
 
   def on_block_redstone(evt)
-    block = evt.block
-    p block.type.to_s
   end
 
   def on_projectile_hit(evt)
@@ -1851,6 +1849,7 @@ module EventHandler
   end
 
   def on_block_physics(evt)
+    p evt.block.type.to_s
     case evt.block.type
     when Material::TRAP_DOOR
       trapdoor_openclose(evt.block)
