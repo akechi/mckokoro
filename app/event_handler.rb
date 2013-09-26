@@ -1383,6 +1383,7 @@ module EventHandler
   private :iron_piston
 
   def iron_piston2(piston_block, behind_block, direction)
+    p :happening
     behind_loc = behind_block.location
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(behind_loc)
@@ -1421,16 +1422,16 @@ module EventHandler
     piston_block.type = Material::IRON_BLOCK
     piston_block.data = 0
     piston_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
-    later sec(0.5) do
-      if piston_block.type == Material::IRON_BLOCK
-        play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
-        piston_block.type = behind_block.type
-        piston_block.data = behind_block.data
-        piston_block.remove_metadata("unbreakable", @plugin)
-        behind_block.type = Material::AIR
-        behind_block.data = 0
-      end
-    end
+    #later sec(0.5) do
+    #  if piston_block.type == Material::IRON_BLOCK
+    #    play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
+    #    piston_block.type = behind_block.type
+    #    piston_block.data = behind_block.data
+    #    piston_block.remove_metadata("unbreakable", @plugin)
+    #    behind_block.type = Material::AIR
+    #    behind_block.data = 0
+    #  end
+    #end
   end
   private :iron_piston2
 
