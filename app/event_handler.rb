@@ -940,6 +940,11 @@ module EventHandler
     projectile_on_hopper(potion) and evt.cancelled = true
   end
 
+  def on_block_redstone(evt)
+    block = evt.block
+    p block.type.to_s
+  end
+
   def on_projectile_hit(evt)
     projectile_on_hopper(evt.entity)
 
