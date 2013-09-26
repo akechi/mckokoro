@@ -1383,7 +1383,6 @@ module EventHandler
   private :iron_piston
 
   def iron_piston2(piston_block, behind_block, direction)
-    return # disable for now
     piston_loc = piston_block.location
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(piston_loc)
