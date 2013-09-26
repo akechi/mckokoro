@@ -1384,11 +1384,11 @@ module EventHandler
 
   def iron_piston2(piston_block, behind_block, direction)
     p :happening
-    behind_loc = behind_block.location
+    behind_loc = piston_block.location
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(behind_loc)
     play_sound(behind_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
+    blocks_move = cloop(1, [piston_block]) {|recur, n, acc|
       b = add_loc(behind_loc, x * n, 0, z * n).block
       if n > 30
         []
@@ -1406,11 +1406,11 @@ module EventHandler
       b.type = block.type
       b.data = block.data
     end
-    chunks = ([behind_block] + blocks_move).map(&:chunk).uniq
+    chunks = ([piston_block] + blocks_move).map(&:chunk).uniq
     chunks.each do |c|
       entities = c.entities.select {|e|
         eloc = e.location.block.location
-        blocks = ([behind_block] + blocks_move)
+        blocks = ([piston_block] + blocks_move)
         (behind_loc.y - 1 .. behind_loc.y + 1).include?(eloc.y) &&
           blocks.map(&:x).include?(eloc.x) &&
           blocks.map(&:z).include?(eloc.z)
@@ -1419,17 +1419,17 @@ module EventHandler
         entity.teleport(add_loc(entity.location, x, 0, z))
       end
     end
-    piston_block.type = Material::IRON_BLOCK
-    piston_block.data = 0
-    #piston_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
+    behind_block.type = Material::IRON_BLOCK
+    behind_block.data = 0
+    #behind_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
     #later sec(1.0) do
-    #  if piston_block.type == Material::IRON_BLOCK
+    #  if behind_block.type == Material::IRON_BLOCK
     #    play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
-    #    piston_block.type = behind_block.type
-    #    piston_block.data = behind_block.data
-    #    piston_block.remove_metadata("unbreakable", @plugin)
-    #    behind_block.type = Material::AIR
-    #    behind_block.data = 0
+    #    behind_block.type = piston_block.type
+    #    behind_block.data = piston_block.data
+    #    behind_block.remove_metadata("unbreakable", @plugin)
+    #    piston_block.type = Material::AIR
+    #    piston_block.data = 0
     #  end
     #end
   end
