@@ -1426,7 +1426,7 @@ module EventHandler
     behind_block.data = 0
     piston_block.type = Material::IRON_BLOCK
     piston_block.data = 0
-    next_block = add_loc(piston_loc, x, 0, z).block
+    next_block = add_loc(piston_loc, x, y, z).block
     next_block.type = Material::CHEST
     next_block.data = 0
     later 5 do
