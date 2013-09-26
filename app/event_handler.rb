@@ -1421,8 +1421,8 @@ module EventHandler
     end
     piston_block.type = Material::IRON_BLOCK
     piston_block.data = 0
-    piston_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
-    #later sec(0.5) do
+    #piston_block.set_metadata("unbreakable", FixedMetadataValue.new(@plugin, true))
+    #later sec(1.0) do
     #  if piston_block.type == Material::IRON_BLOCK
     #    play_sound(behind_loc, Sound::PISTON_RETRACT, 1.0, 0.5)
     #    piston_block.type = behind_block.type
