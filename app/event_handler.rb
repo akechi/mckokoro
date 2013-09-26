@@ -1388,7 +1388,7 @@ module EventHandler
     x, y, z = [direction.mod_x, direction.mod_y, direction.mod_z]
     #smoke_effect(piston_loc)
     play_sound(piston_loc, Sound::PISTON_EXTEND, 1.0, 0.5)
-    blocks_move = cloop(1, [piston_block]) {|recur, n, acc|
+    blocks_move = cloop(1, [behind_block]) {|recur, n, acc|
       b = add_loc(piston_loc, x * n, 0, z * n).block
       p [:oh, b.type.to_s]
       if n > 30
@@ -1434,8 +1434,8 @@ module EventHandler
         #behind_block.type = piston_block.type
         #behind_block.data = piston_block.data
         #behind_block.remove_metadata("unbreakable", @plugin)
-        blocks_move[0].type = ptype
-        blocks_move[0].data = pdata
+        piston_block.type = ptype
+        piston_block.data = pdata
       end
     end
   end
