@@ -340,6 +340,7 @@ module EventHandler
         gsub(/[fh]u[bv]en/, '不便').
         gsub(/wa-i/, 'わーい[^。^]').
         gsub(/wa--i/, 'わーい\\[^。^]/').
+        gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
         sub(/^!$/, 'な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
