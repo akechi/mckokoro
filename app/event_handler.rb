@@ -749,7 +749,7 @@ module EventHandler
             end
           end
           later sec(4) do
-            30.times do
+            70.times do
               s = spawn(base_loc, EntityType::SKELETON)
               s.skeleton_type = Skeleton::SkeletonType::WITHER
               skull = MaterialData.new(Material::SKULL_ITEM, rand(5)).to_item_stack(1)
