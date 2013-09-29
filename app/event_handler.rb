@@ -739,10 +739,10 @@ module EventHandler
             b.type = Material::AIR
           end
           explode(base_loc, 0, false)
-          [1, 2, 3].each do |n|
-            rand_diff = -> { rand() * 5 - 5 }
+          [1, 2, 3, 4].each do |n|
+            rand_diff = -> { rand() * 10 - 10 }
             later sec(n) do
-              50.times do
+              10.times do
                 explode(
                   add_loc(base_loc, rand_diff.(), rand_diff.() + 2, rand_diff.()) , 0, false)
               end
