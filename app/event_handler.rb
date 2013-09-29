@@ -736,8 +736,12 @@ module EventHandler
             b.type = Material::AIR
           end
           explode(base_loc, 0, false)
-          later sec(2) do
-            explode(base_loc, 0, false)
+          [1, 2].each do |n|
+            rand_diff = -> { rand() * 2 - 2 }
+            later sec(n) do
+              explode(
+                add_loc(base_loc, rand_diff.(), rand_diff.(), rand_diff.()) , 0, false)
+            end
           end
           later sec(4) do
             30.times do
