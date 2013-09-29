@@ -739,8 +739,10 @@ module EventHandler
           [1, 2].each do |n|
             rand_diff = -> { rand() * 2 - 2 }
             later sec(n) do
-              explode(
-                add_loc(base_loc, rand_diff.(), rand_diff.(), rand_diff.()) , 0, false)
+              10.times do
+                explode(
+                  add_loc(base_loc, rand_diff.(), rand_diff.() + 2, rand_diff.()) , 0, false)
+              end
             end
           end
           later sec(4) do
