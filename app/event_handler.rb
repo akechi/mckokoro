@@ -338,6 +338,9 @@ module EventHandler
         gsub(/[fh]u[bv]enr[iy]/, '不便利').
         gsub(/[bv]enr[iy]/, '便利').
         gsub(/[fh]u[bv]en/, '不便').
+        gsub(/iikanji$/, 'いい感じ').
+        gsub(/^hai$/, 'はい').
+        gsub(/^mu$/, 'む').
         gsub(/wa-i/, 'わーい[^。^]').
         gsub(/wa--i/, 'わーい\\[^。^]/').
         gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
