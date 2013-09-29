@@ -735,9 +735,9 @@ module EventHandler
           (diamond_blocks + [base_loc.block]).each do |b|
             b.type = Material::AIR
           end
-          strike_lightning(base_loc)
+          explode(base_loc, 0, false)
           later sec(2) do
-            strike_lightning(base_loc)
+            explode(base_loc, 0, false)
           end
           later sec(4) do
             30.times do
