@@ -1650,7 +1650,7 @@ module EventHandler
     player = evt.player
     damaged_block = evt.block
 
-    player.damage(1, player) if player.item_in_hand.type == Material::AIR
+    player.damage(1) if player.item_in_hand.type == Material::AIR
 
     # player.send_message "#{ damaged_block.type }"
 
