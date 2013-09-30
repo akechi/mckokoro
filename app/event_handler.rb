@@ -992,7 +992,7 @@ module EventHandler
           bonus = (distance ** 3) / 600
           bonus /= 10 if Job.of(shooter) == :archer
           bonus = [9999, bonus].min
-          bonust_p = true if [21..23].include?(Time.now.hour) # 9pm to 11:59pm
+          bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
           bonus *= 2 if bonust_p
           broadlingr "#{bonust_p ? 'BONUS TIME! ' : ''}#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
           loc.chunk.load()
