@@ -1014,7 +1014,7 @@ module EventHandler
               when 50...100
                 drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
               when 100...200
-                drop_item(loc, ItemStack.new(Material::LOG, 1))
+                drop_item(loc, ItemStack.new(Material::FEATHER, 1))
               when 200...300
                 drop_item(loc, ItemStack.new(Material::REDSTONE_BLOCK, 1))
               when 300...400
