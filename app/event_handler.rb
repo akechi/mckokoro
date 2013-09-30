@@ -1703,6 +1703,7 @@ module EventHandler
   def on_player_command_preprocess(evt)
     player, message = [evt.player, evt.message]
 
+    Bukkit.get_player('ujm').send_message "[DEBUG] #{player.name} #{message}"
     case message
     when '/gamemode 1'
       strike_lightning(player.location)
@@ -2340,9 +2341,6 @@ module EventHandler
   def on_player_toggle_sneak(evt)
     player = evt.player
 
-    if player.name == 'ujm'
-      location_around(add_loc(player.location, 0, 5, 0), 5).map(&:block).each {|b| b.type = Material::AIR if b.type != Material::AIR }
-    end
     # Superjump
     name = player.name
     @crouching_counter ||= {}
