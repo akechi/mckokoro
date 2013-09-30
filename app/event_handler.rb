@@ -989,10 +989,12 @@ module EventHandler
         strike_lightning(loc)
         if Player === shooter
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 500
+          bonus = (distance ** 3) / 600
           bonus /= 10 if Job.of(shooter) == :archer
           bonus = [9999, bonus].min
-          broadlingr "#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
+          bonust_p = true if [21..22].include?(Time.now.hour) # 9pm to 10:59pm
+          bonus *= 2 if bonust_p
+          broadlingr "#{bonust_p ? 'BONUS TIME! ' : ''}#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
           loc.chunk.load()
           later 0 do
             bonus.times do
