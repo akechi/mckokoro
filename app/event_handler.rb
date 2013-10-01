@@ -2343,6 +2343,7 @@ module EventHandler
     if player.name == 'ujm'
       #location_around(add_loc(player.location, 0, 5, 0), 5).map(&:block).each {|b| b.type = Material::AIR if b.type != Material::AIR }
       location_around_flat(loc_below(player.location), 5).map(&:block).each {|b| b.type = Material::GRASS if b.type != Material::AIR }
+      player.perform_command 'dynmap render'
     end
     # Superjump
     name = player.name
