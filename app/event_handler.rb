@@ -2501,11 +2501,11 @@ module EventHandler
   end
 
   def kickory(block, player)
+    return unless player.online?
     return unless block.type == Material::LOG
-    p :kickory
     break_naturally_by_dpickaxe(block)
     unless player.sneaking?
-      later sec(0.1) do
+      later sec(0.5) do
         location_around(loc_above(block.location), 1).each do |loc|
           kickory(loc.block, player)
         end
