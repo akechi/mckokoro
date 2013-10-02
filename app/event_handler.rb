@@ -2501,11 +2501,14 @@ module EventHandler
   end
 
   def kickory(block, player)
+    return unless block.type == Material::LOG
+    p :kickory
     break_naturally_by_dpickaxe(block)
     unless player.sneaking?
-      [[0, 1, 0], [1, 1, 0], [0, 1, 1], [-1, 1, 0], [0, 1, -1]].each do |x, y, z|
-        loc = block.location.clone.add(x, y, z)
-        kickory(loc.block, player) if loc.block.type == Material::LOG
+      later sec(0.1) do
+        location_around(loc_above(block.location), 1).each do |loc|
+          kickory(loc.block, player)
+        end
       end
     end
   end
