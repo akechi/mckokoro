@@ -1030,7 +1030,7 @@ module EventHandler
                 end
               else
                 stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::RAILS, 2))
+                  drop_item(loc, ItemStack.new(Material::COAL, 2))
                 end
               end
             end
