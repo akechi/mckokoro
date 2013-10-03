@@ -1792,7 +1792,7 @@ module EventHandler
     #  evt.block.type = Material::AIR
     when Material::LOG
       if broken_block.hasMetadata("humanplace")
-        # normal break
+        kickory(evt.block, evt.player)
       else
         if AXES.include? evt.player.item_in_hand.type
           stochastically(50) do
