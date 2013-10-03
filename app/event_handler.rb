@@ -2508,7 +2508,7 @@ module EventHandler
 
   def kickory(block, player)
     return unless player.online?
-    return unless block.chunk.
+    return unless block.chunk.loaded?
     return unless block.type == Material::LOG
     break_naturally_by_dpickaxe(block)
     unless player.sneaking?
