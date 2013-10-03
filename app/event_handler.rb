@@ -989,7 +989,7 @@ module EventHandler
         strike_lightning(loc)
         if Player === shooter
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 650
+          bonus = (distance ** 3) / 800
           bonus /= 10 if Job.of(shooter) == :archer
           bonus = [9999, bonus].min
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
@@ -998,7 +998,7 @@ module EventHandler
           loc.chunk.load()
           later 0 do
             bonus.times do
-              case rand(700)
+              case rand(1000)
               when 0...1
                 if rand(10) == 0
                   drop_item(loc, ItemStack.new(Material::SAPLING, 1))
@@ -1027,6 +1027,10 @@ module EventHandler
               when 500...600
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::GRASS, 2))
+                end
+              when 700...850
+                stochastically(50) do
+                  drop_item(loc, ItemStack.new(Material::EGG, 2))
                 end
               else
                 stochastically(50) do
