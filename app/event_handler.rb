@@ -1764,7 +1764,7 @@ module EventHandler
 
   def natural_sapling(ex_log_loc, species)
     wait = rand(570) + 30 # 30sec to 10min
-    broadcast "it will take #{wait / 60.0}min"
+    broadcast "it will take %.2fmin" % (wait / 60.0)
     later sec(wait) do
       if ex_log_loc.block.type == Material::AIR
         soil = loc_below(ex_log_loc).block
