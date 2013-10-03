@@ -1765,9 +1765,9 @@ module EventHandler
   def natural_sapling(ex_log_loc, species)
     wait = rand(570) + 30 # 30sec to 10min
     later sec(wait) do
-      return unless ex_log_loc.block.type == Material::AIR
+      break unless ex_log_loc.block.type == Material::AIR
       soil = loc_below(ex_log_loc).block
-      return unless soil.type == Material::SOIL
+      break unless soil.type == Material::SOIL
       ex_log_loc.block.type = Material::SAPLING
       state = ex_log_loc.block.state
       state.data = state.data.tap {|d| d.species = species }
