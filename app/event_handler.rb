@@ -1760,15 +1760,20 @@ module EventHandler
   end
   private :fall_chain_above
 
-  def natural_saplings(ex_log_loc)
+  def natural_sapling(ex_log_loc, species)
+    wait = rand(570) + 30 # 30sec to 10min
     later sec(30) do
       return unless ex_log_loc.block.type == Material::AIR
       soil = loc_below(ex_log_loc).block
       return unless soil.type == Material::SOIL
-      strike_lightning(soil.location)
+      ex_log_loc.block.type = Material::SAPLING
+      state = ex_log_loc.block.state
+      state.data = state.data.tap {|d| d.species = species }
+      state.update
+      p :ok
     end
   end
-  private :natural_saplings
+  private :natural_sapling
 
   def on_block_break(evt)
     broken_block = evt.block
@@ -1786,10 +1791,10 @@ module EventHandler
     #  evt.block.type = Material::AIR
     when Material::LOG
       if AXES.include? evt.player.item_in_hand.type
-        kickory(evt.block, evt.player)
         stochastically(50) do
-          natural_saplings(evt.block.location)
+          natural_sapling(evt.block.location, evt.block.state.data.species)
         end
+        kickory(evt.block, evt.player)
       else
         evt.player.send_message "(you can't cut tree without an axe!)"
         evt.player.send_message "(cut tree leaves that may have wood sticks.)"
