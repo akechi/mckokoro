@@ -1792,13 +1792,15 @@ module EventHandler
     #  evt.block.type = Material::AIR
     when Material::LOG
       if broken_block.hasMetadata("humanplace")
-        kickory(evt.block, evt.player)
+        if AXES.include? evt.player.item_in_hand.type
+          kickory(evt.block, evt.player)
+        end
       else
         if AXES.include? evt.player.item_in_hand.type
           stochastically(50) do
             natural_sapling(evt.block.location, evt.block.state.data.species)
           end
-          kickory(evt.block, evt.player)
+          kickory(evt.block, evt.player) unless player.sneaking?
         else
           evt.player.send_message "(you can't cut tree without an axe!)"
           evt.player.send_message "(cut tree leaves that may have wood sticks.)"
