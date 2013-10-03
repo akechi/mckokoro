@@ -1746,6 +1746,20 @@ module EventHandler
   end
   private :bulldozer_break
 
+  def fall_chain_above(base_block)
+    later sec(0.1) do
+      unless base_block.type.solid?
+        block_above = add_loc(base_block.location, 0, 1, 0).block
+        case block_above.type
+        when Material::DIRT, Material::LEAVES
+          fall_block(block_above)
+          fall_chain_above.(block_above)
+        end
+      end
+    end
+  end
+  private :fall_chain_above
+
   def on_block_break(evt)
     broken_block = evt.block
     player = evt.player
@@ -1802,19 +1816,7 @@ module EventHandler
     end
 
     unless evt.cancelled
-      fall_chain_above = ->(base_block) {
-        later sec(0.1) do
-          unless base_block.type.solid?
-            block_above = add_loc(base_block.location, 0, 1, 0).block
-            case block_above.type
-            when Material::DIRT, Material::LEAVES
-              fall_block(block_above)
-              fall_chain_above.(block_above)
-            end
-          end
-        end
-      }
-      fall_chain_above.(evt.block)
+      fall_chain_above(evt.block)
     end
   end
 
@@ -2506,6 +2508,7 @@ module EventHandler
 
   def kickory(block, player)
     return unless player.online?
+    return unless block.chunk.
     return unless block.type == Material::LOG
     break_naturally_by_dpickaxe(block)
     unless player.sneaking?
