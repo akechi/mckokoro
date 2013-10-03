@@ -1760,6 +1760,16 @@ module EventHandler
   end
   private :fall_chain_above
 
+  def natural_saplings(ex_log_loc)
+    later sec(30) do
+      return unless ex_log_loc.block.type == Material::AIR
+      soil = loc_below(ex_log_loc).block
+      return unless soil.type == Material::SOIL
+      strike_lightning(soil.location)
+    end
+  end
+  private :natural_saplings
+
   def on_block_break(evt)
     broken_block = evt.block
     player = evt.player
@@ -1777,6 +1787,9 @@ module EventHandler
     when Material::LOG
       if AXES.include? evt.player.item_in_hand.type
         kickory(evt.block, evt.player)
+        stochastically(50) do
+          natural_saplings(evt.block.location)
+        end
       else
         evt.player.send_message "(you can't cut tree without an axe!)"
         evt.player.send_message "(cut tree leaves that may have wood sticks.)"
