@@ -715,6 +715,8 @@ module EventHandler
           fall_block(b)
         end
       end
+    when Material::LOG
+      evt.block_placed.set_metadata("humanplace", FixedMetadataValue.new(@plugin, true))
     when Material::PUMPKIN, Material::JACK_O_LANTERN
       base_loc = evt.block_placed.location
       later 0 do
@@ -1762,7 +1764,7 @@ module EventHandler
 
   def natural_sapling(ex_log_loc, species)
     wait = rand(570) + 30 # 30sec to 10min
-    later sec(30) do
+    later sec(wait) do
       return unless ex_log_loc.block.type == Material::AIR
       soil = loc_below(ex_log_loc).block
       return unless soil.type == Material::SOIL
@@ -1770,7 +1772,6 @@ module EventHandler
       state = ex_log_loc.block.state
       state.data = state.data.tap {|d| d.species = species }
       state.update
-      p :ok
     end
   end
   private :natural_sapling
@@ -1785,24 +1786,28 @@ module EventHandler
     end
     bulldozer_break(broken_block, player)
 
-    case evt.block.type
+    case broken_block.type
     #when Material::SUGAR_CANE_BLOCK
     #  evt.cancelled = true
     #  evt.block.type = Material::AIR
     when Material::LOG
-      if AXES.include? evt.player.item_in_hand.type
-        stochastically(50) do
-          natural_sapling(evt.block.location, evt.block.state.data.species)
-        end
-        kickory(evt.block, evt.player)
+      if broken_block.hasMetadata("humanplace")
+        # normal break
       else
-        evt.player.send_message "(you can't cut tree without an axe!)"
-        evt.player.send_message "(cut tree leaves that may have wood sticks.)"
-        evt.cancelled = true
-      end
+        if AXES.include? evt.player.item_in_hand.type
+          stochastically(50) do
+            natural_sapling(evt.block.location, evt.block.state.data.species)
+          end
+          kickory(evt.block, evt.player)
+        else
+          evt.player.send_message "(you can't cut tree without an axe!)"
+          evt.player.send_message "(cut tree leaves that may have wood sticks.)"
+          evt.cancelled = true
+        end
 
-      if rand(10) == 0
-        drop_item(evt.block.location, ItemStack.new(Material::EGG, 1))
+        if rand(10) == 0
+          drop_item(evt.block.location, ItemStack.new(Material::EGG, 1))
+        end
       end
     when Material::LEAVES
       if rand(3) == 0
