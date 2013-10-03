@@ -1753,7 +1753,7 @@ module EventHandler
         case block_above.type
         when Material::DIRT, Material::LEAVES
           fall_block(block_above)
-          fall_chain_above.(block_above)
+          fall_chain_above(block_above)
         end
       end
     end
