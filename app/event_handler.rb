@@ -2511,11 +2511,11 @@ module EventHandler
     return unless block.chunk.
     return unless block.type == Material::LOG
     break_naturally_by_dpickaxe(block)
-    fall_chain_above(block)
     unless player.sneaking?
       later sec(0.5) do
         location_around(loc_above(block.location), 1).each do |loc|
           kickory(loc.block, player)
+          fall_chain_above(loc.block)
         end
       end
     end
