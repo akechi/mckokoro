@@ -1007,21 +1007,22 @@ module EventHandler
                 else
                   drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
                 end
-              when 1...6
+              when 1...10
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
-              when 6...28
-                #drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
-                drop_item(loc, ItemStack.new(Material::CACTUS, 1))
-              when 28...50
-                drop_item(loc, ItemStack.new(Material::BREAD, 1))
+              when 10...50
+                drop_item(loc, ItemStack.new(Material::IRON_INGOT, 1))
               when 50...100
-                drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
-              when 100...200
-                drop_item(loc, ItemStack.new(Material::FEATHER, 1))
+                drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
+              when 100...150
+                drop_item(loc, ItemStack.new(Material::SAND, 1))
+              when 150...200
+                drop_item(loc, ItemStack.new(Material::GLASS, 1))
               when 200...300
-                drop_item(loc, ItemStack.new(Material::REDSTONE_BLOCK, 1))
+                drop_item(loc, ItemStack.new(Material::PAPER, 1))
               when 300...400
-                drop_item(loc, ItemStack.new(Material::CLAY_BRICK, 1))
+                stochastically(50) do
+                  drop_item(loc, ItemStack.new(Material::CLAY_BALL, 2))
+                end
               when 400...500
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::WOOL, 2))
