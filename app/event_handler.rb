@@ -1031,7 +1031,7 @@ module EventHandler
                 end
               when 500...600
                 stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::GRASS, 4))
+                  drop_item(loc, ItemStack.new(Material::SULPHUR, 4))
                 end
               when 700...850
                 stochastically(25) do
