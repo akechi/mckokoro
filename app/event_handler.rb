@@ -991,8 +991,9 @@ module EventHandler
         strike_lightning(loc)
         if Player === shooter
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 810
+          bonus = (distance ** 3) / 950
           bonus /= 10 if Job.of(shooter) == :archer
+          bonus *= (10 + 0.1 * Bukkit.online_players.size)
           bonus = [9999, bonus].min
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
           bonus *= 3 if bonust_p
