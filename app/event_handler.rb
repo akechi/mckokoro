@@ -1477,9 +1477,18 @@ module EventHandler
   end
   private :iron_piston2
 
+  @player_swang ||= {}
   def on_player_animation(evt)
     player = evt.player
-    p "#{player.name} #{evt.animation_type}"
+    if @player_swang
+      # nop
+    else
+      @player_swang = true
+      play_sound(loc, Sound::NOTE_BASS_GUITAR, 1.0, 1.0)
+      later sec(0.5) do
+        @player_swang = false
+      end
+    end
   end
 
   def on_player_interact(evt)
