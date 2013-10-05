@@ -2135,7 +2135,11 @@ module EventHandler
         evt.cancelled = true
         arrow.remove
         later sec(0.5) do
-          defender.damage(d, player)
+          if @player_swang[player]
+            arrow = JavaWrapper.launchArrow(defender)
+          else
+            defender.damage(d, player)
+          end
         end
       end
     when Snowball
