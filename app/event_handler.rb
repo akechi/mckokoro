@@ -1485,7 +1485,7 @@ module EventHandler
       # nop
     else
       @player_swang[player] = :guarding
-      play_sound(player.location, Sound::NOTE_BASS_GUITAR, 0.1, 0.0)
+      #play_sound(player.location, Sound::NOTE_BASS_GUITAR, 0.1, 0.0)
       later sec(0.5) do
         @player_swang[player] = :releasing
       end
@@ -2104,10 +2104,10 @@ module EventHandler
       if Player === defender && defender.blocking?
         play_sound(defender.location, Sound::ANVIL_LAND, 0.5, rand * 2)
         evt.damage = 0
-      elsif Player === defender && @player_swang[defender]
-        evt.cancelled = true
-        evt.damager.remove
-        arrow = JavaWrapper.launchArrow(defender)
+      #elsif Player === defender && @player_swang[defender]
+      #  evt.cancelled = true
+      #  evt.damager.remove
+      #  arrow = JavaWrapper.launchArrow(defender)
       else
         case arrow.shooter
         when Player
@@ -2130,6 +2130,11 @@ module EventHandler
           end
         when Skeleton
           evt.damage *= 2.0
+        end
+        d = evt.damage
+        evt.cancelled = true
+        later sec(0.5) do
+          damager.damage(d, player)
         end
       end
     when Snowball
