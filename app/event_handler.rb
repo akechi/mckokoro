@@ -1480,13 +1480,13 @@ module EventHandler
   @player_swang ||= {}
   def on_player_animation(evt)
     player = evt.player
-    if @player_swang
+    if @player_swang[player]
       # nop
     else
-      @player_swang = true
+      @player_swang[player] = true
       play_sound(player.location, Sound::NOTE_BASS_GUITAR, 1.0, 1.0)
       later sec(0.5) do
-        @player_swang = false
+        @player_swang[player]= false
       end
     end
   end
