@@ -1484,7 +1484,7 @@ module EventHandler
       # nop
     else
       @player_swang = true
-      play_sound(loc, Sound::NOTE_BASS_GUITAR, 1.0, 1.0)
+      play_sound(player.location, Sound::NOTE_BASS_GUITAR, 1.0, 1.0)
       later sec(0.5) do
         @player_swang = false
       end
