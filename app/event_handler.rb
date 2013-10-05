@@ -2098,7 +2098,7 @@ module EventHandler
       end
     end
   end
-
+  @player_damage_entity_locs ||= {}
   def on_entity_damage_by_entity(evt)
     defender = evt.entity
     case evt.damager
@@ -2166,6 +2166,11 @@ module EventHandler
       end
     when Player
       player = evt.damager
+
+      if defender.valid?
+        @player_damage_entity_locs[player] ||= Set.new
+        @player_damage_entity_locs[player] << defender
+      end
 
       case defender
       when PigZombie
@@ -2676,6 +2681,16 @@ module EventHandler
             names.each_slice(3) do |names2|
               sender.send_message names2.join ', '
             end
+          when 'mob-list'
+            (@player_damage_entity_locs[sender] || Set.new).
+              select(&:valid?).
+              each do |e|
+                sender.send_message "#{e.type.to_s.downcase}: #{e.location.to_s}"
+              end
+          when 'mob-clean'
+            @player_damage_entity_locs[sender] = Set.new
+          when 'mob-clear'
+            @player_damage_entity_locs[sender] = Set.new
           when "countdown"
             5.times do |i|
               later sec(i) do
