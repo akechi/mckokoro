@@ -2100,6 +2100,11 @@ module EventHandler
       if Player === defender && defender.blocking?
         play_sound(defender.location, Sound::ANVIL_LAND, 0.5, rand * 2)
         evt.damage = 0
+      elsif Player === defender && @player_swang[defender]
+        evt.cancelled = true
+        later 0 do
+          evt.damager.velocity = evt.damager.velocity.multiply(-1.1)
+        end
       else
         case arrow.shooter
         when Player
