@@ -2459,7 +2459,9 @@ module EventHandler
             Animals === e || Player === e || Villager === e
           }
           ([player] + animals).each do |e|
-            player.load_data() if Player === e
+            later 0 do
+              player.load_data() if Player === e
+            end
             play_effect(player.location, Effect::ENDER_SIGNAL, nil)
             play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
             e.teleport(loc)
