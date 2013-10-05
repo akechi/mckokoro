@@ -2102,9 +2102,8 @@ module EventHandler
         evt.damage = 0
       elsif Player === defender && @player_swang[defender]
         evt.cancelled = true
-        later 0 do
-          evt.damager.velocity = evt.damager.velocity.multiply(-1.1)
-        end
+        evt.damager.remove
+        arrow = JavaWrapper.launchArrow(player)
       else
         case arrow.shooter
         when Player
