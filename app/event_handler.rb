@@ -1481,13 +1481,16 @@ module EventHandler
   def on_player_animation(evt)
     player = evt.player
     return unless SWORDS.include?(player.item_in_hand.type)
-    if @player_swang[player]
+    if @player_swang[player] == :guarding
       # nop
     else
-      @player_swang[player] = true
+      @player_swang[player] = :guarding
       play_sound(player.location, Sound::GHAST_DEATH, 1.0, 1.0)
       later sec(0.5) do
-        @player_swang[player]= false
+        @player_swang[player] = :releasing
+      end
+      later sec(1.0) do
+        @player_swang[player] = nil
       end
     end
   end
