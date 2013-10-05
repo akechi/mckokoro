@@ -347,6 +347,7 @@ module EventHandler
         gsub(/\bkiken/, '危険').
         gsub(/\bheiwa/, '平和').
         gsub(/\banzen/, '安全').
+        gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
         gsub(/tkm/, '匠').
         sub(/^!$/, '! な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
