@@ -1477,6 +1477,10 @@ module EventHandler
   end
   private :iron_piston2
 
+  def on_player_animation(evt)
+    player = evt.player
+    p "#{player.name} #{evt.animation_type}"
+  end
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
