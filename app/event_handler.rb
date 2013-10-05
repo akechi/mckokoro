@@ -2746,17 +2746,23 @@ module EventHandler
       player.velocity = player.velocity.set_y jfloat(player.velocity.get_y * 0.75)
     end
     # experimental
-    #if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-    #  below = loc_below(player.location)
-    #  if below.block.type == Material::SMOOTH_BRICK
-    #    [[1, 0], [0, 1], [1, 1]].each do |x, z|
-    #      loc = add_loc(below, x, 0, z)
-    #      if loc.block.type == Material::AIR
-    #        loc.block.type = Material::SMOOTH_BRICK
-    #      end
-    #    end
-    #  end
-    #end
+    if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
+      #below = loc_below(player.location)
+      #if below.block.type == Material::SMOOTH_BRICK
+      #  [[1, 0], [0, 1], [1, 1]].each do |x, z|
+      #    loc = add_loc(below, x, 0, z)
+      #    if loc.block.type == Material::AIR
+      #      loc.block.type = Material::SMOOTH_BRICK
+      #    end
+      #  end
+      #end
+      blocks = location_around_flat(player.location, 3).select {|l| l.y >= 63 }.map(&:block)
+      nonairs = blocks.select {|b| b.type != Material::AIR }
+      unless nonairs.empty?
+        nonairs.each {|b| b.type = Material::AIR; b.data = 0 }
+        player.perform_command 'dynmap render'
+      end
+    end
 
     # fastwater
     cond =
