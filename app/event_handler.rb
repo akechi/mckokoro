@@ -71,7 +71,7 @@ module Util
   end
 
   def post_lingr_to(room, text)
-    return if Bukkit.server.port == 25565 # TODO hard-coded mckokoro-dev
+    return if Bukkit.server.port == 25566 # TODO hard-coded mckokoro-dev
 
     Thread.start do
       # Send chat for lingr room
