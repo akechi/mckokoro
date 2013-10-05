@@ -2134,7 +2134,7 @@ module EventHandler
         d = evt.damage
         evt.cancelled = true
         later sec(0.5) do
-          evt.damager.damage(d, player)
+          defender.damage(d, player)
         end
       end
     when Snowball
