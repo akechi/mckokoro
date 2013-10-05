@@ -1028,7 +1028,7 @@ module EventHandler
               when 250...300
                 drop_item(loc, ItemStack.new(Material::STRING, 1))
               when 300...350
-                drop_item(loc, ItemStack.new(Material::RAW_FISH, 1))
+                drop_item(loc, ItemStack.new(Material::STICK, 1))
               when 350...400
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::COAL, 2))
