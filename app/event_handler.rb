@@ -2133,6 +2133,7 @@ module EventHandler
         end
         d = evt.damage
         evt.cancelled = true
+        arrow.remove
         later sec(0.5) do
           defender.damage(d, player)
         end
