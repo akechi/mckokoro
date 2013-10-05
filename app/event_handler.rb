@@ -2756,7 +2756,7 @@ module EventHandler
       #    end
       #  end
       #end
-      blocks = location_around_flat(player.location, 3).select {|l| l.y >= 63 }.map(&:block)
+      blocks = location_around(player.location, 3).select {|l| l.y >= 63 }.map(&:block)
       nonairs = blocks.select {|b| b.type != Material::AIR }
       unless nonairs.empty?
         nonairs.each {|b| b.type = Material::AIR; b.data = 0 }
