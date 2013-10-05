@@ -1485,7 +1485,7 @@ module EventHandler
       # nop
     else
       @player_swang[player] = true
-      play_sound(player.location, Sound::DEATH, 1.0, 1.0)
+      play_sound(player.location, Sound::GHAST_DEATH, 1.0, 1.0)
       later sec(0.5) do
         @player_swang[player]= false
       end
