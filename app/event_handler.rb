@@ -344,7 +344,11 @@ module EventHandler
         gsub(/wa-i/, 'わーい[^。^]').
         gsub(/wa--i/, 'わーい\\[^。^]/').
         gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
-        sub(/^!$/, 'な、なんだってーΩ ΩΩ')
+        gsub(/kiken/, '危険').
+        gsub(/heiwa/, '平和').
+        gsub(/anzen/, '安全').
+        gsub(/tkm/, '匠').
+        sub(/^!$/, '! な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
         Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
