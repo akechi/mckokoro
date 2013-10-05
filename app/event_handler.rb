@@ -2466,13 +2466,15 @@ module EventHandler
           animals = player.get_nearby_entities(2, 2, 2).select {|e|
             Animals === e || Player === e || Villager === e
           }
-          ([player] + animals).each do |e|
-            play_effect(player.location, Effect::ENDER_SIGNAL, nil)
-            play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
-            e.teleport(loc)
-            e.fall_distance = 0.0
-            play_effect(player.location, Effect::ENDER_SIGNAL, nil)
-            play_sound(loc, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
+          later 0 do
+            ([player] + animals).each do |e|
+              play_effect(player.location, Effect::ENDER_SIGNAL, nil)
+              play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
+              e.teleport(loc)
+              e.fall_distance = 0.0
+              play_effect(player.location, Effect::ENDER_SIGNAL, nil)
+              play_sound(loc, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
+            end
           end
         end
       end
