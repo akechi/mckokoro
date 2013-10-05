@@ -2135,7 +2135,7 @@ module EventHandler
         evt.cancelled = true
         arrow.remove
         later sec(0.5) do
-          if @player_swang[player]
+          if @player_swang[defender]
             arrow = JavaWrapper.launchArrow(defender)
           else
             defender.damage(d, player)
