@@ -700,7 +700,7 @@ module EventHandler
 
     @player_block_place_lasttime[player] = evt.block_placed
 
-    unless @db['achievement']['block-place'][player.name]
+    unless @db['achievement'] && @db['achievement']['block-place'][player.name]
       if evt.block_placed.type == Material::WORKBENCH
         player.send_message "[ACHIEVEMENT UNLOCKED]"
         player.send_message "Congrats! Now you can place any blocks."
