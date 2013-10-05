@@ -1485,7 +1485,7 @@ module EventHandler
       # nop
     else
       @player_swang[player] = :guarding
-      play_sound(player.location, Sound::SUCCESSFUL_HIT, 0.1, 0.0)
+      play_sound(player.location, Sound::VILLAGER_HIT, 0.1, 0.0)
       later sec(0.5) do
         @player_swang[player] = :releasing
       end
