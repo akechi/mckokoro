@@ -1480,6 +1480,7 @@ module EventHandler
   @player_swang ||= {}
   def on_player_animation(evt)
     player = evt.player
+    return unless SWORDS.include?(player.item_in_hand.type)
     if @player_swang[player]
       # nop
     else
