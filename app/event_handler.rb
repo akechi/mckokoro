@@ -2134,14 +2134,16 @@ module EventHandler
         when Skeleton
           evt.damage *= 2.0
         end
-        d = evt.damage
-        evt.cancelled = true
-        arrow.remove
-        later sec(0.5) do
-          if @player_swang[defender]
-            arrow = JavaWrapper.launchArrow(defender)
-          else
-            defender.damage(d, player)
+        if Player === defender
+          d = evt.damage
+          evt.cancelled = true
+          arrow.remove
+          later sec(0.5) do
+            if @player_swang[defender]
+              arrow = JavaWrapper.launchArrow(defender)
+            else
+              defender.damage(d, player)
+            end
           end
         end
       end
