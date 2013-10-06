@@ -2827,6 +2827,13 @@ module EventHandler
       #  nonairs.each {|b| b.type = Material::AIR; b.data = 0 }
       #  player.perform_command 'dynmap render'
       #end
+
+      blocks = location_around(player.location, 3).map(&:block)
+      nonairs = blocks.select {|b| b.type != Material::AIR && !b.liquid? }
+      unless nonairs.empty?
+        nonairs.each {|b| b.location.y >= 63 ? b.type = Material::AIR : b.type = Material::WOOD; b.data = 0 }
+        player.perform_command 'dynmap render'
+      end
     end
 
     # fastwater
