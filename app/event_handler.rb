@@ -1339,11 +1339,10 @@ module EventHandler
     play_effect(player.location, Effect::ENDER_SIGNAL, nil)
     play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
 
-    broadcast l.to_s
     new_loc = (player.location.tap {|l|
-      l.set_x(loc_to.get_x - 0.5)
+      l.set_x(loc_to.get_x)
       l.set_y(loc_to.get_y)
-      l.set_z(loc_to.get_z + 0.5)
+      l.set_z(loc_to.get_z)
     })
     player.teleport(new_loc)
     play_effect(new_loc, Effect::ENDER_SIGNAL, nil)
@@ -1532,9 +1531,9 @@ module EventHandler
       items.each do |i|
         smoke_effect(i.location)
         i.teleport(i.location.tap {|l|
-          l.set_x loc.get_x
-          l.set_y loc.get_y
-          l.set_z loc.get_z
+          l.set_x(loc.get_x + 0.5)
+          l.set_y(loc.get_y)
+          l.set_z(loc.get_z + 0.5)
         })
       end
     else
