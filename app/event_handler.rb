@@ -1510,9 +1510,11 @@ module EventHandler
     return unless loc.chunk.loaded?
     if Bukkit.online_players.map {|p| p.location.chunk }.include?(loc.chunk)
       player.send_message "sending items to #{phone_num}"
-      player.get_nearby_entities(2, 2, 2).select {|e|
+      items = player.get_nearby_entities(2, 2, 2).select {|e|
         Item === e
-      }.each do |i|
+      }
+      strike_lightning(loc) unless items.empty?
+      items.each do |i|
         smoke_effect(i.location)
         i.teleport(loc)
       end
