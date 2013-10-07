@@ -1520,9 +1520,9 @@ module EventHandler
     return unless loc.chunk.loaded?
     cond =
       Bukkit.online_players.map {|p|
-        [[0, 0], [0, -16], [0, 16], [-16, 0], [16, 0]].any? {|x, z|
-          add_loc(p.location, x, 0, z).chunk.include?(loc.chunk)
-        }
+        [[0, 0], [0, -16], [0, 16], [-16, 0], [16, 0]].map {|x, z|
+          add_loc(p.location, x, 0, z).chunk
+        }.include?(loc.chunk)
       }
     if cond
       player.send_message "sending items to #{phone_num}"
