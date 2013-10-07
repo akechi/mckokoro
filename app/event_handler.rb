@@ -1338,9 +1338,10 @@ module EventHandler
 
     play_effect(player.location, Effect::ENDER_SIGNAL, nil)
     play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 1.5)
+    p loc.to-s
 
     new_loc = (player.location.tap {|l|
-      l.set_x(loc_to.get_x + 0.5)
+      l.set_x(loc_to.get_x)# + 0.5)
       l.set_y(loc_to.get_y)
       l.set_z(loc_to.get_z + 0.5)
     })
