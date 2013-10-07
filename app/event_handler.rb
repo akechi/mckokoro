@@ -1508,8 +1508,11 @@ module EventHandler
     return unless locstr
     loc = deserialize_location(locstr)
     return unless loc.chunk.loaded?
-    return unless Bukkit.online_players.map(&:chunk).include?(loc.chunk)
-    player.send_message "sending items to #{phone_num}"
+    if Bukkit.online_players.map {|p| p.location.chunk }.include?(loc.chunk)
+      player.send_message "sending items to #{phone_num}"
+    else
+      player.send_message "Nobody is waiting for the phone number #{phone_num}"
+    end
   end
 
   def on_player_interact(evt)
