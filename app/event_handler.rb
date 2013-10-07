@@ -1656,11 +1656,9 @@ module EventHandler
           loc = sign_state.location.clone
 
           @db['faxsign_locs'] ||= {}
-          unless @db['faxsign_locs'][phone_num]
-            @db['faxsign_locs'][phone_num] = serialize_location(loc)
-            db_save
-            broadlingr %Q|(add-fax :#{player.name} "#{phone_num}" {#{[loc.x, loc.y, loc.z].join " "}})|
-          end
+          @db['faxsign_locs'][phone_num] = serialize_location(loc)
+          db_save
+          broadlingr %Q|(add-fax :#{player.name} "#{phone_num}" {#{[loc.x, loc.y, loc.z].join " "}})|
         end
       when :warp
         name = location_name.call args
