@@ -1520,7 +1520,7 @@ module EventHandler
     return unless loc.chunk.loaded?
     if Bukkit.online_players.map {|p| p.location.chunk }.include?(loc.chunk)
       player.send_message "sending items to #{phone_num}"
-      items = player.get_nearby_entities(2, 2, 2).select {|e|
+      items = player.get_nearby_entities(3, 3, 3).select {|e|
         Item === e
       }
       unless items.empty?
