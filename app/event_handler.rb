@@ -2007,9 +2007,8 @@ module EventHandler
       #  evt.cancelled = true
       when Ocelot
         loc = evt.location
-        stochastically(50) do
+        stochastically(10) do
           spawn(loc, EntityType::WOLF)
-          spawn(loc, EntityType::SPIDER)
           evt.cancelled = true
         end
       when CaveSpider
