@@ -2482,25 +2482,21 @@ module EventHandler
           loc.chunk.load
 
           animals = player.get_nearby_entities(2, 2, 2).select {|e|
-            Animals === e || Player === e || Villager === e
+            Player === e
           }
           move_livings = [player] + animals
-          move_living_flags = move_livings.map(&:remove_when_far_away)
-          move_livings.each do |l|
-            l.remove_when_far_away = false
-          end
 
           play_effect(player.location, Effect::ENDER_SIGNAL, nil)
           play_sound(player.location, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
-          later sec(0.1) do
-            move_livings.each do |e|
+          move_livings.each do |e|
+            e.velocity = e.velocity.tap {|v| v.set_y 1.0 }
+          end
+          later sec(0.5) do
+            move_livings.select(&:valid?).each do |e|
               e.teleport(loc)
               e.fall_distance = 0.0
               play_effect(player.location, Effect::ENDER_SIGNAL, nil)
               play_sound(loc, Sound::ENDERMAN_TELEPORT , 1.0, 0.5)
-            end
-            move_livings.zip(move_living_flags) do |l, f|
-              l.remove_when_far_away = f
             end
           end
         end
