@@ -1504,6 +1504,11 @@ module EventHandler
     return unless player.item_in_hand.type == Material::NAME_TAG
     phone_num = player.item_in_hand.item_meta.display_name.slice(/\d\d\d-\d\d\d\d/)
     return unless phone_num
+    locstr = @db['faxsign_locs'][phone_num]
+    return unless locstr
+    loc = deserialize_location(locstr)
+    return unless loc.chunk.loaded?
+    return unless Bukkit.online_players.map(&:chunk).include?(loc.chunk)
     player.send_message "sending items to #{phone_num}"
   end
 
