@@ -1703,6 +1703,10 @@ module EventHandler
           db_save
           broadlingr %Q|(add-fax :#{player.name} "#{phone_num}" {#{[loc.x, loc.y, loc.z].join " "}})|
         end
+      when :faxlist
+        (@db['faxsign_locs'] || {}).each do |phone_num, locstr|
+          player.send_message "#{phone_num}: #{locstr}"
+        end
       when :warp
         @player_warp_unable ||= {}
         if @player_warp_unable[player]
