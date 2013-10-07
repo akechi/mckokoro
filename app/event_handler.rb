@@ -1653,7 +1653,6 @@ module EventHandler
         phone_num = args.join('').slice(/\d\d\d-\d\d\d\d/)
         if phone_num
           player.send_message "The phone number for this FAX is #{phone_num}."
-
           loc = sign_state.location.clone
 
           @db['faxsign_locs'] ||= {}
