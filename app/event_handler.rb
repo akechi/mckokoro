@@ -1531,7 +1531,11 @@ module EventHandler
       end
       items.each do |i|
         smoke_effect(i.location)
-        i.teleport(loc)
+        i.teleport(i.location.tap {|l|
+          l.set_x loc.get_x
+          l.set_y loc.get_y
+          l.set_z loc.get_z
+        })
       end
     else
       player.send_message "Nobody is waiting for the phone number #{phone_num}"
