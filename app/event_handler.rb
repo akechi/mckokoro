@@ -1659,7 +1659,7 @@ module EventHandler
           unless @db['faxsign_locs'][phone_num]
             @db['faxsign_locs'][phone_num] = serialize_location(loc)
             db_save
-            broadlingr %Q|(add-fax :#{player.name} "#{phone_num}" {#{[loc.x, loc.y, loc.z].join " "}})"|
+            broadlingr %Q|(add-fax :#{player.name} "#{phone_num}" {#{[loc.x, loc.y, loc.z].join " "}})|
           end
         end
       when :warp
