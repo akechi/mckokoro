@@ -1518,7 +1518,13 @@ module EventHandler
     return unless locstr
     loc = deserialize_location(locstr)
     return unless loc.chunk.loaded?
-    if Bukkit.online_players.map {|p| p.location.chunk }.include?(loc.chunk)
+    cond =
+      Bukkit.online_players.map {|p|
+        [[0, 0], [0, -16], [0, 16], [-16, 0], [16, 0]].any? {|x, z|
+          add_loc(p.location, x, 0, z).chunk.include?(loc.chunk)
+        }
+      }
+    if cond
       player.send_message "sending items to #{phone_num}"
       items = player.get_nearby_entities(3, 3, 3).select {|e|
         Item === e || Animals === e || Villager === e || Arrow === e ||
