@@ -2006,6 +2006,7 @@ module EventHandler
       #  spawn(evt.location, EntityType::SPIDER)
       #  evt.cancelled = true
       when Ocelot
+        loc = evt.location
         stochastically(50) do
           spawn(loc, EntityType::WOLF)
           spawn(loc, EntityType::SPIDER)
