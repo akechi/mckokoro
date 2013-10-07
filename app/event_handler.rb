@@ -1056,7 +1056,7 @@ module EventHandler
                 end
               when 700...850
                 stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::GRAVEL, 4))
+                  drop_item(loc, ItemStack.new(Material::LEATHER, 4))
                 end
               else
                 stochastically(25) do
@@ -2697,6 +2697,12 @@ module EventHandler
     torch_coal = ShapelessRecipe.new(ItemStack.new(Material::COAL, 1))
     torch_coal.add_ingredient(2, Material::TORCH)
     Bukkit.add_recipe torch_coal
+    # string and leather to nametag
+    nametag = ShapedRecipe.new(ItemStack.new(Material::NAME_TAG, 1))
+    nametag.shape "a", "b"
+    nametag.set_ingredient(jchar('a'), Material::STRING)
+    nametag.set_ingredient(jchar('b'), Material::LEATHER)
+    Bukkit.add_recipe nametag
 
     # job recipes
     # TODO: move to each Job class
