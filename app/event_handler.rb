@@ -1027,22 +1027,22 @@ module EventHandler
               when 150...200
                 drop_item(loc, ItemStack.new(Material::GLASS, 1))
               when 200...250
-                drop_item(loc, ItemStack.new(Material::FLINT, 1))
+                drop_item(loc, ItemStack.new(Material::SAND, 1))
               when 250...300
-                drop_item(loc, ItemStack.new(Material::STRING, 1))
+                drop_item(loc, ItemStack.new(Material::EGG, 1))
               when 300...350
-                drop_item(loc, ItemStack.new(Material::STICK, 1))
+                drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
               when 350...400
                 stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::COAL, 2))
+                  drop_item(loc, ItemStack.new(Material::WHEAT, 2))
                 end
               when 400...500
                 stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::COBBLESTONE, 2))
+                  drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 2))
                 end
               when 500...600
                 stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 4))
+                  drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
                 end
               when 700...850
                 stochastically(25) do
