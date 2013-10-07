@@ -1672,7 +1672,7 @@ module EventHandler
     end
 
     unless evt.cancelled
-      if action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
+      if evt.action == Action::RIGHT_CLICK_BLOCK || evt.action == Action::RIGHT_CLICK_AIR
         use_iphone(evt.player)
       end
     end
