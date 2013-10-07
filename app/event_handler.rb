@@ -1513,7 +1513,10 @@ module EventHandler
       items = player.get_nearby_entities(2, 2, 2).select {|e|
         Item === e
       }
-      strike_lightning(loc) unless items.empty?
+      unless items.empty?
+        play_effect(upper.location, Effect::ENDER_SIGNAL, nil)
+        play_sound(loc, Sound::ENDERMAN_TELEPORT, 1.0, 2.0)
+      end
       items.each do |i|
         smoke_effect(i.location)
         i.teleport(loc)
