@@ -1649,6 +1649,12 @@ module EventHandler
           @logout_countdown_table[player] = 10
           player.send_message "Logout countdown started!"
         end
+      when :fax
+        phone_num = args.join('').slice(/\d\d\d-\d\d\d\d/)
+        if phone_num
+          player.send_message "(not finished implementing it yet)"
+          player.send_message "The phone number for this FAX is #{phone_num}."
+        end
       when :warp
         name = location_name.call args
         if @db['sign_location_list'][name]
