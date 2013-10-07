@@ -788,6 +788,13 @@ module EventHandler
 
   def on_player_interact_entity(evt)
     player = evt.player
+
+    # NAME_TAG is iPhone5S
+    if player.item_in_hand && player.item_in_hand.type == Material::NAME_TAG
+      evt.cancelled = true
+      return
+    end
+
     case evt.right_clicked
     when PigZombie
     when Zombie
@@ -1498,11 +1505,10 @@ module EventHandler
     end
   end
 
-  def use_iphone(evt, action, player)
+  def use_iphone(action, player)
     return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
     return unless player.item_in_hand
     return unless player.item_in_hand.type == Material::NAME_TAG
-    evt.cancelled = true
     phone_num = player.item_in_hand.item_meta.display_name.slice(/\d\d\d-\d\d\d\d/)
     return unless phone_num
     locstr = @db['faxsign_locs'][phone_num]
@@ -1541,7 +1547,7 @@ module EventHandler
     clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
-    use_iphone(evt, evt.action, evt.player)
+    use_iphone(evt.action, evt.player)
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
