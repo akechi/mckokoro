@@ -795,7 +795,7 @@ module EventHandler
       later 0 do
         player.update_inventory # I know it's deprecated
       end
-      return
+      use_iphone(player)
     end
 
     case evt.right_clicked
@@ -1508,8 +1508,7 @@ module EventHandler
     end
   end
 
-  def use_iphone(action, player)
-    return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
+  def use_iphone(player)
     return unless player.item_in_hand
     return unless player.item_in_hand.type == Material::NAME_TAG
     return unless player.item_in_hand.item_meta.display_name
@@ -1672,7 +1671,11 @@ module EventHandler
       end
     end
 
-    use_iphone(evt.action, evt.player) unless evt.cancelled
+    unless evt.cancelled
+      if action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
+        use_iphone(evt.player)
+      end
+    end
   end
 
   @logout_countdown_table ||= {}
