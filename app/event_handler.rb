@@ -1521,7 +1521,7 @@ module EventHandler
         Item === e
       }
       unless items.empty?
-        play_effect(upper.location, Effect::ENDER_SIGNAL, nil)
+        play_effect(loc, Effect::ENDER_SIGNAL, nil)
         play_sound(loc, Sound::ENDERMAN_TELEPORT, 1.0, 2.0)
       end
       items.each do |i|
