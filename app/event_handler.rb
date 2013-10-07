@@ -792,6 +792,9 @@ module EventHandler
     # NAME_TAG is iPhone5S
     if player.item_in_hand && player.item_in_hand.type == Material::NAME_TAG
       evt.cancelled = true
+      later 0 do
+        player.update_inventory # I know it's deprecated
+      end
       return
     end
 
