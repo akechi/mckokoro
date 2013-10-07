@@ -2698,7 +2698,7 @@ module EventHandler
       { egg_id: 51, ingredient: Material::BONE },         # Skeleton
       { egg_id: 54, ingredient: Material::ROTTEN_FLESH }, # Zombie
       { egg_id: 55, ingredient: Material::SLIME_BALL },   # Slime
-      { egg_id: 92, ingredient: Material::BEEF },      # Cow
+      { egg_id: 92, ingredient: Material::BEEF },         # Cow
       { egg_id: 94, ingredient: Material::INK_SACK }      # Squid
     ]
     egg_recipes.each do |r|
