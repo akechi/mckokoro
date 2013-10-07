@@ -1508,7 +1508,7 @@ module EventHandler
     end
   end
 
-  def use_iphone(action, player)
+  def use_iphone(evt, action, player)
     return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
     return unless player.item_in_hand
     return unless player.item_in_hand.type == Material::NAME_TAG
@@ -1519,6 +1519,7 @@ module EventHandler
     loc = deserialize_location(locstr)
     return unless loc.chunk.loaded?
     if Bukkit.online_players.map {|p| p.location.chunk }.include?(loc.chunk)
+      evt.cancelled = true
       player.send_message "sending items to #{phone_num}"
       items = player.get_nearby_entities(3, 3, 3).select {|e|
         Item === e
@@ -1550,7 +1551,8 @@ module EventHandler
     clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
-    use_iphone(evt.action, evt.player)
+    use_iphone(evt, evt.action, evt.player)
+    return if evt.cancelled
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
