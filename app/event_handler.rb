@@ -1512,6 +1512,7 @@ module EventHandler
     return unless action == Action::RIGHT_CLICK_BLOCK || action == Action::RIGHT_CLICK_AIR
     return unless player.item_in_hand
     return unless player.item_in_hand.type == Material::NAME_TAG
+    return unless player.item_in_hand.item_meta.display_name
     phone_num = player.item_in_hand.item_meta.display_name.slice(/\d\d\d-\d\d\d\d/)
     return unless phone_num
     locstr = @db['faxsign_locs'][phone_num]
