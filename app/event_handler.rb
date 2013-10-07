@@ -2005,6 +2005,12 @@ module EventHandler
       #when Zombie
       #  spawn(evt.location, EntityType::SPIDER)
       #  evt.cancelled = true
+      when Ocelot
+        stochastically(50) do
+          spawn(loc, EntityType::WOLF)
+          spawn(loc, EntityType::SPIDER)
+          evt.cancelled = true
+        end
       when CaveSpider
       when Spider
         loc = evt.location
