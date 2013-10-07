@@ -2098,6 +2098,7 @@ module EventHandler
       end
     end
   end
+
   @player_damage_entity_locs ||= {}
   def on_entity_damage_by_entity(evt)
     defender = evt.entity
@@ -2137,10 +2138,14 @@ module EventHandler
         if Player === defender
           d = evt.damage
           evt.cancelled = true
+          vel = arrow.velocity.multiply(jfloat(-1.0))
           arrow.remove
           later sec(0.5) do
             if @player_swang[defender]
               arrow = JavaWrapper.launchArrow(defender)
+              later 0 do
+                arrow.velocity = vel
+              end
             else
               defender.damage(d, player)
             end
