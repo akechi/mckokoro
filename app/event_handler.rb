@@ -2436,7 +2436,7 @@ module EventHandler
 
     case entity.location.block.type
     when Material::CARPET
-      if block_below.occluding?
+      if block_below.type.occluding?
         evt.damage = 1
         later 0 do
           entity.velocity = entity.velocity.tap {|v|
