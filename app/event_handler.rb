@@ -2445,7 +2445,7 @@ module EventHandler
         end
       else
         evt.cancelled = true
-        entity.telepot(entity.location.tap {|l|
+        entity.teleport(entity.location.tap {|l|
           l.set_y(l.get_y - 0.1)
         })
       end
