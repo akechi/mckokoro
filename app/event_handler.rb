@@ -2436,6 +2436,7 @@ module EventHandler
 
     case entity.location.block.type
     when Material::CARPET
+      v.set_y([Math.log(falld) * 0.2, 5.0].min)
       evt.cancelled = true
     end
   end
