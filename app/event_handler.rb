@@ -2426,7 +2426,7 @@ module EventHandler
         end
       end
     when Material::WOOL
-      evt.cancelled = true
+      evt.damage = 1
       later 0 do
         entity.velocity = entity.velocity.tap {|v|
           v.set_y([Math.log(falld) * 0.4, 5.0].min)
