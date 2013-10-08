@@ -2449,7 +2449,7 @@ module EventHandler
           l.set_y(l.get_y - 0.1)
         })
         later 0 do
-          entity.fall_distance = falld
+          entity.fall_distance = 3
         end
       end
     end
