@@ -2436,7 +2436,11 @@ module EventHandler
 
     case entity.location.block.type
     when Material::CARPET
-      v.set_y([Math.log(falld) * 0.2, 5.0].min)
+      later 0 do
+        entity.velocity = entity.velocity.tap {|v|
+          v.set_y([Math.log(falld) * 0.2, 5.0].min)
+        }
+      end
       evt.cancelled = true
     end
   end
