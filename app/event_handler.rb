@@ -2436,11 +2436,18 @@ module EventHandler
 
     case entity.location.block.type
     when Material::CARPET
-      evt.damage = 1
-      later 0 do
-        entity.velocity = entity.velocity.tap {|v|
-          v.set_y([Math.log(falld) * 0.2, 5.0].min)
-        }
+      if block_below.occuluding?
+        evt.damage = 1
+        later 0 do
+          entity.velocity = entity.velocity.tap {|v|
+            v.set_y([Math.log(falld) * 0.2, 5.0].min)
+          }
+        end
+      else
+        evt.cancelled = true
+        entity.telepot(entity.location.tap {|l|
+          l.set_y(l.get_y - 0.1)
+        })
       end
     end
   end
