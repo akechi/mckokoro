@@ -2433,6 +2433,11 @@ module EventHandler
         }
       end
     end
+
+    case entity.location.block.type
+    when Material::CARPET
+      evt.cancelled = true
+    end
   end
 
   def generate_item_from_falling(evt)
