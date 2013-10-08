@@ -2448,6 +2448,7 @@ module EventHandler
         entity.teleport(entity.location.tap {|l|
           l.set_y(l.get_y - 0.1)
         })
+        entity.fall_distance = falld
       end
     end
   end
