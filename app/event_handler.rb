@@ -489,6 +489,7 @@ module EventHandler
     #broadlingr("#{name} is using a portal at #{loc}.")
   end
 
+  @player_arrow_have_hit ||= {}
   def on_entity_death(evt)
     drop_replace = ->(remove_types, new_istacks) {
       drops = evt.drops.to_a
@@ -498,6 +499,9 @@ module EventHandler
       evt.drops.add_all drops
     }
     case evt.entity
+    when Arrow
+      p "arrow died!"
+      @player_arrow_have_hit.delete(evt.entity)
     when Creeper
       head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
       drop_replace.([], rand(10) == 0 ? [head] : [])
@@ -1004,74 +1008,79 @@ module EventHandler
       loc1 = loc0.tap {|l| l.add evt.entity.velocity.normalize }
       loc = [loc0, loc1].find {|loc| loc.block.type == Material::SKULL }
       shooter = evt.entity.shooter
-      if loc && shooter
-        strike_lightning(loc)
+      if @player_arrow_have_hit[evt.entity]
+        # nop
+      else
+        @player_arrow_have_hit[evt.entity] = true
         if Player === shooter
-          distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 1050
-          bonus /= 10 if Job.of(shooter) == :archer
-          bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
-          bonus = bonus.to_i
-          bonus = [9999, bonus].min
-          bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
-          bonus *= 3 if bonust_p
-          broadlingr "#{bonust_p ? 'BONUS TIME! ' : ''}#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
-          loc.chunk.load()
-          later 0 do
-            bonus.times do
-              case rand(1000)
-              when 0...1
-                if rand(10) == 0
-                  drop_item(loc, ItemStack.new(Material::SAPLING, 1))
+          if loc && shooter
+            strike_lightning(loc)
+            distance = location_distance_xy(shooter.location, loc).to_i
+            bonus = (distance ** 3) / 1050
+            bonus /= 10 if Job.of(shooter) == :archer
+            bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
+            bonus = bonus.to_i
+            bonus = [9999, bonus].min
+            bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
+            bonus *= 3 if bonust_p
+            broadlingr "#{bonust_p ? 'BONUS TIME! ' : ''}#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
+            loc.chunk.load()
+            later 0 do
+              bonus.times do
+                case rand(1000)
+                when 0...1
+                  if rand(10) == 0
+                    drop_item(loc, ItemStack.new(Material::SAPLING, 1))
+                  else
+                    drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
+                  end
+                when 1...10
+                  drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
+                when 10...50
+                  drop_item(loc, ItemStack.new(Material::IRON_BLOCK, 1))
+                when 50...100
+                  drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
+                when 100...150
+                  drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
+                when 150...200
+                  drop_item(loc, ItemStack.new(Material::WATCH, 1))
+                when 200...250
+                  drop_item(loc, ItemStack.new(Material::CHEST, 1))
+                when 250...300
+                  drop_item(loc, ItemStack.new(Material::HOPPER, 1))
+                when 300...350
+                  drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
+                when 350...400
+                  stochastically(50) do
+                    drop_item(loc, ItemStack.new(Material::WHEAT, 2))
+                  end
+                when 400...500
+                  stochastically(50) do
+                    drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 2))
+                  end
+                when 500...600
+                  stochastically(25) do
+                    drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
+                  end
+                when 700...850
+                  stochastically(25) do
+                    drop_item(loc, ItemStack.new(Material::LEATHER, 4))
+                  end
                 else
-                  drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
-                end
-              when 1...10
-                drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
-              when 10...50
-                drop_item(loc, ItemStack.new(Material::IRON_BLOCK, 1))
-              when 50...100
-                drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 100...150
-                drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
-              when 150...200
-                drop_item(loc, ItemStack.new(Material::WATCH, 1))
-              when 200...250
-                drop_item(loc, ItemStack.new(Material::CHEST, 1))
-              when 250...300
-                drop_item(loc, ItemStack.new(Material::HOPPER, 1))
-              when 300...350
-                drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 350...400
-                stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::WHEAT, 2))
-                end
-              when 400...500
-                stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 2))
-                end
-              when 500...600
-                stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
-                end
-              when 700...850
-                stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::LEATHER, 4))
-                end
-              else
-                stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::FEATHER, 4))
+                  stochastically(25) do
+                    drop_item(loc, ItemStack.new(Material::FEATHER, 4))
+                  end
                 end
               end
             end
+            location_around(loc, 1).
+              map(&:block).
+              select {|b| b.type == Material::SKULL }.
+              each do |b|
+              break_naturally_by_dpickaxe(b)
+              end
           end
         end
-        location_around(loc, 1).
-          map(&:block).
-          select {|b| b.type == Material::SKULL }.
-          each do |b|
-            break_naturally_by_dpickaxe(b)
-          end
       end
     end
   end
