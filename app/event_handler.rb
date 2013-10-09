@@ -1793,7 +1793,7 @@ module EventHandler
           player.velocity = player.velocity.tap {|v|
             v.set_x(x * -0.3 + v.get_x)
             v.set_y(0.6)
-            v.set_z(z * -0.3 + v.get_y)
+            v.set_z(z * -0.3 + v.get_z)
           }
         end
       end
