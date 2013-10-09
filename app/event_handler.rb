@@ -1816,8 +1816,6 @@ module EventHandler
   end
 
   silence_warnings do
-    AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
-            Material::IRON_AXE,  Material::GOLD_AXE]
     SPADES = [Material::STONE_SPADE, Material::WOOD_SPADE, Material::DIAMOND_SPADE,
             Material::IRON_SPADE,  Material::GOLD_SPADE]
     HOES = [Material::STONE_HOE, Material::WOOD_HOE, Material::DIAMOND_HOE,
@@ -1858,7 +1856,7 @@ module EventHandler
     return if player.sneaking?
     tool_block_type_table = {
       SPADES => [Material::DIRT, Material::GRASS, Material::SAND, Material::GRAVEL],
-      PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE]}
+      PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE, Material::SANDSTONE]}
     _, block_group = tool_block_type_table.find {|tools, block_group|
       block_group.include?(broken_block.type) && tools.include?(player.item_in_hand.type)
     }
