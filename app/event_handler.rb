@@ -1819,6 +1819,7 @@ module EventHandler
     #AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
     #        Material::IRON_AXE,  Material::GOLD_AXE]
     AXES = []
+
     SPADES = [Material::STONE_SPADE, Material::WOOD_SPADE, Material::DIAMOND_SPADE,
             Material::IRON_SPADE,  Material::GOLD_SPADE]
     HOES = [Material::STONE_HOE, Material::WOOD_HOE, Material::DIAMOND_HOE,
