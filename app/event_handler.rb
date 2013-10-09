@@ -1792,7 +1792,7 @@ module EventHandler
           v.set_x x * 10
           v.set_z z * 10
         }
-      else
+      end
     end
 
     # player.send_message "#{ damaged_block.type }"
@@ -1815,20 +1815,18 @@ module EventHandler
     end
   end
 
-  silence_warnings do
-    AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
-            Material::IRON_AXE,  Material::GOLD_AXE]
-    SPADES = [Material::STONE_SPADE, Material::WOOD_SPADE, Material::DIAMOND_SPADE,
-            Material::IRON_SPADE,  Material::GOLD_SPADE]
-    HOES = [Material::STONE_HOE, Material::WOOD_HOE, Material::DIAMOND_HOE,
-            Material::IRON_HOE,  Material::GOLD_HOE]
-    PICKAXES = [Material::STONE_PICKAXE, Material::WOOD_PICKAXE, Material::DIAMOND_PICKAXE,
-            Material::IRON_PICKAXE,  Material::GOLD_PICKAXE]
-    SWORDS = [Material::STONE_SWORD, Material::WOOD_SWORD, Material::DIAMOND_SWORD,
-            Material::IRON_SWORD,  Material::GOLD_SWORD]
+  AXES = [Material::STONE_AXE, Material::WOOD_AXE, Material::DIAMOND_AXE,
+          Material::IRON_AXE,  Material::GOLD_AXE]
+  SPADES = [Material::STONE_SPADE, Material::WOOD_SPADE, Material::DIAMOND_SPADE,
+          Material::IRON_SPADE,  Material::GOLD_SPADE]
+  HOES = [Material::STONE_HOE, Material::WOOD_HOE, Material::DIAMOND_HOE,
+          Material::IRON_HOE,  Material::GOLD_HOE]
+  PICKAXES = [Material::STONE_PICKAXE, Material::WOOD_PICKAXE, Material::DIAMOND_PICKAXE,
+          Material::IRON_PICKAXE,  Material::GOLD_PICKAXE]
+  SWORDS = [Material::STONE_SWORD, Material::WOOD_SWORD, Material::DIAMOND_SWORD,
+          Material::IRON_SWORD,  Material::GOLD_SWORD]
 
-    ZOMBIES = [EntityType::PIG_ZOMBIE, EntityType::ZOMBIE]
-  end
+  ZOMBIES = [EntityType::PIG_ZOMBIE, EntityType::ZOMBIE]
 
   def on_inventory_open(evt)
   end
