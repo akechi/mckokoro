@@ -1788,11 +1788,12 @@ module EventHandler
         x, z =
           Math.cos(phi / 180.0 * Math::PI),
           Math.sin(phi / 180.0 * Math::PI)
+        player.fall_distance = 0.0
         later 0 do
           player.velocity = player.velocity.tap {|v|
-            v.set_x x * -0.3
-            v.set_y 0.7
-            v.set_z z * -0.3
+            v.set_x(x * -0.3 + v.get_x)
+            v.set_y(0.6)
+            v.set_z(z * -0.3 + v.get_y)
           }
         end
       end
