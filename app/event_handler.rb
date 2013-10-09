@@ -1781,7 +1781,19 @@ module EventHandler
     player = evt.player
     damaged_block = evt.block
 
-    player.damage(1) if player.item_in_hand.type == Material::AIR
+    if player.item_in_hand.type == Material::AIR
+      player.damage(1)
+      unless player.on_ground?
+        phi = (player.location.yaw + 90) % 360
+        x, z =
+          Math.cos(phi / 180.0 * Math::PI),
+          Math.sin(phi / 180.0 * Math::PI)
+        player.velocity = player.velocity.tap {|v|
+          v.set_x x * 10
+          v.set_z z * 10
+        }
+      else
+    end
 
     # player.send_message "#{ damaged_block.type }"
 
