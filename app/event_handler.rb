@@ -1846,7 +1846,7 @@ module EventHandler
     return if player.sneaking?
     tool_block_type_table = {
       SPADES => [Material::DIRT, Material::GRASS, Material::SAND, Material::GRAVEL],
-      PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE]}
+      PICKAXES => [Material::NETHERRACK, Material::STONE, Material::COAL_ORE, Material::COBBLESTONE, Material::SANDSTONE, Material::NETHERRACK]}
     _, block_group = tool_block_type_table.find {|tools, block_group|
       block_group.include?(broken_block.type) && tools.include?(player.item_in_hand.type)
     }
