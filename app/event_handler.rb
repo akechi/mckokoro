@@ -1790,8 +1790,9 @@ module EventHandler
           Math.sin(phi / 180.0 * Math::PI)
         later 0 do
           player.velocity = player.velocity.tap {|v|
-            v.set_x x * -10
-            v.set_z z * -10
+            v.set_x x * -2
+            v.set_y 1.0
+            v.set_z z * -2
           }
         end
         p :ok
