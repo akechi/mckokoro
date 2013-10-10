@@ -1026,7 +1026,7 @@ module EventHandler
           loc.chunk.load()
           later 0 do
             bonus.times do
-              case rand(1000)
+              case rand(10000)
               when 0...1
                 if rand(10) == 0
                   drop_item(loc, ItemStack.new(Material::SAPLING, 1))
@@ -1036,32 +1036,35 @@ module EventHandler
               when 1...10
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
               when 10...50
-                drop_item(loc, ItemStack.new(Material::IRON_BLOCK, 1))
+                drop_item(loc, ItemStack.new(Material::PUMPKIN_SEEDS, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 100...150
+              when 100...500
                 drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
-              when 150...200
+              when 500...1000
                 drop_item(loc, ItemStack.new(Material::WATCH, 1))
-              when 200...250
-                drop_item(loc, ItemStack.new(Material::CHEST, 1))
-              when 250...300
+              when 1000...1500
                 drop_item(loc, ItemStack.new(Material::HOPPER, 1))
-              when 300...350
-                drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 350...400
+              when 1500...2000
+                drop_item(loc, ItemStack.new(Material::ANVIL, 1))
+              when 2000...2500
+                drop_item(loc, ItemStack.new(Material::CHEST, 1))
+              when 2500...3000
+              when 3000...3500
+                drop_item(loc, ItemStack.new(Material::APPLE, 1))
+              when 3500...4000
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::WHEAT, 2))
                 end
-              when 400...500
+              when 4000...5000
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 2))
                 end
-              when 500...600
+              when 5000...6000
                 stochastically(25) do
                   drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
                 end
-              when 700...850
+              when 7000...8500
                 stochastically(25) do
                   drop_item(loc, ItemStack.new(Material::LEATHER, 4))
                 end
