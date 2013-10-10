@@ -1017,7 +1017,7 @@ module EventHandler
           bonus = (distance ** 3) / 1050
           bonus /= 3 if Job.of(shooter) == :archer
           bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
-          bonus /= @player_arrow_have_hit[evt.entity]
+          bonus /= (@player_arrow_have_hit[evt.entity] * 10)
           bonus = bonus.to_i
           bonus = [9999, bonus].min
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
