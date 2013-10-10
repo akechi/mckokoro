@@ -1039,17 +1039,22 @@ module EventHandler
                 drop_item(loc, ItemStack.new(Material::PUMPKIN_SEEDS, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 100...500
+              when 100...200
                 drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
-              when 500...1000
-                drop_item(loc, ItemStack.new(Material::WATCH, 1))
-              when 1000...1500
+              when 200...300
                 drop_item(loc, ItemStack.new(Material::HOPPER, 1))
-              when 1500...2000
+              when 300...500
+                drop_item(loc, ItemStack.new(Material::WATCH, 1))
+              when 500...1000
                 drop_item(loc, ItemStack.new(Material::ANVIL, 1))
+              when 1000...1500
+                drop_item(loc, ItemStack.new(Material::STONE, 1))
+              when 1500...2000
+                drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
               when 2000...2500
-                drop_item(loc, ItemStack.new(Material::CHEST, 1))
+                drop_item(loc, ItemStack.new(Material::COAL_ORE, 1))
               when 2500...3000
+                drop_item(loc, ItemStack.new(Material::COAL, 1))
               when 3000...3500
                 drop_item(loc, ItemStack.new(Material::APPLE, 1))
               when 3500...4000
