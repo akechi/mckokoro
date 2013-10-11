@@ -1040,13 +1040,13 @@ module EventHandler
                 drop_item(loc, ItemStack.new(Material::EXP_BOTTLE, 1)) if bonust_p
                 drop_item(loc, ItemStack.new(Material::LAPIS_BLOCK, 1))
               when 20...50
-                drop_item(loc, ItemStack.new(Material::PUMPKIN_SEEDS, 1))
+                drop_item(loc, ItemStack.new(Material::GLASS, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
               when 100...200
                 drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
               when 200...300
-                drop_item(loc, ItemStack.new(Material::HOPPER, 1))
+                drop_item(loc, ItemStack.new(Material::FLINT, 1))
               when 300...500
                 drop_item(loc, ItemStack.new(Material::WATCH, 1))
               when 500...1000
@@ -1056,7 +1056,7 @@ module EventHandler
               when 1500...2000
                 drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
               when 2000...2500
-                drop_item(loc, ItemStack.new(Material::COAL_ORE, 1))
+                drop_item(loc, ItemStack.new(Material::COAL, 1))
               when 2500...3000
                 drop_item(loc, ItemStack.new(Material::COAL, 1))
               when 3000...3500
