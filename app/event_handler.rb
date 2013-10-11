@@ -10,6 +10,7 @@ import 'org.bukkit.util.Vector'
 import 'org.bukkit.event.entity.EntityDamageEvent'
 import 'org.bukkit.event.entity.CreatureSpawnEvent'
 import 'org.bukkit.event.inventory.InventoryType'
+import 'org.bukkit.event.player.PlayerFishEvent'
 import 'org.bukkit.metadata.FixedMetadataValue'
 import 'org.bukkit.inventory.ItemStack'
 import 'org.bukkit.inventory.FurnaceRecipe'
@@ -1512,6 +1513,20 @@ module EventHandler
     end
   end
   private :iron_piston2
+
+  def on_player_fish(evt)
+    fish = evt.hook
+    player = evt.player
+
+    case evt.state
+    when PlayerFishEvent.State::CAUGHT_FISH
+      strike_lightning(fish.location)
+      later sec(0.8) do
+        explode(fish.location, 0, false)
+      end
+      broadcast "fish fish fish by #{player.name}!"
+    end
+  end
 
   @player_swang ||= {}
   def on_player_animation(evt)
