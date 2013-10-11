@@ -347,6 +347,7 @@ module EventHandler
         gsub(/wa-i/, 'わーい[^。^]').
         gsub(/wa--i/, 'わーい\\[^。^]/').
         gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
+        gsub(/hopper|ホッパ/, 'ホ(・ω・)ﾉ■ ｯﾊﾟ').
         gsub(/\bkiken/, '危険').
         gsub(/\bheiwa/, '平和').
         gsub(/\banzen/, '安全').
