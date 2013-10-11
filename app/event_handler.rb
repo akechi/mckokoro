@@ -1405,8 +1405,8 @@ module EventHandler
       b = add_loc(furnace_block_loc, -x * n, 0, -z * n).block
       if n > 30
         []
-      #elsif b.type == Material::CHEST
-      #  []
+      elsif b.type == Material::CHEST
+        []
       elsif b.type.solid?
         recur.(n + 1, acc + [b])
       else
