@@ -466,11 +466,18 @@ module EventHandler
   end
 
   def on_item_spawn(evt)
+    item = evt.entity
     case evt.entity.item_stack.type
     when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
     #when Material::EGG
     #  evt.cancelled = true
+    when Material::RAW_FISH
+      strike_lightning(item.location)
+      later sec(0.8) do
+        explode(item.location, 0, false)
+      end
+    end
     end
   end
 
@@ -1515,17 +1522,17 @@ module EventHandler
   private :iron_piston2
 
   def on_player_fish(evt)
-    fish = evt.hook
-    player = evt.player
+    #fish = evt.hook
+    #player = evt.player
 
-    case evt.state
-    when PlayerFishEvent::State::CAUGHT_FISH
-      strike_lightning(fish.location)
-      later sec(0.8) do
-        explode(fish.location, 0, false)
-      end
-      broadcast "fish fish fish by #{player.name}!"
-    end
+    #case evt.state
+    #when PlayerFishEvent::State::CAUGHT_FISH
+    #  strike_lightning(fish.location)
+    #  later sec(0.8) do
+    #    explode(fish.location, 0, false)
+    #  end
+    #  broadcast "fish fish fish by #{player.name}!"
+    #end
   end
 
   @player_swang ||= {}
