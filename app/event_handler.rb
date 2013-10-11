@@ -1521,17 +1521,17 @@ module EventHandler
   private :iron_piston2
 
   def on_player_fish(evt)
-    #fish = evt.hook
-    #player = evt.player
+    fish = evt.hook
+    player = evt.player
 
-    #case evt.state
-    #when PlayerFishEvent::State::CAUGHT_FISH
-    #  strike_lightning(fish.location)
-    #  later sec(0.8) do
-    #    explode(fish.location, 0, false)
-    #  end
-    #  broadcast "fish fish fish by #{player.name}!"
-    #end
+    case evt.state
+    when PlayerFishEvent::State::CAUGHT_FISH
+      strike_lightning(fish.location)
+      later sec(0.8) do
+        explode(fish.location, 0, false)
+      end
+      broadcast "fish fish fish by #{player.name}!"
+    end
   end
 
   @player_swang ||= {}
