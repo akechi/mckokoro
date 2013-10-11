@@ -478,7 +478,6 @@ module EventHandler
         explode(item.location, 0, false)
       end
     end
-    end
   end
 
   def on_player_portal(evt)
