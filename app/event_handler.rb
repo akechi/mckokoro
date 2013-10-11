@@ -472,11 +472,11 @@ module EventHandler
       evt.cancelled = true
     #when Material::EGG
     #  evt.cancelled = true
-    when Material::RAW_FISH
-      strike_lightning(item.location)
-      later sec(0.8) do
-        explode(item.location, 0, false)
-      end
+    #when Material::RAW_FISH
+    #  strike_lightning(item.location)
+    #  later sec(0.8) do
+    #    explode(item.location, 0, false)
+    #  end
     end
   end
 
