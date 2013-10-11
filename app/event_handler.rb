@@ -1519,7 +1519,7 @@ module EventHandler
     player = evt.player
 
     case evt.state
-    when PlayerFishEvent.State::CAUGHT_FISH
+    when PlayerFishEvent::State::CAUGHT_FISH
       strike_lightning(fish.location)
       later sec(0.8) do
         explode(fish.location, 0, false)
