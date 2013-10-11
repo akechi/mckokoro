@@ -1035,7 +1035,9 @@ module EventHandler
                 end
               when 1...10
                 drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
-              when 10...50
+              when 10...20
+                drop_item(loc, ItemStack.new(Material::LAPIS_BLOCK, 1))
+              when 20...50
                 drop_item(loc, ItemStack.new(Material::PUMPKIN_SEEDS, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
@@ -1046,7 +1048,7 @@ module EventHandler
               when 300...500
                 drop_item(loc, ItemStack.new(Material::WATCH, 1))
               when 500...1000
-                drop_item(loc, ItemStack.new(Material::ANVIL, 1))
+                drop_item(loc, ItemStack.new(Material::LADDER, 1))
               when 1000...1500
                 drop_item(loc, ItemStack.new(Material::STONE, 1))
               when 1500...2000
