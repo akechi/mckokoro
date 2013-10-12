@@ -1023,7 +1023,7 @@ module EventHandler
         if loc && shooter
           strike_lightning(loc)
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 1050
+          bonus = (distance ** 3) / 1100
           bonus /= 3 if Job.of(shooter) == :archer
           bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
           bonus /= (@player_arrow_have_hit[evt.entity] ** 2)
@@ -1074,10 +1074,10 @@ module EventHandler
                 stochastically(50) do
                   drop_item(loc, ItemStack.new(Material::WHEAT, 2))
                 end
-              when 4000...5000
-                stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 2))
-                end
+              when 4000...4500
+                drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 1))
+              when 4500...5000
+                drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
               when 5000...6000
                 stochastically(25) do
                   drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
