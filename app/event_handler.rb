@@ -529,8 +529,9 @@ module EventHandler
           [ItemStack.new(Material::TORCH, rand(9) + 1)] + (rand(20) == 0 ? [head] : []))
       end
     when Horse
+      material_beef = evt.entity.fire_ticks > 0 ? Material::COOKED_BEEF : Material::RAW_BEEF
       opt_beef =
-        (rand(5) == 0 ? [ItemStack.new(Material::RAW_BEEF, rand(3) + 1)] : [])
+        (rand(5) == 0 ? [ItemStack.new(material_beef, rand(3) + 1)] : [])
       drop_replace.(
         [],
         [SpawnEgg.new(EntityType::HORSE).toItemStack(1)] + opt_beef)
