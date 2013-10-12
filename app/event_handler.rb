@@ -2791,6 +2791,11 @@ module EventHandler
       ItemStack.new(Material::BREAD),
       Material::WHEAT)
     Bukkit.add_recipe bread_furnace
+    # stone->cobblestone furnace
+    cobblestone_furnace = FurnaceRecipe.new(
+      ItemStack.new(Material::COBBLESTONE),
+      Material::STONE)
+    Bukkit.add_recipe cobblestone_furnace
     # Eggs
     egg_recipes = [
       # { egg_id: 50, ingredient: Material::SULPHUR },      # Creeper
