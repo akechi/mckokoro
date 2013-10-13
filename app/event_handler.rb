@@ -2462,6 +2462,14 @@ module EventHandler
 
   def on_entity_damage_by_block(evt)
     #broadcast "[test] on entity damage by block: #{ evt.damager.type }"
+    entity = evt.entity
+    block = evt.damager
+    case evt.cause
+    when EntityDamageEvent::DamageCause::LAVA
+      if Player === entity
+        entity.send_message "ok"
+      end
+    end
   end
 
   def damage_by_falling(evt)
