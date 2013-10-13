@@ -2467,6 +2467,8 @@ module EventHandler
     case evt.cause
     when EntityDamageEvent::DamageCause::LAVA
       if Player === entity
+        play_sound(add_loc(entity, 0, 5, 0), Sound::BAT_TAKEOFF, 1.0, 0.0)
+        play_sound(add_loc(entity, 0, 5, 0), Sound::BAT_TAKEOFF, 1.0, 2.0)
         later 0 do
           entity.velocity = entity.velocity.tap {|v|
             v.set_y(1.0)
