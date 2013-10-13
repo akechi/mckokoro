@@ -1968,6 +1968,7 @@ module EventHandler
       if player.item_in_hand && player.item_in_hand.type == Material::BLAZE_ROD
         evt.cancelled = true
       end
+      chestcart = spawn(broken_block.location, EntityType::STORAGE_MINECART)
     when Material::LOG
       if broken_block.hasMetadata("humanplace")
         if AXES.include? evt.player.item_in_hand.type
