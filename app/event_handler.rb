@@ -1964,6 +1964,10 @@ module EventHandler
     #when Material::SUGAR_CANE_BLOCK
     #  evt.cancelled = true
     #  evt.block.type = Material::AIR
+    when Material::CHEST
+      if player.item_in_hand && player.item_in_hand.type == Material::BLAZE_ROD
+        evt.cancelled = true
+      end
     when Material::LOG
       if broken_block.hasMetadata("humanplace")
         if AXES.include? evt.player.item_in_hand.type
