@@ -1573,7 +1573,7 @@ module EventHandler
     if cond
       player.send_message "sending items to #{phone_num}"
       items = player.get_nearby_entities(3, 3, 3).select {|e|
-        Item === e || Animals === e || Villager === e || Arrow === e ||
+        Item === e || Animals === e || Villager === e || Arrow === e || Minecart === e
           (Player === e && e.sneaking?)
       }
       unless items.empty?
