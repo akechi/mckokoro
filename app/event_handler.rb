@@ -2467,10 +2467,12 @@ module EventHandler
     case evt.cause
     when EntityDamageEvent::DamageCause::LAVA
       if Player === entity
-        entity.velocity = entity.velocity.tap {|v|
-          v.set_y(2.0)
-        }
-        entity.fire_ticks = 0
+        later 0 do
+          entity.velocity = entity.velocity.tap {|v|
+            v.set_y(2.0)
+          }
+          entity.fire_ticks = 0
+        end
       end
     end
   end
