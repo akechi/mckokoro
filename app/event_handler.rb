@@ -1970,6 +1970,7 @@ module EventHandler
       end
       chestcart = spawn(loc_above(broken_block.location), EntityType::MINECART_CHEST)
       chestcart.inventory.contents = broken_block.state.inventory.contents
+      broken_block.state.inventory.clear()
       broken_block.type = Material::AIR
       broken_block.data = 0
     when Material::LOG
