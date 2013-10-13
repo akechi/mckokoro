@@ -2469,7 +2469,7 @@ module EventHandler
       if Player === entity
         later 0 do
           entity.velocity = entity.velocity.tap {|v|
-            v.set_y(2.0)
+            v.set_y(1.0)
           }
           entity.fire_ticks = 0
         end
