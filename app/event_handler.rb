@@ -354,7 +354,7 @@ module EventHandler
         gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
         gsub(/dks/, '溺((o(´o｀)o))死').
         gsub(/tkm/, '匠').
-        sub(/^!$/, '! な、なんだってーΩ ΩΩ')
+        sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
         Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
@@ -1024,10 +1024,10 @@ module EventHandler
         if loc && shooter
           strike_lightning(loc)
           distance = location_distance_xy(shooter.location, loc).to_i
-          bonus = (distance ** 3) / 1100
+          bonus = (distance ** 3) / 800
           bonus /= 3 if Job.of(shooter) == :archer
           bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
-          bonus /= (@player_arrow_have_hit[evt.entity] ** 2)
+          bonus /= (@player_arrow_have_hit[evt.entity] ** 3)
           bonus = bonus.to_i
           bonus = [9999, bonus].min
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
@@ -1038,19 +1038,19 @@ module EventHandler
             bonus.times do
               case rand(10000)
               when 0...1
-                if rand(10) == 0
-                  drop_item(loc, ItemStack.new(Material::SAPLING, 1))
-                else
-                  drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
-                end
+                drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
               when 1...10
-                drop_item(loc, ItemStack.new(Material::EMERALD, 1)) if bonust_p
-                drop_item(loc, ItemStack.new(Material::GOLD_INGOT, 1))
+                drop_item(
+                  loc,
+                  ItemStack.new(
+                    bonust_p ? Material::EMERALD : Material::GOLD_INGOT, 1))
               when 10...20
-                drop_item(loc, ItemStack.new(Material::EXP_BOTTLE, 1)) if bonust_p
-                drop_item(loc, ItemStack.new(Material::LAPIS_BLOCK, 1))
+                drop_item(
+                  loc,
+                  ItemStack.new(
+                    bonust_p ? Material::EXP_BOTTLE : Material::LAPIS_BLOCK, 1))
               when 20...50
-                drop_item(loc, ItemStack.new(Material::GLASS, 1))
+                drop_item(loc, ItemStack.new(Material::THIN_GLASS, 1))
               when 50...100
                 drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
               when 100...200
@@ -1072,9 +1072,7 @@ module EventHandler
               when 3000...3500
                 drop_item(loc, ItemStack.new(Material::APPLE, 1))
               when 3500...4000
-                stochastically(50) do
-                  drop_item(loc, ItemStack.new(Material::WHEAT, 2))
-                end
+                drop_item(loc, ItemStack.new(Material::WHEAT, 1))
               when 4000...4500
                 drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 1))
               when 4500...5000
