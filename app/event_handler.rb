@@ -1079,7 +1079,7 @@ module EventHandler
               when 4500...5000
                 drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
               when 5000...5500
-                drop_item(loc, ItemStack.new(Material::INK_SACK, 1))
+                drop_item(loc, ItemStack.new(Material::SULPHUR, 1))
               when 5500...6000
                 drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
               when 7000...8500
