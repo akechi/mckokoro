@@ -2499,7 +2499,9 @@ module EventHandler
       evt.damage = 1
       Bukkit.get_player('ujm').send_message "snow #{block_below.state.data}"
       let(block_below.state) do |s|
-        s.data += 1
+        d = s.data
+        d.data += 1
+        s.data = d
         s.update()
       end
     when Material::LEAVES
