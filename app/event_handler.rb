@@ -2498,6 +2498,10 @@ module EventHandler
     when Material::SNOW_BLOCK
       evt.damage = 1
       Bukkit.get_player('ujm').send_message "snow #{block_below.state.data}"
+      let(block_below.state) do |s|
+        s.data += 1
+        s.update()
+      end
     when Material::LEAVES
       evt.damage = 1
       entity.teleport(add_loc(entity.location, 0, -0.1, 0))
