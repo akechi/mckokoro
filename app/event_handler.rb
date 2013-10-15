@@ -2564,7 +2564,7 @@ module EventHandler
     entity = evt.entity
     case evt.cause
     when EntityDamageEvent::DamageCause::SUFFOCATION
-      if entity.location.block.type == Material::SNOW_BLOCK
+      if loc_above(entity.location).block.type == Material::SNOW_BLOCK
         stochastically(70) do
           evt.cancelled = true
         end
