@@ -1799,6 +1799,7 @@ module EventHandler
           player.send_message "#{phone_num}: #{locstr}"
         end
       when :randomwarp
+        broadlingr '(randomwarp!)'
         sign_warp(player, @db['sign_location_list'].keys.sample)
       when :warp
         sign_warp(player, location_name.(args))
