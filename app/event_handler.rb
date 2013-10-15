@@ -1732,6 +1732,37 @@ module EventHandler
     end
   end
 
+  def sign_warp(player, location_name)
+    @player_warp_unable ||= {}
+    if @player_warp_unable[player]
+      player.send_message 'Wait for a while for warping'
+    else
+      name = location_name.call args
+      if @db['sign_location_list'][name]
+        loc = deserialize_location @db['sign_location_list'][name]
+        # safety_loc = location_around_flat(loc, 2).find{ |loc| loc.block.type == Material::AIR }
+        face = loc.block.state.data.facing
+        safety_loc = add_loc(loc, face.mod_x, face.mod_y, face.mod_z)
+        if safety_loc
+          pitch, yaw = face2pitchyaw(face)
+          safety_loc.set_yaw(yaw + 180)
+          play_effect(safety_loc, Effect::ENDER_SIGNAL, nil)
+          player.teleport safety_loc
+          broadlingr "(teleport :#{player.name} \"#{name}\")"
+          @player_warp_unable[player] = true
+          later sec(2) do
+            @player_warp_unable[player] = false
+          end
+        else
+          player.send_message "No such location or there aren't safety place around the sign."
+        end
+      else
+        player.send_message "Not found the location named '#{name}'"
+      end
+    end
+  end
+  private :sign_warp
+
   @logout_countdown_table ||= {}
   def sign_command(player, sign_state, evt)
     return if player.world.name == 'mc68'
@@ -1768,34 +1799,10 @@ module EventHandler
         (@db['faxsign_locs'] || {}).each do |phone_num, locstr|
           player.send_message "#{phone_num}: #{locstr}"
         end
+      when :randomwarp
+        player.send_message 'not yet'
       when :warp
-        @player_warp_unable ||= {}
-        if @player_warp_unable[player]
-          player.send_message 'Wait for a while for warping'
-        else
-          name = location_name.call args
-          if @db['sign_location_list'][name]
-            loc = deserialize_location @db['sign_location_list'][name]
-            # safety_loc = location_around_flat(loc, 2).find{ |loc| loc.block.type == Material::AIR }
-            face = loc.block.state.data.facing
-            safety_loc = add_loc(loc, face.mod_x, face.mod_y, face.mod_z)
-            if safety_loc
-              pitch, yaw = face2pitchyaw(face)
-              safety_loc.set_yaw(yaw + 180)
-              play_effect(safety_loc, Effect::ENDER_SIGNAL, nil)
-              player.teleport safety_loc
-              broadlingr "(teleport :#{player.name} \"#{name}\")"
-              @player_warp_unable[player] = true
-              later sec(2) do
-                @player_warp_unable[player] = false
-              end
-            else
-              player.send_message "No such location or there aren't safety place around the sign."
-            end
-          else
-            player.send_message "Not found the location named '#{name}'"
-          end
-        end
+        sign_warp(player, location_name)
       when :location
         name = location_name.call args
         loc = sign_state.location.clone
