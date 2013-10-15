@@ -1732,7 +1732,7 @@ module EventHandler
     end
   end
 
-  def sign_warp(player, location_name)
+  def sign_warp(player, location_name, args)
     @player_warp_unable ||= {}
     if @player_warp_unable[player]
       player.send_message 'Wait for a while for warping'
@@ -1802,7 +1802,7 @@ module EventHandler
       when :randomwarp
         player.send_message 'not yet'
       when :warp
-        sign_warp(player, location_name)
+        sign_warp(player, location_name, args)
       when :location
         name = location_name.call args
         loc = sign_state.location.clone
