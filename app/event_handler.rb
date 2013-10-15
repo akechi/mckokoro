@@ -1068,7 +1068,7 @@ module EventHandler
               when 2000...2500
                 drop_item(loc, ItemStack.new(Material::COAL, 1))
               when 2500...3000
-                drop_item(loc, ItemStack.new(Material::COAL, 1))
+                drop_item(loc, ItemStack.new(Material::SAND, 1))
               when 3000...3500
                 drop_item(loc, ItemStack.new(Material::APPLE, 1))
               when 3500...4000
@@ -1078,7 +1078,7 @@ module EventHandler
               when 4500...5000
                 drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
               when 5000...5500
-                drop_item(loc, ItemStack.new(Material::YELLOW_FLOWER, 1))
+                drop_item(loc, ItemStack.new(Material::INK_SACK, 1))
               when 5500...6000
                 drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
               when 7000...8500
@@ -1091,7 +1091,8 @@ module EventHandler
                 end
               else
                 stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::RED_ROSE, 4))
+                  drop_item(loc, ItemStack.new(Material::SEEDS, 4))
+                  #drop_item(loc, ItemStack.new(Material::RED_ROSE, 4))
                   #drop_item(loc, ItemStack.new(Material::FEATHER, 4))
                 end
               end
