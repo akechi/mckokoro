@@ -1077,21 +1077,22 @@ module EventHandler
                 drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 1))
               when 4500...5000
                 drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
-              when 5000...6000
-                stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 4))
-                end
+              when 5000...5500
+                drop_item(loc, ItemStack.new(Material::YELLOW_FLOWER, 1))
+              when 5500...6000
+                drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
               when 7000...8500
                 stochastically(25) do
                   if bonust_p
-                    drop_item(loc, ItemStack.new(Material::GLOWSTONE_DUST, 1))
+                    drop_item(loc, ItemStack.new(Material::GLOWSTONE_DUST, 4))
                   else
                     drop_item(loc, ItemStack.new(Material::LEATHER, 4))
                   end
                 end
               else
                 stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::FEATHER, 4))
+                  drop_item(loc, ItemStack.new(Material::RED_ROSE, 4))
+                  #drop_item(loc, ItemStack.new(Material::FEATHER, 4))
                 end
               end
             end
