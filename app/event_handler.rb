@@ -2495,16 +2495,7 @@ module EventHandler
       entity.velocity = entity.velocity.tap{|v|
         v.add Vector.new(jfloat(0.0), jfloat(0.4), jfloat(0.0))
       }
-    when Material::SNOW_BLOCK
-      evt.damage = 1
-      Bukkit.get_player('ujm').send_message "snow #{block_below.state.data}"
-      let(block_below.state) do |s|
-        d = s.data
-        d.data += 1
-        s.data = d
-        s.update()
-      end
-    when Material::LEAVES
+    when Material::LEAVES, Material::SNOW_BLOCK
       evt.damage = 1
       entity.teleport(add_loc(entity.location, 0, -0.1, 0))
       if add_loc(entity.location, 0, -1.9, 0).block.type == Material::LEAVES
