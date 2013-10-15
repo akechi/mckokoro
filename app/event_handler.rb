@@ -1732,12 +1732,11 @@ module EventHandler
     end
   end
 
-  def sign_warp(player, location_name, args)
+  def sign_warp(player, name)
     @player_warp_unable ||= {}
     if @player_warp_unable[player]
       player.send_message 'Wait for a while for warping'
     else
-      name = location_name.call args
       if @db['sign_location_list'][name]
         loc = deserialize_location @db['sign_location_list'][name]
         # safety_loc = location_around_flat(loc, 2).find{ |loc| loc.block.type == Material::AIR }
@@ -1800,9 +1799,8 @@ module EventHandler
           player.send_message "#{phone_num}: #{locstr}"
         end
       when :randomwarp
-        player.send_message 'not yet'
       when :warp
-        sign_warp(player, location_name, args)
+        sign_warp(player, location_name.(args))
       when :location
         name = location_name.call args
         loc = sign_state.location.clone
