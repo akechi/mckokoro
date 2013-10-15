@@ -2489,8 +2489,8 @@ module EventHandler
     loc_below = add_loc(entity.location, 0, -1, 0)
     block_below = loc_below.block
     case block_below.type
-    when Material::GRASS
-      evt.cancelled = true
+    when Material::GRASS, Material::SNOW_BLOCK
+      evt.damage = 1
       block_below.type = Material::DIRT
       entity.velocity = entity.velocity.tap{|v|
         v.add Vector.new(jfloat(0.0), jfloat(0.4), jfloat(0.0))
