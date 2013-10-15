@@ -2563,6 +2563,12 @@ module EventHandler
   def on_entity_damage(evt)
     entity = evt.entity
     case evt.cause
+    when EntityDamageEvent::DamageCause::SUFFOCATION
+      if entity.location.block.type == Material::SNOW_BLOCK
+        stochastically(70) do
+          evt.cancelled = true
+        end
+      end
     when EntityDamageEvent::DamageCause::FALL
       damage_by_falling evt
       generate_item_from_falling evt
