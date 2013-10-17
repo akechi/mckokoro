@@ -1034,67 +1034,69 @@ module EventHandler
           bonus *= 3 if bonust_p
           broadlingr "#{bonust_p ? 'BONUS TIME! ' : ''}#{shooter.name} hit! distance: #{distance}, bonus: #{bonus}"
           loc.chunk.load()
-          later 0 do
-            bonus.times do
-              case rand(10000)
-              when 0...1
-                drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
-              when 1...10
-                drop_item(
-                  loc,
-                  ItemStack.new(
-                    bonust_p ? Material::EMERALD : Material::GOLD_INGOT, 1))
-              when 10...20
-                drop_item(
-                  loc,
-                  ItemStack.new(
-                    bonust_p ? Material::EXP_BOTTLE : Material::LAPIS_BLOCK, 1))
-              when 20...50
-                drop_item(loc, ItemStack.new(Material::THIN_GLASS, 1))
-              when 50...100
-                drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
-              when 100...200
-                drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
-              when 200...300
-                drop_item(loc, ItemStack.new(Material::FLINT, 1))
-              when 300...500
-                drop_item(loc, ItemStack.new(Material::WATCH, 1))
-              when 500...1000
-                drop_item(loc, ItemStack.new(Material::SNOW, 1))
-                #drop_item(loc, ItemStack.new(Material::LADDER, 1))
-              when 1000...1500
-                drop_item(loc, ItemStack.new(Material::STONE, 1))
-              when 1500...2000
-                drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
-              when 2000...2500
-                drop_item(loc, ItemStack.new(Material::COAL, 1))
-              when 2500...3000
-                drop_item(loc, ItemStack.new(Material::SAND, 1))
-              when 3000...3500
-                drop_item(loc, ItemStack.new(Material::APPLE, 1))
-              when 3500...4000
-                drop_item(loc, ItemStack.new(Material::WHEAT, 1))
-              when 4000...4500
-                drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 1))
-              when 4500...5000
-                drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
-              when 5000...5500
-                drop_item(loc, ItemStack.new(Material::SULPHUR, 1))
-              when 5500...6000
-                drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
-              when 7000...8500
-                stochastically(25) do
-                  if bonust_p
-                    drop_item(loc, ItemStack.new(Material::GLOWSTONE_DUST, 4))
-                  else
-                    drop_item(loc, ItemStack.new(Material::LEATHER, 4))
+          [0, sec(0.5)].each do |tick|
+            later tick do
+              (bonus / 2).times do
+                case rand(10000)
+                when 0...1
+                  drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
+                when 1...10
+                  drop_item(
+                    loc,
+                    ItemStack.new(
+                      bonust_p ? Material::EMERALD : Material::GOLD_INGOT, 1))
+                when 10...20
+                  drop_item(
+                    loc,
+                    ItemStack.new(
+                      bonust_p ? Material::EXP_BOTTLE : Material::LAPIS_BLOCK, 1))
+                when 20...50
+                  drop_item(loc, ItemStack.new(Material::THIN_GLASS, 1))
+                when 50...100
+                  drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
+                when 100...200
+                  drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
+                when 200...300
+                  drop_item(loc, ItemStack.new(Material::FLINT, 1))
+                when 300...500
+                  drop_item(loc, ItemStack.new(Material::WATCH, 1))
+                when 500...1000
+                  drop_item(loc, ItemStack.new(Material::SNOW, 1))
+                  #drop_item(loc, ItemStack.new(Material::LADDER, 1))
+                when 1000...1500
+                  drop_item(loc, ItemStack.new(Material::STONE, 1))
+                when 1500...2000
+                  drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
+                when 2000...2500
+                  drop_item(loc, ItemStack.new(Material::COAL, 1))
+                when 2500...3000
+                  drop_item(loc, ItemStack.new(Material::SAND, 1))
+                when 3000...3500
+                  drop_item(loc, ItemStack.new(Material::APPLE, 1))
+                when 3500...4000
+                  drop_item(loc, ItemStack.new(Material::WHEAT, 1))
+                when 4000...4500
+                  drop_item(loc, ItemStack.new(Material::POTATO_ITEM, 1))
+                when 4500...5000
+                  drop_item(loc, ItemStack.new(Material::RAW_BEEF, 1))
+                when 5000...5500
+                  drop_item(loc, ItemStack.new(Material::SULPHUR, 1))
+                when 5500...6000
+                  drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
+                when 7000...8500
+                  stochastically(25) do
+                    if bonust_p
+                      drop_item(loc, ItemStack.new(Material::GLOWSTONE_DUST, 4))
+                    else
+                      drop_item(loc, ItemStack.new(Material::LEATHER, 4))
+                    end
                   end
-                end
-              else
-                stochastically(25) do
-                  drop_item(loc, ItemStack.new(Material::SEEDS, 4))
-                  #drop_item(loc, ItemStack.new(Material::RED_ROSE, 4))
-                  #drop_item(loc, ItemStack.new(Material::FEATHER, 4))
+                else
+                  stochastically(25) do
+                    drop_item(loc, ItemStack.new(Material::SEEDS, 4))
+                    #drop_item(loc, ItemStack.new(Material::RED_ROSE, 4))
+                    #drop_item(loc, ItemStack.new(Material::FEATHER, 4))
+                  end
                 end
               end
             end
