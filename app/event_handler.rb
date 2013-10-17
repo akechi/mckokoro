@@ -1802,6 +1802,7 @@ module EventHandler
         broadlingr '(randomwarp!)'
         sign_warp(player, @db['sign_location_list'].keys.sample)
       when :warp
+        player.food_level = [player.food_level - 1, 10].max
         sign_warp(player, location_name.(args))
       when :location
         name = location_name.call args
