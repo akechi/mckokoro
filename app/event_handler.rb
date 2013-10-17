@@ -1039,12 +1039,15 @@ module EventHandler
               (bonus / 2).times do
                 case rand(10000)
                 when 0...1
-                  drop_item(loc, ItemStack.new(Material::DIAMOND, 1))
+                  drop_item(
+                    loc,
+                    ItemStack.new(
+                      bonust_p ? Material::DIAMOND_BLOCK : Material::DIAMOND, 1))
                 when 1...10
                   drop_item(
                     loc,
                     ItemStack.new(
-                      bonust_p ? Material::EMERALD : Material::GOLD_INGOT, 1))
+                      bonust_p ? Material::EMERALD : Material::GOLD_BLOCK, 1))
                 when 10...20
                   drop_item(
                     loc,
