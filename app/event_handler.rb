@@ -338,18 +338,12 @@ module EventHandler
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
     else
       evt.message = evt.message.
-        gsub(/[fh]u[bv]enr[iy]/, '不便利').
         gsub(/[bv]enr[iy]/, '便利').
         gsub(/[fh]u[bv]en/, '不便').
-        gsub(/iikanji$/, 'いい感じ').
-        gsub(/^hai$/, 'はい').
-        gsub(/^mu$/, 'む').
         gsub(/wa-i/, 'わーい[^。^]').
-        gsub(/wa--i/, 'わーい\\[^。^]/').
         gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
         gsub(/hopper|ホッパ/, '穂(・ω・)ﾉ■ ｯﾊﾟ').
         gsub(/\bkiken/, '危険').
-        gsub(/\bheiwa/, '平和').
         gsub(/\banzen/, '安全').
         gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
         gsub(/dks/, '溺((o(´o｀)o))死').
@@ -382,42 +376,30 @@ module EventHandler
       post_lingr "#{name} logged in."
     #end
 
-    #later 0 do
-      player_first_time_p =
-        player.inventory.contents.to_a.compact.empty? &&
-        player.health == player.max_health
-      if player_first_time_p
-        player.send_message 'You are first time to visit here right?'
-        player.send_message 'Check your inventory. You already have good stuff.'
-        [ItemStack.new(Material::COBBLESTONE, rand(64) + 1),
-         ItemStack.new(Material::MUSHROOM_SOUP, 1),
-         ItemStack.new(Material::WHEAT, rand(64) + 1),
-         ItemStack.new(Material::WOOD, 10),
-         ItemStack.new(Material::LEATHER_HELMET, 1),
-         ItemStack.new(Material::PUMPKIN_PIE, 1)].each do |istack|
-          player.inventory.add_item istack
-         end
-        later sec(20) do
-          player.send_message "Note that you can't place any blocks at first..."
-          player.send_message "You need to unlock that by making a Workbench."
-        end
-
-        later sec(120) do
-          player.send_message 'You may want to check browser map as well.'
-          player.send_message 'http://mck.supermomonga.com'
-        end
-      else
-        #player.send_message 'There will be a CTF this weekend!'
-        #player.send_message '  (今週末にCTFやりたいなあ)'
-        #player.send_message 'It will be at 8pm PDT on the Saturday.'
-        #player.send_message '  (日本時間でいうと日曜の正午(12pm)とかどうかな?)'
-        #player.send_message 'By the way there will be a downtown during 12am~4am on Friday'
-        #player.send_message '  (ちなみに計画停電のため日本時間の金曜の4pm~8pmの間,鯖とまるかも)'
+    player_first_time_p =
+      player.inventory.contents.to_a.compact.empty? &&
+      player.health == player.max_health
+    if player_first_time_p
+      player.send_message 'You are first time to visit here right?'
+      player.send_message 'Check your inventory. You already have good stuff.'
+      [ItemStack.new(Material::COBBLESTONE, rand(64) + 1),
+       ItemStack.new(Material::MUSHROOM_SOUP, 1),
+       ItemStack.new(Material::WHEAT, rand(64) + 1),
+       ItemStack.new(Material::WOOD, 10),
+       ItemStack.new(Material::LEATHER_HELMET, 1),
+       ItemStack.new(Material::PUMPKIN_PIE, 1)].each do |istack|
+        player.inventory.add_item istack
+       end
+      later sec(20) do
+        player.send_message "Note that you can't place any blocks at first..."
+        player.send_message "You need to unlock that by making a Workbench."
       end
-    #end
-  end
 
-  def on_player_login(evt)
+      later sec(120) do
+        player.send_message 'You may want to check browser map as well.'
+        player.send_message 'http://mck.supermomonga.com'
+      end
+    end
   end
 
   def on_player_quit(evt)
@@ -425,9 +407,6 @@ module EventHandler
     loc = player.location
     strike_lightning(loc)
     later sec(1) do
-      strike_lightning(loc)
-    end
-    later sec(2) do
       strike_lightning(loc)
     end
     # e.g. "ujm left the game."
@@ -441,7 +420,6 @@ module EventHandler
     case entity
     when TNTPrimed
       evt.yield = 1.0
-      Bukkit.get_player('ujm').send_message "tnt explosion: #{entity.source}"
       loc = entity.location
       later sec(0.5) do
         orbs = (block_list.size / 10).times.map {
@@ -472,13 +450,6 @@ module EventHandler
     case evt.entity.item_stack.type
     when Material::SUGAR_CANE, Material::SAPLING
       evt.cancelled = true
-    #when Material::EGG
-    #  evt.cancelled = true
-    #when Material::RAW_FISH
-    #  strike_lightning(item.location)
-    #  later sec(0.8) do
-    #    explode(item.location, 0, false)
-    #  end
     end
   end
 
@@ -492,12 +463,6 @@ module EventHandler
     broadlingr("(portal-from :#{name} #{loc})")
   end
 
-  def on_entity_portal_enter(evt)
-    #name = evt.entity.type.downcase.to_s
-    #loc = evt.player.location.block.location # to align
-    #broadlingr("#{name} is using a portal at #{loc}.")
-  end
-
   @player_arrow_have_hit ||= {}
   def on_entity_death(evt)
     drop_replace = ->(remove_types, new_istacks) {
@@ -508,9 +473,9 @@ module EventHandler
       evt.drops.add_all drops
     }
     case evt.entity
-    when Creeper
-      head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
-      drop_replace.([], rand(10) == 0 ? [head] : [])
+    #when Creeper
+    #  head = MaterialData.new(Material::SKULL_ITEM, 4).to_item_stack(1)
+    #  drop_replace.([], rand(10) == 0 ? [head] : [])
     when PigZombie
       opt_golden_apple =
         (rand(10) == 0 ? [ItemStack.new(Material::GOLDEN_APPLE, 1)] : [])
