@@ -2758,7 +2758,12 @@ module EventHandler
           evt.cancelled = true
           if @player_fish_loc[shooter]
             new_loc = @player_fish_loc[shooter]
-            shooter.teleport(new_loc) if new_loc.world == shooter.world
+            cond =
+              new_loc.world == shooter.location.world &&
+              new_loc.distance(shooter.location) < 50.0
+            if cond
+              shooter.teleport(new_loc)
+            end
             @player_fish_loc[shooter] = nil
             play_sound(shooter.location, Sound::FIREWORK_TWINKLE2, 1.0, 1.0)
           else
