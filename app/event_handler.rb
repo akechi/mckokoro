@@ -2753,11 +2753,19 @@ module EventHandler
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
       when Fish
-        if shooter.location.pitch == -90.0
-          @player_fish_loc[shooter] = shooter.location
-          play_sound(shooter.location, Sound::FIREWORK_TWINKLE, 1.0, 1.0)
-          shooter.send_message 'Fish location reserved.'
+        # looking below
+        if shooter.location.pitch == 90.0
           evt.cancelled = true
+          if @player_fish_loc[shooter]
+            new_loc = @player_fish_loc[shooter])
+            shooter.teleport(new_loc) if new_loc.world == shooter.world
+            @player_fish_loc[shooter] = nil
+            play_sound(shooter.location, Sound::FIREWORK_TWINKLE2, 1.0, 1.0)
+          else
+            @player_fish_loc[shooter] = shooter.location
+            play_sound(shooter.location, Sound::FIREWORK_TWINKLE, 1.0, 1.0)
+            shooter.send_message 'Fish location reserved.'
+          end
         end
       end
     when Skeleton
