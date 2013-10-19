@@ -2752,7 +2752,9 @@ module EventHandler
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
       when Fish
-        p :ok
+        if shooter.location.yaw == -90.0
+          p :very
+        end
       end
     when Skeleton
       case projectile
