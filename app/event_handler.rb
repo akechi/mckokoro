@@ -2700,6 +2700,7 @@ module EventHandler
     #end
   end
 
+  @player_fish_loc ||= {}
   def on_projectile_launch(evt)
     projectile = evt.entity
     shooter = projectile.shooter
@@ -2752,8 +2753,11 @@ module EventHandler
           projectile.velocity = projectile.velocity.multiply(jfloat(0.5))
         end
       when Fish
-        if shooter.location.yaw == -90.0
-          p :very
+        if shooter.location.pitch == -90.0
+          @player_fish_loc[shooter] = shooter.location
+          play_sound(shooter.location, Sound::FIREWORK_TWINKLE, 1.0, 1.0)
+          shooter.send_message 'Fish location reserved.'
+          evt.cancelled = true
         end
       end
     when Skeleton
