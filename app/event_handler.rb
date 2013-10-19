@@ -3258,7 +3258,9 @@ module EventHandler
   private :rotate_sign
 
   def periodically_sec
-    online_players = Bukkit.online_players
+    online_players = Bukkit.online_players.select {|p|
+      %w[world world_nether].include?(p.location.world.name)
+    }
     # nearby_creatures = online_players.map {|p|
     #   p.get_nearby_entities(2, 2, 2).
     #     select {|e| Creature === e }
