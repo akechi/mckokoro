@@ -992,7 +992,7 @@ module EventHandler
           bonus = (distance ** 3) / 800
           bonus /= 3 if Job.of(shooter) == :archer
           bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
-          bonus /= (@player_arrow_have_hit[evt.entity] ** 3)
+          bonus *= 0.1**(@player_arrow_have_hit[evt.entity]-1)
           bonus = bonus.to_i
           bonus = [9999, bonus].min
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
@@ -1032,7 +1032,8 @@ module EventHandler
                   drop_item(loc, ItemStack.new(Material::SNOW, 1))
                   #drop_item(loc, ItemStack.new(Material::LADDER, 1))
                 when 1000...1500
-                  drop_item(loc, ItemStack.new(Material::STONE, 1))
+                  charcoal = org.bukkit.material.Coal.new(org.bukkit.CoalType::CHARCOAL)
+                  drop_item(loc, charcoal.to_item_stack(1))
                 when 1500...2000
                   drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
                 when 2000...2500
