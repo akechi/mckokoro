@@ -2700,7 +2700,7 @@ module EventHandler
     #end
   end
 
-  @player_fish_loc ||= {}
+  #@player_fish_loc ||= {}
   def on_projectile_launch(evt)
     projectile = evt.entity
     shooter = projectile.shooter
@@ -2754,24 +2754,24 @@ module EventHandler
         end
       when Fish
         # looking below
-        if shooter.location.pitch == 90.0
-          evt.cancelled = true
-          if @player_fish_loc[shooter]
-            new_loc = @player_fish_loc[shooter]
-            cond =
-              new_loc.world == shooter.location.world &&
-              new_loc.distance(shooter.location) < 50.0
-            if cond
-              shooter.teleport(new_loc)
-            end
-            @player_fish_loc[shooter] = nil
-            play_sound(shooter.location, Sound::FIREWORK_TWINKLE2, 1.0, 1.0)
-          else
-            @player_fish_loc[shooter] = shooter.location
-            play_sound(shooter.location, Sound::FIREWORK_TWINKLE, 1.0, 1.0)
-            shooter.send_message 'Fish location reserved.'
-          end
-        end
+        #if shooter.location.pitch == 90.0
+        #  evt.cancelled = true
+        #  if @player_fish_loc[shooter]
+        #    new_loc = @player_fish_loc[shooter]
+        #    cond =
+        #      new_loc.world == shooter.location.world &&
+        #      new_loc.distance(shooter.location) < 50.0
+        #    if cond
+        #      shooter.teleport(new_loc)
+        #    end
+        #    @player_fish_loc[shooter] = nil
+        #    play_sound(shooter.location, Sound::FIREWORK_TWINKLE2, 1.0, 1.0)
+        #  else
+        #    @player_fish_loc[shooter] = shooter.location
+        #    play_sound(shooter.location, Sound::FIREWORK_TWINKLE, 1.0, 1.0)
+        #    shooter.send_message 'Fish location reserved.'
+        #  end
+        #end
       end
     when Skeleton
       case projectile
