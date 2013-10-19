@@ -1769,7 +1769,7 @@ module EventHandler
 
   @logout_countdown_table ||= {}
   def sign_command(player, sign_state, evt)
-    return if player.world.name == 'mc68'
+    return unless %w[world world_nether world_end].include?(player.world.name)
     @db['sign_location_list'] ||= {}
 
     location_name = ->(lines){ lines.map(&:downcase).join(" ").gsub(/\s{2,}/, ' ').sub(/\s$/, '') }
@@ -2650,6 +2650,7 @@ module EventHandler
   #              Material::DIAMOND_BOOTS, Material::GOLD_BOOTS]
   def on_player_toggle_sneak(evt)
     player = evt.player
+    return unless %w[world world_nether].include?(player.location.world.name)
 
     #if player.name == 'ujm'
     #  #location_around(add_loc(player.location, 0, 5, 0), 5).map(&:block).each {|b| b.type = Material::AIR if b.type != Material::AIR }
@@ -2675,7 +2676,7 @@ module EventHandler
       end
 
       # map teleport
-      if player.location.pitch == 90.0 && player.world.name != 'mc68'
+      if player.location.pitch == 90.0
         item = player.item_in_hand
         if item && item.type == Material::MAP
           map = Bukkit.get_map(item.data.data)
