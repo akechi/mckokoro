@@ -782,7 +782,7 @@ module EventHandler
         target = evt.right_clicked
         vec = target.location.clone.subtract(player.location).to_vector
           vec.set_y jfloat(0.0)
-        vec = vec.normalize.multiply(jfloat(0.5))
+        vec = vec.normalize.multiply(jfloat(0.3))
         vec.set_y jfloat(0.1)
         target.velocity = vec
         later sec(0.1) do
