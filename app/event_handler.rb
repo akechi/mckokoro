@@ -3040,7 +3040,7 @@ module EventHandler
       location_around_flat(loc_below(player.location), 1).each do |l|
         b = l.block
         cond =
-          b.light_from_sky >= 8 &&
+          loc_above(l).block.type == Material::AIR &&
           [Material::DIRT, Material::STONE, Material::GRAVEL].include?(b.type)
         if cond
           b.type = Material::GRASS
