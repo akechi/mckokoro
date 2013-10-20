@@ -3029,7 +3029,7 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      b = loc_below(player.location).block
+      b = add_loc(player.location, 0, -1, -1).block
       if b.type == Material::AIR
         b.type = Material::SMOOTH_STAIRS
         b.data = 4
