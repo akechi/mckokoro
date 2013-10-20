@@ -3105,13 +3105,18 @@ module EventHandler
       #  b4.data = 0
       #end
 
-      #location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
-      #  b = l.block
-      #  unless b.type == Material::AIR
-      #    b.type = Material::AIR
-      #    b.data = 0
-      #  end
-      #end
+      location_around(add_loc(player.location, 0, 8, 0), 8).each do |l|
+        b = l.block
+        unless b.type == Material::AIR
+          b.type = Material::AIR
+          b.data = 0
+        end
+      end
+      b = loc_below(player.location).block
+      if b.type != Material::GRASS
+        b.type = Material::GRASS
+        b.data = 0
+      end
 
       #location_around_flat(loc_below(player.location), 1).each do |l|
       #  b = l.block
