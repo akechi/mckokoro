@@ -3029,15 +3029,13 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      location_around(player.location, 5).map(&:block).
-        select {|b| b.type == Material::AIR }.
-        each do |b|
-        bb = loc_below(b.location).block
-          if bb.type != Material::AIR
-            bb.type = Material::SOIL
-            b.type = Material::CROPS
-          end
+      location_around(player.location, 2).each do |l|
+        bdown, bup = [l.block, loc_above(l).block]
+        if bup.type == Material::AIR && bdown.type != Material::AIR && bdown.type != Material::CROPS
+          bdown.type = Material::SOIL
+          bdown.data = 0
         end
+      end
 
       #location_around_flat(player.location, 1).each do |l|
       #  b = l.block
