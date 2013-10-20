@@ -1582,7 +1582,17 @@ module EventHandler
     ]
     loc_bottom_center = loc_below(block.location)
     table.reverse.each_with_index do |(left, center, right), add_y|
-      p [left, center, right, add_y]
+      bl = add_loc(loc_bottom_center, 0, add_y, -2).block
+      br = add_loc(loc_bottom_center, 0, add_y, 2).block
+      bl.type = left[0]
+      bl.data = left[1]
+      br.type = right[0]
+      br.data = right[1]
+      [-1, 0, 1].each do |z|
+        bc = add_loc(loc_bottom_center, 0, add_y, z).block
+        bc.type = center[0]
+        bc.data = center[1]
+      end
     end
   end
 
