@@ -1569,6 +1569,23 @@ module EventHandler
   end
   private :use_iphone
 
+  def nether_brick(action, player)
+    return unless player.name == 'ujm' # experimental
+    return unless [Action::RIGHT_CLICK_AIR, Action::RIGHT_CLICK_BLOCK].include?(action)
+    block = evt.clicked_block
+    return unless block.type == Material::STONE
+    table = [
+      [[Material::STEP, 5], [Material::AIR, 0], [Material::STEP, 5]],
+      [[Material::SMOOTH_BRICK, 0], [Material::STATIONARY_WATER, 0], [Material::SMOOTH_BRICK, 0]],
+      [[Material::SMOOTH_BRICK, 0], [Material::STATIONARY_WATER, 0], [Material::SMOOTH_BRICK, 0]],
+      [[Material::SMOOTH_BRICK, 0], [Material::SMOOTH_BRICK, 0], [Material::SMOOTH_BRICK, 0]],
+    ]
+    loc_bottom_center = loc_below(block.location)
+    table.reverse.each_with_index do |(left, center, right), add_y|
+      p [left, center, right, add_y]
+    end
+  end
+
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
 
@@ -1582,6 +1599,7 @@ module EventHandler
     clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
+    nether_brick(evt.action, evt.player)
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
@@ -3120,20 +3138,20 @@ module EventHandler
       #  b.data = 0
       #end
 
-      location_around_flat(loc_below(player.location), 5).each do |l|
-        b = l.block
-        cond =
-          loc_above(l).block.type == Material::AIR &&
-          [Material::GRASS, Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
-        if cond
-          b.type = Material::GRAVEL
-          b.data = 0
-        end
-        if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
-          loc_above(l).block.type = Material::TORCH
-          loc_above(l).block.data = 0
-        end
-      end
+      #location_around_flat(loc_below(player.location), 5).each do |l|
+      #  b = l.block
+      #  cond =
+      #    loc_above(l).block.type == Material::AIR &&
+      #    [Material::GRASS, Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
+      #  if cond
+      #    b.type = Material::GRAVEL
+      #    b.data = 0
+      #  end
+      #  if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
+      #    loc_above(l).block.type = Material::TORCH
+      #    loc_above(l).block.data = 0
+      #  end
+      #end
 
       #location_around_flat(loc_below(player.location), 1).each do |l|
       #  b = l.block
