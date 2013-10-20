@@ -3033,6 +3033,7 @@ module EventHandler
       b = l.block
       b2 = add_loc(l, -1, 0, 0).block
       if b2.type == Material::AIR && (l.get_z + 916) % -17 == 0
+        player.send_message 'ok'
         b.type = Material::SMOOTH_BRICK
         b.data = 0
         b2.type = Material::SMOOTH_STAIRS
