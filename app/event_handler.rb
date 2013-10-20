@@ -3041,6 +3041,12 @@ module EventHandler
         b3 = add_loc(l, -1, 1, 0).block
         b3.type = Material::TORCH
         b3.data = 0
+        b4 = add_loc(l, -1, -2, 0).block
+        b4.type = Material::TORCH
+        b4.data = 0
+        b5 = add_loc(l, -1, -3, 0).block
+        b5.type = Material::SMOOTH_BRICK
+        b5.data = 0
       end
       #location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
       #  b = l.block
