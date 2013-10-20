@@ -3105,31 +3105,31 @@ module EventHandler
       #  b4.data = 0
       #end
 
-      locs1 = location_around(add_loc(player.location, 0, 3, 0), 3)
-      locs2 = location_around(add_loc(player.location, 0, 9, 0), 3)
-      (locs1 + locs2).each do |l|
-        b = l.block
-        unless b.type == Material::AIR
-          b.type = Material::AIR
-          b.data = 0
-        end
-      end
-      b = loc_below(player.location).block
-      if b.type != Material::GRASS
-        b.type = Material::GRASS
-        b.data = 0
-      end
-
-      #location_around_flat(loc_below(player.location), 1).each do |l|
+      #locs1 = location_around(add_loc(player.location, 0, 3, 0), 3)
+      #locs2 = location_around(add_loc(player.location, 0, 9, 0), 3)
+      #(locs1 + locs2).each do |l|
       #  b = l.block
-      #  cond =
-      #    loc_above(l).block.type == Material::AIR &&
-      #    [Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
-      #  if cond
-      #    b.type = Material::GRASS
+      #  unless b.type == Material::AIR
+      #    b.type = Material::AIR
       #    b.data = 0
       #  end
       #end
+      #b = loc_below(player.location).block
+      #if b.type != Material::GRASS
+      #  b.type = Material::GRASS
+      #  b.data = 0
+      #end
+
+      location_around_flat(loc_below(player.location), 5).each do |l|
+        b = l.block
+        cond =
+          loc_above(l).block.type == Material::AIR &&
+          [Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
+        if cond
+          b.type = Material::GRAVEL
+          b.data = 0
+        end
+      end
 
       #location_around_flat(loc_below(player.location), 1).each do |l|
       #  b = l.block
