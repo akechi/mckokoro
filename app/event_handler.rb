@@ -3032,7 +3032,7 @@ module EventHandler
       location_around(add_loc(player.location, 0, 3, 0), 3).each do |l|
         b = l.block
         unless b.type == Material::AIR
-          b.type = Material::WOOD
+          b.type = Material::AIR
           b.data = 0
         end
       end
