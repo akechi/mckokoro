@@ -3037,7 +3037,7 @@ module EventHandler
       #  end
       #end
 
-      location_around(loc_below(player.location), 1).each do |l|
+      location_around_flat(loc_below(player.location), 1).each do |l|
         b = l.block
         unless b.type == Material::SMOOTH_BRICK
           b.type = Material::SMOOTH_BRICK
