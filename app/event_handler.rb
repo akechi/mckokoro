@@ -3029,10 +3029,11 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      location_around_flat(loc_below(player.location), 3).each do |l|
+      location_around(add_loc(player.location, 0, 3, 0), 3).each do |l|
         b = l.block
-        if b.type == Material::WOOL
+        unless b.type == Material::AIR
           b.type = Material::WOOD
+          b.data = 0
         end
       end
       #below = loc_below(player.location)
