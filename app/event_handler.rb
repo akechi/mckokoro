@@ -1569,10 +1569,10 @@ module EventHandler
   end
   private :use_iphone
 
-  def nether_brick(action, player)
+  def nether_brick(action, player, block)
     return unless player.name == 'ujm' # experimental
     return unless [Action::RIGHT_CLICK_AIR, Action::RIGHT_CLICK_BLOCK].include?(action)
-    block = evt.clicked_block
+    return unless player.item_in_hand.type == Material::SUGAR
     return unless block.type == Material::STONE
     table = [
       [[Material::STEP, 5], [Material::AIR, 0], [Material::STEP, 5]],
@@ -1599,7 +1599,7 @@ module EventHandler
     clock_timechange(evt.action, evt.player)
     horse_sword_swing(evt.action, evt.player)
     use_enderpearl(evt.action, evt.player)
-    nether_brick(evt.action, evt.player)
+    nether_brick(evt.action, evt.player, evt.clicked_block)
 
     if evt.clicked_block
       if evt.action == Action::RIGHT_CLICK_BLOCK && [Material::SIGN, Material::SIGN_POST, Material::WALL_SIGN].include?(evt.clicked_block.type)
