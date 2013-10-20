@@ -3029,19 +3029,22 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      l = add_loc(player.location, 0, -1, 0)
-      b = l.block
-      b.type = Material::WOOD
-      b.data = 0
-      if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
-        player.send_message 'here'
-        cloop(0, 50) do |recur, n, max|
-          if max > 0
-            b5 = add_loc(l, 0, n, 0).block
-            if [Material::AIR, Material::WOOD, Material::COBBLESTONE].include?(b5.type) || b5.liquid?
-              b5.type = Material::LOG
-              b5.data = 0
-              recur.(n - 1, max - 1)
+      location_around_flat(add_loc(player.location, 0, -1, 0), 1).each do |l|
+        b = l.block
+        if b.type == Material::AIR
+          b.type = Material::WOOD
+          b.data = 0
+          if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
+            player.send_message 'here'
+            cloop(0, 50) do |recur, n, max|
+              if max > 0
+                b5 = add_loc(l, 0, n, 0).block
+                if [Material::AIR, Material::WOOD, Material::COBBLESTONE].include?(b5.type) || b5.liquid?
+                  b5.type = Material::LOG
+                  b5.data = 0
+                  recur.(n - 1, max - 1)
+                end
+              end
             end
           end
         end
