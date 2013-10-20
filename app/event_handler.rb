@@ -3029,6 +3029,12 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
+      location_around_flat(loc_below(player.location), 3).each do |l|
+        b = l.block
+        if b.type == Material::WOOL
+          b.type = Material::WOOD
+        end
+      end
       #below = loc_below(player.location)
       #if below.block.type == Material::SMOOTH_BRICK
       #  [[1, 0], [0, 1], [1, 1]].each do |x, z|
