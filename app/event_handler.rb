@@ -3039,7 +3039,10 @@ module EventHandler
 
       location_around_flat(loc_below(player.location), 1).each do |l|
         b = l.block
-        if [Material::DIRT, Material::STONE, Material::GRAVEL].include?(b.type)
+        cond =
+          b.state.light_level >= 8 &&
+          [Material::DIRT, Material::STONE, Material::GRAVEL].include?(b.type)
+        if cond
           b.type = Material::GRASS
           b.data = 0
         end
