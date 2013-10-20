@@ -3129,6 +3129,10 @@ module EventHandler
           b.type = Material::GRAVEL
           b.data = 0
         end
+        if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
+          loc_above(l).block.type = Material::TORCH
+          loc_above(l).block.data = 0
+        end
       end
 
       #location_around_flat(loc_below(player.location), 1).each do |l|
