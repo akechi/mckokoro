@@ -3239,7 +3239,7 @@ module EventHandler
       liquid.include?(m.location.block.type) &&
         add_loc(m.location, 0, -1, 0).block.type == Material::LAPIS_BLOCK
     }.each do |m|
-      m.damage(4)
+      m.damage(3)
     end
   end
   private :holy_water
