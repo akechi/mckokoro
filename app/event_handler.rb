@@ -3106,7 +3106,7 @@ module EventHandler
       #end
 
       locs1 = location_around(add_loc(player.location, 0, 1, 0), 3)
-      locs2 = location_around(loc_above(player.location, 0, 7, 0), 3)
+      locs2 = location_around(add_loc(player.location, 0, 7, 0), 3)
       (locs1 + locs2).each do |l|
         b = l.block
         unless b.type == Material::AIR
