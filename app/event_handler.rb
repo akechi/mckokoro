@@ -3029,7 +3029,7 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      location_around_flat(loc_above(player.location), 1).each do |l|
+      location_around_flat(player.location, 1).each do |l|
         b = l.block
         if b.type != Material::AIR
           cloop(0, 50) do |recur, n, max|
