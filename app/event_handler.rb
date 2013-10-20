@@ -3124,7 +3124,7 @@ module EventHandler
         b = l.block
         cond =
           loc_above(l).block.type == Material::AIR &&
-          [Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
+          [Material::GRASS, Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
         if cond
           b.type = Material::GRAVEL
           b.data = 0
