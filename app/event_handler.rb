@@ -3029,7 +3029,7 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      location_around(add_loc(player.location, 0, 3, 0), 3).each do |l|
+      location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
         b = l.block
         unless b.type == Material::AIR
           b.type = Material::AIR
