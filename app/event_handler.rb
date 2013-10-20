@@ -3032,10 +3032,11 @@ module EventHandler
       location_around(player.location, 5).map(&:block).
         select {|b| [Material::LEAVES, Material::LOG].include?(b.type) }.
         each do |b|
-        if loc_below(b.location).block.type == Material::AIR
-          b.type = Material::STONE
-        else
-          b.type = Material::DIRT
+          if loc_below(b.location).block.type == Material::AIR
+            b.type = Material::STONE
+          else
+            b.type = Material::DIRT
+          end
         end
       #location_around_flat(player.location, 1).each do |l|
       #  b = l.block
