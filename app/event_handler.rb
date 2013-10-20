@@ -3041,9 +3041,16 @@ module EventHandler
         b3 = add_loc(l, -1, 1, 0).block
         b3.type = Material::TORCH
         b3.data = 0
-        b5 = add_loc(l, -1, -3, 0).block
-        b5.type = Material::SMOOTH_BRICK
-        b5.data = 0
+        cloop(-3, 30) do |recur, n, max|
+          if max > 0
+            b5 = add_loc(l, -1, n, 0).block
+            if b5.type == Material::AIR && b5.liquid?
+              b5.type = Material::SMOOTH_BRICK
+              b5.data = 0
+              recur.(n - 1, max - 1)
+            end
+          end
+        end
         b4 = add_loc(l, -1, -2, 0).block
         b4.type = Material::TORCH
         b4.data = 0
