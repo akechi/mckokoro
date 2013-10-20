@@ -3031,13 +3031,17 @@ module EventHandler
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
       l = add_loc(player.location, 0, -1, 0)
       b = l.block
-      cloop(0, 50) do |recur, n, max|
-        if max > 0
-          b5 = add_loc(l, 0, n, 0).block
-          if b5.type == Material::AIR || b5.liquid?
-            b5.type = Material::COBBLESTONE
-            b5.data = 0
-            recur.(n - 1, max - 1)
+      b.type = Material::WOOD
+      b.data = 0
+      if l.get_x % 3 == 0 && l.get_z % 3 == 0
+        cloop(0, 50) do |recur, n, max|
+          if max > 0
+            b5 = add_loc(l, 0, n, 0).block
+            if b5.type == Material::AIR || b5.liquid?
+              b5.type = Material::LOG
+              b5.data = 0
+              recur.(n - 1, max - 1)
+            end
           end
         end
       end
