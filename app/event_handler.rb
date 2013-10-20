@@ -3039,12 +3039,19 @@ module EventHandler
 
       location_around_flat(loc_below(player.location), 1).each do |l|
         b = l.block
-        b2 = loc_below(l).block
-        if b.liquid? && b2.liquid?
-          b2.type = Material::SMOOTH_BRICK
-          b2.data = 0
+        if [Material::DIRT, Material::STONE, Material::GRAVEL].include?(b.type)
+          b.type = Material::GRASS
+          b.data = 0
         end
       end
+      #location_around_flat(loc_below(player.location), 1).each do |l|
+      #  b = l.block
+      #  b2 = loc_below(l).block
+      #  if b.liquid? && b2.liquid?
+      #    b2.type = Material::SMOOTH_BRICK
+      #    b2.data = 0
+      #  end
+      #end
 
       #below = loc_below(player.location)
       #if below.block.type == Material::SMOOTH_BRICK
