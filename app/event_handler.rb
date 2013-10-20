@@ -1052,7 +1052,9 @@ module EventHandler
                   drop_item(loc, ItemStack.new(Material::SULPHUR, 1))
                 when 5500...6000
                   drop_item(loc, ItemStack.new(Material::CARROT_ITEM, 1))
-                when 7000...8500
+                when 6000...6500
+                  drop_item(loc, ItemStack.new(Material::SMOOTH_STAIRS, 1))
+                when 65000...8500
                   stochastically(25) do
                     if bonust_p
                       drop_item(loc, ItemStack.new(Material::GLOWSTONE_DUST, 4))
