@@ -3029,21 +3029,21 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
-        b = l.block
-        unless b.type == Material::AIR
-          b.type = Material::AIR
-          b.data = 0
-        end
-      end
-      #below = loc_below(player.location)
-      #if below.block.type == Material::SMOOTH_BRICK
-      #  [[1, 0], [0, 1], [1, 1]].each do |x, z|
-      #    loc = add_loc(below, x, 0, z)
-      #    if loc.block.type == Material::AIR
-      #      loc.block.type = Material::SMOOTH_BRICK
-      #    end
+      #location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
+      #  b = l.block
+      #  unless b.type == Material::AIR
+      #    b.type = Material::AIR
+      #    b.data = 0
       #  end
+      #end
+      below = loc_below(player.location)
+      #if below.block.type == Material::SMOOTH_BRICK
+        [[1, 0], [0, 1], [1, 1]].each do |x, z|
+          loc = add_loc(below, x, 0, z)
+          unless loc.block.type == Material::SMOOTH_BRICK
+            loc.block.type = Material::SMOOTH_BRICK
+          end
+        end
       #end
 
       #blocks = location_around(player.location, 3).select {|l| l.y >= 63 }.map(&:block)
