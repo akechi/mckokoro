@@ -1573,7 +1573,7 @@ module EventHandler
     return unless player.name == 'ujm' # experimental
     return unless [Action::RIGHT_CLICK_AIR, Action::RIGHT_CLICK_BLOCK].include?(action)
     return unless player.item_in_hand.type == Material::SUGAR
-    return unless block.type == Material::STONE
+    #return unless block.type == Material::STONE
     table = [
       [[Material::STEP, 5], [Material::AIR, 0], [Material::STEP, 5]],
       [[Material::SMOOTH_BRICK, 0], [Material::STATIONARY_WATER, 0], [Material::SMOOTH_BRICK, 0]],
