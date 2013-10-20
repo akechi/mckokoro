@@ -3033,7 +3033,7 @@ module EventHandler
       b = l.block
       b.type = Material::WOOD
       b.data = 0
-      if l.get_x % 3 == 0 && l.get_z % 3 == 0
+      if l.get_x.to_i % 3 == 0 && l.get_z.to_i % 3 == 0
         player.send_message 'here'
         cloop(0, 50) do |recur, n, max|
           if max > 0
