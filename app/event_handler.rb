@@ -3039,7 +3039,7 @@ module EventHandler
 
       location_around_flat(loc_below(player.location), 1).each do |l|
         b = l.block
-        b2 = loc_below(l)
+        b2 = loc_below(l).block
         if b.liquid? && b2.liquid?
           b2.type = Material::SMOOTH_BRICK
           b2.data = 0
