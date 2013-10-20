@@ -3029,10 +3029,17 @@ module EventHandler
     end
     # experimental
     if player.name == 'ujm' && player.item_in_hand.type == Material::SUGAR
-      b = add_loc(player.location, 0, -1, 5).block
-      if b.type == Material::AIR
-        b.type = Material::SMOOTH_STAIRS
-        b.data = 5
+      l = add_loc(player.location, 0, -1, -5)
+      b = l.block
+      b2 = add_loc(l, -1, 0, 0).block
+      if b2.type == Material::AIR && (l.get_z + 916) % -17 == 0
+        b.type = Material::SMOOTH_BRICK
+        b.data = 0
+        b2.type = Material::SMOOTH_STAIRS
+        b2.data = 4
+        b3 = add_loc(l, -1, 1, 0).block
+        b3.type = Material::TORCH
+        b3.data = 0
       end
       #location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
       #  b = l.block
