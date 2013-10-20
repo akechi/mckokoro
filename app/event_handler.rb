@@ -3034,6 +3034,7 @@ module EventHandler
       b.type = Material::WOOD
       b.data = 0
       if l.get_x % 3 == 0 && l.get_z % 3 == 0
+        player.send_message 'here'
         cloop(0, 50) do |recur, n, max|
           if max > 0
             b5 = add_loc(l, 0, n, 0).block
