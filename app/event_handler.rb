@@ -3034,6 +3034,8 @@ module EventHandler
         if bup.type == Material::AIR && bdown.type != Material::AIR && bdown.type != Material::CROPS
           bdown.type = Material::SOIL
           bdown.data = 0
+          bup.type = Material::CROPS
+          bdown.data = 0
         end
       end
 
