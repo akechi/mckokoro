@@ -3032,7 +3032,7 @@ module EventHandler
       b = loc_below(player.location).block
       if b.type == Material::AIR
         b.type = Material::SMOOTH_STAIRS
-        b.data = 0
+        b.data = 4
       end
       #location_around(add_loc(player.location, 0, 5, 0), 5).each do |l|
       #  b = l.block
