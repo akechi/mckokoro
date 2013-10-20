@@ -3032,7 +3032,7 @@ module EventHandler
       l = add_loc(player.location, 0, -1, -5)
       b = l.block
       b2 = add_loc(l, -1, 0, 0).block
-      if b2.type == Material::AIR && (l.get_z + 916) % -17 == 0
+      if b2.type == Material::AIR && (l.get_z.to_i + 916) % -17 == 0
         player.send_message 'ok'
         b.type = Material::SMOOTH_BRICK
         b.data = 0
