@@ -3044,7 +3044,7 @@ module EventHandler
         cloop(-3, 30) do |recur, n, max|
           if max > 0
             b5 = add_loc(l, -1, n, 0).block
-            if b5.type == Material::AIR && b5.liquid?
+            if b5.type == Material::AIR || b5.liquid?
               b5.type = Material::SMOOTH_BRICK
               b5.data = 0
               recur.(n - 1, max - 1)
