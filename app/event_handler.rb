@@ -3037,16 +3037,17 @@ module EventHandler
       #  end
       #end
 
-      location_around_flat(loc_below(player.location), 1).each do |l|
-        b = l.block
-        cond =
-          loc_above(l).block.type == Material::AIR &&
-          [Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
-        if cond
-          b.type = Material::GRASS
-          b.data = 0
-        end
-      end
+      #location_around_flat(loc_below(player.location), 1).each do |l|
+      #  b = l.block
+      #  cond =
+      #    loc_above(l).block.type == Material::AIR &&
+      #    [Material::DIRT, Material::STONE, Material::GRAVEL, Material::COAL_ORE, Material::IRON_ORE].include?(b.type)
+      #  if cond
+      #    b.type = Material::GRASS
+      #    b.data = 0
+      #  end
+      #end
+
       #location_around_flat(loc_below(player.location), 1).each do |l|
       #  b = l.block
       #  b2 = loc_below(l).block
