@@ -3245,6 +3245,7 @@ module EventHandler
   private :holy_water
 
   def earthwork_squids_work(squid)
+    broadlingr '(this may be removed in the future)'
     loc, mod_x, mod_y, mod_z = @earthwork_squids[squid]
     unless squid.valid?
       @earthwork_squids.delete(squid)
