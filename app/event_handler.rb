@@ -3037,7 +3037,7 @@ module EventHandler
         cloop(0, 50) do |recur, n, max|
           if max > 0
             b5 = add_loc(l, 0, n, 0).block
-            if b5.type == Material::AIR || b5.liquid?
+            if [Material::AIR, Material::WOOD, Material::COBBLESTONE].include?(b5.type) || b5.liquid?
               b5.type = Material::LOG
               b5.data = 0
               recur.(n - 1, max - 1)
