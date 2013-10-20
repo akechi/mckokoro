@@ -3040,7 +3040,7 @@ module EventHandler
       location_around_flat(loc_below(player.location), 2).each do |l|
         b = l.block
         unless b.type == Material::SMOOTH_BRICK
-          b.type = Material::AIR
+          b.type = Material::STATIONARY_WATER
           b.data = 0
         end
       end
