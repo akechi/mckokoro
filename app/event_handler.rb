@@ -953,28 +953,7 @@ module EventHandler
 
     case evt.entity
     when Snowball
-      # this is for Job bulldozer vvvvv
-      # cond =
-      #   Player === evt.entity.shooter &&
-      #   evt.entity.shooter.item_in_hand &&
-      #   evt.entity.shooter.item_in_hand.type == Material::GOLD_HOE
-      # if cond
-      #   soft_blocks =
-      #     [Material::GRASS, Material::DIRT, Material::GRAVEL,
-      #      Material::SAND]
-      #   location_around(evt.entity.location, 1).each do |loc|
-      #     b = loc.block
-      #     cond =
-      #       soft_blocks.include?(b.type) &&
-      #       loc.y >= evt.entity.shooter.location.y
-      #     if cond
-      #       break_naturally_by_dpickaxe(b)
-      #       evt.entity.remove
-      #       break
-      #     end
-      #   end
-      # end
-      # this is for Job bulldozer ^^^^^
+      # nop
     when Arrow
       # dirty hack
       @player_arrow_have_hit = {} if @player_arrow_have_hit.size > 1000
@@ -1082,30 +1061,6 @@ module EventHandler
       end
     end
   end
-
-  def bulldozer_hoe(player, action)
-    return false unless player.item_in_hand.type == Material::GOLD_HOE
-    case action
-    when Action::RIGHT_CLICK_BLOCK, Action::RIGHT_CLICK_AIR
-      3.times do
-        loc = player.location
-        loc_above = add_loc(loc, 0, 1, 0)
-        snowball = spawn(loc_above, EntityType:: SNOWBALL)
-        snowball.shooter = player
-
-        phi = (player.location.yaw + 90 + 360) % 360
-        x, z =
-          Math.cos((phi + rand(40) - 15) / 180.0 * Math::PI),
-          Math.sin((phi + rand(40) - 15) / 180.0 * Math::PI)
-
-        snowball.velocity = Vector.new(x, 0.1, z)
-      end
-      true
-    else
-      false
-    end
-  end
-  private :bulldozer_hoe
 
   def killerqueen_explode(evt)
     # JOB::KILLERQUEEN
@@ -1598,12 +1553,6 @@ module EventHandler
 
   def on_player_interact(evt)
     feather_freedom_move(evt.player, evt.action)
-
-    # seeded_p = bulldozer_hoe(evt.player, evt.action)
-    # if seeded_p
-    #   evt.cancelled = true
-    #   return
-    # end
 
     killerqueen_explode(evt)
     clock_timechange(evt.action, evt.player)
