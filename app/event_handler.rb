@@ -1513,7 +1513,7 @@ module EventHandler
         smoke_effect(i.location)
         i.teleport(i.location.tap {|l|
           l.set_x(loc.get_x + 0.5)
-          l.set_y(loc.get_y)
+          l.set_y(loc.get_y + 0.1)
           l.set_z(loc.get_z + 0.5)
         })
       end
