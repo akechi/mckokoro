@@ -1127,9 +1127,7 @@ module EventHandler
     to_time = night?(player.world) ? 0 : 16000
     player.world.time = to_time
     play_effect(player.location, Effect::RECORD_PLAY, RECORDS.sample)
-    if @clock_timechange_counter % 4 == 0
-      consume_item(player)
-    end
+    consume_item(player)
     @clock_timechange_counter += 1
   end
   private :clock_timechange
