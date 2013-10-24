@@ -1056,7 +1056,7 @@ module EventHandler
             map(&:block).
             select {|b| b.type == Material::SKULL }.
             each do |b|
-            break_naturally_by_dpickaxe(b)
+              break_naturally_by_dpickaxe(b)
             end
         end
       end
