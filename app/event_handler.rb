@@ -1011,8 +1011,9 @@ module EventHandler
                   drop_item(loc, ItemStack.new(Material::SNOW, 1))
                   #drop_item(loc, ItemStack.new(Material::LADDER, 1))
                 when 1000...1500
-                  charcoal = org.bukkit.material.Coal.new(org.bukkit.CoalType::CHARCOAL)
-                  drop_item(loc, charcoal.to_item_stack(1))
+                  #charcoal = org.bukkit.material.Coal.new(org.bukkit.CoalType::CHARCOAL)
+                  #drop_item(loc, charcoal.to_item_stack(1))
+                  drop_item(loc, ItemStack.new(Material::WOOD, 1))
                 when 1500...2000
                   drop_item(loc, ItemStack.new(Material::COBBLESTONE, 1))
                 when 2000...2500
