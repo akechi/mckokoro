@@ -1000,15 +1000,15 @@ module EventHandler
                 when 20...50
                   drop_item(loc, ItemStack.new(Material::THIN_GLASS, 1))
                 when 50...100
-                  drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
+                  drop_item(loc, ItemStack.new(Material::WATCH, 1))
                 when 100...200
                   drop_item(loc, ItemStack.new(Material::SMOOTH_BRICK, 1))
                 when 200...300
                   drop_item(loc, ItemStack.new(Material::GRAVEL, 1))
                 when 300...500
-                  drop_item(loc, ItemStack.new(Material::WATCH, 1))
+                  drop_item(loc, ItemStack.new(Material::REDSTONE, 1))
                 when 500...1000
-                  drop_item(loc, ItemStack.new(Material::SNOW, 1))
+                  drop_item(loc, ItemStack.new(Material::SNOW_BALL, 1))
                   #drop_item(loc, ItemStack.new(Material::LADDER, 1))
                 when 1000...1500
                   #charcoal = org.bukkit.material.Coal.new(org.bukkit.CoalType::CHARCOAL)
