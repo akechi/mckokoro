@@ -586,7 +586,7 @@ module EventHandler
     sizev = v2 - v1 + 1
     sizew = w2 - w1 + 1
     itemstacks = player.inventory.all(block1.type)
-    cost_amount = 0#sizev * sizew - 2
+    cost_amount = sizev * sizew - 2
     your_amount = itemstacks.map {|k, v| v.amount }.inject(0, :+)
     if cost_amount > 1000
       player.send_message "Failed! the size, #{cost_amount}, is bigger than 1,000!"
