@@ -955,15 +955,16 @@ module EventHandler
     when Snowball
       # nop
     when Arrow
+      shooter = evt.entity.shooter
+      @player_arrow_have_hit[shooter] ||= {}
       # dirty hack
-      @player_arrow_have_hit = {} if @player_arrow_have_hit.size > 1000
+      @player_arrow_have_hit[shooter] = {} if @player_arrow_have_hit[shooter].size > 1000
 
       loc0 = evt.entity.location
       loc1 = loc0.tap {|l| l.add evt.entity.velocity.normalize }
       loc = [loc0, loc1].find {|loc| loc.block.type == Material::SKULL }
-      shooter = evt.entity.shooter
-      @player_arrow_have_hit[evt.entity] ||= 0
-      @player_arrow_have_hit[evt.entity] += 1
+      @player_arrow_have_hit[shooter][evt.entity] ||= 0
+      @player_arrow_have_hit[shooter][evt.entity] += 1
       if Player === shooter
         if loc && shooter
           strike_lightning(loc)
@@ -971,7 +972,7 @@ module EventHandler
           bonus = (distance ** 3) / 800
           bonus /= 3 if Job.of(shooter) == :archer
           bonus *= 1 + 0.1 * ((Bukkit.online_players.size - 1) ** 2)
-          bonus *= 0.1**(@player_arrow_have_hit[evt.entity]-1)
+          bonus *= 0.1**(@player_arrow_have_hit[shooter][evt.entity]-1)
           bonus = bonus.to_i
           bonust_p = true if (21..23).include?(Time.now.hour) # 9pm to 11:59pm
           bonus *= 3 if bonust_p
@@ -1754,6 +1755,9 @@ module EventHandler
       when :warp
         player.food_level = [player.food_level - 1, 10].max
         sign_warp(player, location_name.(args))
+        @player_arrow_have_hit[player].each_key do |k|
+          @player_arrow_have_hit[player][k] += 10
+        end
       when :location
         name = location_name.call args
         loc = sign_state.location.clone
