@@ -1756,7 +1756,7 @@ module EventHandler
         player.food_level = [player.food_level - 1, 10].max
         sign_warp(player, location_name.(args))
         @player_arrow_have_hit[player].each_key do |k|
-          @player_arrow_have_hit[player][k] += 10
+          @player_arrow_have_hit[player][k] += 1000
         end
       when :location
         name = location_name.call args
