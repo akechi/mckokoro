@@ -2546,7 +2546,6 @@ module EventHandler
         end
       end
     end
-
   end
 
   def on_player_toggle_sprint(evt)
