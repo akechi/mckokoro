@@ -346,6 +346,7 @@ module EventHandler
         gsub(/\bkiken/, '危険').
         gsub(/\banzen/, '安全').
         gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
+        gsub(/unko/, 'unko大量生産!ブリブリo(-"-;)o⌒ξ~ξ~ξ~ξ~ξ~ξ~ξ~ξ~').
         gsub(/dks/, '溺((o(´o｀)o))死').
         gsub(/tkm/, '匠').
         sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
