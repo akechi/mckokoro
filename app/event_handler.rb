@@ -1000,7 +1000,7 @@ module EventHandler
                     ItemStack.new(
                       bonust_p ? Material::EXP_BOTTLE : Material::LAPIS_BLOCK, 1))
                 when 20...50
-                  drop_item(loc, ItemStack.new(Material::THIN_GLASS, 1))
+                  drop_item(loc, ItemStack.new(Material::IRON_ORE, 1))
                 when 50...100
                   #drop_item(loc, ItemStack.new(Material::WATCH, 1))
                   drop_item(loc, ItemStack.new(Material::ARROW, 1))
