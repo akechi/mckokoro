@@ -988,7 +988,7 @@ module EventHandler
                   drop_item(
                     loc,
                     ItemStack.new(
-                      bonust_p ? Material::DIAMOND_BLOCK : Material::DIAMOND, 1))
+                      bonust_p ? Material::SAPLING : Material::DIAMOND, 1))
                 when 1...10
                   drop_item(
                     loc,
