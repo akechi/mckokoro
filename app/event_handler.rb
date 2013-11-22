@@ -337,19 +337,19 @@ module EventHandler
       post_lingr_to('computer_science', "#{last_pname}: #{last_message}")
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
     else
-      evt.message = evt.message.
-        gsub(/[bv]enr[iy]/, '便利').
-        gsub(/[fh]u[bv]en/, '不便').
-        gsub(/wa-i/, 'わーい[^。^]').
-        gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
-        gsub(/hopper|ホッパ/, '穂(・ω・)ﾉ■ ｯﾊﾟ').
-        gsub(/\bkiken/, '危険').
-        gsub(/\banzen/, '安全').
-        gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
-        gsub(/unko/, 'unko大量生産!ブリブリo(-"-;)o⌒ξ~ξ~ξ~ξ~ξ~ξ~ξ~ξ~').
-        gsub(/dks/, '溺((o(´o｀)o))死').
-        gsub(/tkm/, '匠').
-        sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
+      # evt.message = evt.message.
+      #   gsub(/[bv]enr[iy]/, '便利').
+      #   gsub(/[fh]u[bv]en/, '不便').
+      #   gsub(/wa-i/, 'わーい[^。^]').
+      #   gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
+      #   gsub(/hopper|ホッパ/, '穂(・ω・)ﾉ■ ｯﾊﾟ').
+      #   gsub(/\bkiken/, '危険').
+      #   gsub(/\banzen/, '安全').
+      #   gsub(/wkwk/, '((o(´∀｀)o))ﾜｸﾜｸ').
+      #   gsub(/unko/, 'unko大量生産!ブリブリo(-"-;)o⌒ξ~ξ~ξ~ξ~ξ~ξ~ξ~ξ~').
+      #   gsub(/dks/, '溺((o(´o｀)o))死').
+      #   gsub(/tkm/, '匠').
+      #   sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
       if /optifine/ =~ evt.message
         Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
