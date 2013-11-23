@@ -357,6 +357,7 @@ module EventHandler
     end
   end
 
+
   def on_player_join(evt)
     player = evt.player
     name = player.name
