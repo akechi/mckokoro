@@ -338,7 +338,8 @@ module EventHandler
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
     else
       evt.message = evt.message.
-        gsub(/[bv]enr[iy]/, '便利')#.
+        gsub(/benri/, '便利')
+        #gsub(/[bv]enr[iy]/, '便利').
         #gsub(/[fh]u[bv]en/, '不便').
         #gsub(/wa-i/, 'わーい[^。^]').
         #gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
