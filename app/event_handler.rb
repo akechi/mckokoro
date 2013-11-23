@@ -351,7 +351,7 @@ module EventHandler
       #   gsub(/tkm/, '匠').
       #   sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
       post_lingr("#{evt.player.name}: #{evt.message}")
-      if /optifine/ =~ evt.message
+      if evt.message == 'optifine'
         Bukkit.dispatch_command(Bukkit.get_console_sender, "toggledownfall")
       end
     end
