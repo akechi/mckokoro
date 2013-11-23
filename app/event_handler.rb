@@ -337,7 +337,7 @@ module EventHandler
       post_lingr_to('computer_science', "#{last_pname}: #{last_message}")
       post_lingr_to('computer_science', "#{evt.player.name}: #{message}")
     else
-      p evt.message.class
+      p evt.message
       evt.message = evt.message.
         gsub(/benri/, '便利')
         #gsub(/[bv]enr[iy]/, '便利').
