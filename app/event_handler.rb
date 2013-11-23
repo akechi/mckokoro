@@ -2436,7 +2436,7 @@ module EventHandler
     block = evt.damager
     case evt.cause
     when EntityDamageEvent::DamageCause::LAVA
-      #if Player === entity
+      if LivingEntity === entity
         play_sound(add_loc(entity.location, 0, 5, 0), Sound::BAT_TAKEOFF, 1.0, 0.0)
         play_sound(add_loc(entity.location, 0, 5, 0), Sound::BAT_TAKEOFF, 1.0, 2.0)
         later 0 do
@@ -2445,7 +2445,7 @@ module EventHandler
           }
           entity.fire_ticks = 0
         end
-      #end
+      end
     end
   end
 
