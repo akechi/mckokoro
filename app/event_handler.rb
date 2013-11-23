@@ -357,7 +357,6 @@ module EventHandler
     end
   end
 
-
   def on_player_join(evt)
     player = evt.player
     name = player.name
@@ -1819,6 +1818,10 @@ module EventHandler
         #     break_naturally_by_dpickaxe(block)
         #   end
         # end
+      end
+    when Material::MELON_BLOCK
+      if AXES.include?(player.item_in_hand.type)
+        break_naturally_by_dpickaxe(damaged_block)
       end
     when Material::FURNACE
       iron_piston(damaged_block)
