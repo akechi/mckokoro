@@ -2890,8 +2890,12 @@ module EventHandler
         if mck_cmd
           case mck_cmd
           when "job"
-            sender.send_message "This feature will not be available tomorrow."
-            Job.become(sender, args[1].to_sym) if args[1]
+            if args[1]
+              sender.send_message "This feature will not be available tomorrow."
+              Job.become(sender, args[1].to_sym) if args[1]
+            else
+              sender.send_message "Your job is #{Job.of(sender)}"
+            end
           when "update-recipe"
             update_recipes
             broadcast "Recipe updated!"
