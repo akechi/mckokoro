@@ -339,8 +339,7 @@ module EventHandler
     else
       begin
         evt.message = evt.message.to_s.
-          gsub(/benri/, 'venly')#.
-          #gsub(/benri/, '便利')#.
+          gsub(/benri/, '便利')#.
           #gsub(/[fh]u[bv]en/, '不便').
           #gsub(/wa-i/, 'わーい[^。^]').
           #gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
@@ -352,7 +351,7 @@ module EventHandler
           #gsub(/dks/, '溺((o(´o｀)o))死').
           #gsub(/tkm/, '匠').
           #sub(/^!\?$/, '!? な、なんだってーΩ ΩΩ')
-      rescue => e
+      rescue InterruptedRegexpError => e
         p :omg, e
       end
       post_lingr("#{evt.player.name}: #{evt.message}")
