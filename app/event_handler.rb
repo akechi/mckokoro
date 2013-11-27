@@ -339,7 +339,8 @@ module EventHandler
     else
       begin
         evt.message = evt.message.to_s.
-          gsub(/benri/, '便利')#.
+          gsub(/benri/, 'venly')#.
+          #gsub(/benri/, '便利')#.
           #gsub(/[fh]u[bv]en/, '不便').
           #gsub(/wa-i/, 'わーい[^。^]').
           #gsub(/dropper|ドロッパ/, '泥(・ω・)ﾉ■ ｯﾊﾟ').
