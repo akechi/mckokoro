@@ -367,12 +367,16 @@ module EventHandler
     name = player.name
 
     evt.join_message = [
-      '[login] %sさんが温野菜食べ放題です。',
-      '[login] ujmさんではなく%sさんがログインしました',
-      '[login] <%s> おはようございます',
-      '[login] %s.vim',
-      '[login] <%s> イカカワイイデス',
+      #'[login] %sさんが温野菜食べ放題です。',
+      #'[login] ujmさんではなく%sさんがログインしました',
+      #'[login] <%s> おはようございます',
+      #'[login] %s.vim',
+      #'[login] <%s> イカカワイイデス',
+      '[login] %sさんがGentoo Linuxを使用しています',
+      '[login] neocloft開発者の%sさんがログインしました',
+      '[login] %sさんがこれから新拠点を開拓します',
     ].sample % name
+
     #if name == 'ujm' # TODO temp
     #  #evt.join_message = ''
     #  post_lingr "#{name} logged in."
