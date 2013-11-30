@@ -776,7 +776,11 @@ module EventHandler
     player = evt.player
 
     # NAME_TAG is iPhone5S
-    if player.item_in_hand && player.item_in_hand.type == Material::NAME_TAG
+    cond =
+      !player.sneaking? &&
+      player.item_in_hand &&
+      player.item_in_hand.type == Material::NAME_TAG
+    if cond
       evt.cancelled = true
       later 0 do
         player.update_inventory # I know it's deprecated
