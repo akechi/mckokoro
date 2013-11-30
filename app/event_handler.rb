@@ -3386,8 +3386,8 @@ module EventHandler
     #wild_golem(nearby_creatures, online_players)
     logout_countdown_update()
 
-    if Bukkit.get_player('ujm')
-      strike_lightning(Bukkit.get_player('ujm').location)
+    if Bukkit.get_player('mozukusoba')
+      strike_lightning(Bukkit.get_player('mozukusoba').location)
     end
 
     holder = @ctf_players.find {|p|
